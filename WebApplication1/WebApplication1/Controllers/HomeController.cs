@@ -20,6 +20,9 @@ namespace WebApplication1.Controllers
     }
     public class BolgViewModel
     {
+        /// <summary>
+        /// blogs
+        /// </summary>
         public List<Blog> blogs { get; set; }
         public List<Student> students { get; set; }
     }
