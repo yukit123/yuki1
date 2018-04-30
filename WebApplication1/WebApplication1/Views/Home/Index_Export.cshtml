@@ -1,0 +1,45 @@
+﻿@Html.TextBox("file")
+<input type="button" id="butt" value="upload" />
+
+@Html.ActionLink("Click here to download", "DownloadFile", new { })
+
+
+@section scripts{
+    <script>
+            $("#butt").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ExportExcel", "Home")', //call your controller and action
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.fileName != "") {
+                //use window.location.href for redirect to download action for download the file
+                    @*var win = window.open("@Url.RouteUrl(new{ Controller = "Home", Action = "Download"})/?file=" + data.fileName, "_blank");*@
+                    //  win.focus();
+                    @*window.location.href = "@Url.Action("Download", "Home")?file=" + data.fileName;*@
+                      $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("Download", "Home")', //call your controller and action
+                    contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    data: { file: "test.xls" },
+                    success: function (data) {
+                        alert("create and delete document successly");
+                    }
+                })
+                   
+
+                }
+            }
+        }).done(function () {
+            location.reload();
+                    });
+        })
+
+      
+
+
+
+    </script>
+}

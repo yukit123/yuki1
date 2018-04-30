@@ -1,0 +1,24 @@
+﻿@model WebApplication1.Models.Label2
+@using HtmlHelpers.BeginCollectionItem
+@{
+    var list = Model.labinfo;
+}
+
+<input class="form-control" id="SelectedQualifications_6175edd8-aa87-45fb-b7cf-78cedbb65c49__Resource_IsTrailerTrained" name="SelectedQualifications[6175edd8-aa87-45fb-b7cf-78cedbb65c49].Resource.IsTrailerTrained" type="checkbox" value="true">
+
+<input name="SelectedQualifications[6175edd8-aa87-45fb-b7cf-78cedbb65c49].Resource.IsTrailerTrained" type="hidden" value="false">
+
+@using (Html.BeginCollectionItem("Label2"))
+{
+    <td>
+        <label class="control-label">Availability</label>
+        @Html.DropDownListFor(model => model.LabelId, new SelectList(list, "LabelId", "LabelName"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.LabelId, "", new { @class = "text-danger" })
+    </td>
+    <td class="hidden trailer-qual">
+        <label class="control-label">Trailer Trained</label>
+        @Html.EditorFor(m => m.LabelName, new { @class = "form-control" })
+    </td>
+
+}
+

@@ -1,0 +1,113 @@
+﻿@*@model WebApplication1.Models.Blog*@
+@model IEnumerable<WebApplication1.Models.Blog>
+@*@using WebApplication1.Models*@
+@{
+    ViewBag.Title = "Index";
+    var au = ViewBag.auth;//另一个model
+    var lab = ViewBag.label;
+}
+
+<h2>Index</h2>
+
+
+<input class="customerInput" id="customerInput1" type="button" value="customerInput1">
+<input class="customerInput" id="customerInput2" type="button" value="customerInput2">
+
+<input class="aa" id="aa" type="button" value="aa">
+<input class="bb" id="bb" type="button" value="bb">
+</br>
+@Html.TextBox("111")
+@Html.TextBox("txtTitle", (string)ViewBag.Title)
+@foreach (var item in Model)
+{
+    <input class="customerInput" id="customerInput2" type="button" value="@item.Name">
+
+}
+@foreach (var item in au)
+{
+    <input class="customerInput" id="customerInput2" type="button" value="@item.AuthorName">
+
+}
+@foreach (var item in lab)
+{
+    <input class="customerInput" id="customerInput2" type="button" value="@item.LabelName">
+
+}
+<br />
+
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tabs").tabs();
+    })
+</script>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">tab1</a></li>
+        <li><a href="#tabs-2">tab2</a></li>
+        <li><a href="#tabs-3">tab3</a></li>
+    </ul>
+    <div id="tabs-1">
+        <p>tab1</p>
+    </div>
+    <div id="tabs-2">
+        <p>tab2</p>
+    </div>
+    <div id="tabs-3">
+        <p>tab3</p>
+    </div>
+</div>
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h2>PassTable</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>Number</td>
+        </tr>
+        @for (int i = 0; i < 3; i++)
+        {
+            <tr>
+                <td>@Html.TextBox(i.ToString(), null, new { @Name = "Number[" + i + "]" })</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" />
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br />
+@foreach (var item in Model)
+{
+
+    @Html.DisplayFor(modelItem => item.Name)
+    <br />
+    @Html.LabelFor(modelItem => item.Name)
+    <br />
+    @Html.LabelFor(modelItem => item.Name, "BlogName")
+    <br />
+
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/JavaScript">
+    $(function () {
+        alert(111);
+
+    });
+    $(".customerInput").click(function () {
+        //$(":not(.customerInput)").attr('disabled', true)
+        $(":not(.customerInput)").attr('disabled', true)
+        $("#txtTitle").val("222");
+        //$("input[type='text']").not(".customerInput").attr("disabled", "disabled");
+
+    })
+
+</script>
+
+

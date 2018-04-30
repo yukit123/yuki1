@@ -1,0 +1,83 @@
+﻿<table id="address_table" class="authors-list">
+    <thead>
+        <tr>
+            <th>Items</th>
+            <th>Price</th>
+            <th>Discount</th>
+        </tr>
+    </thead>
+</table>
+
+
+
+<table class="authors-list" id="address_table" width="850" border="1">
+    <thead style="background-color: #eff3f9">
+        <tr>
+            <th>item</th>
+            <th>price</th>
+            <th>discount</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <INPUT id="get_item" list="get_item_datalist" onchange="Dochange()">
+                <datalist id="get_item_datalist"></datalist>
+            </td>
+
+            <td><input type="text" name="price"></td>
+
+            <td><input type="text" name="discount"> </td>
+
+        </tr>
+
+    </tbody>
+</table>
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var list_datalist = Array();
+            $.ajax({
+                url: '/Home/Get_price',
+                type: 'GET',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var html = "";
+                        list_datalist.push(data[i].item_name);
+                       
+                    }
+
+                }
+            })
+            var availableTags = list_datalist;
+            $("#get_item").autocomplete({
+                source: availableTags
+            });
+            
+        });
+
+        function Dochange() {
+            var list = Array();
+            $.ajax({
+                url: '/Home/Get_priceByname',
+                type: 'GET',
+                data: { item_name: $("#get_item").val() },
+                success: function (data) {
+                    $("input[name=price]").val(data[0].price);
+                    $("input[name=discount]").val(data[0].discount);
+
+
+                }
+            })
+        }
+
+    </script>
+
+    }

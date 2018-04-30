@@ -1,0 +1,60 @@
+﻿@model WebApplication1.Models.ProjectAndStudentModels
+@{
+    ViewBag.Title = "Edit";
+    var j=0;
+}
+@using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.project.Id)
+    <input type="button" value="+" id="insert" class="btn btn-primary">
+
+
+    foreach (var tuple in Model.StudentsAndID)
+    {
+
+        <input type="hidden" name="Student.Index" value="@j" />
+
+        @Html.EditorFor(model => model.StudentsAndID[j].SName, new { htmlAttributes = new { @Name = "Student[" + j + "].SName" } })
+        @Html.ValidationMessageFor(model => model.StudentsAndID[j].SName, "*", new { @Class = "text-danger" })
+        @Html.EditorFor(model => model.StudentsAndID[j].Id, new { htmlAttributes = new { @Name = "Student[" + j + "].Id"}})
+        @Html.ValidationMessageFor(model => model.StudentsAndID[j].Id)//StudentsAndID[j].Id 验证的话很难捕捉到StudentsAndID[j].Id
+        <input type="button" value="-" class="btn btn-danger removeStu" style="margin-left:10px;">
+
+        j++;
+    }
+    //other info from project model
+    //@Html.EditorFor(model => @Model.Project......")
+
+
+
+
+
+    <input type="submit" value="Save" id="">
+}
+
+@section scripts{
+  
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+
+        //fake indexer to non sequential collection indices
+        var index = "a";
+
+        $("#test").on("click", ".removeStu", function (event) {
+            $(this).closest("tr").remove();
+        });
+
+        $("#insert").click(function () {
+            //create the elements representing the new object, giving them a fake indexer
+            index = index + "a";
+            $("#test").append("<tr><input type='hidden' name='Student.Index' value='" + index + "'>"
+                + "<div> <td><input type='text' name='Student[" + index + "].studentName' value='" + index + "' class='input-sm' />"
+                + "</td></div> <td><input type='text' name='Student[" + index + "].studentId' value='" + index + "' class='input-sm' /></td>"
+                + "<td> <input type='button' value='-' class='btn btn-danger removeStu' style='margin-left: 10px;'></td> </tr> ");
+        })
+    </script>
+
+}

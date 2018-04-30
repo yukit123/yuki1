@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApplication1.Models.Label>
+@{
+    ViewBag.Title = "Label";
+}
+
+</br>
+@*<table id="table" border="1">
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr><td>Model[i].LabelId</td><td>Model[i].LabelName</td></tr>
+        }
+    </table>*@
+
+<table>
+
+@foreach (var item in Model)
+{
+
+    <tr><td>@item.LabelId</td><td>@item.LabelName</td></tr> @*<td><tr>不能显示数据 会报错*@
+    @*<input type="button" value="@item.LabelId">
+    <input type="button" value="@item.LabelName">*@
+
+
+}
+    </table>
+@*@section scripts{
+        <script type="text/javascript">
+    $(function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetData", "Home")",
+                dataType: "json",
+                data: '',
+                success: function (data) {
+                    if (data.success == true) {
+                        var html = "";
+                        for (var i = 0; i < data.showlist.length; i++) {
+                            html += "<tr><td>" + data.showlist[i].LabelId + "</td><td>" + data.showlist[i].LabelName+"</td></tr>";
+                        }
+
+                        $("#table").append(html);
+                        alert(data.msg);
+
+                    }
+                    else { alert(data.msg); }
+
+                },
+                error: function (e) {
+                    alert(e);
+
+                }
+            })
+    })
+        </script>
+    }*@

@@ -1,0 +1,63 @@
+﻿<button class="accordion" style="background-color:white"> PAYMENT TERMS</button>
+<div class="panel">
+
+
+    <div class="form-group ">
+        <label style="font-family: Consolas;margin-left:25px">Payment Terms Template</label><br>
+        <input class="form-control" list="Payment_Term_List" type="text" style="width: 350px; margin-left: 20px">
+    </div>
+
+    <datalist id="Payment_Term_List"></datalist>
+
+
+    <input type="button" id="btnAddPerson2" value="send table">
+    <br>
+    <a href="#" title="" class="add_row2">Add Row</a><br>
+
+    <table class="pure-table pure-table-bordered authors-list2" id="address_table2" width="898">
+        <thead style="background-color: #eff3f9">
+            <tr>
+                <th>Payment Term</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Invoice Portion</th>
+                <th>Payment Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><input type="text" name="Paymentterm"></td>
+                <td><input type="text" name="Description"></td>
+                <td><input type="text" name="Duedate"></td>
+                <td><input type="text" name="Invoiceportion"></td>
+                <td><input type="text" name="Paymentamount"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <script type="text/javascript">
+              //add row s
+              jQuery(function () {
+                  var counter = 1;
+                  jQuery('a.add_row2').click(function (event) {
+                      event.preventDefault();
+
+                      var newRow = jQuery('<tr><td><input type="text" name="Paymentterm"></td><td><input type="text" name="Description"></td><td><input type="text" name="Duedate"></td><td><input type="text" name="Invoiceportion"></td><td><input type="text" name="Paymentamount"></td></tr>');
+
+
+                      counter++;
+                      jQuery('table.authors-list2').append(newRow);
+
+                  });
+              });
+    </script>
+
+
+
+    <br>
+    <div style="background-color: lightgray; width: 898px; height:1px">
+    </div>
+
+</div>

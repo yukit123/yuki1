@@ -1,0 +1,53 @@
+﻿<div id="ChooseLeft" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;float:left;">
+    <p value="1"><span>A</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
+    <p value="2"><span>B</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
+    <p value="3"><span>C</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
+    <p value="4"><span>D</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
+</div>
+<div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
+
+@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
+<div role="navigation" aria-label="Passagers" class="_style_2VKbTR" data-reactid="95"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
+<div role="navigation" aria-label="Passagers2" class="_style_2VKbTR" data-reactid="99"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
+
+
+<script>
+    //$("body").on("click", "._style_2VKbTR[data-reactid='95']", function () {
+    //    alert("s");
+    //})
+  
+    function move(button) {
+        var p = button.parentElement;
+        if (button.parentElement.parentElement.id == "ChooseLeft") {
+            document.getElementById("ChooseRight").append(p)
+        } else {
+            document.getElementById("ChooseLeft").append(p)
+        }
+    }
+    function remove(button) {
+        button.parentElement.remove();
+    }
+</script>
+
+
+
+@section scripts{
+
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-ui-1.10.2.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+
+        $("._style_2VKbTR[data-reactid='95'").click(function () {
+            event.preventDefault;
+            alert("s");
+        })
+
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        })
+    </script>
+}
+

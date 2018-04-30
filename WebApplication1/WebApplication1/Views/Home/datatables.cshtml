@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "datatables";
+}
+
+<br/>
+
+<button id="addRow">Add new row</button>
+<button id="btnSubmit">Submit</button>
+<table id="example2" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>Column 4</th>
+            <th>Column 5</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>Column 4</th>
+            <th>Column 5</th>
+        </tr>
+    </tfoot>
+</table>
+
+
+@section scripts{
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#example2').DataTable();
+        });
+
+       
+        var t = $('#example2').DataTable();
+        var counter = 1;
+        $('#addRow').on('click', function () {
+
+
+
+            t.row.add([
+                counter + '.1',
+                counter + '.2',
+                counter + '.3',
+                counter + '.4',
+                counter + '.5'
+            ]).draw(false);
+
+            counter++;
+        });
+
+
+        var list = [];
+        var listtr = [];
+
+        $("#btnSubmit").click(function () {
+            var tr = $($("#example2").get(0)).find("tr:gt(1)");
+   
+            $(tr).each(function (i, n) {           
+                var j = 0;
+                var listtd = {};
+                listtd.Column1 = $(n).find("td:eq("+j+")").text();
+                listtd.Column2 = $(n).find("td:eq(" + j+1 + ")").text();
+                listtd.Column3 = $(n).find("td:eq(" + j + 2 + ")").text();
+                listtd.Column4 = $(n).find("td:eq(" + j + 3 + ")").text();
+                listtd.Column5 = $(n).find("td:eq(" + j + 4 + ")").text();
+                listtr.push(listtd);
+              
+            });
+
+            $.ajax({
+                url: '/Home/datatableajax',
+                type: 'POST',
+                data: { array: JSON.stringify(listtr)},
+                success: function (data) {
+                    alert(111);
+
+                }
+            })
+
+
+           
+        })
+    </script>
+}
+

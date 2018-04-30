@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "TreeTable4";
+}
+
+<table class="tree" @*style="width:600px;height:400px"
+       data-options="idField:'id',treeField:'name'"*@>
+    @*<tr class="treegrid-1">
+        <td>Root node</td>
+        <td>Additional info</td>
+    </tr>
+    <tr class="treegrid-2 treegrid-parent-1">
+        <td>Node 1-1</td>
+        <td>Additional info</td>
+    </tr>
+    <tr class="treegrid-3 treegrid-parent-1">
+        <td>Node 1-2</td>
+        <td>Additional info</td>
+    </tr>
+    <tr class="treegrid-4 treegrid-parent-3">
+        <td>Node 1-2-1</td>
+        <td>Additional info</td>
+    </tr>*@
+</table>
+
+<table id="tt" class="easyui-treegrid" style="width:600px;height:400px"
+       data-options="url:'get_data.php',idField:'id',treeField:'name'">
+    <thead>
+        <tr>
+            <th data-options="field:'name',width:180">Task Name</th>
+            <th data-options="field:'persons',width:60,align:'right'">Persons</th>
+            <th data-options="field:'begin',width:80">Begin Date</th>
+            <th data-options="field:'end',width:80">End Date</th>
+        </tr>
+    </thead>
+</table>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.treegrid.js"></script>
+    <script src="~/Scripts/jquery.treegrid.bootstrap3.js"></script>
+    <link href="~/Content/jquery.treegrid.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$('.tree').treegrid({
+            //    expanderExpandedClass: 'glyphicon glyphicon glyphicon-folder-open',
+            //    expanderCollapsedClass: 'glyphicon glyphicon-folder-close',
+            //    url:  '/Home/Data',
+            //    idField: 'id',
+            //    treeField: 'name',
+            //    columns: [[
+            //        { title: 'Task Name', field: 'name', width: 500 },
+            //        { field: 'persons', title: 'Persons', width: 60, align: 'right' },
+            //        { field: 'begin', title: 'Begin Date', width: 80 },
+            //        { field: 'end', title: 'End Date', width: 80 }
+            //    ]]
+
+            //});
+
+
+            //var list = [
+            //    { "name": 1, "persons": 1, "begin": 1, "end": 1 }];
+            //var sss = [{ 'id': 1, 'code': '01', 'name': 'name1', 'addr': 'address1', 'col4': 'col4 data', 'iconCls': 'icon-ok', 'children': [{ 'id': 2, 'code': '0101', 'name': 'name11', 'addr': 'address11', 'checked': true }, { 'id': 3, 'code': '0102', 'name': 'name12', 'addr': 'address12', 'state': 'closed' }] }];
+
+            //$.ajax({
+            //    type: "POST",
+            //    async: false,
+            //    url: '/Home/Data',
+            //    success: function (obj) {
+            //        $('.tree').treegrid('loadData', sss);
+            //    }
+            //});
+
+            $('.tree').treegrid({
+                title: 'TreeGrid',
+                iconCls: 'icon-save',
+                width: 500,
+                height: 350,
+                nowrap: false,
+                rownumbers: true,
+                animate: true,
+                collapsible: true,
+                //url: 'treegrid_data.json',
+                idField: 'code',
+                treeField: 'code',
+                remoteSort: false,
+                frozenColumns: [[
+                    { title: 'code', field: 'code', width: 150 }
+                ]],
+                columns: [[
+                    { field: 'name', title: 'Name', width: 120 },
+                    { field: 'addr', title: 'Address', width: 120, rowspan: 2 },
+                    { field: 'col4', title: 'Col41', width: 150, rowspan: 2 }
+                ]]
+            });
+            var sss = { 'id': 1, 'code': '01', 'name': 'name1', 'addr': 'address1', 'col4': 'col4 data', 'iconCls': 'icon-ok', 'children': [{ 'id': 2, 'code': '0101', 'name': 'name11', 'addr': 'address11', 'checked': true }, { 'id': 3, 'code': '0102', 'name': 'name12', 'addr': 'address12', 'state': 'closed' }] };
+            $('.tree').treegrid('loadData', sss);
+
+            //$('#tt').treegrid({
+            //    expanderExpandedClass: 'glyphicon glyphicon glyphicon-folder-open',
+            //    expanderCollapsedClass: 'glyphicon glyphicon-folder-close',
+            //    //url:  '/Home/Data',
+            //    source: list,
+            //    idField: 'id',
+            //    treeField: 'name',
+            //    columns: [[
+            //        { title: 'Task Name', field: 'name', width: 500 },
+            //        { field: 'persons', title: 'Persons', width: 60, align: 'right' },
+            //        { field: 'begin', title: 'Begin Date', width: 80 },
+            //        { field: 'end', title: 'End Date', width: 80 }
+            //    ]]
+            //});
+        });
+
+       
+
+      
+    </script>
+}

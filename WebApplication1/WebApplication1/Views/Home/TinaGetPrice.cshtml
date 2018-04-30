@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index5</title>
+</head>
+<body>
+    <button id="btnAddPerson">add</button>
+    @*<table id="address_table" class="authors-list">
+            <thead>
+                <tr>
+                    <th>Items</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                </tr>
+            </thead>
+        </table>*@
+
+
+
+
+    <br>
+    <a href="#" title="" class="add-author">Add Author</a>
+
+
+
+    <a href="#" title="" class="add_row">Add Row</a><br>
+    <table class="authors-list" id="address_table" width="850" border="1">
+        <thead style="background-color: #eff3f9">
+            <tr>
+                <th>item</th>
+                <th>price</th>
+                <th>discount</th>
+
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <input list="get_item" type="text" class="firstinput" name="item">
+                    <datalist id="get_item"></datalist>
+                </td>
+
+                <td><input type="text" name="price"></td>
+
+                <td><input type="text" name="discount"> </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        jQuery(function () {
+            var counter = 1;
+                  jQuery('a.add_row').click(function (event) {
+                event.preventDefault();
+                      var newRow = jQuery('<tr><td><input type="text"   class="firstinput" name="items" list="get_item" /></td><td><input type="text"   name="price" /></td><td><input type="text"    name="discount" /></td></tr>');
+                      counter++;
+                    jQuery('table.authors-list').append(newRow);
+
+            });
+            $("#address_table").on("focusout", ".firstinput", function () {
+
+                  thistr = $(this).parents('tr').get(0);
+                  textboxs = $(thistr).find('input[type="text"]');
+                  secondtextbox = textboxs[1];
+                  thirdtextbox = textboxs[2];
+                $.getJSON("@Url.Action("GetIndex2")", { firstinput: $(this).val() }).done(function (data) {
+                    $(secondtextbox).val(data.price);
+                    $(thirdtextbox).val(data.discount);
+                })
+
+            });
+
+
+        });
+    </script>

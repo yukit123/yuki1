@@ -1,0 +1,141 @@
+﻿<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+
+<a href="#" title="" class="add_row1">Add Row</a><br>
+
+<table class="authors-list1" id="address_table" width="850" border="1">
+    <thead style="background-color: #eff3f9">
+        <tr>
+            <th>item</th>
+            <th>price</th>
+            <th>discount</th>
+            <th>Result</th>
+            <td><input type="text" name="Sumresult"></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <INPUT id="get_item" list="get_item_datalist" onchange="Dochange(this)">
+                <datalist id="get_item_datalist"></datalist>
+            </td>
+
+            <td><input type="text" name="price"></td>
+            <td><input type="text" name="discount"></td>
+            <td><input type="text" name="result"></td>
+        </tr>
+
+
+    </tbody>
+</table>
+<br/>
+<input id="datalist" list="getdatalist"  />
+<input type="button" value="Search"/>
+<datalist id="getdatalist">
+    @*<option label="United Stated" value="USA"></option>*@
+</datalist>
+@*<datalist id="getdatalist">
+    <option label="United Stated" value="USA" ></option>
+    <option label="United Kingdom" value="UK" ></option>
+    <option label="Uruguay" value="URU"></option>
+    <option label="Brazil" value="BRA" ></option>
+    <option label="Russia" value="RUS" ></option>
+</datalist>*@
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            var list_datalist = Array();
+            $.ajax({
+                url: '/Home/Get_price2',
+                type: 'GET',
+                async: false,
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var html = "";
+                        list_datalist.push(data[i].item_name);
+                        $("#getdatalist").append("<option label='" + data[i].item_name + "'Value='" + data[i].item_name+"'></option>");
+
+                    }
+
+                }
+            })
+            var availableTags = list_datalist;
+            $("#get_item").autocomplete({
+                source: availableTags
+            });
+            //$("#datalist").autocomplete({
+            //    source: availableTags
+            //});
+
+        });
+
+        function Doclick() {
+
+        }
+        //add row
+        var counter = 1;
+        jQuery('a.add_row1').click(function (event) {
+            event.preventDefault();
+
+            var newRow = jQuery('<tr><td><input id="get_item' + counter + '" list="get_item_datalist' + counter + '" onchange="Dochange(this)"/><datalist id="get_item_datalist' + counter + '"></datalist ></td><td><input type="text" name="price"></td><td><input type="text" name="discount"></td><td><input type="text" name="result"></td></tr>');
+
+
+            counter++;
+            jQuery('table.authors-list1').append(newRow);
+
+            var list_datalist = Array();
+            $.ajax({
+                url: '/Home/Get_price2',
+                type: 'GET',
+                async: false,
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var html = "";
+                        list_datalist.push(data[i].item_name);
+
+                    }
+
+                }
+            })
+            var availableTags = list_datalist;
+            $("#get_item" + (counter - 1)).autocomplete({
+                source: availableTags
+            });
+
+        });
+
+        function Dochange(e) {
+            var $e = $(e);
+            var $tr = $e.closest('tr');
+            var sum = 0;
+            $.ajax({
+                url: '/Home/Get_priceByname2',
+                type: 'GET',
+                data: { item_name: $e.val() },
+                success: function (data) {
+                    $tr.find("input[name=price]").val(data[0].price);
+                    $tr.find("input[name=discount]").val(data[0].discount);
+                    var result = $tr.find("input[name=result]").val((data[0].price.trim()) * (data[0].discount.trim().substring(0, 1) * 0.01));
+                    $.each($("input[name=result]"), function () {
+                        sum += parseInt(this.value);
+                    });
+
+                    $("input[name=Sumresult]").val(sum);
+                }
+            })
+        }
+
+    </script>
+}

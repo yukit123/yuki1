@@ -1,0 +1,151 @@
+﻿<style>
+    .ui-menu-item {
+        font-size: 16px;
+        color: red;
+    }
+
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        line-height: 1.5;
+    }
+    /*.ui-menu-item-wrapper {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        line-height: 1.5;
+        pointer-events: none;
+    }*/
+</style>
+
+<div class="ui-widget">
+    <label for="tags">Tags: </label>
+    <input id="tags">
+</div>
+_____________________________________________________________________________________________________________
+<br />
+<label for="search">Search: </label>
+<input id="search">
+<br />
+_____________________________________________________________________________________________________________
+<br />
+<br />
+<br />
+<label for="search2">Search: </label>
+<input id="search2">
+
+@section scripts{
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            //var list = Array();
+            //$.ajax({
+            //    url: '/Home/Data',
+            //    type: 'GET',
+            //    success: function (data) {
+            //        for (var i = 0; i < data.length; i++) {
+            //            list.push(data[i].datalistView_Name);
+            //        }
+            //    }
+            //})
+            //var availableTags = list;
+            //$("#tags").autocomplete({
+            //    source: availableTags
+            //});
+
+            //     //###############################################
+            //$.widget("custom.catcomplete", $.ui.autocomplete, {
+            //    _create: function () {
+            //        this._super();
+            //        this.widget().menu("option", "items", "> .ui-autocomplete-category");
+            //        //this.widget().menu("option", "items", "> :not(.ui-autocomplete-wrapper)");
+
+            //    },
+            //    _renderMenu: function (ul, items) {
+            //        var that = this,
+            //            currentCategory = "";
+            //        $.each(items, function (index, item) {
+            //            var li;
+            //            if (item.category != currentCategory) {
+            //                ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+            //                currentCategory = item.category;
+            //            }
+            //            li = that._renderItemData(ul, item);
+            //            if (item.category) {
+            //                li.attr("aria-label", item.category + " : " + item.label);
+            //            }
+            //        });
+            //    }
+            //});
+            //var data = [
+            //    //{ label: "Kabul", category: "Afghanistan" },
+            //    //{ label: "Herat", category: "Afghanistan" },
+            //    //{ label: "Jalalabad", category: "Afghanistan" },
+            //    //{ label: "Sitka", category: "United States" },
+            //    //{ label: "Juneau", category: "United States" },
+            //    //{ label: "Kampala", category: "Uganda" },
+            //    //{ label: "Nansana", category: "Uganda" },
+
+            //    //{ label: "Nassau", category: "Bahamas" },
+            //    //{ label: "Freeport", category: "Bahamas" },
+            //    //{ label: "Vientiane ", category: "Laos" },
+            //    //{ label: "Savannakhet", category: "Laos" }
+
+            //    { label: "Afghanistan", category: "Kabul" },
+            //    { label: "Afghanistan", category: "Herat" },
+            //    { label: "Afghanistan", category: "Jalalabad" },
+            //    { label: "United States", category: "Sitka" },
+            //    { label: "United States", category: "Juneau" },
+            //    { label: "Uganda", category: "Kampala" },
+            //    { label: "Uganda", category: "Nansana" },
+
+            //    { label: "Bahamas", category: "Nassau" },
+            //    { label: "Bahamas", category: "Freeport" },
+            //    { label: "Laos ", category: "Vientiane" },
+            //    { label: "Laos", category: "Savannakhet" }
+            //];
+
+            //$("#search").catcomplete({
+            //    delay: 0,
+            //    source: data
+            //});
+
+            //###############################################
+            $('#search2').autocomplete({
+              source: function (request, response) {
+                  $.ajax({
+                      url: '/Home/Data',
+                      async: false,
+                      //extraParams: { term: $('#search2').val(), 
+                      dataType: "json",
+                      contentType: 'application/json, charset=utf-8',
+                      data: { term: $('#search2').val() },
+                      success: function (data) {
+
+                          response($.map(data, function (item) {
+                              //return {
+                              //    label: item
+                              //};
+                              return {
+                                  label : item.datalistView_Name
+                              };
+                             
+                          }));
+                      },
+                      error: function (xhr, status, error) {
+                          alert(error);
+                      }
+                      //}
+                });
+              },
+              minLength: 2
+          });
+
+        });
+    </script>
+}

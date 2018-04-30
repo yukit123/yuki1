@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "slider";
+}
+
+<br />
+<div id="slider1"></div>
+<label for="amount1">number:</label>
+<input type="text" id="amount1" readonly style="border:0; color:#f6931f; font-weight:bold;">
+<br />
+<div id="slider2"></div>
+<label for="amount2">number:</label>
+<input type="text" id="amount2" readonly style="border:0; color:#f6931f; font-weight:bold;">
+<br />
+<div id="slider3"></div>
+<label for="amount3">number:</label>
+<input type="text" id="amount3" readonly style="border:0; color:#f6931f; font-weight:bold;">
+
+
+
+
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+        $(function () {
+
+            //$("#slider").slider();
+            //$("#selector").slider({
+            //    range: "min",
+            //    value: 37,
+            //    min: 1,
+            //    max: 700
+            //});
+            $("#slider1").slider({
+                range: "max",
+                min: 1,
+                max: 10,
+                value: 1,
+                slide: function (event, ui) {
+                    $("#amount1").val(ui.value);
+                    $("#slider2").slider("value", (10 - ($("#amount1").val() == "" ? 0 : $("#amount1").val()) - ($("#amount3").val() == "" ? 0 : $("#amount3").val())));
+                    $("#amount2").val($("#slider2").slider("value"));
+                }
+            });
+
+            $("#slider2").slider({
+                range: "max",
+                min: 1,
+                max: 10,
+                value: 1,
+                slide: function (event, ui) {
+                    $("#amount2").val(ui.value);
+                    $("#slider3").slider("value", (10 - ($("#amount1").val() == "" ? 0 : $("#amount1").val()) - ($("#amount2").val() == "" ? 0 : $("#amount2").val())));
+                    $("#amount3").val($("#slider3").slider("value"));
+                }
+
+            });
+            $("#slider3").slider({
+                range: "max",
+                min: 1,
+                max: 10,
+                value: 1,
+                slide: function (event, ui) {
+                    $("#amount3").val(ui.value);
+                    $("#slider1").slider("value", (10 - ($("#amount2").val() == "" ? 0 : $("#amount2").val()) - ($("#amount3").val() == "" ? 0 : $("#amount3").val())));
+                    $("#amount1").val($("#slider1").slider("value"));
+                }
+            
+            });
+
+        });
+
+
+    </script>
+}

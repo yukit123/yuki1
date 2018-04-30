@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.Search
+@{
+    ViewBag.Title = "search";
+    var list = ViewBag.search;
+}
+
+@{ foreach (var item in list)
+    {
+        <input type="button" value="@item.Title">
+    }
+}
+
+

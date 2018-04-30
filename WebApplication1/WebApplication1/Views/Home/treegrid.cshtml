@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "treegrid";
+    var row = ViewBag.Message2;
+}
+
+@*<h2>Client Side Pagination in TreeGrid</h2>
+<p>This sample shows how to implement client side pagination in TreeGrid.</p>*@
+<div style="margin:20px 0;"></div>
+<table id="tg" title="Client Side Pagination" style="width:700px;height:250px"
+       data-options="
+				@*iconCls: 'icon-ok',*@
+				rownumbers: true,
+				animate: true,
+				@*collapsible: true,
+				fitColumns: true,*@
+				url: '../treegrid_data2.json',
+				method: 'get',
+				idField: 'id',
+				treeField: 'name',
+				@*pagination: true,*@
+				@*pageSize: 2,
+				pageList: [2,5,10]*@
+			">
+    <thead>
+        <tr>
+            <th data-options="field:'name',width:180">Task Name</th>
+            <th data-options="field:'persons',width:60,align:'right'">Persons</th>
+            <th data-options="field:'begin',width:80">Begin Date</th>
+            <th data-options="field:'end',width:80">End Date</th>
+            <th data-options="field:'progress',width:120@*,formatter:formatProgress*@">Progress</th>
+        </tr>
+    </thead>
+</table>
+
+
+@section scripts{
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.treegrid.js"></script>
+    <script src="~/Scripts/jquery.treegrid.bootstrap3.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/easyui.css" rel="stylesheet" />
+    @*<link href="~/Content/icon.css" rel="stylesheet" />*@
+    @*<link href="~/Content/demo.css" rel="stylesheet" />*@
+    @*<link href="~/Content/jquery.treegrid.css" rel="stylesheet" />*@
+    @*<link href="~/Content/datatables.css" rel="stylesheet" />*@
+    @*<link href="~/Content/datatables.css" rel="stylesheet" />
+        <link href="~/Content/datatables.min.css" rel="stylesheet" />*@
+
+    <script type="text/javascript">
+
+
+        $(function () {
+            //$('#tg').treegrid({
+            //    expanderExpandedClass: 'tree-hit tree-expanded',
+            //    expanderCollapsedClass: 'tree-hit tree-expanded',
+
+            //});
+            //var list = {
+            //    "rows": [
+            //        { "id": 1, "name": "All Tasks", "begin": "3/4/2010", "end": "3/20/2010", "progress": 60, "iconCls": "icon-ok" },
+            //        { "id": 2, "name": "Designing", "begin": "3/4/2010", "end": "3/10/2010", "progress": 100, "_parentId": 1, "state": "closed" },
+            //        { "id": 21, "name": "Database", "persons": 2, "begin": "3/4/2010", "end": "3/6/2010", "progress": 100, "_parentId": 2 },
+            //        { "id": 22, "name": "UML", "persons": 1, "begin": "3/7/2010", "end": "3/8/2010", "progress": 100, "_parentId": 2 },
+            //        { "id": 23, "name": "Export Document", "persons": 1, "begin": "3/9/2010", "end": "3/10/2010", "progress": 100, "_parentId": 2 },
+            //        { "id": 3, "name": "Coding", "persons": 2, "begin": "3/11/2010", "end": "3/18/2010", "progress": 80 },
+            //        { "id": 4, "name": "Testing", "persons": 1, "begin": "3/19/2010", "end": "3/20/2010", "progress": 20 }
+            //    ]
+            //}
+
+            // $.ajax({
+            //    type: "POST",
+            //    async: false,
+            //    url: '/Home/Data',
+            //    success: function (obj) {
+            //        $('#tg').treegrid('data', row);
+            //    }
+            //});
+
+            @*var list = '@row';
+            list = list.replace(/&quot;/g,'"');
+            listobj = JSON.parse(list);*@
+            $('#tg').treegrid({
+                //expanderExpandedClass: 'glyphicon glyphicon glyphicon-folder-open',
+                //expanderCollapsedClass: 'glyphicon glyphicon-folder-close',
+                //url:  '/Home/Data',
+                //idField: 'id',
+                //treeField: 'name'
+                //columns: [[
+                //    { title: 'Task Name', field: 'name', width: 500 },
+                //    { field: 'persons', title: 'Persons', width: 60, align: 'right' },
+                //    { field: 'begin', title: 'Begin Date', width: 80 },
+                //    { field: 'end', title: 'End Date', width: 80 }
+                //]]
+                //'loadData':list
+               // "data": $.parseJSON(list)
+
+            });
+        })
+
+
+    </script>
+}

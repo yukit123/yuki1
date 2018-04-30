@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "CostCodeReport";
+
+}
+
+<h2>AVRIS Cost Code Page</h2>
+
+
+<table class="table table-bordered table-condensed table-hover" id="Systemstbl">
+
+    <tr>
+        <td>
+            @using (Html.BeginForm())
+            {
+                <div>
+                    Enter Report Start Date Range: @Html.TextBox("StartDateRange")
+                </div>
+            }
+        </td>
+
+
+        <td>
+            @using (Html.BeginForm())
+            {
+                <div>
+                    Enter Report End Date Range: @Html.TextBox("EndDateRange")
+                </div>
+            }
+        </td>
+
+    </tr>
+
+</table>
+
+
+<div>
+
+    @Html.ActionLink("Click to Download Cost Code Report", "RunCostCodeReport", null, new { id = "ReportLink" })
+
+</div>
+
+<form id="form1" runat="server">
+    <div>
+        @*<input id="Button1" onclick="alert('simulate button click OK!')" type="button" value="button" />*@
+        @*如何展开下拉框 在不点击的情况下：（How to open a dropdownlist programmatically?）*@
+        <select id="Select2" runat="SERVER" onmouseover="openListElement(this);" onmouseout="closeListElement(this);">
+            <option selected="selected">SELECT EMPLOYEE</option>
+            <option value="1">SWAPNALI</option>
+            <option value="2">AMOL-MS</option>
+            <option value="3">AMOL-J</option>
+            <option value="4">ASHWINI</option>
+            <option value="5">JHON</option>
+        </select>
+        <span id="feedback"></span>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script type="text/javascript">
+        
+        $('#ReportLink').click(function () {
+            
+            var StartDate = $('#StartDateRange').val(); // get the textbox value
+            var EndDate = $('#EndDateRange').val(); // get the textbox value
+            var url = $(this).attr('href') + '?StartDate=' + StartDate + '&EndDate=' + EndDate; // build new url
+            location.href = url; // redirect
+            return false; // cancel default redirect
+        });
+
+        function openListElement(elementRef) {
+            elementRef.size = elementRef.options.length;
+        }
+        function closeListElement(elementRef) {
+            elementRef.size = 1;
+        }
+
+    </script>
+}

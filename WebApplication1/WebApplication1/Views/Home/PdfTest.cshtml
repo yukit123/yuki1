@@ -1,0 +1,19 @@
+﻿111111111111111111
+
+<a href="@Url.Content("http://localhost:50638/api/GetFile/2")" target="_blank" class="btn btn-success" onclick="Doclick()">View document</a>  
+
+<script>
+    function Doclick() {
+        event.preventDefault();
+        $.ajax({
+            url: '/Home/Pdf',
+            type: 'GET',
+            async: false,
+            success: function (data) {
+                alert(22);
+                @Html.ActionLink("Home", "pdf2");
+
+            }
+        })
+    }
+</script>

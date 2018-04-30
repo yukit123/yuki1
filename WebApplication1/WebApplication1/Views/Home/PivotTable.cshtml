@@ -1,0 +1,86 @@
+﻿@using System.Data
+@model DataTable
+
+<table class="table">
+    <tr>
+        @foreach (DataColumn col in Model.Columns)
+        {
+            <th>@col.ColumnName</th>
+        }
+
+    </tr>
+    @foreach (DataRow row in Model.Rows)
+    {
+        <tr>
+            @foreach (DataColumn col in Model.Columns)
+            {
+                <td>@row[col.ColumnName]</td>
+            }
+        </tr>
+    }
+</table>
+
+<br />
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+<table id="tbl" class="pure-table pure-table-bordered" width="898">
+    <thead style="background-color: #eff3f9">
+        <tr>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <th>Result</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+</table>
+<input class="t_item" id="t_item" type="button" value="5">
+<input class="t_customer" id="t_customer" type="button" value="6">
+
+<input class="btnsearch" id="btnsearch" type="button" value="btnsearch">
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $("#btnsearch").click(function () {
+            @*console.log("begin");
+            $.ajax("@Url.Action("GetPrice","Home")", {
+                item: $("#t_item").val(),
+                customer: $("#t_customer").val()
+
+
+            }, function (data) {
+                //$("#tbldata").html('');
+                console.log("success");
+                var row;
+                $.each(data, function (i, v) {
+                    row += "<tr><td>" + v.price_list + "</td><td><input type=text value='" + i + "'>" + "</td><td><input type=text value='" + i + "'>" + "</td><td>" + "</td><td>delete" + "</td></tr>";
+                });
+                $("#tbl").append(row);
+                $("table tbody tr").each(function () {
+                    var Quantity = parseInt($(this).children().first().next().children().val());
+                    var Amount = parseInt($(this).children().first().next().next().children().val());
+                    $(this).children().first().next().next().next().html(Quantity + Amount);
+                })
+                });
+
+            console.log("end");*@
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetPrice","Home")",
+                dataType: "json",
+                data: { "item": $("#t_item").val(), "customer": $("#t_customer").val() },
+                success: function (data) {
+                    if (data.success == true) { alert("success"); }
+                    else { alert("success");}
+                },
+                error: function (e) {
+                    alert(e);
+                   
+                }
+            })
+        })
+    })
+</script>

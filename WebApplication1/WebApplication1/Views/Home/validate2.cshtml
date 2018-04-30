@@ -1,0 +1,52 @@
+﻿@model WebApplication1.Models.Label
+
+@using (Html.BeginForm("validate2", "Home", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.EditorFor(model => model.LabelId, new { htmlAttributes = new { @Class = "AAA" } })
+    @Html.ValidationMessageFor(model => model.LabelId)
+    @Html.EditorFor(model => model.LabelName)
+    @Html.ValidationMessageFor(model => model.LabelName)
+    <input type="submit" value="Save" id="btnSave">
+}
+
+@section scripts{
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".AAA").rules("add", {
+                required: true,
+                minlength: 8,
+                messages: {
+                    required: "Required input",
+                    minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+                }
+            });
+        });
+
+        @*$("#LabelId").on("focusout", ".firstinput", function () {
+
+                  thistr = $(this).parents('tr').get(0);
+                  textboxs = $(thistr).find('input[type="text"]');
+                  secondtextbox = textboxs[1];
+                  thirdtextbox = textboxs[2];
+                $.getJSON("@Url.Action("GetIndex2")", { firstinput: $(this).val() }).done(function (data) {
+                    $(secondtextbox).val(data.price);
+                    $(thirdtextbox).val(data.discount);
+                })
+
+            });
+        $(".AAA").focusout(function () {
+            var $me = $(this);
+            $me.attr('data-val-range-min',"8");
+            $me.attr('data-val-range-max',"11");
+
+        });*@
+
+    </script>
+
+}

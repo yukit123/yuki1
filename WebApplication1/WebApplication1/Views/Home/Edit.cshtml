@@ -1,0 +1,75 @@
+﻿@*@model WebApplication1.Models.Label
+@{
+    ViewBag.Title = "Edit";
+    //Layout = "null";
+}*@
+@*the main content of the view replace "RenderBody()"*@
+@*<div class="form-horizontal formwhole">
+       <hr />
+       @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       @Html.HiddenFor(model => model.LabelId)
+
+
+       @if (Model.LabelId == null) //This line of code always true,so regardless of who the owner is, the default value passed is 'Select'
+       {
+           <div class="form-group">
+               @Html.LabelFor(model => model.LabelName, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                   @Html.DropDownList("OSRddl", null, "Select")
+
+
+               </div>
+           </div>
+       }
+       else
+       {
+           <div class="form-group">
+               @Html.LabelFor(model => model.LabelName, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                   @Html.DropDownList("OSRddl")
+               </div>
+           </div>
+       }
+    </div>*@
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Application name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/Home/About">About</a></li>
+                    <li><a href="/Home/Contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" style="height: 30px;">
+        <select class="text" typeof="text" name="select1" id="select1">
+            <option value="">Select User1</option>
+            <option value="AA">AA</option>
+            <option value="BB">BB</option>
+        </select>
+        <select class="text" typeof="text" name="select2" id="select2">
+            <option value="">Select User2</option>
+            <option value="AA">AA</option>
+            <option value="BB">BB</option>
+        </select>
+        <br />
+        @*@Html.DropDownList("Users", null, "Select User2", new { @class = "dropdown" })*@
+
+
+    </div>
+
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+
+</body>
