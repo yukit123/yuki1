@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -869,7 +870,7 @@ namespace WebApplication1.Controllers
 
         #region PDF
 
-        
+
         public virtual ActionResult PdfTest()
         {
 
@@ -892,23 +893,65 @@ namespace WebApplication1.Controllers
 
 
 
-            // var path = @"http://localhost:50638/api/GetFile/2";
+            //   //var path = @"http://localhost:50638/api/GetFile/2";
+            //  var path = @"D://";
+            //  var file = Path.Combine(path, "test.pdf");  
+            ////  var url = @Url.Content("http://localhost:50638/api/GetFile/2");
+            //  file = Path.GetFullPath(file);
+            //  //if (!file.StartsWith(path))
+            //  //{
+            //  //    // someone tried to be smart and sent 
+            //  //    // ?filename=..\..\creditcard.pdf as parameter
+            //  //    throw new HttpException(403, "Forbidden");
+            //  //}
+            //  return File(file, "application/pdf");
+
+
+            //var fileStream = new FileStream("D://" + "test.pdf",
+            //                         FileMode.Open,
+            //                         FileAccess.Read
+            //                       );
+            //var fsResult = new FileStreamResult(fileStream, "application/pdf");
+            //return fsResult;
+
+            using (var httpClient = new HttpClient())
+            {
+                var url = "http://localhost:50638/api/GetFile/2";
+
+                var result = httpClient.GetAsync(url).Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    byte[] bytes = result.Content.ReadAsByteArrayAsync().Result;
+                    Response.Charset = "UTF-8";
+                    Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
+                    Response.ContentType = "application/octet-stream";
+
+                    Response.AddHeader("Content-Disposition", "attachment; filename=test.pdf");
+                    Response.BinaryWrite(bytes);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+
+            var fileStream = new FileStream("D://" + "test.pdf",
+                                     FileMode.Open,
+                                     FileAccess.Read
+                                   );
+            var fsResult = new FileStreamResult(fileStream, "application/pdf");
+            return fsResult;
+
+        }
+
+        public FileResult GetDocument()
+        {
+            //byte[] doc = Pdf();
             var path = @"D://";
-
             var file = Path.Combine(path, "test.pdf");
-   
-          //  var url = @Url.Content("http://localhost:50638/api/GetFile/2");
-   
-   
             file = Path.GetFullPath(file);
-            //if (!file.StartsWith(path))
-            //{
-            //    // someone tried to be smart and sent 
-            //    // ?filename=..\..\creditcard.pdf as parameter
-            //    throw new HttpException(403, "Forbidden");
-            //}
-            return File(file, "application/pdf");
-
+            string mimeType = "application/pdf";
+    Response.AppendHeader("Content-Disposition", "inline; filename=" + "test.pdf");
+            return File(file, mimeType);
         }
 
         public virtual ActionResult pdf2()
@@ -923,7 +966,7 @@ namespace WebApplication1.Controllers
             //    throw new HttpException(403, "Forbidden");
             //}
             return File(file, "application/pdf");
-        
+
 
         }
         #endregion

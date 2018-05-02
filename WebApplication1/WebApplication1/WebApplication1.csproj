@@ -405,6 +405,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Accounts\AccountsAreaRegistration.cs" />
+    <Compile Include="Areas\Accounts\Controllers\AccountsController.cs" />
+    <Compile Include="Areas\admin2\admin2AreaRegistration.cs" />
+    <Compile Include="Areas\admin2\Controllers\HomeController.cs" />
+    <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EFBolgModel.Designer.cs">
@@ -493,6 +499,18 @@
     <Content Include="EFBolgModel.edmx.diagram">
       <DependentUpon>EFBolgModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\admin\Views\web.config" />
+    <Content Include="Areas\admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\admin2\Views\web.config" />
+    <Content Include="Areas\admin2\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\admin2\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin2\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Accounts\Views\web.config" />
+    <Content Include="Areas\Accounts\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Accounts\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Accounts\Views\Accounts\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Scripts\datatables.min.js" />
@@ -571,6 +589,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Accounts\Models\" />
+    <Folder Include="Areas\admin2\Models\" />
+    <Folder Include="Areas\admin\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

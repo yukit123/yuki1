@@ -16,7 +16,7 @@ namespace WebApiTest.Controllers
         // GET: GetFile
         public HttpResponseMessage GetFile(string id)
         {
-    
+
             string fileName;
             string localFilePath;
             int fileSize;
@@ -31,5 +31,7 @@ namespace WebApiTest.Controllers
 
             return response;
         }
+      
+      
     }
 }
