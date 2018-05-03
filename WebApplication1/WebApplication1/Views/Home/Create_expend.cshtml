@@ -1,0 +1,42 @@
+﻿@model ExpenditureManagement.BusinessEntities.ExpenditureMaster
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Create Order</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StructureID, "Structure", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.StructureID, null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StructureID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*the rest of form group *@
+        <div>
+            @*this is the list of privious ExpenditureMaster it's not empty, it have to updated when drop down list change *@
+            @Html.EditorFor(model => model.Incomes)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="CreateExpenditure" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+}

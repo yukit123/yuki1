@@ -397,6 +397,21 @@ namespace WebApplication1.Controllers
            
         }
 
+        [HttpGet]
+        public JsonResult GetData2(int id)
+        {
+            var list = db.Label.Where(_=>_.LabelId==id).ToList();
+            if (list == null)
+            {
+                return Json(new { success = false, showlist = list, msg = "operation failed" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = true, showlist = list, msg = "Successful operation" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         public class datalistView
         {
             public int datalistView_id { get; set; }
@@ -444,8 +459,23 @@ namespace WebApplication1.Controllers
             //}
             //convert the required data to jsontype
 
-            var list233 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
+           var list233 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
             return Json(list233, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult datalist2()//select datalist
+        {
+
+            Label todo = db.Label.Find(1);
+            List<SelectListItem> osrListItems1 = db.Label.Where(w => w.LabelId == 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).Distinct().ToList();
+            List<SelectListItem> osrListItems2 = db.Label.Where(w => w.LabelId != 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = false }).Distinct().ToList();
+            List<SelectListItem> osrListItems = new List<SelectListItem>();
+            osrListItems.AddRange(osrListItems1);
+            osrListItems.AddRange(osrListItems2);
+            osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
+
+            ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
+            return View();
         }
 
         public ActionResult Get_priceinfo()
@@ -708,21 +738,9 @@ namespace WebApplication1.Controllers
             osrListItems=osrListItems.OrderBy(x => x.Value).ToList();
 
             ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
-
-            //string x = ViewBag.OSRddl.Value;
-            //if (todo.Owner != null)
-            //{
-
-            //}
-
-
+            
             return View(todo);
-
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
+            
 
         }
 
@@ -733,31 +751,14 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Description,CreatedDate,Task,Status,FollowUp,Group,Owner")] string OSRddl, Label todo)
         {
-
-            //if (Session["UserId"] != null)
-            //{
-
-                //document.getElementById('FollowUp').value=
                 if (ModelState.IsValid)
                 {
-
-                    //if (OSRddl != null)
-                    //{
-                    //    todo.Owner = OSRddl;
-                    //}
-
                     db.Entry(todo).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 return View(todo);
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
-
-
+          
         }
 
         public ActionResult CostCodeReport()
@@ -892,48 +893,21 @@ namespace WebApplication1.Controllers
         {
 
 
+           //第一种方法
+              //   //var path = @"http://localhost:50638/api/GetFile/2";
+              //  var path = @"D://";
+              //  var file = Path.Combine(path, "test.pdf");  
+              ////  var url = @Url.Content("http://localhost:50638/api/GetFile/2");
+              //  file = Path.GetFullPath(file);
+              //  //if (!file.StartsWith(path))
+              //  //{
+              //  //    // someone tried to be smart and sent 
+              //  //    // ?filename=..\..\creditcard.pdf as parameter
+              //  //    throw new HttpException(403, "Forbidden");
+              //  //}
+              //  return File(file, "application/pdf");
 
-            //   //var path = @"http://localhost:50638/api/GetFile/2";
-            //  var path = @"D://";
-            //  var file = Path.Combine(path, "test.pdf");  
-            ////  var url = @Url.Content("http://localhost:50638/api/GetFile/2");
-            //  file = Path.GetFullPath(file);
-            //  //if (!file.StartsWith(path))
-            //  //{
-            //  //    // someone tried to be smart and sent 
-            //  //    // ?filename=..\..\creditcard.pdf as parameter
-            //  //    throw new HttpException(403, "Forbidden");
-            //  //}
-            //  return File(file, "application/pdf");
-
-
-            //var fileStream = new FileStream("D://" + "test.pdf",
-            //                         FileMode.Open,
-            //                         FileAccess.Read
-            //                       );
-            //var fsResult = new FileStreamResult(fileStream, "application/pdf");
-            //return fsResult;
-
-            using (var httpClient = new HttpClient())
-            {
-                var url = "http://localhost:50638/api/GetFile/2";
-
-                var result = httpClient.GetAsync(url).Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    byte[] bytes = result.Content.ReadAsByteArrayAsync().Result;
-                    Response.Charset = "UTF-8";
-                    Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
-                    Response.ContentType = "application/octet-stream";
-
-                    Response.AddHeader("Content-Disposition", "attachment; filename=test.pdf");
-                    Response.BinaryWrite(bytes);
-                    Response.Flush();
-                    Response.End();
-                }
-            }
-
+              //第二种方法
             var fileStream = new FileStream("D://" + "test.pdf",
                                      FileMode.Open,
                                      FileAccess.Read
@@ -978,7 +952,7 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-
+        #region 存储过程
         public class FoodViewModel
         {
             public int FoodID { get; set; }
@@ -1023,9 +997,10 @@ namespace WebApplication1.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
         #region Export Excel Create/ADD DELETE DOCUMENT
-       
+
 
         public ActionResult Index_Export()
         {
@@ -1065,6 +1040,24 @@ namespace WebApplication1.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
         #endregion
+
+        #region zhyan.ise
+        public ActionResult showmodal()//show modal by clicking on button inside td
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult image()//image inside td   关键： @Url.Content:正确加载图片
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        #endregion
+
+       
     }
 }
 

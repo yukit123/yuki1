@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "image";
+}
+
+<h2>image</h2>
+
+<a href="#" title="" class="add_row1">Add Row</a><br>
+<table class="table table-striped table-bordered table-hover authors-list1" id="address_table1" width="850" border="1">
+    <thead style="background-color: #eff3f9">
+        <tr>
+            <th>company</th>
+            <th>account</th>
+            <th></th>
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <input class="form-control" style="background-color:transparent; border:none" list="get_company" type="text" name="Company01">
+                <datalist id="get_company"></datalist>
+            </td>
+
+            <td>
+                <input class="form-control" style="background-color:transparent; border:none" list="get_account" type="text" name="Account01">
+                <datalist id="get_account"></datalist>
+            </td>
+
+            <td class="s">
+                <a href=""><img src="@Url.Content("~/images/Arrow.png")" style="width:10px;height:10px" /></a>  @*@Url.Content:正确加载图片*@
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section scripts{
+<script type="text/javascript">
+               //add row s
+               //jQuery(function () {
+                   var counter = 1;
+                   $('a.add_row1').click(function (event) {
+                       event.preventDefault();
+
+                       var newRow = $('<tr><td><input  class="form-control"  style="background-color:transparent; border:none" type="text" name="Company01" list="get_company"/></td><td><input  class="form-control"  style="background-color:transparent; border:none" type="text" name="Account01" list="get_account"/></td><td class="s"> <a href=""><img src="@Url.Content("~/images/Arrow.png")" style="width:10px;height:10px" /></a></td></tr>');
+
+
+                       counter++;
+                       $('table.authors-list1').append(newRow);
+                       //assignClick();
+                   });
+               //});
+</script>
+    }

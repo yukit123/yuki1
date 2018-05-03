@@ -486,6 +486,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\Arrow.PNG" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -586,6 +587,10 @@
     <Content Include="treegrid_data2.json" />
     <Content Include="Views\Home\TreeGrid2.cshtml" />
     <Content Include="Views\Home\datatable2.cshtml" />
+    <Content Include="Views\Home\showmodal.cshtml" />
+    <Content Include="Views\Home\image.cshtml" />
+    <Content Include="Views\Home\datalist2.cshtml" />
+    <Content Include="Views\Home\Create_expend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

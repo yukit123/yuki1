@@ -117,34 +117,34 @@ ________________________________________________________________________________
 
             //###############################################
             $('#search2').autocomplete({
-              source: function (request, response) {
-                  $.ajax({
-                      url: '/Home/Data',
-                      async: false,
-                      //extraParams: { term: $('#search2').val(), 
-                      dataType: "json",
-                      contentType: 'application/json, charset=utf-8',
-                      data: { term: $('#search2').val() },
-                      success: function (data) {
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Home/Data',
+                        async: false,
+                        //extraParams: { term: $('#search2').val(),
+                        dataType: "json",
+                        contentType: 'application/json, charset=utf-8',
+                        data: { term: $('#search2').val() },
+                        success: function (data) {
 
-                          response($.map(data, function (item) {
-                              //return {
-                              //    label: item
-                              //};
-                              return {
-                                  label : item.datalistView_Name
-                              };
-                             
-                          }));
-                      },
-                      error: function (xhr, status, error) {
-                          alert(error);
-                      }
-                      //}
-                });
-              },
-              minLength: 2
-          });
+                            response($.map(data, function (item) {
+                                //return {
+                                //    label: item
+                                //};
+                                return {
+                                    label: item.datalistView_Name
+                                };
+
+                            }));
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                        }
+                        //}
+                    });
+                },
+                minLength: 2
+            });
 
         });
     </script>
