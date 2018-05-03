@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "datalist2";
+}
+
+<h2>datalist2</h2>
+
+@Html.DropDownList("OSRddl")
+
+<label for="search2">Search: </label>
+<input id="datalist" list="getdatalist" />
+<datalist id="getdatalist"></datalist>
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            var list_datalist = Array();
+            $.ajax({
+                url: '/Home/GetData',
+                type: 'GET',
+                async: false,
+                success: function (data) {
+                    $("#getdatalist").append("<option label='" + data.showlist[1].LabelId + "'Value='" + data.showlist[1].LabelName + "'></option>");
+
+                }
+            })
+        });
+
+
+        $('body').on("change", "#OSRddl", function (e) {
+
+            var list_datalist = Array();
+            $.ajax({
+                url: '/Home/GetData2',
+                type: 'GET',
+                async: false,
+                data: { id: $("#OSRddl").val() },
+                success: function (data) {
+                    for (var i = 0; i < data.showlist.length; i++) {
+                        $("#getdatalist").empty();
+                        $("#getdatalist").append("<option label='" + data.showlist[i].LabelId + "'Value='" + data.showlist[i].LabelName + "'></option>");
+
+                    }
+
+                }
+            })
+
+        });
+    </script>
+}
