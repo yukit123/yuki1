@@ -16,7 +16,7 @@
 
 </table>
 
-<table id="example-basic">
+@*<table id="example-basic">
     <caption>
         <a href="#" onclick="jQuery('#example-basic').treetable('expandAll'); return false;">Expand all</a>
         <a href="#" onclick="jQuery('#example-basic').treetable('collapseAll'); return false;">Collapse all</a>
@@ -43,58 +43,116 @@
             <td>3: column 2</td>
         </tr>
     </tbody>
+</table>*@
+
+<table id="basic">
+    <caption>
+        <a href="#" onclick="jQuery('#example-basic').treetable('expandAll');  return false;">Expand all</a>
+        <a href="#" onclick="jQuery('#example-basic').treetable('collapseAll'); return false;">Collapse all</a>
+    </caption>
+    <thead>
+        <tr>
+            <th>Tree column</th>
+            <th>Additional data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-tt-id="1" data-tt-branch='true'>
+            <td>1: column 1</td>
+            <td>1: column 2</td>
+        </tr>
+
+        <tr data-tt-id="2" data-tt-branch='true'>
+            <td>2: column 1</td>
+            <td>2: column 2</td>
+        </tr>
+        <tr data-tt-id="2.1" data-tt-parent-id="2">
+            <td>2.1: column 1</td>
+            <td>2.1: column 2</td>
+        </tr>
+        <tr data-tt-id="3" data-tt-branch='true'>
+            <td>3: column 1</td>
+            <td>3: column 2</td>
+        </tr>
+        @*<tr data-tt-id="1.2" data-tt-parent-id="1">
+            <td>2.1: column 1</td>
+            <td>2.1: column 2</td>
+        </tr>*@
+    </tbody>
 </table>
+
 @section scripts{
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<link href="~/Content/jquery.treetable.css" rel="stylesheet" />
-<link href="~/Content/jquery.treetable.theme.default.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery.treetable.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery.treetable.css" rel="stylesheet" />
+    <link href="~/Content/jquery.treetable.theme.default.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.treetable.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#example-basic").treetable({
-            expandable: true,
-            onInitialized: onInitializedact
-        });
-    });
-
-    function onInitializedact()
-    {
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '/Home/Get_Accounts',
-        //    data: [],
-        //    success: function (response) {
-        //        data = $.map(response, function (item, a) {
-        //            $("#myTable").append("<tr data-tt-id='2" + count + "' data-tt-parent-id='2'><td>2.1." + count + ": column 1</td><td>3: column 2</td></tr>");
-
-        //        });
-        //    },
-        //    dataType: "json"
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //    $("#example-basic").treetable({
+        //        expandable: true,
+        //        onInitialized: onInitializedact
+        //    });
         //});
 
+        //function onInitializedact() {
+        //    //$.ajax({
+        //    //    type: 'GET',
+        //    //    url: '/Home/Get_Accounts',
+        //    //    data: [],
+        //    //    success: function (response) {
+        //    //        data = $.map(response, function (item, a) {
+        //    //            $("#myTable").append("<tr data-tt-id='2" + count + "' data-tt-parent-id='2'><td>2.1." + count + ": column 1</td><td>3: column 2</td></tr>");
 
+        //    //        });
+        //    //    },
+        //    //    dataType: "json"
+        //    //});
+
+
+        //    $.ajax({
+        //        type: 'GET',
+        //        url: '/Home/Get_Accounts',
+        //        data: [],
+        //        dataType: "json",
+        //        success: function (response) {
+        //            data = $.map(response, function (item, a) {
+        //                $("#myTable").append("<tr data-tt-id='2" + count + "' data-tt-parent-id='2'><td>2.1." + count + ": column 1</td><td>3: column 2</td></tr>");
+        //            });
+        //        }
+
+        //    });
+        //    // hard coded rows
+        //    $("#myTable").append("<tr data-tt-id='2' ><td>2: column 1</td><td>2: column 2</td></tr><tr data-tt-id='2.1' data-tt-parent-id='2'><td>3: column 1</td><td>3: column 2</td></tr><tr data-tt-id='2.1.1' data-tt-parent-id='2.1'><td>2.1.1: column 1</td><td>3: column 2</td></tr>");
+        //    $("table").treetable({ expandable: true });
+        //}
+
+        var newHTML = '';
         $.ajax({
             type: 'GET',
             url: '/Home/Get_Accounts',
             data: [],
+            async: false,
             success: function (response) {
-                data = $.map(response, function (item, a) 
- $("#myTable").append("<tr data-tt-id='2" + count + "' data-tt-parent-id='2'><td>2.1." + count + ": column 1</td><td>3: column 2</td></tr>");
-            });
-    },
-    dataType: "json"
-            });
-    // hard coded rows
-    $("#myTable").append("<tr data-tt-id='2' ><td>2: column 1</td><td>2: column 2</td></tr><tr data-tt-id='2.1' data-tt-parent-id='2'><td>3: column 1</td><td>3: column 2</td></tr><tr data-tt-id='2.1.1' data-tt-parent-id='2.1'><td>2.1.1: column 1</td><td>3: column 2</td></tr>");
-    $("table").treetable({ expandable: true });
-    }
-    
+                data = $.map(response, function (item, a) {
+                    $("#basic tr[data-tt-id=1]").after("<tr data-tt-id='4' data-tt-parent-id='1'><td>aa</td><td>aa</td></tr>");
+                    $("#basic").treetable({ expandable: true });
 
-</script>
-    }
+                });
+              
+            },
+            dataType: "json"
+        });
+
+
+
+
+
+
+    </script>
+}
 
 
 

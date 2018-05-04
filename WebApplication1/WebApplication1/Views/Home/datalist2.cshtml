@@ -20,12 +20,14 @@
         $(function () {
             var list_datalist = Array();
             $.ajax({
-                url: '/Home/GetData',
+                url: '/Home/GetData2',
                 type: 'GET',
                 async: false,
+                data: { id: $("#OSRddl").val() },
                 success: function (data) {
-                    $("#getdatalist").append("<option label='" + data.showlist[1].LabelId + "'Value='" + data.showlist[1].LabelName + "'></option>");
-
+                    for (var i = 0; i < data.showlist.length; i++) {
+                        $("#getdatalist").append("<option label='" + data.showlist[i].LabelId + "'Value='" + data.showlist[i].LabelName + "'></option>");
+                    }
                 }
             })
         });
@@ -40,8 +42,8 @@
                 async: false,
                 data: { id: $("#OSRddl").val() },
                 success: function (data) {
+                     $("#getdatalist").empty();
                     for (var i = 0; i < data.showlist.length; i++) {
-                        $("#getdatalist").empty();
                         $("#getdatalist").append("<option label='" + data.showlist[i].LabelId + "'Value='" + data.showlist[i].LabelName + "'></option>");
 
                     }

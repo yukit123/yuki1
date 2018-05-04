@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
@@ -45,10 +46,39 @@ namespace WebApplication1.Controllers
             BolgView2Model vm2 = new BolgView2Model();
             vm2.blogs = db.Blogs.ToList();
             vm2.authors = db.Author.ToList();
-            var list= db.Blogs.ToList();
+            var list = db.Blogs.ToList();
             ViewBag.auth = db.Author.ToList();
             ViewBag.label = db.Label.ToList();
+
+            #region LINQ 和 where  lamda都不允许数据转换 Regex.Replace
+            //var tids = db.Blogs.AsEnumerable()
+            //   .Select(p => Convert.ToInt32(Regex.Replace(p.Name, "[^0-9]+", string.Empty)))
+            //   .ToArray();
+            //var oo = Regex.Replace("--01", "[^0-9]+", string.Empty);
+            //var oo2 = Regex.Replace("--Bolg01", "[^0-9]+", string.Empty);
+
+            //var query = (from e in tids
+            //             where e >= 2 && e <= 4
+            //             select new Student()
+            //             {
+
+            //                 ID = db.Blogs.Find(e).BlogId,
+            //                 Name = db.Blogs.Find(e).Name
+            //             }).ToList();
+
+            //var query2 = (from e in db.Blogs  // LINQ 和 where  lamda都不允许数据转换
+            //              where Convert.ToInt32(Regex.Replace(e.Name, "[^0-9]+", string.Empty)) >= 2 && Convert.ToInt32(Regex.Replace(e.Name, "[^0-9]+", string.Empty)) <= 4
+            //              select new Student()
+            //              {
+            //                  ID = e.BlogId,
+            //                  Name = e.Name
+            //              }).ToList();
+            #endregion
             return View(list);
+        }
+       public int Doconvert(string id)
+        {
+            return Convert.ToInt32(Regex.Replace(id, "[^0-9]+", string.Empty));
         }
 
         [HttpPost]
@@ -400,7 +430,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public JsonResult GetData2(int id)
         {
-            var list = db.Label.Where(_=>_.LabelId==id).ToList();
+            var list = db.Label.Where(_ => _.LabelId == id).ToList();
             if (list == null)
             {
                 return Json(new { success = false, showlist = list, msg = "operation failed" }, JsonRequestBehavior.AllowGet);
@@ -466,15 +496,16 @@ namespace WebApplication1.Controllers
         public ActionResult datalist2()//select datalist
         {
 
-            Label todo = db.Label.Find(1);
-            List<SelectListItem> osrListItems1 = db.Label.Where(w => w.LabelId == 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).Distinct().ToList();
-            List<SelectListItem> osrListItems2 = db.Label.Where(w => w.LabelId != 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = false }).Distinct().ToList();
-            List<SelectListItem> osrListItems = new List<SelectListItem>();
-            osrListItems.AddRange(osrListItems1);
-            osrListItems.AddRange(osrListItems2);
-            osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
+            //Label todo = db.Label.Find(1);
+            //List<SelectListItem> osrListItems1 = db.Label.Where(w => w.LabelId == 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).Distinct().ToList();
+            //List<SelectListItem> osrListItems2 = db.Label.Where(w => w.LabelId != 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = false }).Distinct().ToList();
+            //List<SelectListItem> osrListItems = new List<SelectListItem>();
+            //osrListItems.AddRange(osrListItems1);
+            //osrListItems.AddRange(osrListItems2);
+            //osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
-            ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
+            List<SelectListItem> osrListItems3=db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).ToList();
+            ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text", osrListItems3[2].Value);
             return View();
         }
 
