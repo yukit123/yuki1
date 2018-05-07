@@ -983,6 +983,12 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult FloatWindow()//Send Values to Floating Window and Get back Info in MVC
+        {
+            return View();
+        }
+
         #region 存储过程
         public class FoodViewModel
         {

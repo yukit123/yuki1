@@ -591,6 +591,7 @@
     <Content Include="Views\Home\image.cshtml" />
     <Content Include="Views\Home\datalist2.cshtml" />
     <Content Include="Views\Home\Create_expend.cshtml" />
+    <Content Include="Views\Home\FloatWindow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
