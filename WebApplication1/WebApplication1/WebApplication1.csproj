@@ -411,6 +411,7 @@
     <Compile Include="Areas\admin2\Controllers\HomeController.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
+    <Compile Include="Controllers\admin\adminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EFBolgModel.Designer.cs">
@@ -457,10 +458,19 @@
     <Compile Include="Migrations\201804230310278_Search.Designer.cs">
       <DependentUpon>201804230310278_Search.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805070244114_change05071044.cs" />
+    <Compile Include="Migrations\201805070244114_change05071044.Designer.cs">
+      <DependentUpon>201805070244114_change05071044.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805070849404_blog_str.cs" />
+    <Compile Include="Migrations\201805070849404_blog_str.Designer.cs">
+      <DependentUpon>201805070849404_blog_str.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\BlogContext.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\ProjectAndStudentModels.cs" />
@@ -591,6 +601,8 @@
     <Content Include="Views\Home\image.cshtml" />
     <Content Include="Views\Home\datalist2.cshtml" />
     <Content Include="Views\Home\Create_expend.cshtml" />
+    <Content Include="Views\admin\Index.cshtml" />
+    <Content Include="Views\Home\Webgrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -639,6 +651,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804230310278_Search.resx">
       <DependentUpon>201804230310278_Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805070244114_change05071044.resx">
+      <DependentUpon>201805070244114_change05071044.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805070849404_blog_str.resx">
+      <DependentUpon>201805070849404_blog_str.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

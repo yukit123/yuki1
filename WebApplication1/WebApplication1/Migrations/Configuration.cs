@@ -1,4 +1,4 @@
-namespace WebApplication1.Migrations
+﻿namespace WebApplication1.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -9,7 +9,7 @@ namespace WebApplication1.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = false;//true 自动生成
         }
 
         protected override void Seed(WebApplication1.Models.BlogContext context)

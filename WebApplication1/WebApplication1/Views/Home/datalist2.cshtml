@@ -26,7 +26,7 @@
                 data: { id: $("#OSRddl").val() },
                 success: function (data) {
                     for (var i = 0; i < data.showlist.length; i++) {
-                        $("#getdatalist").append("<option label='" + data.showlist[i].LabelId + "'Value='" + data.showlist[i].LabelName + "'></option>");
+                        $("#getdatalist").append("<option label='" + data.showlist[i].CityName + "'Value='" + data.showlist[i].CityName + "'></option>");
                     }
                 }
             })
@@ -44,7 +44,7 @@
                 success: function (data) {
                      $("#getdatalist").empty();
                     for (var i = 0; i < data.showlist.length; i++) {
-                        $("#getdatalist").append("<option label='" + data.showlist[i].LabelId + "'Value='" + data.showlist[i].LabelName + "'></option>");
+                        $("#getdatalist").append("<option label='" + data.showlist[i].CityName + "'Value='" + data.showlist[i].CityName + "'></option>");
 
                     }
 

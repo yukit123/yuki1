@@ -1,0 +1,144 @@
+﻿@model IEnumerable<WebApplication1.Models.Label>
+<style>
+
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+
+    th, td {
+        padding: 5px;
+    }
+
+    th {
+        background-color: rgb(248, 248, 248);
+    }
+
+    #subT, #subT tr {
+        border: 1px solid #f3f3f3;
+    }
+
+    #subT {
+        margin: 0px 0px 0px 10px;
+        padding: 5px;
+        width: 95%;
+        border-collapse: collapse;
+    }
+
+        #subT th {
+            font-size: 12px;
+        }
+
+    .hoverEff {
+        cursor: pointer;
+        width: 25px;
+    }
+
+        .hoverEff:hover {
+            background-color: rgb(248, 242, 242);
+        }
+
+    #main .expand {
+        background: url("https://image.flaticon.com/icons/png/128/121/121717.png") no-repeat scroll -2px center rgba(0, 0, 0, 0);
+        display: table-cell;
+    }
+
+    #main .collapse {
+        background: url("https://image.flaticon.com/icons/png/128/121/121717.png") no-repeat scroll -22px center rgba(0, 0, 0, 0);
+        display: table-cell;
+    }
+</style>
+<div id="main">
+    @{
+        var grid = new WebGrid(source: Model.Label);
+        @MvcHtmlString.Create(
+                      grid.GetHtml(
+                          tableStyle: "table",
+                          htmlAttributes: new
+                          {
+                              id = "gridT"
+                          },
+                          columns: grid.Columns(
+                              grid.Column("LabelId", "LabelId", canSort: false),
+                              grid.Column("LabelName", "LabelName", canSort: false),
+
+                              grid.Column(format: (item) =>
+                              {
+                                  WebGrid subGrid = new WebGrid(source: item.DocumentoLinhaSeries);
+                                  return subGrid.GetHtml(
+                                      htmlAttributes: new { id = "subT" },
+                                      columns: subGrid.Columns(
+                                          subGrid.Column("LabelId", "LabelId", canSort: false),
+                                          subGrid.Column("LabelName", "LabelName", canSort: false)
+                                          )
+                                      );
+                              }, canSort: false)
+                              )
+                          ).ToHtmlString()
+                      )
+    }
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        expandCollapse();
+
+    });
+
+    function expandCollapse() {
+        var size = document.getElementById('gridT').rows[0].cells.length; // get total column
+        $("#main #gridT > thead > tr >th").last().remove(); // remove last column
+        $("#main #gridT > thead > tr").prepend("<th></th>"); // add one column at first for collapsible column
+        $("#main #gridT > tbody > tr").each(function (i, el) {
+
+            $(this).prepend(
+                $("<td></td>")
+                    .addClass("expand")
+                    .addClass("hoverEff")
+                    .attr('title', "click for show/hide")
+            );
+
+            //Now get sub table from last column and add this to the next new added row
+            var table = $("table", this).parent().html();
+            //add new row with this subtable
+            $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
+            $("table", this).parent().remove();
+            // ADD CLICK EVENT FOR MAKE COLLAPSIBLE
+
+
+        });
+
+        $('body').on("click", ".hoverEff", function () {
+            $(this).parent().closest("tr").next().slideToggle(100);
+            $(this).toggleClass("expand collapse");
+        });
+
+        //by default make all subgrid in collapse mode
+        $("#main #gridT > tbody > tr td.expand").each(function (i, el) {
+            // $(this).toggleClass("expand collapse");
+            $(this).parent().closest("tr").next().slideToggle(100);
+        });
+    }
+
+</script>

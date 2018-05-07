@@ -14,11 +14,14 @@ namespace WebApplication1.Models
 
         public DbSet<Tree> Tree { get; set; }
         public DbSet<Project> Project { get; set; }
-
         public DbSet<VStudent> Student { get; set; }
 
         public DbSet<Column> Column { get; set; }
         public DbSet<Search> Search { get; set; }
+        public DbSet<City> Cities { get; set; }
+
+
+
 
     }
 }
