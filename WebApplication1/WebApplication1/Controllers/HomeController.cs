@@ -35,6 +35,15 @@ namespace WebApplication1.Controllers
         public List<Author> authors { get; set; }
 
     }
+    public class boolModel
+    {
+        //public int BlogId { get; set; }
+        public string BlogId { get; set; }
+
+        public string Name { get; set; }
+
+
+    }
     public class HomeController : BaseController
     {
         private BlogContext db = new BlogContext();
@@ -49,7 +58,6 @@ namespace WebApplication1.Controllers
             var list = db.Blogs.ToList();
             ViewBag.auth = db.Author.ToList();
             ViewBag.label = db.Label.ToList();
-
             #region LINQ 和 where  lamda都不允许数据转换 Regex.Replace
             //var tids = db.Blogs.AsEnumerable()
             //   .Select(p => Convert.ToInt32(Regex.Replace(p.Name, "[^0-9]+", string.Empty)))
@@ -74,6 +82,27 @@ namespace WebApplication1.Controllers
             //                  Name = e.Name
             //              }).ToList();
             #endregion
+            #region int to string
+
+            //foreach (var item in list)
+            //{
+            //    item.BlogId2 = true;
+            //}
+            //list[2].BlogId2 = false;
+
+            //foreach (var item in list)
+            //{
+            //    item.strBlogId = item.BlogId2 ? "Video" : "";
+            //}
+
+            //var query2 = list.Select(_ => new Blog()
+            //{
+            //    BlogId = _.BlogId,
+            //    strBlogId = _.BlogId == 1 ? "Video" : "",
+            //    Name = _.Name
+            //});
+            #endregion
+
             return View(list);
         }
        public int Doconvert(string id)
@@ -430,7 +459,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public JsonResult GetData2(int id)
         {
-            var list = db.Label.Where(_ => _.LabelId == id).ToList();
+            var list = db.Cities.Where(_ => _.CountryId == id).ToList();
             if (list == null)
             {
                 return Json(new { success = false, showlist = list, msg = "operation failed" }, JsonRequestBehavior.AllowGet);
@@ -1094,7 +1123,14 @@ namespace WebApplication1.Controllers
         }
         #endregion
 
-       
+
+        public ActionResult Webgrid()//sum
+        {
+            ViewBag.Message = "Your contact page.";
+            var list = db.Label.ToList();
+            return View(list);
+        }
+
     }
 }
 

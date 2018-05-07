@@ -6,6 +6,7 @@
     var au = ViewBag.auth;//另一个model
     var lab = ViewBag.label;
 }
+@Html.Display("xx", "cxxx","123")
 <table class="table">
     <tr>
         <th>
@@ -21,12 +22,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BlogId)
+                @*@{ var itm= (item.BlogId == 1 ? 5 : 6)}*@
+                @*@Html.Display("xx", "cxxx")*@
+                @*@(item.BlogId2? "Vieo" : "")*@
+                @Html.DisplayFor(modelItem => item.strBlogId)
+                @*@Html.DisplayFor(modelItem => item.BlogId.Equals("1") ? "" : "")*@
+                @*@Html.LabelFor(modelItem => item.BlogId)
+        <label>@(item.BlogId == 1 ? "Vieo" : "")</label>*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BlogId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.BlogId }) |
