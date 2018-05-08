@@ -1220,6 +1220,252 @@ namespace WebApplication1.Controllers
 
         }
 
+        #region firstpagecontroller
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public JsonResult DoSave()
+        //{
+        //    var files = Request.Files;
+        //    string Pic1 = string.Empty;
+        //    string Pic2 = string.Empty;
+        //    int i = 0;
+        //    List<FileUrlModel> array = new List<FileUrlModel>();
+        //    List<UrlNameModel> imgnamearray = new List<UrlNameModel>();
+
+        //    for (i = 1; i <= files.Count; i++)
+        //    {
+        //        HttpPostedFileBase avatar = Request.Files[i - 1];
+        //        string fname = files.AllKeys[i - 1];
+        //        var FileName = files.Keys[i - 1];
+        //        string name = Path.GetFileName(Request.Files[fname].FileName);//Path.GetFullPath(Request.Files[fname].FileName)
+        //        if (string.IsNullOrEmpty(name))
+        //        {
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            if (i == (files.Count - 3))//头图
+        //            {
+        //                if (!CheckImg(avatar, 1))
+        //                {
+        //                    //return Json(new { success = 3,imgname= Request.Files.AllKeys[i-1]}, JsonRequestBehavior.AllowGet);
+        //                    // imgname = Request.Files.AllKeys[i - 1];
+        //                    imgnamearray.Add(new UrlNameModel() { id = (i - 1), imgname = Request.Files.AllKeys[i - 1] });
+        //                }
+        //                else
+        //                {
+        //                    //    model.ProductSmallPicture = Libraries.SaveFile.SaveUploadedFile(avatar, dirPath, "");
+        //                    var extension = avatar.FileName.Substring(avatar.FileName.LastIndexOf('.'));//原文件扩展名
+        //                    string filename = "";
+        //                    if (name != "")
+        //                        filename = DateTime.Now.ToString("yyyyMMddHHmmssffff") + avatar.ContentLength.ToString() + extension;//新文件名称
+        //                    string imgurl = "/SiemensEcatalogImg/FirstPageImg/" + filename;
+        //                    array.Add(new FileUrlModel() { id = (i - 1), fileurl = imgurl });
+        //                    var file = Request.Files[fname];
+        //                    string Paths = string.Format("/SiemensEcatalogImg/FirstPageImg/{0}", filename);
+        //                    Pic1 = Paths;
+        //                    if (Directory.Exists(Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/")) == false)//如果不存在就创建file文件夹
+        //                    {
+        //                        Directory.CreateDirectory(Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/"));
+        //                    }
+        //                    file.SaveAs(this.Server.MapPath("~" + Paths));
+        //                }
+        //            }
+        //            else if (i == (files.Count - 2))//特色产品左一图
+        //            {
+        //                if (!CheckImg(avatar, 2))
+        //                {
+        //                    //return Json(new { success = 3,imgname= Request.Files.AllKeys[i-1]}, JsonRequestBehavior.AllowGet);
+        //                    // imgname = Request.Files.AllKeys[i - 1];
+        //                    imgnamearray.Add(new UrlNameModel() { id = (i - 1), imgname = Request.Files.AllKeys[i - 1] });
+        //                }
+        //                else
+        //                {
+        //                    //    model.ProductSmallPicture = Libraries.SaveFile.SaveUploadedFile(avatar, dirPath, "");
+        //                    var extension = avatar.FileName.Substring(avatar.FileName.LastIndexOf('.'));//原文件扩展名
+        //                    string filename = "";
+        //                    if (name != "")
+        //                        filename = DateTime.Now.ToString("yyyyMMddHHmmssffff") + avatar.ContentLength.ToString() + extension;//新文件名称
+        //                    string imgurl = "/SiemensEcatalogImg/FirstPageImg/" + filename;
+        //                    array.Add(new FileUrlModel() { id = (i - 1), fileurl = imgurl });
+        //                    var file = Request.Files[fname];
+        //                    string Paths = string.Format("/SiemensEcatalogImg/FirstPageImg/{0}", filename);
+        //                    Pic1 = Paths;
+        //                    if (Directory.Exists(Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/")) == false)//如果不存在就创建file文件夹
+        //                    {
+        //                        Directory.CreateDirectory(Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/"));
+        //                    }
+        //                    file.SaveAs(this.Server.MapPath("~" + Paths));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (!CheckImg(avatar, 3))
+        //                {
+        //                    //return Json(new { success = 3,imgname= Request.Files.AllKeys[i-1]}, JsonRequestBehavior.AllowGet);
+        //                    // imgname = Request.Files.AllKeys[i - 1];
+        //                    imgnamearray.Add(new UrlNameModel() { id = (i - 1), imgname = Request.Files.AllKeys[i - 1] });
+        //                }
+        //                else
+        //                {
+        //                    //    model.ProductSmallPicture = Libraries.SaveFile.SaveUploadedFile(avatar, dirPath, "");
+        //                    var extension = avatar.FileName.Substring(avatar.FileName.LastIndexOf('.'));//原文件扩展名
+        //                    string filename = "";
+        //                    if (name != "")
+        //                        filename = DateTime.Now.ToString("yyyyMMddHHmmssffff") + avatar.ContentLength.ToString() + extension;//新文件名称
+        //                    string imgurl = "/SiemensEcatalogImg/FirstPageImg/" + filename;
+        //                    array.Add(new FileUrlModel() { id = (i - 1), fileurl = imgurl });
+        //                    var file = Request.Files[fname];
+        //                    string Paths = string.Format("/SiemensEcatalogImg/FirstPageImg/{0}", filename);
+        //                    Pic1 = Paths;
+        //                    if (Directory.Exists(Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/")) == false)//如果不存在就创建file文件夹
+        //                    {
+        //                        Directory.CreateDirectory(Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/"));
+        //                    }
+        //                    file.SaveAs(this.Server.MapPath("~" + Paths));
+        //                }
+        //            }
+        //        }
+
+
+        //    }
+        //    if (imgnamearray.Count > 0)
+        //    {
+        //        return Json(new { success = 3, imgname = imgnamearray }, JsonRequestBehavior.AllowGet);
+
+        //    }
+        //    else
+        //    {
+        //        return Json(new { success = 1, array = array }, JsonRequestBehavior.AllowGet);
+
+        //    }
+
+        //    //return Json(new { success = 1, array = array }, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public JsonResult DoSaveModel(List<FirstPageModel> model, List<FileUrlModel> array)
+        //{
+        //    Dictionary<string, string> myDic = new Dictionary<string, string>();
+        //    var HistoryPageLst = WebApiClient.Get<ResultMessage<List<FirstPageModel>>>("api/FirstPage/TGetFirstPageData", myDic);
+        //    for (int i = 0; i < model.Count; i++)
+        //    {
+        //        if (model[i].ImageUrl.IndexOf("/SiemensEcatalogImg/FirstPageImg/") >= 0)
+        //        {
+        //            if (Path.GetFileName(model[i].ImageUrl).IndexOf("/") >= 0)
+        //            {
+        //                model[i].ImageUrl = Path.GetFileName(model[i].ImageUrl).Substring(Path.GetFileName(model[i].ImageUrl).LastIndexOf("/"), (Path.GetFileName(model[i].ImageUrl).LastIndexOf("/").ToString().Length - 1));
+        //            }
+        //            else
+        //            { model[i].ImageUrl = Path.GetFileName(model[i].ImageUrl); }
+
+        //            // model[i].ImageUrl = Path.GetFileName(model[i].ImageUrl);
+        //        }
+        //        else
+        //        {
+        //            for (int j = 0; j < array.Count; j++)
+        //            {
+        //                if (i == array[j].id)
+        //                {
+        //                    if (Path.GetFileName(array[j].fileurl).IndexOf("/") >= 0)
+        //                    {
+        //                        model[i].ImageUrl = Path.GetFileName(array[j].fileurl).Substring(Path.GetFileName(array[j].fileurl).LastIndexOf("/"), (Path.GetFileName(array[j].fileurl).LastIndexOf("/").ToString().Length - 1));
+        //                    }
+        //                    else
+        //                    { model[i].ImageUrl = Path.GetFileName(array[j].fileurl); }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    var result = WebApiClient.Post<ResultMessageModel, List<FirstPageModel>>("api/FirstPage/TInsertFirstPageData", model);
+        //    if (result.Success == 0)
+        //    {
+        //        if (HistoryPageLst.Data.Count() > 0)
+        //        {
+        //            string dirPath = Server.MapPath("~/SiemensEcatalogImg/FirstPageImg/");
+        //            if (array != null)
+        //            {
+        //                foreach (var item in array)
+        //                {
+
+        //                    if (!String.IsNullOrEmpty((HistoryPageLst.Data[item.id]).ImageUrl))
+        //                    {
+        //                        //将不用的文件删除
+        //                        DirectoryInfo NewFolder = new DirectoryInfo(dirPath + (HistoryPageLst.Data[item.id]).ImageUrl);
+        //                        if (System.IO.File.Exists(dirPath + (HistoryPageLst.Data[item.id]).ImageUrl))
+        //                        {
+        //                            //NewFolder.Delete(true);
+        //                            System.IO.File.Delete(dirPath + (HistoryPageLst.Data[item.id]).ImageUrl);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            //    else
+        //            //    { 
+        //            //    foreach (var item in HistoryPageLst.Data)
+        //            //    {
+        //            //        if (!String.IsNullOrEmpty(item.ImageUrl))
+        //            //        {
+        //            //            //将不用的文件删除
+        //            //            DirectoryInfo NewFolder = new DirectoryInfo(dirPath + item.ImageUrl);
+        //            //            if (System.IO.File.Exists(dirPath + item.ImageUrl))
+        //            //            {
+        //            //                //NewFolder.Delete(true);
+        //            //                System.IO.File.Delete(dirPath + item.ImageUrl);
+        //            //            }
+        //            //        }
+        //            //    }
+        //            //}
+        //        }
+
+        //        return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+
+        ///// <summary>
+        ///// 验证图片长宽
+        ///// </summary>
+        ///// <returns></returns>
+        //public bool CheckImg(HttpPostedFileBase avatar, int Type)//Type=1：头图16/9 Type=2：特色产品左一图8/9 Type=3：其他图 16/9
+        //{
+        //    //原型上是(137*120)
+        //    Image img = Image.FromStream(avatar.InputStream);
+        //    //if (img.Height <= 90 || img.Height >= 150 || img.Width <= 90 || img.Width >= 150)
+        //    //{
+        //    //    return false;
+        //    //}
+
+        //    if (Type == 1)
+        //    {
+        //        if ((float)(img.Width) / (float)(img.Height) <= 1.3 || (float)(img.Width) / (float)(img.Height) >= 2.2)//16:9
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    if (Type == 2)
+        //    {
+        //        if ((float)(img.Width) / (float)(img.Height) <= 0.3 || (float)(img.Width) / (float)(img.Height) >= 1.3)//8:9
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    if (Type == 3)
+        //    {
+        //        if ((float)(img.Width) / (float)(img.Height) <= 1.3 || (float)(img.Width) / (float)(img.Height) >= 2.2)//16:9
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
+        #endregion
+
     }
 }
 
