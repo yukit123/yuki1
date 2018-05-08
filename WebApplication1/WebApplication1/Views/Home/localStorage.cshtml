@@ -1,0 +1,43 @@
+﻿@section scripts{
+<script>
+    $(document).ready(function () {
+        window.localStorage.setItem("Email","123@qq.com");
+
+        $.ajax({
+            type: "GET",
+            url: "/Home/OpenOrders",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            //traditional: true,
+            data: {
+                EmailID: window.localStorage.getItem("Email")
+                },
+            success: function (result) {
+
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(result, function (i, e) {
+                    var rows = "<tr>" +
+                      '<td>' + e.CreatedDate + '</td>' +
+
+                             '<td>' + e.SendDate + '</td>' +
+
+                        "</tr>";
+                    $('#ResultOpen').append(rows);
+                });
+                console.log(result);
+            },
+
+            failure: function (result) {
+                alert(result.responseText);
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+
+        });
+
+
+    });
+</script>
+    }

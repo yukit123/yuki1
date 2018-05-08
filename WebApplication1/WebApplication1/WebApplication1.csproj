@@ -466,6 +466,10 @@
     <Compile Include="Migrations\201805070849404_blog_str.Designer.cs">
       <DependentUpon>201805070849404_blog_str.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805080105517_blog_str2.cs" />
+    <Compile Include="Migrations\201805080105517_blog_str2.Designer.cs">
+      <DependentUpon>201805080105517_blog_str2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -603,6 +607,7 @@
     <Content Include="Views\Home\Create_expend.cshtml" />
     <Content Include="Views\admin\Index.cshtml" />
     <Content Include="Views\Home\Webgrid.cshtml" />
+    <Content Include="Views\Home\localStorage.cshtml" />
     <Content Include="Views\Home\FloatWindow.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -658,6 +663,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805070849404_blog_str.resx">
       <DependentUpon>201805070849404_blog_str.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805080105517_blog_str2.resx">
+      <DependentUpon>201805080105517_blog_str2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -534,7 +534,7 @@ namespace WebApplication1.Controllers
             //osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
             List<SelectListItem> osrListItems3=db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).ToList();
-            ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text", osrListItems3[2].Value);
+            ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text", osrListItems3[1].Value);
             return View();
         }
 
@@ -1029,12 +1029,12 @@ namespace WebApplication1.Controllers
         }
         public ActionResult storeProcedure()//调用存储过程
         {
-            DataSet ds = new DataSet();
-            string connectionstring = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-           // string sql = "kd_selFoodItemsSearch";
-            string sql = "EXEC kd_selFoodItemsSearch @OrgID,@SearchText";
+           // DataSet ds = new DataSet();
+           // string connectionstring = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+           // SqlConnection connection = new SqlConnection(connectionstring);
+           // connection.Open();
+            string sql = "kd_selFoodItemsSearch";
+            ////string sql = "EXEC kd_selFoodItemsSearch @OrgID,@SearchText";
 
             SqlCommand command = new SqlCommand();
             command.CommandText = sql;
@@ -1043,32 +1043,80 @@ namespace WebApplication1.Controllers
            // command.CommandType = CommandType.StoredProcedure;
             command.CommandType = CommandType.Text;
 
-            command.Connection = connection;
-            SqlDataAdapter sda = new SqlDataAdapter(command);
-          //  DataTable dt = new DataTable();
-            sda.Fill(ds);
+            //command.Connection = connection;
+          //  SqlDataAdapter sda = new SqlDataAdapter(command);
+          ////  DataTable dt = new DataTable();
+          //  sda.Fill(ds);
 
 
-            var list = new List<FoodViewModel>();
-            foreach (DataRow row in ds.Tables[0].Rows)
-            {
-                list.Add(new FoodViewModel
-                {
-                    FoodID = Convert.ToInt32(row["FoodID"]),
+          //  var list = new List<FoodViewModel>();
+          //  foreach (DataRow row in ds.Tables[0].Rows)
+          //  {
+          //      list.Add(new FoodViewModel
+          //      {
+          //          FoodID = Convert.ToInt32(row["FoodID"]),
                  
-                    CategoryID = Convert.ToInt32(row["CategoryID"]),
-                    FoodItem = row["FoodItem"].ToString()
-                });
-            }
+          //          CategoryID = Convert.ToInt32(row["CategoryID"]),
+          //          FoodItem = row["FoodItem"].ToString()
+          //      });
+          //  }
 
+            var list=ExecuteStoredProc(command, "TotalCount");
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-        #endregion
 
-        #region Export Excel Create/ADD DELETE DOCUMENT
+        protected IEnumerable<FoodViewModel> ExecuteStoredProc(SqlCommand command, string CountColName = "TotalCount")
+        {
+            DataSet ds = new DataSet();
+            var reader = (SqlDataReader)null;
+            var list = new List<FoodViewModel>();
+            string connectionstring = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+            SqlConnection _connection = new SqlConnection(connectionstring);
+
+            try
+            {
+                command.Connection = _connection;
+                command.CommandType = CommandType.StoredProcedure;
+                _connection.Open();
+                reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    FoodViewModel e = new FoodViewModel {
+                        FoodID = (int)reader["FoodID"],
+                        CategoryID = (int)reader["CategoryID"],
+                        FoodItem = reader["FoodItem"].ToString()
+                    };
+                    list.Add(e);
+
+                }
+
+                reader.NextResult();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //GetDataCount(Convert.ToInt32(reader[CountColName].ToString()));
+                    }
+                }
+
+            }
+            finally
+            {
+                // Always call Close when done reading.
+                reader.Close();
+                _connection.Close();
+                _connection.Dispose();
+            }
+            return list;
+        }
+    
+    #endregion
+
+    #region Export Excel Create/ADD DELETE DOCUMENT
 
 
-        public ActionResult Index_Export()
+    public ActionResult Index_Export()
         {
             return View();
         }
@@ -1124,15 +1172,57 @@ namespace WebApplication1.Controllers
         #endregion
 
 
-        public ActionResult Webgrid()//sum
+        public ActionResult Webgrid()
         {
             ViewBag.Message = "Your contact page.";
             var list = db.Label.ToList();
             return View(list);
         }
 
+        public ActionResult localStorage()
+        {
+            ViewBag.Message = "Your contact page.";
+            var list = db.Label.ToList();
+            return View(list);
+        }
+
+        public JsonResult OpenOrders(string EmailID)
+        {
+            var db = new BlogContext();
+
+            //string EmailID = Session["Email"].ToString();  Request.Form["Email"]
+
+            string EmailID2 = Request["Email"];
+            //var SalesOrdre = (from cbr in db.cbr
+            //                  join c in db.c on cbr.c_No_ equals c.Company_No_
+
+            //                  join sa in db.sh on cbr.No_ equals sa.SCN
+            //                  join px in db.PX2 on c.E_Mail equals px.Email_ID
+
+            //                  where c.E_Mail == EmailID
+            //                  &&
+
+
+
+
+            //                  select new Open
+            //                  {
+            //                      SendDate = sa.SenDate,
+            //                      CreatedDate = sa.Order_Date,
+
+            //                  }).OrderByDescending(t => t.CreatedDate).ToList();
+
+            List<string> list = new List<string>();
+            list.Add("wwww");
+            list.Add("wwww2");
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }
+
 
 
 
