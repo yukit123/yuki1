@@ -25,6 +25,7 @@ namespace WebApplication1.Models
     {
         public Project project { get; set; }
         public List<VStudent> StudentsAndID { get; set; }
+
     }
 
     public class Project

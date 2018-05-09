@@ -410,6 +410,11 @@ namespace WebApplication1.Controllers
             ProjectAndStudentModels pvm = new ProjectAndStudentModels();
             pvm.StudentsAndID = db.Student.ToList();
             return View(pvm);
+            //var query ={"related_products":[{"product_id":20856},{"product_id":21125},{"product_id":21509},{"product_id":22159},{"product_id":22231},{"product_id":22757},{"product_id":22758}]};
+            //var list = db.Products.ToList();
+            //Product2 pvm = new Product2();
+            //pvm.related_products = db.Products.Select(_=>_.product_id).ToArray();
+            //return View(pvm);
         }
 
         [HttpPost]
@@ -1023,10 +1028,44 @@ namespace WebApplication1.Controllers
         }
         public ActionResult storeProcedure()//调用存储过程
         {
-           // DataSet ds = new DataSet();
-           // string connectionstring = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
-           // SqlConnection connection = new SqlConnection(connectionstring);
-           // connection.Open();
+            DataSet ds = new DataSet();
+            string connectionstring = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+            SqlConnection connection = new SqlConnection(connectionstring);
+            connection.Open();
+            string sql = "kd_selFoodItemsSearch";
+            //string sql = "EXEC kd_selFoodItemsSearch @OrgID,@SearchText";
+
+            SqlCommand command = new SqlCommand();
+            command.CommandText = sql;
+            command.Parameters.AddWithValue("@OrgID", 2);
+            command.Parameters.AddWithValue("@SearchText", "p");
+            command.CommandType = CommandType.StoredProcedure;
+            //command.CommandType = CommandType.Text;
+
+            command.Connection = connection;
+            SqlDataAdapter sda = new SqlDataAdapter(command);
+            //  DataTable dt = new DataTable();
+            sda.Fill(ds);
+
+
+            var list = new List<FoodViewModel>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                list.Add(new FoodViewModel
+                {
+                    FoodID = Convert.ToInt32(row["FoodID"]),
+
+                    CategoryID = Convert.ToInt32(row["CategoryID"]),
+                    FoodItem = row["FoodItem"].ToString()
+                });
+            }
+
+       
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult storeProcedure2()//调用存储过程
+        {
+         
             string sql = "kd_selFoodItemsSearch";
             ////string sql = "EXEC kd_selFoodItemsSearch @OrgID,@SearchText";
 
@@ -1034,31 +1073,34 @@ namespace WebApplication1.Controllers
             command.CommandText = sql;
             command.Parameters.AddWithValue("@OrgID", 2);
             command.Parameters.AddWithValue("@SearchText", "p");
-           // command.CommandType = CommandType.StoredProcedure;
+            // command.CommandType = CommandType.StoredProcedure;
             command.CommandType = CommandType.Text;
 
-            //command.Connection = connection;
-          //  SqlDataAdapter sda = new SqlDataAdapter(command);
-          ////  DataTable dt = new DataTable();
-          //  sda.Fill(ds);
-
-
-          //  var list = new List<FoodViewModel>();
-          //  foreach (DataRow row in ds.Tables[0].Rows)
-          //  {
-          //      list.Add(new FoodViewModel
-          //      {
-          //          FoodID = Convert.ToInt32(row["FoodID"]),
-                 
-          //          CategoryID = Convert.ToInt32(row["CategoryID"]),
-          //          FoodItem = row["FoodItem"].ToString()
-          //      });
-          //  }
-
-            var list=ExecuteStoredProc(command, "TotalCount");
+            var list = ExecuteStoredProc(command, "TotalCount");
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult storeProcedure3()//调用存储过程
+        {
+
+            string sql = "kd_selFoodItem";
+        
+            SqlCommand command = new SqlCommand();
+            command.CommandText = sql;
+            command.Parameters.AddWithValue("@OrgID", 2);
+            SqlParameter parOutput = command.Parameters.Add("@fid", SqlDbType.Int);  //定义输出参数  
+            SqlParameter parOutput2 = command.Parameters.Add("@cid", SqlDbType.Int);  //定义输出参数  
+            SqlParameter parOutput3 = command.Parameters.Add("@fit", SqlDbType.NVarChar,50);  //定义输出参数  
+            parOutput.Direction = ParameterDirection.Output;  //参数类型为Output  
+            parOutput2.Direction = ParameterDirection.Output;  //参数类型为Output  
+            parOutput3.Direction = ParameterDirection.Output;  //参数类型为Output  
+
+            command.CommandType = CommandType.StoredProcedure;
+
+
+            var list = ExecuteStoredProc(command, "TotalCount");
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         protected IEnumerable<FoodViewModel> ExecuteStoredProc(SqlCommand command, string CountColName = "TotalCount")
         {
             DataSet ds = new DataSet();

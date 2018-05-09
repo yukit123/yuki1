@@ -470,6 +470,10 @@
     <Compile Include="Migrations\201805080105517_blog_str2.Designer.cs">
       <DependentUpon>201805080105517_blog_str2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805090553292_products.cs" />
+    <Compile Include="Migrations\201805090553292_products.Designer.cs">
+      <DependentUpon>201805090553292_products.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -477,6 +481,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProjectAndStudentModels.cs" />
     <Compile Include="Models\Search.cs" />
     <Compile Include="Models\Tree.cs" />
@@ -608,6 +613,8 @@
     <Content Include="Views\admin\Index.cshtml" />
     <Content Include="Views\Home\Webgrid.cshtml" />
     <Content Include="Views\Home\localStorage.cshtml" />
+    <Content Include="Views\Home\storeProcedure2.cshtml" />
+    <Content Include="Views\Home\storeProcedure3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -665,6 +672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805080105517_blog_str2.resx">
       <DependentUpon>201805080105517_blog_str2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805090553292_products.resx">
+      <DependentUpon>201805090553292_products.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

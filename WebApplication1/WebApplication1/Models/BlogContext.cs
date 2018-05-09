@@ -19,6 +19,9 @@ namespace WebApplication1.Models
         public DbSet<Column> Column { get; set; }
         public DbSet<Search> Search { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+        
 
 
 
