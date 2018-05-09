@@ -1,0 +1,84 @@
+﻿@model List<WebApplication1.Models.Label>
+@{
+    ViewBag.Title = "AddDeleteRow";
+}
+
+<h2>AddDeleteRow</h2>
+
+
+
+
+
+@foreach (var item in Model)
+{
+    var i = 0;
+    int index = Model.IndexOf(item);
+    if (index == (Model.Count - 1))
+    {
+        <div class="divdemo">
+            <h3><lable>轮播图</lable>@(index + 1)</h3>
+            <div class="divsubdemo">
+                <div class="divinput" style="display:inline">
+
+                    @Html.EditorFor(itemModel => item.LabelId)
+                    @Html.EditorFor(itemModel => item.LabelName)
+                </div>
+                <div class="divbtn" style="display:inline">
+                    <input type="button" value="addnew" class="addbtn" onclick="btnAdd(this)" style="display:inline">
+                    <input type="button" value="Delete" class="deletebtn" id="btnRemove" style="display:inline">
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="divdemo">
+            <h3><lable>轮播图</lable>@(index + 1)</h3>
+            <div class="divsubdemo">
+                <div class="divinput" style="display:inline">
+
+                    @Html.EditorFor(itemModel => item.LabelId)
+                    @Html.EditorFor(itemModel => item.LabelName)
+                </div>
+                <div class="divbtn" style="display:inline">
+                    <input type="button" value="addnew" class="addbtn" onclick="btnAdd(this)" style="display: none;">
+                    <input type="button" value="Delete" class="deletebtn" id="btnRemove" style="display:inline">
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+}
+@section scripts{
+    <script>
+
+        $("body").delegate(".addbtn", "click", function () {
+            var html = $(this).parent().parent().html();
+           
+            $(this).parent().find(".addbtn").hide();
+            $(this).parent().parent().parent().after("<div class=\"divdemo\"><h3><lable>轮播图</lable>" + ($(".divdemo").length + 1) + "</h3><div class=\"divsubdemo\">" + html + "</div></div>");
+        })
+
+        $("body").delegate(".deletebtn", "click", function () {
+            //var html = $(this).parent().parent().html();
+            if ($(this).parent().find(".addbtn").attr("style") == "display: none;") {
+                $(this).parent().parent().parent().remove();
+                for (var i = 0; i < $(".divdemo").length; i++) {
+                    $(".divdemo h3").eq(i)[0].childNodes[1].textContent = (i + 1);
+                }
+            }
+            else
+            {
+                $(this).parent().parent().parent().prev().find(".addbtn").css("display","inline");
+                $(this).parent().parent().parent().remove();
+                for (var i = 0; i < $(".divdemo").length; i++) {
+                    $(".divdemo h3").eq(i)[0].childNodes[1].textContent = (i + 1);
+                }
+                
+            }
+        })
+    </script>
+}

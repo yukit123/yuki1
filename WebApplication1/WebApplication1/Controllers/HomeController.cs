@@ -1466,6 +1466,21 @@ namespace WebApplication1.Controllers
         //}
         #endregion
 
+
+        public ActionResult AddDeleteRow()
+        {
+            ViewBag.Message = "Your contact page.";
+            var options = new List<Label>();
+            options.Add(new Label() { LabelId = 11, LabelName = "New Request" });
+            options.Add(new Label() { LabelId = 12, LabelName = "Reviewed" });
+            options.Add(new Label() { LabelId = 13, LabelName = "Started" });
+
+
+            //var list = db.Blogs.ToList();
+            return View(options);
+        }
+
+
     }
 }
 
