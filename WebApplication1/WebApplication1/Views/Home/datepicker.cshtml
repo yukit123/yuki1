@@ -1,4 +1,5 @@
-﻿<div id="ChooseLeft" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;float:left;">
+﻿@model WebApplication1.Models.Blog
+<div id="ChooseLeft" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;float:left;">
     <p value="1"><span>A</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
     <p value="2"><span>B</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
     <p value="3"><span>C</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
@@ -6,16 +7,26 @@
 </div>
 <div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
 
-@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
-<div role="navigation" aria-label="Passagers" class="_style_2VKbTR" data-reactid="95"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
-<div role="navigation" aria-label="Passagers2" class="_style_2VKbTR" data-reactid="99"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
+@*@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
+@Html.EditorFor(model => model.DateDocument, new { @Value = "2015-10-14" })*@
+
+
+@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "editbox"} })
+@*<input type="date" value="2015-10-14" onchange="mydate();"></input>
+
+@Html.TextBoxFor(model => model.DateDocument,
+           new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@
+
+@*<div role="navigation" aria-label="Passagers" class="_style_2VKbTR" data-reactid="95"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
+    <div role="navigation" aria-label="Passagers2" class="_style_2VKbTR" data-reactid="99"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>*@
+@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @class = "datepicker" , type = "date" } })
 
 
 <script>
     //$("body").on("click", "._style_2VKbTR[data-reactid='95']", function () {
     //    alert("s");
     //})
-  
+
     function move(button) {
         var p = button.parentElement;
         if (button.parentElement.parentElement.id == "ChooseLeft") {
@@ -45,9 +56,25 @@
             alert("s");
         })
 
-        $("#datepicker").datepicker({
-            dateFormat: 'yy-mm-dd'
+        $(".editbox").datepicker({
+            dateFormat: 'dd/mm/yy'
         })
+
+        function dateTransform(d) {
+            var s = (new Date(d)).toString().split(' ');
+            return [s[2], s[1], s[3]].join('-');
+        }
+
+        function mydate() {
+            d = new Date(document.getElementById("dt").value);
+            dt = d.getDate();
+            mn = d.getMonth();
+            mn++;
+            yy = d.getFullYear();
+            document.getElementById("ndt").value = dt + "/" + mn + "/" + yy
+            document.getElementById("ndt").hidden = false;
+            document.getElementById("dt").hidden = true;
+        }
     </script>
 }
 

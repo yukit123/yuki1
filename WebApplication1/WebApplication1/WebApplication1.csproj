@@ -615,6 +615,7 @@
     <Content Include="Views\Home\localStorage.cshtml" />
     <Content Include="Views\Home\storeProcedure2.cshtml" />
     <Content Include="Views\Home\storeProcedure3.cshtml" />
+    <Content Include="Views\Home\AddDeleteRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

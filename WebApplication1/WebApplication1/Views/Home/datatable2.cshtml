@@ -61,7 +61,7 @@
         </tr>
     </tfoot>
 </table>
-
+<input id="submitbtn" type="button" value="submitbtn" />
 
 
 @section scripts{
@@ -72,7 +72,8 @@
 
     <script>
         $(document).ready(function () {
-        
+
+          
             // DataTable
             var table = $('#example').DataTable();
             $("input[type=search]").datepicker({
@@ -84,6 +85,39 @@
             });                               
              
         });
+        $('#submitbtn').on('click', function () {
+            debugger;
+            var table = $('#example').DataTable();
+            var midata = table.rows().data();
+            var list = JSON.stringify(midata);
+            var data = table.$('td').serialize();
+            var query = JSON.parse("[{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]");
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("datatableajax", "Home")',
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                ansyc: false,
+                data: JSON.stringify(query),
+                success: function (data) {
+                    //reload page
+                }
+            })
+
+            //$.ajax({
+            //    //type: 'POST',
+            //    url: '/Home/Data',
+            //    async: false,
+            //    //extraParams: { term: $('#search2').val(),
+            //    dataType: "json",
+            //    contentType: 'application/json, charset=utf-8',
+            //    data: { term: JSON.stringify(query) },
+            //    success: function (data) {
+                    
+            //    }
+            //});
+        })
         function filterGlobal() {
             $('#example').DataTable().search(
                 $("input[type=search]").val()

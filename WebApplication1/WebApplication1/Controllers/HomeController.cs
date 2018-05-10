@@ -105,7 +105,7 @@ namespace WebApplication1.Controllers
 
             return View(list);
         }
-       public int Doconvert(string id)
+        public int Doconvert(string id)
         {
             return Convert.ToInt32(Regex.Replace(id, "[^0-9]+", string.Empty));
         }
@@ -114,20 +114,20 @@ namespace WebApplication1.Controllers
         public ActionResult Index(string[] Number)
         {
             string strConn = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
-           // string sqlstr = "INSERT INTO Table (Number) VALUES (@Number)";
-           
+            // string sqlstr = "INSERT INTO Table (Number) VALUES (@Number)";
+
             SqlConnection conn = new SqlConnection(strConn);
-             SqlCommand command = new SqlCommand(strConn,conn);
+            SqlCommand command = new SqlCommand(strConn, conn);
             foreach (var item in Number)
             {
                 command.CommandType = CommandType.Text;
                 command.CommandText = "INSERT INTO Table (Labels) VALUES (@Labels);";
                 command.Parameters.AddWithValue("@Labels", item.ToString());
                 conn.ConnectionString = strConn;
-              
+
                 conn.Open();
                 SqlDataReader myReader = command.ExecuteReader();
-                int n= command.ExecuteNonQuery();
+                int n = command.ExecuteNonQuery();
                 myReader.Close();
             }
             return View();
@@ -153,7 +153,7 @@ namespace WebApplication1.Controllers
              new StudentGrade{ID=5,StudentID=2,Course="B",Grade=67},
              new StudentGrade{ID=6,StudentID=1,Course="C",Grade=95}
          };
-                 DataTable dt = new DataTable();
+            DataTable dt = new DataTable();
             dt.Columns.Add(" ");
             var columns = list.Select(x => x.StudentID).Distinct().ToList();// 1 2 3 4
             foreach (var item in columns)
@@ -180,7 +180,7 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Message = "Your application description page.";
             var aa = Convert.ToInt32(item + customer);
-            return Json( new { success = true, msg = "123" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, msg = "123" }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -206,7 +206,7 @@ namespace WebApplication1.Controllers
             // cmd.Connection = con;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(ds);
-           
+
             Tree tree = new Tree();
             List<Tree> treelist = new List<Tree>();
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -215,7 +215,7 @@ namespace WebApplication1.Controllers
                 tre.Id = Convert.ToInt32(ds.Tables[0].Rows[i]["Id"].ToString());
                 tre.NodeId = Convert.ToInt32(ds.Tables[0].Rows[i]["NodeId"].ToString());
                 tre.Name = ds.Tables[0].Rows[i]["Name"].ToString();
-               
+
                 treelist.Add(tre);
             }
             tree.Treeinfo = treelist;
@@ -242,7 +242,7 @@ namespace WebApplication1.Controllers
                 Name = item.Name,
                 ID = item.ID,
                 Description = item.Description,
-                Pid=item.Pid,
+                Pid = item.Pid,
                 Childs = FillRecursive(flatObjects, item.ID)
             }).ToList();
         }
@@ -292,7 +292,7 @@ namespace WebApplication1.Controllers
             if (categories != null)
             {
                 List<CategoryViewModel> headerTree = FillRecursive(categories, null);
-  
+
                 #region treeTable  
 
                 string root_li = string.Empty;
@@ -319,7 +319,7 @@ namespace WebApplication1.Controllers
                                         + " <td>" + down1.Name + "</td>"
                                         + "</tr>"
                                         + down2_names;
-                                     
+
                     }
                     root_li += down1_names;
                 }
@@ -383,7 +383,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult treegrid()//icon folder for tree table
         {
-           
+
             ViewBag.Message2 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
 
             return View();
@@ -392,15 +392,16 @@ namespace WebApplication1.Controllers
         public ActionResult TreeGrid2()//jqxTreeGrid
         {
 
-           // ViewBag.Message2 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
+            // ViewBag.Message2 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
 
             return View();
         }
         public ActionResult datepicker()
         {
+            var list = db.Blogs.ToList().FirstOrDefault();
             ViewBag.Message = "Your application description page.";
-
-            return View();
+            list.DateDocument = Convert.ToDateTime("2018/12/14");
+            return View(list);
         }
 
 
@@ -421,17 +422,17 @@ namespace WebApplication1.Controllers
         public JsonResult IsStudentExists(int? Id)
         {
             var list = db.Student.ToList();
-          
+
             //check if any of the UserName matches the UserName specified in the Parameter using the ANY extension method. 
-            return Json((!list.Any(x => x.Id == Id)==false?"false":"true"), JsonRequestBehavior.AllowGet);
+            return Json((!list.Any(x => x.Id == Id) == false ? "false" : "true"), JsonRequestBehavior.AllowGet);
         }
 
 
         public ActionResult validate2()
         {
             var list = db.Label.ToList().FirstOrDefault();
-           // ProjectAndStudentModels pvm = new ProjectAndStudentModels();
-           // pvm.StudentsAndID = db.Student.ToList();
+            // ProjectAndStudentModels pvm = new ProjectAndStudentModels();
+            // pvm.StudentsAndID = db.Student.ToList();
 
             return View(list);
         }
@@ -458,7 +459,7 @@ namespace WebApplication1.Controllers
             {
                 return Json(new { success = true, showlist = list, msg = "Successful operation" }, JsonRequestBehavior.AllowGet);
             }
-           
+
         }
 
         [HttpGet]
@@ -764,11 +765,14 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+
         [HttpPost]
-        public ActionResult datatableajax(string array)
+        public JsonResult datatableajax()
         {
-            // do sth to save data to sqldb
-            return View();
+            var sr = new StreamReader(Request.InputStream);
+             var stream = sr.ReadToEnd();
+
+            return Json(stream, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult datatable2()//calendar 
@@ -1256,6 +1260,22 @@ namespace WebApplication1.Controllers
 
         }
 
+
+        public ActionResult AddDeleteRow()
+        {
+            
+
+            var options = new List<Label>();
+
+            options.Add(new Label() { LabelId = 11, LabelName = "lab1" });
+
+            options.Add(new Label() { LabelId = 12, LabelName = "lab2" });
+
+            options.Add(new Label() { LabelId = 13, LabelName = "lab3" });
+           
+            return View(options);
+
+        }
     }
 }
 

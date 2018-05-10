@@ -17,6 +17,9 @@ namespace WebApplication1.Models
         public string strBlogId { get; set; }
         //[NotMapped]
         //public bool BlogId2 { get; set; }
+        [NotMapped]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public System.DateTime DateDocument { get; set; }
 
 
 
