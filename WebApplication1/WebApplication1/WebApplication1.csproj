@@ -616,6 +616,7 @@
     <Content Include="Views\Home\storeProcedure2.cshtml" />
     <Content Include="Views\Home\storeProcedure3.cshtml" />
     <Content Include="Views\Home\AddDeleteRow.cshtml" />
+    <Content Include="Views\Home\FloatWindow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
