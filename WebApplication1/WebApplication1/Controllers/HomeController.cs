@@ -466,14 +466,14 @@ namespace WebApplication1.Controllers
         public JsonResult GetData2(int id)
         {
             var list = db.Cities.Where(_ => _.CountryId == id).ToList();
-            if (list == null)
-            {
-                return Json(new { success = false, showlist = list, msg = "operation failed" }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { success = true, showlist = list, msg = "Successful operation" }, JsonRequestBehavior.AllowGet);
-            }
+            //if (list == null)
+            //{
+                return Json(new { showlist = list }, JsonRequestBehavior.AllowGet);
+            //}
+            //else
+            //{
+            //    return Json(new { success = true, showlist = list, msg = "Successful operation" }, JsonRequestBehavior.AllowGet);
+            //}
 
         }
 
@@ -540,7 +540,7 @@ namespace WebApplication1.Controllers
             //osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
             List<SelectListItem> osrListItems3=db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).ToList();
-            ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text", osrListItems3[1].Value);
+            ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text");
             return View();
         }
 
@@ -1281,6 +1281,65 @@ namespace WebApplication1.Controllers
            
             return View(options);
 
+        }
+     
+        public ActionResult ApplyLeave()
+        {
+            DateTime today = DateTime.Today;
+
+            le_leaveApplication le_leaveApplication = new le_leaveApplication();
+            le_leaveApplication.EmployeeId = 1;
+            le_leaveApplication.LeaveFrom = today;
+            le_leaveApplication.LeaveTo = today;
+
+            return View(le_leaveApplication);
+        }
+
+        // POST: eClaim/le_leaveApplication/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult ApplyLeavePreview(le_leaveApplication le_leaveApplication)
+        {
+            if (ModelState.IsValid)
+            {
+                le_leaveApplication.LeaveDurationDays = (int)(le_leaveApplication.LeaveTo - le_leaveApplication.LeaveFrom).TotalDays + 1;
+                
+                // minus weekend and public holidays.
+                //ViewBag.list = le_leaveApplication as le_leaveApplication;
+                //return View("ApplyLeavePreview", le_leaveApplication);
+
+                return View(le_leaveApplication);
+
+            }
+
+           
+            return RedirectToAction("ApplyLeave");
+        }
+
+        //public ActionResult ApplyLeavePreview()
+        //{
+
+        //    return View();
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApplyLeavePreview2([Bind(Include = "Id,EmployeeId,LeaveType,LeaveFrom,LeaveTo,LeaveDurationDays")] le_leaveApplication le_leaveApplication)
+        {
+            if (ModelState.IsValid)
+            {
+                // insert a record into leave application table with status 'pending approval' and leave application date = system date.
+                le_leaveApplication.DateApplied = DateTime.Today;
+                le_leaveApplication.ApplicationStatus = "Pending Approval";
+
+                db.le_leaveApplications.Add(le_leaveApplication);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(le_leaveApplication);
         }
     }
 }

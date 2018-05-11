@@ -2,27 +2,53 @@
 @{
     ViewBag.Title = "datalist2";
 }
+@*<style>
+    input {
+        /*-webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;*/
+        color: red;
+    }
 
-<h2>datalist2</h2>
+        input[name="browsers"] {
+            border: 2px solid orange;
+            border-radius: 10px 10px 10px 10px;
+            font-size: 18px;
+            padding: 5px;
+            height: 35px;
+            width: 350px;
+        }
 
-@Html.DropDownList("OSRddl")
+        input::-webkit-calendar-picker-indicator {
+            /*   display: none; */
+        }
+</style>*@
 
-<label for="search2">Search: </label>
-<input id="datalist" list="getdatalist" />
-<datalist id="getdatalist"></datalist>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#firstTab">Zgrade</a></li>
+    <li><a data-toggle="tab" href="#secondTab">Troskovi vezani za gradu</a></li>
+</ul>
+<div class="tab-content">
+    <div id="firstTab" class="tab-pane fade in active">@Html.DropDownList("OSRddl")</div>
+    <div id="secondTab" class="tab-pane fade in">
+        <label for="search2">Search: </label>
+        <input id="datalist" name="browsers" list="getdatalist" />
+        <datalist id="getdatalist"></datalist>
+    </div>
+</div>
+
 
 @section scripts{
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            var list_datalist = Array();
             $.ajax({
                 url: '/Home/GetData2',
                 type: 'GET',
-                async: false,
+                //async: false,
                 data: { id: $("#OSRddl").val() },
                 success: function (data) {
                     for (var i = 0; i < data.showlist.length; i++) {
@@ -33,16 +59,14 @@
         });
 
 
-        $('body').on("change", "#OSRddl", function (e) {
-
-            var list_datalist = Array();
+        $('body').on("change", "#OSRddl", function () {
             $.ajax({
                 url: '/Home/GetData2',
                 type: 'GET',
-                async: false,
+                //async: false,
                 data: { id: $("#OSRddl").val() },
                 success: function (data) {
-                     $("#getdatalist").empty();
+                    $("#getdatalist").empty();
                     for (var i = 0; i < data.showlist.length; i++) {
                         $("#getdatalist").append("<option label='" + data.showlist[i].CityName + "'Value='" + data.showlist[i].CityName + "'></option>");
 
@@ -50,7 +74,6 @@
 
                 }
             })
-
         });
     </script>
 }

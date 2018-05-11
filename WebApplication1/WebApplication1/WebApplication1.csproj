@@ -412,6 +412,7 @@
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\admin\adminController.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EFBolgModel.Designer.cs">
@@ -474,6 +475,10 @@
     <Compile Include="Migrations\201805090553292_products.Designer.cs">
       <DependentUpon>201805090553292_products.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805110649454_le_leaveApplications.cs" />
+    <Compile Include="Migrations\201805110649454_le_leaveApplications.Designer.cs">
+      <DependentUpon>201805110649454_le_leaveApplications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -481,6 +486,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\le_leaveApplication.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProjectAndStudentModels.cs" />
     <Compile Include="Models\Search.cs" />
@@ -617,6 +623,15 @@
     <Content Include="Views\Home\storeProcedure3.cshtml" />
     <Content Include="Views\Home\AddDeleteRow.cshtml" />
     <Content Include="Views\Home\FloatWindow.cshtml" />
+    <Content Include="Views\Authors\Create.cshtml" />
+    <Content Include="Views\Authors\Delete.cshtml" />
+    <Content Include="Views\Authors\Details.cshtml" />
+    <Content Include="Views\Authors\Edit.cshtml" />
+    <Content Include="Views\Authors\Index.cshtml" />
+    <Content Include="Views\Home\ApplyLeave.cshtml" />
+    <Content Include="Views\Home\ApplyLeavePreview.cshtml" />
+    <Content Include="Views\Authors\ApplyLeave.cshtml" />
+    <Content Include="Views\Authors\ApplyLeavePreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -677,6 +692,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805090553292_products.resx">
       <DependentUpon>201805090553292_products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805110649454_le_leaveApplications.resx">
+      <DependentUpon>201805110649454_le_leaveApplications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
