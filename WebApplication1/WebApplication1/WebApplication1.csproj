@@ -479,6 +479,10 @@
     <Compile Include="Migrations\201805110649454_le_leaveApplications.Designer.cs">
       <DependentUpon>201805110649454_le_leaveApplications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805110955213_change2.cs" />
+    <Compile Include="Migrations\201805110955213_change2.Designer.cs">
+      <DependentUpon>201805110955213_change2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -695,6 +699,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805110649454_le_leaveApplications.resx">
       <DependentUpon>201805110649454_le_leaveApplications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805110955213_change2.resx">
+      <DependentUpon>201805110955213_change2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
