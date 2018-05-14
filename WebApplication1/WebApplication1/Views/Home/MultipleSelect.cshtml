@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "MultipleSelect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <h2>MultipleSelect</h2>
+    //Method1
+    @Html.DropDownList("fruit", ViewBag.fruit as IEnumerable<SelectListItem>, new { multiple = "multiple" })
+    <br /><br />
+    //Method2
+    @Html.ListBox("fruitListbox", ViewBag.fruit as IEnumerable<SelectListItem>, new { multiple = "multiple" })
+    <br /><br />
+    <input type="submit" />
+
+
+}
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //fruit(Method1)
+            $('#fruit').multiselect();
+            //fruitListbox(Method2)
+            $('option').mousedown(function (e) {
+                e.preventDefault();
+                var originalScrollTop = $(this).parent().scrollTop();//滚动条
+                console.log(originalScrollTop);
+                $(this).prop('selected', $(this).prop('selected') ? false : true);
+                var self = this;
+                $(this).parent().focus();
+                setTimeout(function () {
+                    $(self).parent().scrollTop(originalScrollTop);
+                }, 0);
+                return false;
+            });
+        });
+    </script>
+}

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -1036,7 +1039,7 @@ namespace WebApplication1.Controllers
             public string FoodItem { get; set; }
 
         }
-        public ActionResult storeProcedure()//调用存储过程
+        public ActionResult storeProcedure()//调用存储过程  //https://forums.asp.net/t/2132556.aspx
         {
             DataSet ds = new DataSet();
             string connectionstring = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
@@ -1199,6 +1202,195 @@ namespace WebApplication1.Controllers
             string fileName = "test.xls";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
+        #region importEcportTools
+        //public class ImportExportTool
+        //{
+        //    private static ICollection<Label> _students;
+        //    public static ICollection<Label> Students
+        //    {
+        //        get
+        //        {
+        //            return _students;
+        //        }
+        //        set
+        //        {
+        //            _students = value;
+        //        }
+        //    }
+
+        //    public static ICollection<Label> GetStudents()
+        //    {
+        //        ICollection<Label> students = new List<Label>();
+
+        //        Random r = new Random();
+        //        students.Add(new Label { LabelId = 1, LabelName = "A"});
+        //        students.Add(new Label { LabelId = 2, LabelName = "B" });
+        //        students.Add(new Label { LabelId = 3, LabelName = "C" });
+
+        //        //students.Add(new Label { Name = "E", Age = 17, EnglishScore = r.Next(60, 100), MathScore = r.Next(60, 100), Gender = Gender.Male });
+
+        //        _students = students;
+
+        //        return students;
+        //    }
+
+        //    public static ICollection<Label> Import(Stream stream)
+        //    {
+        //        ICollection<Label> students = new List<Label>();
+
+        //        #region read excel
+        //        using (stream)
+        //        {
+        //            ExcelPackage package = new ExcelPackage(stream);
+
+        //            ExcelWorksheet sheet = package.Workbook.Worksheets[1];
+
+        //            #region check excel format
+        //            if (sheet == null)
+        //            {
+        //                return students;
+        //            }
+        //            if (!sheet.Cells[1, 1].Value.Equals("Name") ||
+        //                 !sheet.Cells[1, 2].Value.Equals("Age") ||
+        //                 !sheet.Cells[1, 3].Value.Equals("Gender") ||
+        //                 !sheet.Cells[1, 4].Value.Equals("English Score") ||
+        //                 !sheet.Cells[1, 5].Value.Equals("Math Score"))
+        //            {
+        //                return students;
+        //            }
+        //            #endregion
+
+        //            #region get last row index
+        //            int lastRow = sheet.Dimension.End.Row;
+        //            while (sheet.Cells[lastRow, 1].Value == null)
+        //            {
+        //                lastRow--;
+        //            }
+        //            #endregion
+
+        //            #region read datas
+        //            for (int i = 2; i <= lastRow; i++)
+        //            {
+        //                students.Add(new Student
+        //                {
+        //                    Name = sheet.Cells[i, 1].Value.ToString(),
+        //                    Age = int.Parse(sheet.Cells[i, 2].Value.ToString()),
+        //                    Gender = (Gender)Enum.Parse(typeof(Gender), sheet.Cells[i, 3].Value.ToString()),
+        //                    EnglishScore = int.Parse(sheet.Cells[i, 4].Value.ToString()),
+        //                    MathScore = int.Parse(sheet.Cells[i, 5].Value.ToString())
+
+        //                });
+        //            }
+        //            #endregion
+
+        //        }
+        //        #endregion
+
+        //        return students;
+        //    }
+
+        //    public static MemoryStream Export(ICollection<Student> students)
+        //    {
+        //        MemoryStream stream = new MemoryStream();
+        //        ExcelPackage package = new ExcelPackage(stream);
+
+        //        package.Workbook.Worksheets.Add("Students");
+        //        ExcelWorksheet sheet = package.Workbook.Worksheets[1];
+
+        //        #region write header
+        //        sheet.Cells[1, 1].Value = "Name";
+        //        sheet.Cells[1, 2].Value = "Age";
+        //        sheet.Cells[1, 3].Value = "Gender";
+        //        sheet.Cells[1, 4].Value = "English Score";
+        //        sheet.Cells[1, 5].Value = "Math Score";
+        //        sheet.Cells[1, 6].Value = "Average Score";
+
+        //        using (ExcelRange range = sheet.Cells[1, 1, 1, 6])
+        //        {
+        //            range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //            range.Style.Fill.BackgroundColor.SetColor(Color.Gray);
+        //            range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+        //            range.Style.Border.Bottom.Color.SetColor(Color.Black);
+        //            range.AutoFitColumns(4);
+        //        }
+        //        #endregion
+
+        //        #region write content
+        //        int pos = 2;
+        //        foreach (Student s in students)
+        //        {
+        //            sheet.Cells[pos, 1].Value = s.Name;
+        //            sheet.Cells[pos, 2].Value = s.Age;
+        //            sheet.Cells[pos, 3].Value = s.Gender;
+        //            sheet.Cells[pos, 4].Value = s.EnglishScore;
+        //            sheet.Cells[pos, 5].Value = s.MathScore;
+        //            sheet.Cells[pos, 6].FormulaR1C1 = "AVERAGE(RC[-1], RC[-2])";
+
+        //            if (s.MathScore > 90 && s.EnglishScore > 90)
+        //            {
+        //                using (ExcelRange range = sheet.Cells[pos, 1, pos, 6])
+        //                {
+        //                    range.Style.Font.Color.SetColor(Color.Blue);
+        //                }
+        //            }
+        //            else if (s.MathScore < 80 && s.EnglishScore < 80)
+        //            {
+        //                using (ExcelRange range = sheet.Cells[pos, 1, pos, 6])
+        //                {
+        //                    range.Style.Font.Color.SetColor(Color.Red);
+        //                }
+        //            }
+
+        //            using (ExcelRange range = sheet.Cells[pos, 1, pos, 6])
+        //            {
+        //                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+        //                range.Style.Border.Bottom.Color.SetColor(Color.Black);
+        //                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+        //            }
+
+        //            pos++;
+        //        }
+        //        #endregion
+
+        //        package.Save();
+
+        //        return stream;
+        //    }
+        //}
+        
+        //public ActionResult Refresh()
+        //{
+        //    //ViewBag.students = ImportExportTool.GetStudents();
+
+        //    return View("ImportExport");
+        //}
+
+        //public ActionResult Import(HttpPostedFileBase file)
+        //{
+        //    if (file == null)
+        //    {
+        //        ViewBag.Message = "Please select a file!";
+        //    }
+        //    else
+        //    {
+        //        ICollection<Student> students = ImportExportTool.Import(file.InputStream);
+        //        ImportExportTool.Students = students;
+        //    }
+
+        //    ViewBag.students = ImportExportTool.Students;
+        //    return View("ImportExport");
+        //}
+
+        //public FileResult Export()
+        //{
+        //    MemoryStream stream = ImportExportTool.Export(ImportExportTool.Students);
+
+        //    return File(stream.ToArray(),
+        //        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        //        "EPPlusDemo.xlsx");
+        //}
+
+        #endregion
         #endregion
 
         #region zhyan.ise
@@ -1212,6 +1404,32 @@ namespace WebApplication1.Controllers
         public ActionResult image()//image inside td   关键： @Url.Content:正确加载图片
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult convert()//convert number to words jquery
+        {
+            #region Hashtable .Values.Cast<Label>
+            //Hashtable h1 = new Hashtable();
+            //Label p1 = new Label();
+            //p1.LabelId = 1;
+            //p1.LabelName = "Ram";
+
+            //Label p2 = new Label();
+            //p2.LabelId = 2;
+            //p2.LabelName = "LAXMAN";
+
+            //Label p3 = new Label();
+            //p3.LabelId = 4;
+            //p3.LabelName = "Kris";
+
+            //h1.Add(1, p1);
+            //h1.Add(2, p2);
+            //h1.Add(3, p3);
+
+            //var item = h1.Values.Cast<Label>().Where(x => x.LabelId > 3).ToList();
+            #endregion
 
             return View();
         }
@@ -1282,7 +1500,8 @@ namespace WebApplication1.Controllers
             return View(options);
 
         }
-     
+
+        #region ModelState.Clear()
         public ActionResult ApplyLeave()
         {
             DateTime today = DateTime.Today;
@@ -1341,7 +1560,259 @@ namespace WebApplication1.Controllers
 
             return View(le_leaveApplication);
         }
+        #endregion
+        #region Ajax.BeginForm Html.BeginForm SelectListItem in model
+        public class ListViewModel
+        {
+            public int SelectedValue { get; set; }
+            public List<SelectListItem> Fields { get; set; }
+        }
+        public ViewResult BeginFormList(string category, string price, string SelectedValue, int page = 1)
+        {
+
+            ListViewModel model = new ListViewModel
+            {
+
+                Fields = new List<SelectListItem>
+
+                {
+
+                   new SelectListItem { Text = "Order By Descending", Value = "OrderByDescending" },
+
+                   new SelectListItem { Text = "Pune", Value = "2" },
+
+                   new SelectListItem { Text = "Mumbai", Value = "3" },
+
+                   new SelectListItem { Text = "Delhi", Value = "4" }
+
+                }
+
+            };
+
+            return View(model);
+        }
+        #endregion
+
+        public ActionResult MultipleSelect()
+        {
+            var list = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.fruit = list;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox)
+        {
+            var list = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.fruit = list;
+            //Save
+            return View();
+        }
+
+        public ActionResult ImportExcel(List<string> fruit, List<string> fruitListbox)
+        {
+            var list = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.fruit = list;
+            //Save
+            return View();
+        }
+
+        public class ImportExcelViewModel
+        {
+  
+            public string email { get; set; }
+            public string RowNb { get; set; }
+
+        }
+        public ActionResult Upload(FormCollection formCollection)
+        {
+            //if (Request != null)
+            //{
+            //    HttpPostedFileBase file = Request.Files["UploadedFile"];
+            //    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+            //    {
+            //        string fileName = file.FileName;
+            //        string fileContentType = file.ContentType;
+            //        byte[] fileBytes = new byte[file.ContentLength];
+            //        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+            //        var usersList = new List<Label>();
+            //        using (var package = new ExcelPackage(file.InputStream))
+            //        {
+            //            var currentSheet = package.Workbook.Worksheets;
+            //            var workSheet = currentSheet.First();
+            //            var noOfCol = workSheet.Dimension.End.Column;
+            //            var noOfRow = workSheet.Dimension.End.Row;
+
+            //            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+            //            {
+            //                var user = new Label();
+            //                user.LabelId = Convert.ToInt32(workSheet.Cells[rowIterator, 1].Value);
+            //                user.LabelName = workSheet.Cells[rowIterator, 2].Value.ToString();
+            //                usersList.Add(user);
+            //            }
+            //        }
+            //    }
+            //}
+            //return View("ImportExcel");
+
+            try
+            {
+                
+                if (Request.Files.Count > 0)
+                {
+                    try
+                    {
+                        HttpFileCollectionBase files = Request.Files;
+                        for (int i = 0; i < files.Count; i++)
+                        {
+                            HttpPostedFileBase file = files[i];
+                            string fileName = file.FileName;
+                            string fileContentType = file.ContentType;
+                            byte[] fileBytes = new byte[file.ContentLength];
+                            var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                            //List<lead> leadsList = new List<lead>();
+                            List<ImportExcelViewModel> lstImportExcel = new List<ImportExcelViewModel>();
+                            List<ImportExcelViewModel> errorLstImportExcel = new List<ImportExcelViewModel>();
+
+                            using (var package = new ExcelPackage(file.InputStream))
+                            {
+                                var currentSheet = package.Workbook.Worksheets;
+                                var workSheet = currentSheet.First();
+                                var noOfCol = workSheet.Dimension.End.Column;
+                                var noOfRow = workSheet.Dimension.End.Row;
+
+                                //first row is titles
+                                for (int rowIterator = 1; rowIterator <= noOfRow; rowIterator++)
+                                {
+                                    /********************************Validtae*************************/
+                                    var importExcelRow = new ImportExcelViewModel
+                                    {
+                                        email = workSheet.Cells[rowIterator, 1].Value.ToString(),
+                                        RowNb = workSheet.Cells[rowIterator, 2].Value.ToString()
+
+
+                                    };
+                                    lstImportExcel.Add(importExcelRow);
+                                    /*****************************validate*****************************************/
+
+                                }
+                               // lstImportExcel = ValidateImport(lstImportExcel); //validate the rows with the system values 
+                                if (lstImportExcel != null)
+                                {
+
+
+                                    foreach (var importExcelRow in lstImportExcel)
+                                    {
+                                        //if (importExcelRow.IsVallid == true)
+                                        //{
+                                        //    //save in database
+                                        //}
+                                        //else
+                                        //{
+                                            //save records of error  that are not saved
+                                            var errorImportExcelRow = new ImportExcelViewModel
+                                            {
+                                                email = importExcelRow.email,
+                                                RowNb = importExcelRow.RowNb
+
+                                            };
+                                            errorLstImportExcel.Add(errorImportExcelRow);
+                                        //}
+                                    }
+
+
+
+                                }
+                                else
+                                {
+                                    //something wrong in validation
+                                    return Json(false);
+                                }
+
+
+                            }
+                            //export to excel the error emails
+                            ExcelPackage excel = new ExcelPackage();
+                            var myworkSheet = excel.Workbook.Worksheets.Add("Sheet1");
+
+                            //Header of table  
+                            //  
+                            myworkSheet.Row(1).Height = 20;
+                            myworkSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            myworkSheet.Row(1).Style.Font.Bold = true;
+                            myworkSheet.Cells[1, 1].Value = "Row Number";
+                            myworkSheet.Cells[1, 2].Value = "Email";
+
+                            //Body of table  
+                            //  
+                            int recordIndex2 = 1;
+                            foreach (var student in errorLstImportExcel)
+                            {
+                                myworkSheet.Cells[recordIndex2, 1].Value = student.RowNb.ToString();
+                                myworkSheet.Cells[recordIndex2, 2].Value = student.email.ToString();
+
+                                recordIndex2++;
+                            }
+                            myworkSheet.Column(1).AutoFit();
+                            myworkSheet.Column(2).AutoFit();
+
+                            var fileBytes2 = excel.GetAsByteArray();
+                            Response.Clear();
+
+                            Response.AppendHeader("Content-Length", fileBytes2.Length.ToString());
+                            Response.AppendHeader("Content-Disposition",
+                                String.Format("attachment; filename=\"{0}\"; size={1}; creation-date={2}; modification-date={2}; read-date={2}"
+                                    , "test.xlsx"
+                                    , fileBytes2.Length
+                                    , DateTime.Now.ToString("R"))
+                                );
+                            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                            Response.BinaryWrite(fileBytes2);
+                            Response.End();
+
+                            return Json(false);
+
+                        }
+                        return Json(false);
+                    }
+                    catch (Exception e)
+                    {
+
+                        return Json(false);
+                    }
+
+                }
+
+                return Json(false);
+            }
+            catch (Exception e)
+            {
+
+
+                return Json(false);
+            }
+
+        }
+
     }
+
+
+
 }
 
 
