@@ -1,0 +1,21 @@
+﻿@model List<WebApplication1.Controllers.HomeController.FileColl>
+@{
+    ViewBag.Title = "Downloadfile";
+}
+
+<ul>
+    @foreach (WebApplication1.Controllers.HomeController.FileColl file in Model)
+    {
+        @*<li><a href="@file.FilePath" download>@file.FileName</a></li>*@
+        <li><a href="~/stuff/@file.FileName">@file.FileName</a></li>
+        @*<li><a href="@Url.Content("~/stuff/@file.FileName")">test</a></li>*@
+
+
+    }
+
+    @*<a href="file:///C:\Users\yukit\source\repos\yuki1\WebApplication1\WebApplication1\stuff\test.docx">test</a>
+        <a href="@Url.Content("~/stuff/test.docx")">test</a>
+        <a href="~/stuff/test.docx">test</a>*@  
+
+
+</ul>

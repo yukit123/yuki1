@@ -563,11 +563,17 @@
     <Content Include="Scripts\jquery.treetable-ajax-persist.js" />
     <Content Include="Scripts\jquery.treetable.js" />
     <Content Include="Scripts\jquery.treeview.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\persist-min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -644,6 +650,10 @@
     <Content Include="Views\Home\BeginFormList.cshtml" />
     <Content Include="Views\Home\MultipleSelect.cshtml" />
     <Content Include="Views\Home\ImportExcel.cshtml" />
+    <Content Include="Views\Home\Downloadfile_link.cshtml" />
+    <Content Include="stuff\MVC readiness.docx" />
+    <Content Include="stuff\test.docx" />
+    <Content Include="Views\Home\Unobtrusive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

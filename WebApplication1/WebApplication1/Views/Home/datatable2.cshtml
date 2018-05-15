@@ -3,6 +3,39 @@
     ViewBag.Title = "datatable2";
 }
 
+
+<table border="0" cellspacing="5" cellpadding="5">
+    <tbody>
+        <tr>
+            <td>Minimum age:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Maximum age:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="0" cellspacing="5" cellpadding="5">
+    <tbody>
+        <tr>
+            <td>from:</td>
+            <td><input type="text" id="from" name="from"></td>
+        </tr>
+        <tr>
+            <td>to:</td>
+            <td><input type="text" id="to" name="to"></td>
+        </tr>
+    </tbody>
+</table>
+
+@*<label for="from">From</label>
+    <input type="text" id="from" name="from">
+    <label for="to">to</label>
+    <input type="text" id="to" name="to">*@
+
+
 <table id="example" class="display" style="width:100%">
     <thead>
         <tr>
@@ -19,6 +52,7 @@
             <td>Tiger Nixon</td>
             <td>System Architect</td>
             <td>Edinburgh</td>
+            @*<td><input type="text" value="61"></td>*@
             <td>61</td>
             <td>2011/04/25</td>
             <td>$320,800</td>
@@ -27,7 +61,8 @@
             <td>Tiger Nixon2</td>
             <td>System Architect</td>
             <td>Edinburgh</td>
-            <td>61</td>
+            @*<td><input type="text" value="42"></td>*@
+            <td>42</td>
             <td>2018/04/25</td>
             <td>$320,800</td>
         </tr>
@@ -35,6 +70,7 @@
             <td>Zorita Serrano</td>
             <td>Software Engineer</td>
             <td>San Francisco</td>
+            @*<td><input type="text" value="56"></td>*@
             <td>56</td>
             <td>2012/06/01</td>
             <td>$115,000</td>
@@ -44,6 +80,7 @@
             <td>Jonas Alexander</td>
             <td>Developer</td>
             <td>San Francisco</td>
+            @*<td><input type="text" value="30"></td>*@
             <td>30</td>
             <td>2010/07/14</td>
             <td>$86,500</td>
@@ -64,16 +101,144 @@
 <input id="submitbtn" type="button" value="submitbtn" />
 
 
+
 @section scripts{
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    @*<script src="~/Scripts/moment.js"></script>
+        <script src="~/Scripts/moment.min.js"></script>*@
+    <script src="~/Scripts/datatables.js"></script>
+    @*<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script>
-        $(document).ready(function () {
+        //$(function () {
+        //    //var dateFormat = "mm/dd/yy",
+        //    //    from = $("#from")
+        //    //        .datepicker({
+        //    //            defaultDate: "+1w",
+        //    //            changeMonth: true
 
-          
+        //    //        })
+        //    //        .on("change", function () {
+        //    //            to.datepicker("option", "minDate", getDate(this));
+        //    //            //$('#example').DataTable().search(
+        //    //            //    $("#from").val()
+        //    //            //).draw();
+        //    //        }),
+        //    //    to = $("#to").datepicker({
+        //    //        defaultDate: "+1w",
+        //    //        changeMonth: true
+
+        //    //    })
+        //    //        .on("change", function () {
+        //    //            from.datepicker("option", "maxDate", getDate(this));
+        //    //            //$('#example').DataTable().search(
+        //    //            //    $("#to").val()
+        //    //            //).draw();
+        //    //        });
+
+        //    //function getDate(element) {
+        //    //    var date;
+        //    //    try {
+        //    //        date = $.datepicker.parseDate(dateFormat, element.value);
+        //    //    } catch (error) {
+        //    //        date = null;
+        //    //    }
+
+        //    //    return date;
+        //    //}
+
+        //    $("#from").datepicker({
+        //        defaultDate: "+1w",
+        //        changeMonth: true,
+        //        dateFormat: 'yy/mm/dd',
+        //        onClose: function (selectedDate) {
+        //            $("#to").datepicker("option", "minDate", selectedDate);
+        //        }
+        //    }).on("input change", function () {
+
+        //        //$('#example').DataTable().search(
+        //            $.fn.dataTable.ext.search.push(
+        //                function (settings, data, dataIndex) {
+        //                    var from = $('#from').val();
+        //                    var to = $('#to').val();
+        //                    var age = parseFloat(data[4]) || 0; // use data for the age column
+
+        //                    if (((from == "") && (to == "")) ||
+        //                        ((from == "") && age <= to) ||
+        //                        (from <= age && (to == "")) ||
+        //                        (from <= age && age <= to)) {
+        //                        return true;
+        //                    }
+        //                    return false;
+        //                }
+        //            )
+        //        //).draw();
+
+
+        //    });
+        //    $("#to").datepicker({
+        //        defaultDate: "+1w",
+        //        changeMonth: true,
+        //        dateFormat: 'yy/mm/dd',
+        //        onClose: function (selectedDate) {
+        //            $("#from").datepicker("option", "maxDate", selectedDate);
+        //        }
+        //    }).on("input change", function () {
+        //        //$('#example').DataTable().search(
+        //            $.fn.dataTable.ext.search.push(
+        //                function (settings, data, dataIndex) {
+        //                    var from = $('#from').val();
+        //                    var to = $('#to').val();
+        //                    var age = parseFloat(data[4]) || 0; // use data for the age column
+
+        //                    if (((from == "") && (to == "")) ||
+        //                        ((from == "") && age <= to) ||
+        //                        (from <= age && (to == "")) ||
+        //                        (from <= age && age <= to)) {
+        //                        return true;
+        //                    }
+        //                    return false;
+        //                }
+        //            )
+        //        //).draw();
+
+        //    });
+        //});
+
+
+        $(document).ready(function () {
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = parseInt($('#min').val(), 10);
+                    var max = parseInt($('#max').val(), 10);
+                    var age = parseFloat(data[3]) || 0; // use data for the age column
+
+                    if ((isNaN(min) && isNaN(max)) ||
+                        (isNaN(min) && age <= max) ||
+                        (min <= age && isNaN(max)) ||
+                        (min <= age && age <= max)) {
+                        return true;
+                    }
+                    return false;
+                }
+
+                //function (settings, data, dataIndex) {
+                //    var from = $('#from').val();
+                //    var to = $('#to').val();
+                //    var age = data[4] || 0; // use data for the age column
+
+                //    if (((from == "") && (to == "")) ||
+                //        ((from == "") && age <= to) ||
+                //        (from <= age && (to == "")) ||
+                //        (from <= age && age <= to)) {
+                //        return true;
+                //    }
+                //    return false;
+                //}
+            );
             // DataTable
             var table = $('#example').DataTable();
             $("input[type=search]").datepicker({
@@ -82,12 +247,46 @@
             }).on("input change", function () {
 
                 filterGlobal();
-            });                               
-             
+                });
+
+            $('#min, #max').keyup(function () {
+                table.draw();
+            });
+            $('#from, #to').keyup(function () {
+                table.draw();
+            });
         });
+
+        $(document).ready(function () {
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = $('#from').datepicker("getDate");
+                    var max = $('#to').datepicker("getDate");
+                    var startDate = new Date(data[4]);
+                    if (min == null && max == null) { return true; }
+                    if (min == null && startDate <= max) { return true; }
+                    if (max == null && startDate >= min) { return true; }
+                    if (startDate <= max && startDate >= min) { return true; }
+                    return false;
+                }
+            );
+
+
+            $("#from").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true, dateFormat: 'yy/mm/dd' });
+            $("#to").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true, dateFormat: 'yy/mm/dd' });
+            var table = $('#example').DataTable();
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#from, #to').change(function () {
+                table.draw();
+            });
+        });
+
+
         $('#submitbtn').on('click', function () {
             debugger;
             var table = $('#example').DataTable();
+            var data = table.$('input').serialize();
             var midata = table.rows().data();
             var list = JSON.stringify(midata);
             var data = table.$('td').serialize();
@@ -114,7 +313,7 @@
             //    contentType: 'application/json, charset=utf-8',
             //    data: { term: JSON.stringify(query) },
             //    success: function (data) {
-                    
+
             //    }
             //});
         })
@@ -122,9 +321,11 @@
             $('#example').DataTable().search(
                 $("input[type=search]").val()
             ).draw();
-        }     
-        
-        
+        }
+
+
+
+
     </script>
 }
 

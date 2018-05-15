@@ -1638,7 +1638,7 @@ namespace WebApplication1.Controllers
             public string RowNb { get; set; }
 
         }
-        public ActionResult Upload(FormCollection formCollection)
+        public JsonResult Upload()
         {
             //if (Request != null)
             //{
@@ -1701,7 +1701,7 @@ namespace WebApplication1.Controllers
                                     /********************************Validtae*************************/
                                     var importExcelRow = new ImportExcelViewModel
                                     {
-                                        email = workSheet.Cells[rowIterator, 1].Value.ToString(),
+                                       // email = workSheet.Cells[rowIterator, 1].Value.ToString(),
                                         RowNb = workSheet.Cells[rowIterator, 2].Value.ToString()
 
 
@@ -1710,7 +1710,7 @@ namespace WebApplication1.Controllers
                                     /*****************************validate*****************************************/
 
                                 }
-                               // lstImportExcel = ValidateImport(lstImportExcel); //validate the rows with the system values 
+                                //lstImportExcel = ValidateImport(lstImportExcel); //validate the rows with the system values 
                                 if (lstImportExcel != null)
                                 {
 
@@ -1740,7 +1740,7 @@ namespace WebApplication1.Controllers
                                 else
                                 {
                                     //something wrong in validation
-                                    return Json(false);
+                                    return Json(false,JsonRequestBehavior.AllowGet);
                                 }
 
 
@@ -1776,7 +1776,7 @@ namespace WebApplication1.Controllers
                             Response.AppendHeader("Content-Length", fileBytes2.Length.ToString());
                             Response.AppendHeader("Content-Disposition",
                                 String.Format("attachment; filename=\"{0}\"; size={1}; creation-date={2}; modification-date={2}; read-date={2}"
-                                    , "test.xlsx"
+                                    , "test2.xlsx"
                                     , fileBytes2.Length
                                     , DateTime.Now.ToString("R"))
                                 );
@@ -1785,33 +1785,64 @@ namespace WebApplication1.Controllers
                             Response.BinaryWrite(fileBytes2);
                             Response.End();
 
-                            return Json(false);
+                            return Json(false, JsonRequestBehavior.AllowGet);
 
                         }
-                        return Json(false);
+                        return Json(false,JsonRequestBehavior.AllowGet);
                     }
                     catch (Exception e)
                     {
 
-                        return Json(false);
+                        return Json(false, JsonRequestBehavior.AllowGet);
                     }
 
                 }
 
-                return Json(false);
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
 
 
-                return Json(false);
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
 
         }
 
+        public class FileColl
+        {
+            public string FileName { get; set; }
+            public string FilePath { get; set; }
+        }
+        public ActionResult Downloadfile_link()
+        {
+            DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~/stuff"));
+            var files = directory.GetFiles().ToList();
+            List<FileColl> fileC = new List<FileColl>();
+            string path = Server.MapPath("~/stuff/");//设定上传的文件路径
+
+            foreach (var file in files)
+            {
+                fileC.Add(new FileColl { FileName = file.Name, FilePath = file.FullName });
+            }
+
+            return View(fileC);
+        }
+
+        public ActionResult Unobtrusive()
+        {
+
+            return View();
+        }
+
+        
+        public ActionResult MyMap()
+        {
+
+            return View();
+        }
     }
-
-
+   
 
 }
 
@@ -1820,4 +1851,3 @@ namespace WebApplication1.Controllers
 
 
 
-    
