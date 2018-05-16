@@ -60,7 +60,9 @@ namespace WebApplication1.Controllers
             vm2.authors = db.Author.ToList();
             var list = db.Blogs.ToList();
             ViewBag.auth = db.Author.ToList();
-            ViewBag.label = db.Label.ToList();
+            ViewBag.auth2 = db.Author.Select(_=>_.AuthorName).ToList();
+            ViewBag.auth3 = db.Author.Select(_ => _.AuthorName).ToArray();
+
             #region LINQ 和 where  lamda都不允许数据转换 Regex.Replace
             //var tids = db.Blogs.AsEnumerable()
             //   .Select(p => Convert.ToInt32(Regex.Replace(p.Name, "[^0-9]+", string.Empty)))
@@ -778,7 +780,7 @@ namespace WebApplication1.Controllers
             return Json(stream, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult datatable2()//calendar 
+        public ActionResult datatable2()//calendar //https://stackoverflow.com/questions/41420839/datatables-date-range-filter //jquery datepicker filter datetable.net date range //filter range between date in datetable
         {
             ViewBag.Message = "Your contact page.";
 
@@ -1829,6 +1831,7 @@ namespace WebApplication1.Controllers
             return View(fileC);
         }
 
+        #region Unobtrusive Ajax.BeginForm
         public ActionResult Unobtrusive()
         {
 
@@ -1841,8 +1844,73 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        #endregion
+
+        #region MVC Edit view with Picture
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult ImageUpload()
+        {
+            //ImageDatabaseEntities6 db = new ImageDatabaseEntities6();
+            // file = Request.Files["ImageFile"]; 
+            //HttpPostedFileBase file = Request.Files["SelectImage"]; //Request.Files
+            var file = Request.Files[0];
+            int imgId = 0;
+            //var file = jobs.ImageFile;
+            byte[] imagebyte = null;
+            if (file != null)
+            {
+                file.SaveAs(Server.MapPath("/images/" + file.FileName));
+                BinaryReader reader = new BinaryReader(file.InputStream);
+                imagebyte = reader.ReadBytes(file.ContentLength);
+                Label img = new Label();
+                //img.ImageTitle = file.FileName;
+                //img.ImageByte = imagebyte;
+                //img.ImagePath = "/UploadImage/" + file.FileName;
+                img.LabelName = "/images/" + file.FileName;
+                //db.Label.Add(img);
+                //db.SaveChanges();
+                imgId = img.LabelId;
+            }
+            return Json("3", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DisplayingImage(int imgID) //https://stackoverflow.com/questions/17721009/url-action-not-working-not-showing-picture-in-img //image src call mvc action show pic
+        {
+            //ImageDatabaseEntities6 db = new ImageDatabaseEntities6();
+            var id = Convert.ToInt32(imgID);
+            var img = db.Label.SingleOrDefault(x => x.LabelId == id);
+            return Json(img.LabelName, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Pic_Edit(int? ImageId=1)
+        {
+            if (ImageId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Label jobs = db.Label.Find(1);
+
+            if (jobs == null)
+            {
+                return HttpNotFound();
+            }
+            return View(jobs);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Pic_Edit(Label jobs)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(jobs).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(jobs);
+        }
+        #endregion
     }
-   
+
 
 }
 

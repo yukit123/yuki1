@@ -519,6 +519,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\ajax1.PNG" />
     <Content Include="images\Arrow.PNG" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -654,6 +655,7 @@
     <Content Include="stuff\MVC readiness.docx" />
     <Content Include="stuff\test.docx" />
     <Content Include="Views\Home\Unobtrusive.cshtml" />
+    <Content Include="Views\Home\Pic_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -61,18 +61,33 @@
     <input class="customerInput" id="customerInput2" type="button" value="@item.Name">
 
 }
-@foreach (var item in au)
+<br />
+###########################
+@foreach (var item in ViewBag.auth)
 {
-    <input class="customerInput" id="customerInput2" type="button" value="@item.AuthorName">
+    @*<input class="customerInput" id="customerInput2" type="text" value="@item.AuthorName">*@
+    <div> @item.AuthorName </div>
+    <br />
 
 }
-@foreach (var item in lab)
+###########################
+@foreach (var item in ViewBag.auth2)
 {
-    <input class="customerInput" id="customerInput2" type="button" value="@item.LabelName">
+    @*<input class="customerInput" id="customerInput2" type="button" value="@item">*@
+    <div> @item </div>
+    <br />
+
+}
+###########################
+@foreach (var item in ViewBag.auth3)
+{
+    @*<input class="customerInput" id="customerInput2" type="button" value="@item">*@
+    <div> @item </div>
+    <br />
 
 }
 <br />
-
+###########################
 
 @{
     Layout = null;
@@ -171,7 +186,7 @@
         $(".divbutton").hide();
         $(".divdemo").last().append("<div class=\"divdemo\">" + html + "</div>");
         $(".divbutton").last().css("display", "inline")
-        
+
     })
 
     $(".customerInput").click(function () {

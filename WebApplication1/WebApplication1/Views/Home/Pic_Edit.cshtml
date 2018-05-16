@@ -1,0 +1,81 @@
+﻿@*@model WebApplication1.Controllers.HomeController.FileColl*@
+@model WebApplication1.Models.Label
+
+@*<img src="@Url.Content(Model.FilePath)" height="140" />*@
+<img src="@Url.Content("~/images/Arrow.PNG")" height="140" />
+
+
+<br /><br />
+<h3>Upload the Jobs image:</h3>
+<form id="Form" name="Form" action="@Url.Action("ImageUpload", "Home" )" enctype="multipart/form-data" method="post">
+
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="col-md-4">
+                <input type="file" id="SelectImage" name="Filedata"/><br />
+                <a href="#" class="btn btn-sm btn-danger" onclick="UploadImage() ">Upload</a>
+            </div>
+
+            <div class="col-md-4 thumbnail" id="UploadedImage"></div>
+        </div>
+
+        <h2>Edit</h2>
+
+
+
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayName("Type of Job")
+    </dt>
+    <dd>
+        @Html.EditorFor(model => model.LabelId)
+    </dd>
+    <dt>
+        @Html.DisplayName("Tools Needed")
+    </dt>
+    <dd>
+        @Html.EditorFor(model => model.LabelName)
+    </dd>
+
+</dl>
+
+<input type="submit" value="Save Changes" />
+
+</form>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script>
+    var UploadImage = function () {
+    
+        var file = $("#SelectImage").get(0).files;
+        var data = new FormData;
+        data.append("ImageFile", file[0]);
+        $.ajax({
+            type: "POST",
+            url: "/Home/ImageUpload",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (imgID) {
+                $.ajax({
+                    async:true,
+                    url: "/Home/DisplayingImage",
+                    data: { "imgID": parseInt(imgID)},
+                    success: function (data) {
+                        data = "Area1.png";
+                        $("#UploadedImage").empty();
+                        $("#UploadedImage").append('<img src="/images/' + data+'"class=img-responsive  thimbnail"/>');
+                    }
+                })
+               
+               
+            }
+        })
+    }
+
+</script>
+
+
+
+    @Html.ActionLink("Back to List", "Index")
