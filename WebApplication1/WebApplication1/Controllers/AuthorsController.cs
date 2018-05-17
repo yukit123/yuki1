@@ -50,7 +50,13 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var author2 = new List<Author>();
+                //author2.Add(new Author() { id = 0, AuthorName = "33" });
+                //author2.Add(new Author() { id = 0, AuthorName = "44" });
+
                 db.Author.Add(author);
+                //db.Author.AddRange(author2);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

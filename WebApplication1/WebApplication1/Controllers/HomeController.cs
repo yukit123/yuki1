@@ -1,4 +1,6 @@
-﻿using OfficeOpenXml;
+﻿using Kendo.Mvc;
+using Newtonsoft.Json;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections;
@@ -14,6 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -529,8 +532,8 @@ namespace WebApplication1.Controllers
             //}
             //convert the required data to jsontype
 
-           var list233 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
-            return Json(list233, JsonRequestBehavior.AllowGet);
+          // var list233 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
+            return Json(stulist, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult datalist2()//select datalist
@@ -772,8 +775,12 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public JsonResult datatableajax()
+        public JsonResult datatableajax(string array)
         {
+            //JSON转实体类模型对象
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            ViewBag.json = js.Deserialize<List<Column>>(array);
+
             var sr = new StreamReader(Request.InputStream);
              var stream = sr.ReadToEnd();
 
@@ -1597,18 +1604,32 @@ namespace WebApplication1.Controllers
 
         public ActionResult MultipleSelect()
         {
-            var list = new List<SelectListItem>
-            {
-                new SelectListItem{Text="Apple",Value="1"},
-                new SelectListItem{Text="Banana",Value="2"},
-                new SelectListItem{Text="Orange",Value="3"}
-            };
-            ViewBag.fruit = list;
-            return View();
+
+            var options = new List<TEnum>();
+
+            options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.No), EnumName="ab1" });
+
+            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Yes), EnumName="ab2" });
+
+            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.No), EnumName="ab3" });
+
+            var enumlist = options[1];
+
+
+            //var list = new List<SelectListItem>
+            //{
+            //    new SelectListItem{Text="Apple",Value="1"},
+            //    new SelectListItem{Text="Banana",Value="2"},
+            //    new SelectListItem{Text="Orange",Value="3"}
+            //};
+            //ViewBag.fruit = list;
+            return View(enumlist);
         }
         [HttpPost]
-        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox)
+        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox, TEnum tEnum)
         {
+
+        
             var list = new List<SelectListItem>
             {
                 new SelectListItem{Text="Apple",Value="1"},

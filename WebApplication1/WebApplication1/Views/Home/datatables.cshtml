@@ -80,7 +80,13 @@
             $.ajax({
                 url: '/Home/datatableajax',
                 type: 'POST',
-                data: { array: JSON.stringify(listtr)},
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ array: listtr }),
+
+                //contentType: 'application/json; charset=utf-8', //wrong
+                //data: JSON.stringify({ array: "asdasd"}), //wrong
+               // data: { array: JSON.stringify(listtr)},
                 success: function (data) {
                     alert(111);
 

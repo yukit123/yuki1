@@ -1,22 +1,38 @@
-﻿@{
+﻿@model WebApplication1.Models.TEnum
+@{
     ViewBag.Title = "MultipleSelect";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 @using (Html.BeginForm())
 {
+
+    @Html.EditorFor(Model => Model.EnumId)
+    <br />
+    @Html.EditorFor(Model => Model.EnumName)
+    <br />
+
+    @Html.EnumDropDownListFor(Model => Model.EnumType, htmlAttributes:
+                      new
+                      {
+                          @class = "form-control"
+                      })
+
+
     <h2>MultipleSelect</h2>
-    //Method1
+    @*//Method1
     @Html.DropDownList("fruit", ViewBag.fruit as IEnumerable<SelectListItem>, new { multiple = "multiple" })
     <br /><br />
     //Method2
     @Html.ListBox("fruitListbox", ViewBag.fruit as IEnumerable<SelectListItem>, new { multiple = "multiple" })
-    <br /><br />
+    <br /><br />*@
     <input type="submit" />
 
 
 }
 
-@section scripts{
+@*@section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" type="text/css" />
     <script type="text/javascript">
@@ -38,4 +54,4 @@
             });
         });
     </script>
-}
+}*@
