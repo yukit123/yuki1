@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "MultipleSelect";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var  str =Url.RequestContext.RouteData.Values["action"].ToString();//获取action的方法//Url.RequestContext.RouteData.Values["controller"].ToString()
+    var strurl = Request.Url.PathAndQuery;//https://forums.asp.net/t/2132660.aspx
 }
 
 

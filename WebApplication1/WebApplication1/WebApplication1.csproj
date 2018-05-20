@@ -59,8 +59,7 @@
       <HintPath>..\packages\EPPlus.4.5.1\lib\net40\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Kendo.Mvc, Version=2016.2.616.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\Kendo.Mvc.dll</HintPath>
+      <HintPath>..\packages\Kendo.Mvc.2016.2.616\lib\net451\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.1.0.0\lib\net451\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
@@ -438,6 +437,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MyExtensions.cs" />
     <Compile Include="Migrations\201804060612550_AddBlogUrl.cs" />
     <Compile Include="Migrations\201804060612550_AddBlogUrl.Designer.cs">
       <DependentUpon>201804060612550_AddBlogUrl.cs</DependentUpon>
@@ -672,6 +672,7 @@
     <Content Include="stuff\test.docx" />
     <Content Include="Views\Home\Unobtrusive.cshtml" />
     <Content Include="Views\Home\Pic_Edit.cshtml" />
+    <Content Include="Views\Home\Encrypt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

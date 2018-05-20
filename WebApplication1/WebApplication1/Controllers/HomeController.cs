@@ -1930,6 +1930,20 @@ namespace WebApplication1.Controllers
             return View(jobs);
         }
         #endregion
+
+        #region How to prevent form and query string data from tampering
+
+        [EncryptedActionParameter]
+        public ActionResult Encrypt(string id, string name, string age)//https://forums.asp.net/t/2132653.aspx
+        {
+            ViewBag.Message = "Your contact page.";
+            ViewBag.id = id;
+            ViewBag.name = name;
+            ViewBag.age = age;
+            return View();
+        }
+
+        #endregion
     }
 
 
