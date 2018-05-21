@@ -8,18 +8,20 @@
 <div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
 
 @*@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
-@Html.EditorFor(model => model.DateDocument, new { @Value = "2015-10-14" })*@
+    @Html.EditorFor(model => model.DateDocument, new { @Value = "2015-10-14" })*@
 
 
-@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "editbox"} })
-@*<input type="date" value="2015-10-14" onchange="mydate();"></input>
+@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "editbox" } })
 
-@Html.TextBoxFor(model => model.DateDocument,
-           new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@
+
+@*<input type="date" value="2015-10-14" onchange="mydate();"></input>*@
+
+    @*@Html.EditorFor(model => model.DateDocument,
+               new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@ 
 
 @*<div role="navigation" aria-label="Passagers" class="_style_2VKbTR" data-reactid="95"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
     <div role="navigation" aria-label="Passagers2" class="_style_2VKbTR" data-reactid="99"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>*@
-@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @class = "datepicker" , type = "date" } })
+@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id="aa",@name="aa", @class = "datepicker" , type = "date", @Value = "2015-10-14" } })
 
 
 <script>
@@ -44,7 +46,7 @@
 
 @section scripts{
 
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
     @*<script src="~/Scripts/jquery-ui-1.10.2.js"></script>*@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

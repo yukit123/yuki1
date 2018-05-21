@@ -1,4 +1,5 @@
-﻿using Kendo.Mvc;
+﻿using ClosedXML.Excel;
+using Kendo.Mvc;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -406,10 +407,12 @@ namespace WebApplication1.Controllers
         }
         public ActionResult datepicker()
         {
-            var list = db.Blogs.ToList().FirstOrDefault();
-            ViewBag.Message = "Your application description page.";
-            list.DateDocument = Convert.ToDateTime("2018/12/14");
-            return View(list);
+            //var list = db.Blogs.ToList().FirstOrDefault();
+            //ViewBag.Message = "Your application description page.";
+            Blog bl = new Blog();
+
+            bl.DateDocument = Convert.ToDateTime("2018.12.14");
+            return View(bl);
         }
 
 
@@ -818,7 +821,7 @@ namespace WebApplication1.Controllers
             osrListItems.AddRange(osrListItems2);
             osrListItems=osrListItems.OrderBy(x => x.Value).ToList();
 
-            ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
+            ViewBag.OSRddl = new SelectList(osrListItems,"Value2","Text2", osrListItems1[0].Value).Distinct();
             
             return View(todo);
             
@@ -1204,11 +1207,11 @@ namespace WebApplication1.Controllers
             return File(fullPath, "application/vnd.ms-excel", file);
         }
 
-        public ActionResult DownloadFile()// Download
+        public ActionResult DownloadFile(int id)// Download
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/";
-            byte[] fileBytes = System.IO.File.ReadAllBytes(path + "test.xls");
-            string fileName = "test.xls";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path + "test.xlsx");
+            string fileName = "test.xlsx";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
         #region importEcportTools
@@ -1928,6 +1931,81 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             return View(jobs);
+        }
+        #endregion
+        #region ClosedXML download xml Merge cells insert pic
+        public ActionResult ClosedXML_Index()
+        {
+            var list = db.Author.Take(10).ToList();
+            return View(list);
+        }
+
+        [HttpPost]
+        public FileResult ClosedXML_Export()
+        {
+            DataTable dt = new DataTable("Grid");
+            dt.Columns.AddRange(new DataColumn[2] { new DataColumn("CustomerId"),
+                                            new DataColumn("ContactName") });
+
+            var customers = from customer in db.Author.Take(10)
+                            select customer;
+
+            foreach (var customer in customers)
+            {
+                dt.Rows.Add(customer.id, customer.AuthorName);
+            }
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+               // var workbook = new XLWorkbook();
+                var ws = wb.Worksheets.Add("Merge Cells");
+
+                // Merge a row
+                ws.Cell("B2").Value = "Merged Row(1) of Range (B2:D3)";
+                ws.Range("B2:D3").Row(1).Merge();
+
+                // Merge a column
+                ws.Cell("F2").Value = "Merged Column(1) of Range (F2:G8)";
+                ws.Cell("F2").Style.Alignment.WrapText = true;
+                ws.Range("F2:G8").Column(1).Merge();
+
+                //Merge a range
+                ws.Cell("B4").Value = "Merged Range (B4:D6)";
+                ws.Cell("B4").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                ws.Cell("B4").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                ws.Range("B4:D8").Merge();
+
+                // Unmerging a range...
+                ws.Cell("B8").Value = "Unmerged";
+                ws.Range("B8:D8").Merge();
+                ws.Range("B8:D8").Unmerge();
+
+
+                // var ws2 = wb.AddWorksheet("Sheet2");
+
+                //var imagePath = @"c:\path\to\your\image.jpg";
+
+
+                var imagePath = Server.MapPath("/images/test.jpg");
+
+
+                //// Load the image.
+                //System.Drawing.Image image1 = System.Drawing.Image.FromFile(imagePath);
+
+                //// Save the image in JPEG format.
+                //image1.Save(imagePath, System.Drawing.Imaging.ImageFormat.Png);
+
+                var image = ws.AddPicture(imagePath)
+                    .MoveTo(ws.Cell("B4").Address)
+                    .Scale(0.5); // optional: resize picture
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Grid.xlsx");
+                }
+            }
         }
         #endregion
     }

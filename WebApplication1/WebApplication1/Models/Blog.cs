@@ -18,7 +18,10 @@ namespace WebApplication1.Models
         //[NotMapped]
         //public bool BlogId2 { get; set; }
         [NotMapped]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayName("Document Date")]
+        [Required(ErrorMessage = "Required field.")]
+        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DateDocument { get; set; }
 
 

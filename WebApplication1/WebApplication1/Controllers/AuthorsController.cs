@@ -203,5 +203,13 @@ namespace WebApplication1.Controllers
 
             return View(le_leaveApplication);
         }
+
+        public ActionResult DownloadFile(int id)// Download
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Content/";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path + "test.xlsx");
+            string fileName = "test.xlsx";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
     }
 }
