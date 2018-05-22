@@ -1,0 +1,12 @@
+﻿@model TestApplication1.Controllers.HomeController.BuyItem
+@using (Html.BeginForm("BuyItem2", "Home"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItmeName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ItmeName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ItmeName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <input type="submit" value="AddItem" />
+}

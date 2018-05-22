@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -79,6 +80,19 @@ namespace WebApplication1.Helpers
             cStream.Write(inputByte, 0, inputByte.Length);
             cStream.FlushFinalBlock();
             return Convert.ToBase64String(mStream.ToArray());
+        }
+
+        public static string RemoveDiacritics(this String s)
+        {
+            String normalizedString = s.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+            return stringBuilder.ToString();
         }
     }
 }

@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WebApplication1.Helpers;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -2070,6 +2071,17 @@ namespace WebApplication1.Controllers
 
             TempData["Message"] = "Client Details Edited Successfully";
 
+            return View();
+        }
+
+        public ActionResult IgnoreCaseAndAccentuation(string filter)
+        {
+            filter = "Mv";
+            var list = db.Search.ToList();
+            string queryText = filter.ToUpper().RemoveDiacritics();
+            var result = (from c in list
+                          where c.Title.ToUpper().RemoveDiacritics().Contains(queryText)
+                          select c).ToList();
             return View();
         }
     }
