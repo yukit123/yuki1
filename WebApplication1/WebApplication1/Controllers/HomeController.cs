@@ -2008,6 +2008,62 @@ namespace WebApplication1.Controllers
             }
         }
         #endregion
+        # region use datatable as parameter in stored procedure   执行后 User表会自动填充，执行前先清空
+
+        public ActionResult StoredProcedure_Index()
+        {
+            
+                DataTable _DataTable = GenerateDataTable();
+            SqlParameter Parameter = new SqlParameter("@param1", _DataTable);
+            Parameter.TypeName = "dbo.UsersTableType";
+            db.Database.ExecuteSqlCommand("exec User_Insert @param1", Parameter);
+
+            ////string connString = ConfigurationSettings.AppSettings["Sql"];
+
+            //  string connString =
+            //@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+
+            //  //Open SQL Connection
+            //  using (SqlConnection conn = new SqlConnection(connString))
+            //  {
+            //      conn.Open();
+            //      //Initialize command object
+            //      using (SqlCommand cmd = new SqlCommand("User_Insert", conn))
+            //      {
+            //          //set the command type  to stored procedure
+            //          cmd.CommandType = CommandType.StoredProcedure;
+
+            //          //add parameter
+            //          cmd.Parameters.AddWithValue("@param1", _DataTable);
+
+            //          //execute the stored procedure
+            //          cmd.ExecuteNonQuery();
+            //      }
+            //  }
+
+            return View();
+        }
+        private DataTable GenerateDataTable()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("UName");
+            dt.Columns.Add("Email");
+            dt.Rows.Add("Andy", "qwefe");
+            dt.Rows.Add("Mary", "adsafsf");
+            dt.Rows.Add("Jacj", "sdsa");
+
+            return dt;
+        }
+        #endregion
+
+        //toastr
+        public ActionResult toastr()
+        {
+
+            TempData["Message"] = "Client Details Edited Successfully";
+
+            return View();
+        }
     }
 
 
