@@ -692,6 +692,7 @@
     <Content Include="Views\Home\Encrypt.cshtml" />
     <Content Include="Views\Home\StoredProcedure_Index.cshtml" />
     <Content Include="Views\Home\toastr.cshtml" />
+    <Content Include="Views\Home\AutoWidth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,10 +35,42 @@ namespace WebApplication1.Controllers
             return View(author);
         }
 
+        public class UserSignUpView
+        {
+            public int id { get; set; }
+            public string AuthorName { get; set; }
+
+            public List<string> SelectedInterests { get; set; }
+
+        }
+        public class SelectedInterestsVM
+        {
+            public int id { get; set; }
+            public string AuthorName { get; set; }
+            public bool ischeck { get; set; }
+
+        }
         // GET: Authors/Create
         public ActionResult Create()
         {
-            return View();
+
+            var data2 = (from i in db.Author
+                         select new SelectedInterestsVM()
+                         {
+                             id = i.id,
+                             AuthorName = i.AuthorName,
+                             ischeck = false
+                         }).ToList();
+
+            // Store the actual collection in the ViewBag (not using a SelectList)
+            ViewBag.Interests = data2;
+
+            UserSignUpView TSV = new UserSignUpView();
+            //TSV.id = 6;
+            //TSV.AuthorName = "babala";
+            //TSV.SelectedInterests = data2.;
+
+            return View(TSV);
         }
 
         // POST: Authors/Create
@@ -46,7 +78,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,AuthorName")] Author author)
+        public ActionResult Create([Bind(Include = "id,AuthorName")] UserSignUpView author, string[] SelectedInterests)
         {
             if (ModelState.IsValid)
             {
@@ -54,13 +86,33 @@ namespace WebApplication1.Controllers
                 //author2.Add(new Author() { id = 0, AuthorName = "33" });
                 //author2.Add(new Author() { id = 0, AuthorName = "44" });
 
-                db.Author.Add(author);
-                //db.Author.AddRange(author2);
+                //db.Author.Add(author);
+                ////db.Author.AddRange(author2);
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
-
+            var author2 = new List<SelectedInterestsVM>();
+            //foreach (var item in SelectedInterests)
+            //{
+            //    author2.Add(new Author() { id = 0, AuthorName = item });
+            //}
+           
+            //var data2 = (from i in db.Author
+            //             select new SelectedInterestsVM()
+            //             {
+            //                 id = i.id,
+            //                 AuthorName = i.AuthorName,
+            //                 ischeck=false
+            //             }).ToList();
+            //List<SelectedInterestsVM> data4 = new List<SelectedInterestsVM>(); ;
+            //foreach (var item in SelectedInterests)
+            //{
+            //    data4.AddRange(data2.Where(_ => _.AuthorName == item).Select(_ => new SelectedInterestsVM() { id = _.id, AuthorName = _.AuthorName, ischeck =true}));
+            //    data4.AddRange(data2.Where(_ => _.AuthorName != item));
+            //}
+      
+            //ViewBag.Interests = data2;
             return View(author);
         }
 

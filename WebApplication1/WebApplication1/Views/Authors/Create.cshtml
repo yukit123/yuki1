@@ -1,15 +1,62 @@
-﻿@model WebApplication1.Models.Author
+﻿@model WebApplication1.Controllers.AuthorsController.UserSignUpView
 
 @{
+    /**/
+
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    @*if (ViewBag.Interests2 == null)
+    {
+        foreach (var interest in ViewBag.Interests)
+        {
+            <input type="checkbox" name="SelectedInterests" value="@interest.AuthorName" class="checkbox-inline" />
+        }
+    }
+    else
+    {
+
+        foreach (var interest in ViewBag.Interests)
+        {
+            foreach (var item in ViewBag.Interests2)
+            {
+                if (item == interest.AuthorName)
+                {
+                    <input type="checkbox" name="SelectedInterests" value="@interest.AuthorName" class="checkbox-inline" checked />
+                    ViewBag.Interests2.Remove(1);
+                    break;
+                }
+                else
+                {
+                    <input type="checkbox" name="SelectedInterests" value="@interest.AuthorName" class="checkbox-inline" />
+                        break;
+            
+                }
+            }
+        }
+
+    }*@
+
+    foreach (var interest in ViewBag.Interests)
+    {
+        if (interest.ischeck == true)
+        {
+            <input type="checkbox" name="SelectedInterests" value="@interest.AuthorName" class="checkbox-inline" che/>
+        }
+        else
+        {
+            <input type="checkbox" name="SelectedInterests" value="@interest.AuthorName" class="checkbox-inline" />
+        }
+
+    }
+
+
     <div class="form-horizontal">
         <h4>Author</h4>
         <hr />

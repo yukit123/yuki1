@@ -7,9 +7,16 @@
     var lab = ViewBag.label;
     var count = 0;
 }
-
+<style type="text/css">
+    .espcial {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 58px;
+    }
+</style>
 @Html.Display("xx", "cxxx", "123")
-<table class="table">
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.BlogId)
@@ -32,7 +39,7 @@
                 @*@Html.LabelFor(modelItem => item.BlogId)
                     <label>@(item.BlogId == 1 ? "Vieo" : "")</label>*@
             </td>
-            <td>
+            <td class="espcial">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
 
