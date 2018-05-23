@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication1.Models;
+using TestApplication1.Models;
+
 
 namespace TestApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        private BlogContext db = new BlogContext();
+        private TestApplication1Context db = new TestApplication1Context();
         public ActionResult Index()
         {
             return View();
@@ -178,5 +179,66 @@ namespace TestApplication1.Controllers
             return RedirectToAction("ValidateBothModel");
         }
         #endregion
+
+
+        // GET: /Assignment/
+        public ViewResult Property_Index(string sortOrder, string searchString)
+        {
+            ViewBag.CharterID = db.Charters.Select(a => new SelectListItem
+            {
+                Value = a.CharterID.ToString(),
+                Text = a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+            }
+           ).ToList();
+
+            //ViewBag.AssignmentSort = String.IsNullOrEmpty(sortOrder) ? "assignment_desc" : "";
+            ////ViewBag.ResourceSort = sortOrder == "Shift" ? "shift_desc" : "Shift";
+
+            ////_____________________________________________
+
+            //var assignments = db.Assignments.Include(a => a.Calendar).Include(a => a.Charter).Include(a => a.Contact).Include(a => a.HistoryEmployee).Include(a => a.HistoryResource).Include(a => a.Resource).Include(a => a.ResourceDirection).Include(a => a.ResourceDocument).Include(a => a.ResourceOffice).Include(a => a.Route);
+
+            ////_____________________________________________
+
+            ////var assignments = from s in db.Assignments
+            ////               select s;
+
+            ////_____________________________________________
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    assignments = assignments.Where(s => s.AssignmentDesignatorString.Contains(searchString));
+            //    //|| s.CharterDestinationLocation1.Contains(searchString)
+            //    //|| s.CharterGroup.Contains(searchString));
+            //}
+            //switch (sortOrder)
+            //{
+            //    default:
+            //        assignments = assignments.OrderBy(s => s.AssignmentDate);
+            //        break;
+            //    // .ThenBy(s => s.CharterTimeString)
+            //    case "charter_desc":
+            //        assignments = assignments.OrderByDescending(s => s.AssignmentDate);
+            //        break;
+            //        // .ThenBy(s => s.CharterTimeString)
+            //        //case "Shift":
+            //        //    resources = resources.OrderBy(s => s.DateShiftString);
+            //        //    break;
+            //        //case "shift_desc":
+            //        //    resources = resources.OrderByDescending(s => s.DateShiftString);
+            //        //    break;
+            //}
+            //return View(assignments);
+            var assignments = db.Charters.ToList();
+            return View(assignments);
+
+        }
+
+        public ActionResult Focus()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }

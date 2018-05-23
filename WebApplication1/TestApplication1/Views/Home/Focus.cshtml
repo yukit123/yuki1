@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Focus";
+    Layout = null;
+}
+
+<h2>Focus</h2>
+<input id="txtMsg" type="text" />
+<input id="txtPW" type="text" />
+
+
+<script type="text/javascript">
+    //this page holds the generic txtMsg TextBox
+    //if it has a value then display it in alert
+    var vmsg = document.getElementById('txtMsg').value;
+    if (vmsg != "") {
+        alert(vmsg);
+        document.getElementById('txtMsg').value = '';
+    }
+
+    var objpw = document.getElementById('txtPW');
+    objpw.focus();
+
+</script>
