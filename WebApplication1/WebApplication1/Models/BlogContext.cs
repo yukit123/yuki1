@@ -23,7 +23,9 @@ namespace WebApplication1.Models
         public DbSet<le_leaveApplication> le_leaveApplications { get; set; }
         public DbSet<TEnum> TEnums { get; set; }
 
-        
+
+
+
 
     }
 }
