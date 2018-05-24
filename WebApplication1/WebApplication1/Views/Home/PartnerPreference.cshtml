@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "PartnerPreference";
+}
+
+<h2>PartnerPreference</h2>
+
+@*@Html.DropDownList("MinAge", new SelectList(ViewBag.minagelist, "maxAgeValue", "maxAgeValue"))
+
+    @Html.DropDownList("MaxAge", new SelectList(ViewBag.maxagelist, "minAgeValue", "minAgeValue"))*@
+
+@Html.DropDownList("minagelist", null, "minSelect")
+@Html.DropDownList("maxagelist", null, "maxSelect")
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#minagelist').change(function () {
+            var min = $("#minagelist").val();
+
+            $('#maxagelist option').filter(function () {
+                return $(this).val() < min;
+            }).prop('disabled', true);
+        })
+    </script>
+}

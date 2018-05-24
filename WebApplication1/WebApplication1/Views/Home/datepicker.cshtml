@@ -16,19 +16,13 @@
 
 @*<input type="date" value="2015-10-14" onchange="mydate();"></input>*@
 
-    @*@Html.EditorFor(model => model.DateDocument,
-               new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@ 
+@*@Html.EditorFor(model => model.DateDocument,
+    new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@
 
-@*<div role="navigation" aria-label="Passagers" class="_style_2VKbTR" data-reactid="95"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>
-    <div role="navigation" aria-label="Passagers2" class="_style_2VKbTR" data-reactid="99"><a class="_style_3Hdqj8" href=""><!-- react-text: 1154 -->Passagers<!-- /react-text --></a><div></div></div>*@
-@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id="aa",@name="aa", @class = "datepicker" , type = "date", @Value = "2015-10-14" } })
 
+@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id = "aa", @name = "aa", @class = "datepicker", type = "date", @Value = "2015-10-14" } })
 
 <script>
-    //$("body").on("click", "._style_2VKbTR[data-reactid='95']", function () {
-    //    alert("s");
-    //})
-
     function move(button) {
         var p = button.parentElement;
         if (button.parentElement.parentElement.id == "ChooseLeft") {
@@ -61,6 +55,7 @@
         $(".editbox").datepicker({
             dateFormat: 'dd/mm/yy'
         })
+
 
         function dateTransform(d) {
             var s = (new Date(d)).toString().split(' ');

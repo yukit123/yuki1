@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "SampleMatchSummary";
+}
+
+<h2>SampleMatchSummary</h2>
+
+@using (Html.BeginForm("SampleMatchSummary", "UserProfile", FormMethod.Get))
+{
+
+    @Html.ListBox("castemultilist", (IEnumerable<SelectListItem>)ViewBag.CasteId, new { id = "multiSelectDropDown", multiple = "multiple", @class = "form-text" })
+}
+
+@*@foreach (var profile in profilelist)
+{
+    <tr class="opened_1">
+        <td class="day_label1">Cast:</td>
+        <td class="day_value">@ViewBag.cast</td>
+    </tr>
+}*@

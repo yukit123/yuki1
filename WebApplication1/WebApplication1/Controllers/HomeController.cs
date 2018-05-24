@@ -416,7 +416,6 @@ namespace WebApplication1.Controllers
             return View(bl);
         }
 
-
         public ActionResult validate()
         {
             var list = db.Student.ToList();
@@ -1619,11 +1618,11 @@ namespace WebApplication1.Controllers
 
             var options = new List<TEnum>();
 
-            options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.No), EnumName="ab1" });
+            options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
 
-            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Yes), EnumName="ab2" });
+            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Female), EnumName="ab2", Dateofbirth = DateTime.Now });
 
-            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.No), EnumName="ab3" });
+            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab3", Dateofbirth = DateTime.Now });
 
             var enumlist = options[1];
 
@@ -1638,7 +1637,7 @@ namespace WebApplication1.Controllers
             return View(enumlist);
         }
         [HttpPost]
-        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox, TEnum tEnum)
+        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox, TEnum tEnum,string Dateofbirth)
         {
 
         
@@ -2084,10 +2083,101 @@ namespace WebApplication1.Controllers
                           select c).ToList();
             return View();
         }
+
+        //Upload file to file server without submit
+        public ActionResult UploadOutSubmit()
+        {
+
+            //if (file != null && file.ContentLength > 0)
+            //{
+
+            //    var fileName = Path.GetFileName(file.FileName);
+
+            //    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+            //    file.SaveAs(path);
+            //}
+
+            return View();
+        }
+
+        public ActionResult PartnerPreference()
+        {
+            var minagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+            var maxagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+
+            var minitems = minagelist.Select((n, i) =>
+            {
+                return new SelectListItem
+                {
+                    Value = n.ToString(),
+                    Text = i.ToString()
+                };
+            }).ToList();
+
+            var maxitems = maxagelist.Select((n, i) =>
+            {
+                return new SelectListItem
+                {
+                    Value = n.ToString(),
+                    Text = i.ToString()
+                };
+            }).ToList();
+
+            ViewBag.minagelist = new SelectList(minitems, "Value", "Value");
+            ViewBag.maxagelist = new SelectList(maxitems, "Value", "Value");
+
+            return View();
+        }
+
+        public ActionResult SampleMatchSummary(int? page, string[] castemultilist, string LanguageId)
+        {
+            ViewBag.CasteId = new SelectList(db.Label.ToList(), "LabelId", "LabelName");
+            //int castelist1 = Convert.ToInt32(castemultilist);
+            //int languageid1 = Convert.ToInt32(LanguageId);
+
+            //if ((castemultilist == null) && (!string.IsNullOrEmpty(LanguageId)))
+            //{
+            //    //var profileModel = mainDatabaseContext.Profile.Where(p => p.PGender != GenderName && p.PId != PID).ToList<ProfileModel>();
+            //    var profileModel = (from p in db.Profile
+
+            //                        join c in db.CasteList on p.PCaste equals c.CasteId
+            //                        where (p.PCaste in castemultilist)
+
+            //                  select new ViewProfileVM
+            //                  {
+
+            //                      CasteName = c.CasteName
+
+            //                  }
+            //              ).ToList<ViewProfileVM>().ToPagedList(page ?? 1, 10);
+            //    ViewBag.MatchSummary = profileModel;
+            //    return View();
+            //}
+            //else
+            //{
+            //    var profileModel = (from p in db.Profile
+
+            //                        join c in db.CasteList on p.PCaste equals c.CasteId
+
+            //                        where (p.PCaste == ((from ps in db.Profile where ps.ProfileId == Profileid select ps.PCaste).FirstOrDefault()))
+            //                        select new ViewProfileVM
+            //                        {
+
+            //                            CasteName = c.CasteName
+
+            //                        }
+            //                              ).ToList<ViewProfileVM>().ToPagedList(page ?? 1, 10);
+            //    ViewBag.MatchSummary = profileModel;
+
+            //}
+            return View();
+        }
+
     }
-
-
 }
+
+
+
 
 
 
