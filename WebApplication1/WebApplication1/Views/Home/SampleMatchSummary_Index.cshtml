@@ -1,0 +1,56 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@*@model IPagedList<WebApplication1.Controllers.HomeController.mixViewModel>*@
+@{
+    ViewBag.Title = "SampleMatchSummary_Index";
+    var profilelist = ViewBag.profilelist;
+}
+
+<h2>SampleMatchSummary</h2>
+
+@using (Html.BeginForm("SampleMatchSummary_Index", "Home", FormMethod.Post, new { id = "SampleMatchSummary_Indexform" }))
+{
+ 
+    <input type="hidden" name="page" value="" id="page" />
+    @Html.ListBox("castemultilist", (IEnumerable<SelectListItem>)ViewBag.CasteId, new { id = "multiSelectDropDown", multiple = "multiple", @class = "form-text" })
+    <table border="1">
+        @if (profilelist != null)
+        {
+
+            foreach (var profile in profilelist)
+            {
+                <tr>
+                    <td>@profile.LabelId</td>
+                    <td>@profile.LabelName</td>
+                    <td>@profile.CityName</td>
+                </tr>
+            }
+        }
+    </table>
+    if (profilelist != null)
+    {
+        <div style="text-align:center">
+
+
+            @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("SampleMatchSummary_Index", new { page }));
+
+            @*@Html.PagedListPager((IPagedList)ViewBag.profilelist, page =>new {  @onclick = "someFunction(" + page + ");" }, PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions {HttpMethod = "POST" }))*@
+
+        </div>
+    }
+    <input type="submit" />
+}
+@section scripts{
+    <script type="text/javascript">
+      
+        $(document).on('click', 'a', function () {
+            //document.getElementById('page').value = cnt;
+            $("#page").val($(this)[0].text);
+
+            $("#SampleMatchSummary_Indexform").submit();
+            return false;
+        });
+    </script>
+}
+
+
