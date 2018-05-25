@@ -2173,6 +2173,12 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult FilterColumn(string filter)
+        {
+          
+            return View();
+        }
+
     }
 }
 

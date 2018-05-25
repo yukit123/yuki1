@@ -607,6 +607,8 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\multifilter.js" />
+    <Content Include="Scripts\multifilter.min.js" />
     <Content Include="Scripts\persist-min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -697,6 +699,7 @@
     <Content Include="Views\Home\UploadOutSubmit.cshtml" />
     <Content Include="Views\Home\PartnerPreference.cshtml" />
     <Content Include="Views\Home\SampleMatchSummary.cshtml" />
+    <Content Include="Views\Home\FilterColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -240,5 +240,12 @@ namespace TestApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult ReturnArray()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
