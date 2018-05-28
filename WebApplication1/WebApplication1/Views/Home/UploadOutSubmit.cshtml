@@ -1,12 +1,44 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "UploadOutSubmit";
 }
 
 <h2>UploadOutSubmit</h2>
 
+<input id="avatar" type="file" name="avatar" />
+<button id="upload" value="Upload">Upload</button>
+_______________________________________________________________
+
 @using (Html.BeginForm("UploadOutSubmit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="file" onchange="this.form.submit()" />
-    @*<input type="submit" value="OK" />*@
+    <input type="file" name="file2" onchange="this.form.submit()"/>
+
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).on("click", "#upload", function () {
+            var file_data = $("#avatar").prop("files")[0];
+            //var fileObj = document.getElementById("FileUpload").files[0]; // js 获取文件对象
+            //var file = $("#avatar").get(0).files;
+            //// Getting the properties of file from file field
+            var form_data = new FormData();
+            form_data.append("file", file_data);              // Appending parameter named file with properties of file_field to form_data
+            //form_data.append("user_id", 123);                 // Adding extra parameters to form_data
+            //form_data.append("ImageFile", file[0]);
+            $.ajax({
+                url: "/Home/UploadOutSubmitAjax",
+                //dataType: 'script',
+                cache: false,//上传文件无需缓存
+                contentType: false, //用于对data参数进行序列化处理 这里必须false
+                processData: false,//必须 https://www.cnblogs.com/LoveTX/p/7081515.html
+                data: form_data,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                success: function (result) {
+                    if (result.success == true) { alert("success!"); }
+                    else { alert("fail!"); }
+
+                },
+            })
+        })
+    </script>
 }

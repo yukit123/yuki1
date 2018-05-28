@@ -127,7 +127,7 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
-        #region partial view https://forums.asp.net/t/2132585.aspx
+        #region partial view https://forums.asp.net/t/2132585.aspx  https://forums.asp.net/t/2132850.aspx
         public class Store
         {
             public int StoreID { get; set; }

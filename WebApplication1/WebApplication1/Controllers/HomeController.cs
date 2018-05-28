@@ -555,7 +555,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult Get_priceinfo()
+        public ActionResult Get_priceinfo()//https://forums.asp.net/t/2132972.aspx( AUTOCOMPLETE )
         {
             return View();
         }
@@ -783,6 +783,9 @@ namespace WebApplication1.Controllers
             //JSON转实体类模型对象
             JavaScriptSerializer js = new JavaScriptSerializer();
             ViewBag.json = js.Deserialize<List<Column>>(array);
+
+            //object parsedJson = JsonConvert.DeserializeObject(str);
+            //return JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
 
             var sr = new StreamReader(Request.InputStream);
              var stream = sr.ReadToEnd();
@@ -1456,7 +1459,7 @@ namespace WebApplication1.Controllers
         #endregion
 
 
-        public ActionResult Webgrid()
+        public ActionResult Webgrid()//https://forums.asp.net/t/2132883.aspx
         {
             ViewBag.Message = "Your contact page.";
             var list = db.Label.ToList();
@@ -2084,21 +2087,39 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        //Upload file to file server without submit
-        public ActionResult UploadOutSubmit()
+        #region Upload file to file server without submit
+
+        public ActionResult UploadOutSubmit(HttpPostedFileBase file2)
         {
 
-            //if (file != null && file.ContentLength > 0)
-            //{
+            if (file2 != null && file2.ContentLength > 0)
+            {
 
-            //    var fileName = Path.GetFileName(file.FileName);
+                var fileName = Path.GetFileName(file2.FileName);
 
-            //    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-            //    file.SaveAs(path);
-            //}
+              //  var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                var path = Path.Combine(Server.MapPath("/images/"), fileName);
+
+                file2.SaveAs(path);
+            }
 
             return View();
         }
+        [HttpPost]
+        public ActionResult UploadOutSubmitAjax()//Edge not work =>solution:Path.GetFileName(file2.FileName)
+        {
+            var file = Request.Files[0];
+            if (file != null)
+            {
+                file.SaveAs(Server.MapPath("/images/" + file.FileName));
+                return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { success = false}, JsonRequestBehavior.AllowGet);
+           
+        }
+
+        #endregion
 
         public ActionResult PartnerPreference()
         {
@@ -2172,6 +2193,9 @@ namespace WebApplication1.Controllers
             //}
             return View();
         }
+        
+
+        
 
     }
 }

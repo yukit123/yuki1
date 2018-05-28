@@ -1,0 +1,3 @@
+metadata=res://*/GadgetStore.csdl|res://*/GadgetStore.ssdl|res://*/GadgetStore.msl;provider=System.Data.SqlClient;provider connection string="data source=(LocalDb)\MSSQLLocalDB;initial catalog=BlogContext;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"
+
+BlogContextEntities_DB
