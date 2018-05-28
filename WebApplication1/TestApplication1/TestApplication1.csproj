@@ -163,6 +163,30 @@
     <Compile Include="Migrations\201805230626287_charters.Designer.cs">
       <DependentUpon>201805230626287_charters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805280205369_charters2.cs" />
+    <Compile Include="Migrations\201805280205369_charters2.Designer.cs">
+      <DependentUpon>201805280205369_charters2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805280220221_charters3.cs" />
+    <Compile Include="Migrations\201805280220221_charters3.Designer.cs">
+      <DependentUpon>201805280220221_charters3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805280228075_charters31.cs" />
+    <Compile Include="Migrations\201805280228075_charters31.Designer.cs">
+      <DependentUpon>201805280228075_charters31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805280235143_charters4.cs" />
+    <Compile Include="Migrations\201805280235143_charters4.Designer.cs">
+      <DependentUpon>201805280235143_charters4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805280236591_charters5.cs" />
+    <Compile Include="Migrations\201805280236591_charters5.Designer.cs">
+      <DependentUpon>201805280236591_charters5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805280242362_charters6.cs" />
+    <Compile Include="Migrations\201805280242362_charters6.Designer.cs">
+      <DependentUpon>201805280242362_charters6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Charter.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
@@ -216,6 +240,7 @@
     <Content Include="Views\Home\Property_Index.cshtml" />
     <Content Include="Views\Home\Focus.cshtml" />
     <Content Include="Views\Home\ReturnArray.cshtml" />
+    <Content Include="Views\Home\ExportExcel_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -244,6 +269,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805230626287_charters.resx">
       <DependentUpon>201805230626287_charters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280205369_charters2.resx">
+      <DependentUpon>201805280205369_charters2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280220221_charters3.resx">
+      <DependentUpon>201805280220221_charters3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280228075_charters31.resx">
+      <DependentUpon>201805280228075_charters31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280235143_charters4.resx">
+      <DependentUpon>201805280235143_charters4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280236591_charters5.resx">
+      <DependentUpon>201805280236591_charters5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280242362_charters6.resx">
+      <DependentUpon>201805280242362_charters6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

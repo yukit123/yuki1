@@ -707,6 +707,7 @@
     <Content Include="Views\Home\PartnerPreference.cshtml" />
     <Content Include="Views\Home\SampleMatchSummary_Index.cshtml" />
     <Content Include="Views\Home\FilterColumn.cshtml" />
+    <Content Include="Views\Authors\BatchInsert_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

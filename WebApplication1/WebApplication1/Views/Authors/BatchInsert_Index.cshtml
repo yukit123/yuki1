@@ -1,0 +1,80 @@
+﻿@model List<WebApplication1.Models.Author>
+
+@{
+
+    ViewBag.Title = "Index";
+
+}
+
+
+
+<h2>Employee List</h2>
+
+
+<table class="table">
+
+    <tr>
+
+        <td>
+
+            @Html.TextBox("AuthorName",null, new { @class = "AuthorName" })
+
+        </td>
+
+    </tr>
+    <tr>
+
+        <td>
+            @Html.TextBox("AuthorName",null, new { @class = "AuthorName" })
+
+        </td>
+
+    </tr>
+      <tr>
+
+          <td>
+
+              @Html.TextBox("AuthorName",null, new { @class = "AuthorName" })
+
+          </td>
+
+            </tr>
+
+
+    <tr>
+
+        <td colspan="4">
+
+            <input type="submit" value="Submit" onclick="doSave()" />
+
+        </td>
+
+    </tr>
+
+</table>
+
+
+@section scripts{
+<script type="text/javascript">
+    function doSave() {
+
+        var list = [];
+
+        $('table tr').each(function (i, n) {
+            var obj = {};
+            obj.AuthorName = $(n).find('input[class="AuthorName"]').val();
+            list.push(obj);
+        });
+        $.ajax({
+            url: "@Url.Action("BatchInsert_Index", "Authors")",
+            type: "post",
+            dataType: "json",
+            data: { model: list },
+            success: function (response) {
+              
+            }
+        });
+
+    }
+</script>
+    }

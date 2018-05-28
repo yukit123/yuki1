@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.SqlServer;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using TestApplication1.Models;
 
 
@@ -184,13 +191,26 @@ namespace TestApplication1.Controllers
         // GET: /Assignment/
         public ViewResult Property_Index(string sortOrder, string searchString)
         {
+
+            //for(int i=0;i< db.Charters.ToList().Count;i++)
+            //{
+            //   db.Charters.Select(_ => string.Format("{0:yyy/MM/dd}", _.CharterDate));
+            //}
             ViewBag.CharterID = db.Charters.Select(a => new SelectListItem
             {
+               
                 Value = a.CharterID.ToString(),
-                Text = a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+                Text = SqlFunctions.DatePart("yyyy", a.CharterDate)+"/"+ SqlFunctions.DatePart("MM", a.CharterDate)+"/"+ SqlFunctions.DatePart("dd", a.CharterDate) + " "+a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+                                //Text = a.CharterDate + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+
             }
            ).ToList();
 
+
+            //foreach (var item in ViewBag.CharterID)
+            //{
+            //    item=string.Format("{0:yyy/MM/dd}", item);
+            //}
             //ViewBag.AssignmentSort = String.IsNullOrEmpty(sortOrder) ? "assignment_desc" : "";
             ////ViewBag.ResourceSort = sortOrder == "Shift" ? "shift_desc" : "Shift";
 
@@ -247,5 +267,46 @@ namespace TestApplication1.Controllers
 
             return View();
         }
+# region ExportExcel
+        public ActionResult ExportExcel_Index()
+        {
+            var products = new System.Data.DataTable("teste");
+            products.Columns.Add("col1", typeof(int));
+            products.Columns.Add("col2", typeof(string));
+
+            for (int i = 0; i < 100000; i++)
+            {
+                products.Rows.Add(i, "product 1");
+            }
+
+            Session["SearchLists"] = products;
+            return View();
+        }
+
+
+        public ActionResult ExportExcel()
+        {
+            var grid = new GridView();
+            grid.DataSource = Session["SearchLists"];
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View();
+        }
+        #endregion
     }
 }

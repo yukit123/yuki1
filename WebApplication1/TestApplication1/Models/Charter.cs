@@ -30,6 +30,12 @@ namespace TestApplication1.Models
 
         public string CharterResourceTypeString { get; set; }
 
+        //[DataType(DataType.DateTime)]
+        ////[Column(TypeName = "DateTime2")]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [Display(Name = "Charter Date")]
+        public DateTime? CharterDate { get; set; }
+
         [NotMapped]
         public string str { get; set; }
 
