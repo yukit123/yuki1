@@ -263,5 +263,28 @@ namespace WebApplication1.Controllers
             string fileName = "test.xlsx";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
+
+        public ActionResult BatchInsert_Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult BatchInsert_Index(List<Author> model)
+        {
+
+            //foreach (Author auth in model)
+
+            //{
+            //    Author auth2 = db.Author.Find(auth.id);
+            //    auth2.AuthorName = auth.AuthorName;
+            //}
+           db.Author.AddRange(model);
+            db.SaveChanges();
+
+            return View();
+
+        }
     }
 }

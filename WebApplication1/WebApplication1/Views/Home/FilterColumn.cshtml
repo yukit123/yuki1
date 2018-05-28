@@ -1,0 +1,362 @@
+﻿
+<body>
+    <div class='container'>
+        <div class='hero'>
+            <h2>
+                Multifilter is a jQuery plugin to let you filter a table based on multiple inputs.
+                <br />
+                Check it out below. It's pretty sweet.
+            </h2>
+            <div class='actions'>
+                <a href='http://github.com/tommyp/multifilter/'>Download from Github</a>
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+        <table>
+            <thead>
+            <th>Name</th>
+            <th>Drink</th>
+            <th>Pizza</th>
+            <th>Movie</th>
+            </thead>
+           
+            <tbody>
+                <tr class='filter'>
+                    <td>
+                        <div class='filter-container'>
+                            <input autocomplete='off' class='filter' name='name' placeholder='name' data-col='name' />
+                        </div>
+                    </td>
+                    <td>
+                        <div class='filter-container'>
+                            <input autocomplete='off' class='filter' name='drink' placeholder='drink' data-col='drink' />
+                        </div>
+                    </td>
+                    <td>
+                        <div class='filter-container'>
+                            <input autocomplete='off' class='filter' name='pizza' placeholder='pizza' data-col='pizza' />
+                        </div>
+                    </td>
+                    <td>
+                        <div class='filter-container'>
+                            <input autocomplete='off' class='filter' name='movie' placeholder='movie' data-col='movie' />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Homer
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        The Avengers
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Marge
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        The Avengers
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bart
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Black Dynamite
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lisa
+                    </td>
+                    <td>
+                        Buzz Cola
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Iron Man
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Maggie
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        The Avengers
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kent
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Hawaiian
+                    </td>
+                    <td>
+                        The Avengers
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Patty
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Hawaiian
+                    </td>
+                    <td>
+                        District 9
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Selma
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        The Avengers
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Otto
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        Star Trek
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Carl
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Star Trek
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lenny
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        Pacific Rim
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Stu
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Hawaiian
+                    </td>
+                    <td>
+                        Black Dynamite
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Eddie
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        Star Trek
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lou
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Pacific Rim
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Ned
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        District 9
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Barney
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Pacific Rim
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Moe
+                    </td>
+                    <td>
+                        Buzz Cola
+                    </td>
+                    <td>
+                        Hawaiian
+                    </td>
+                    <td>
+                        Star Trek
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Julius
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Pacific Rim
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Jimbo
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Pepperoni
+                    </td>
+                    <td>
+                        Star Trek
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Rod
+                    </td>
+                    <td>
+                        Duff Beer
+                    </td>
+                    <td>
+                        Magheritta
+                    </td>
+                    <td>
+                        Star Trek
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Todd
+                    </td>
+                    <td>
+                        Squishie
+                    </td>
+                    <td>
+                        Hawaiian
+                    </td>
+                    <td>
+                        The Avengers
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+@section scripts{
+    <link href="http://tommyp.github.io/multifilter/style.css" media='screen' rel='stylesheet' type='text/css' />
+
+    @*<script src="http://tommyp.github.io/multifilter/multifilter.js"></script>*@
+    <script src="~/Scripts/multifilter.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(document).ready(function () {
+            $('.filter').multifilter()
+        })
+            //]]>
+    </script>
+}

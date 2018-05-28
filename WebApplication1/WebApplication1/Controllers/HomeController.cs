@@ -3,6 +3,7 @@ using Kendo.Mvc;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using PagedList;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -2121,6 +2122,7 @@ namespace WebApplication1.Controllers
 
         #endregion
 
+        #region DropDownList 级联 array to SelectList
         public ActionResult PartnerPreference()
         {
             var minagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
@@ -2150,8 +2152,62 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult SampleMatchSummary(int? page, string[] castemultilist, string LanguageId)
+        #endregion
+
+        #region ToPagedList pagelist.mvc 分页 https://github.com/TroyGoode/PagedList linq to sql https://forums.asp.net/t/2141165.aspx
+        public class mixViewModel
         {
+            public int LabelId { get; set; }
+            public string LabelName { get; set; }
+
+            public string  CityName { get; set; }
+
+
+        }
+
+  
+        public ActionResult SampleMatchSummary_Index()
+        {
+            ViewBag.CasteId = new SelectList(db.Label.ToList(), "LabelId", "LabelName");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SampleMatchSummary_Index( int[] castemultilist, string LanguageId, int? page)
+        {
+            var profilelist2 = new List<mixViewModel>();
+            foreach (var item in castemultilist)
+            {
+                //list = db.Cities.Where(_ => _.CountryId == item).ToList();
+
+                //var profileModel = (from p in db.c
+
+                //                    join c in db.CasteList on p.PCaste equals c.CasteId
+                //                    where (p.PCaste in castemultilist)
+
+                //                  select new ViewProfileVM
+                //                  {
+
+                //                      CasteName = c.CasteName
+
+                //                  }
+                //              ).ToList<ViewProfileVM>().ToPagedList(page ?? 1, 10);
+
+                var profilelist = (from l in db.Label.ToList()
+                                     join c in db.Cities.ToList() on l.LabelId equals c.CountryId
+                                     where  l.LabelId==item
+                                     select new mixViewModel()
+                                     {
+                                         LabelId = l.LabelId,
+                                         LabelName = l.LabelName,
+                                         CityName = c.CityName
+                                     }).ToList();
+               profilelist2.AddRange(profilelist);
+
+            }
+            ViewBag.profilelist = profilelist2.ToPagedList(page ?? 1, 5);
+ 
+            //var list = db.Cities.Where(_ => _.CountryId == castemultilist.).ToList();
             ViewBag.CasteId = new SelectList(db.Label.ToList(), "LabelId", "LabelName");
             //int castelist1 = Convert.ToInt32(castemultilist);
             //int languageid1 = Convert.ToInt32(LanguageId);
@@ -2193,9 +2249,16 @@ namespace WebApplication1.Controllers
             //}
             return View();
         }
-        
 
-        
+        #endregion
+
+        #region Multifilter
+        public ActionResult FilterColumn(string filter)
+        {
+          
+            return View();
+        }
+        #endregion
 
     }
 }
