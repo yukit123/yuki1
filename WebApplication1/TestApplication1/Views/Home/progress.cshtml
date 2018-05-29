@@ -1,0 +1,66 @@
+﻿@*@{Layout = null; }*@
+
+<!DOCTYPE html>
+@*<html ng-app="m2App">*@
+<head>
+    @*<script src="https://code.angularjs.org/1.4.2/angular.js"></script>*@
+    <script src="~/Scripts/angular.js"></script>
+    @*<link href="style.css" rel="stylesheet" />
+        <script src="script.js"></script>*@
+</head>
+<style type="text/css">
+
+    #overlay {
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+</style>
+<body>
+
+    <br/>
+    <progress id="prog" value="0" max="100"></progress>
+    <div id="overlay"></div>
+    <input id="startBtn" type="button" value="start" onclick="startProgress()">
+    <input id="startBtn" type="button" value="aaa">
+    <input id="starttxt" type="text">
+
+    @*<div id="numValue">0%</div>*@
+
+
+</body>
+@*</html>*@
+@section scripts{
+    <script type="text/javascript">
+        var currProgress = 0;
+        var done = false;
+        var total = 100;
+        function startProgress() {
+            $("#overlay").show();
+            var prBar = document.getElementById("prog");
+            //var startButt = document.getElementById("startBtn");
+
+            //var val = document.getElementById("numValue");
+
+            prBar.value = currProgress;
+            //val.innerHTML = Math.round((currProgress / total) * 100) + "%";
+            currProgress++;
+            if (currProgress > 100) done = true;
+            if (!done)
+                setTimeout("startProgress()", 100);
+
+            else {
+                //document.getElementById("startBtn").disabled = false;
+                $("#overlay").hide();
+                done = false;
+                currProgress = 0;
+            }
+        }
+    </script>
+
+    }

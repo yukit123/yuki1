@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -267,7 +268,7 @@ namespace TestApplication1.Controllers
 
             return View();
         }
-# region ExportExcel
+        # region ExportExcel
         public ActionResult ExportExcel_Index()
         {
             var products = new System.Data.DataTable("teste");
@@ -308,5 +309,30 @@ namespace TestApplication1.Controllers
             return View();
         }
         #endregion
+
+
+        public ActionResult DropDown()
+        {
+            List<SelectListItem> country = db.CountrySizes.Select(x => new SelectListItem { Value = x.country, Text = x.country, Selected = false }).DistinctBy(p=>p.Value).ToList();
+            List<SelectListItem> size = db.CountrySizes.Select(x => new SelectListItem { Value = x.size, Text = x.size, Selected = false }).DistinctBy(p => p.Value).ToList();
+            ViewBag.country = new SelectList(country, "Text", "Value");
+            ViewBag.size = new SelectList(size, "Text", "Value");
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetData(string country, string size)
+        {
+            var list = db.CountrySizes.Where(_ => _.country == country &&_.size==size).ToList();
+            return Json(new { showlist = list }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult progress()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }

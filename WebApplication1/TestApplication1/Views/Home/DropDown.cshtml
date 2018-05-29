@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "DropDown";
+}
+
+@Html.DropDownList("country")
+@Html.DropDownList("size")
+
+@Html.TextBox("value")
+
+
+<div class="expandable" onclick="OnToggleTOCLevel1('compilerOutputDiv')">Show Detailed Compiler Output:</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: '/Home/GetData',
+                type: 'GET',
+                data: { country: $("#country").val(), size: $("#size").val() },
+                success: function (data) {
+                    $("#value").val(data.showlist[0].value);
+                }
+            })
+        });
+
+        $("#country,#size").on("change", function () {
+            $.ajax({
+                url: '/Home/GetData',
+                type: 'GET',
+                data: { country: $("#country").val(), size: $("#size").val() },
+                success: function (data) {
+                    $("#value").val(data.showlist[0].value);
+                }
+            })
+        })
+    </script>
+}
