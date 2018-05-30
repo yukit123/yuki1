@@ -1,35 +1,125 @@
-﻿@model IEnumerable<WebApplication1.Models.Author>
-
+﻿@model IEnumerable<WebApplication1.Models.Employee>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<div class="modal fade" id="myModal">
+
+</div>*@
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+
+</div>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AuthorName)
-        </th>
-        <th></th>
-    </tr>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Salary</th>
+    <th>Department</th>
+    <th>Position</th>
+    <th>ViewDetails</th>
+    <th>Details</th>
+    @foreach (var item in Model)
+    {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AuthorName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })|
-            @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.id })
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViewDetails)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })|
+                    @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.id })
+                    @Html.ActionLink("Details2", "Details", new { id = item.id })*@
+                @*<input type="button" value="Details2" id="Details2" onclick="doModel(@item.Id)" />*@
+                <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+@*@section scripts{
+        <script src="http://localhost:60112/Scripts/bootstrap.js"></script>
+        <script>
+            $(function () {
+                $("#myModal").modal("hide");
+            })
+            //$("#Details2").click(function () {
+            //    $("#myModal").modal("show");
+            //})
+            function doModel(Id) {
+                $.ajax({
+                    url: '/Authors/myModal',
+                    type: 'GET',
+                    data: { Id: Id },
+                    success: function (data) {
+
+                        $("#myModal").modal("show");
+                    }
+                })
+                //$('#Details2').on('click', 'tr', function () {
+                // var name = $('td', this).eq().text();
+                //console.log(companyTable.row(this).data()[1]);
+                //$("#DetailId").val($(obj).parents("tr").find("#item_id").val());
+                //$("#DetailLableName").val($(obj).parents("tr").find("#item_AuthorName").val());
+                //$('#myModal').modal("show");
+                //});
+
+            }
+
+        </script>
+    }*@
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        var TeamDetailPostBackURL = '/Authors/myModal';
+        $(function () {
+            $(".anchorDetail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: TeamDetailPostBackURL,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#myModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+
+}  

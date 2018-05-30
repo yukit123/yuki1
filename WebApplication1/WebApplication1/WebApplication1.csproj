@@ -524,12 +524,17 @@
     <Compile Include="Migrations\201805170508208_TEnum.Designer.cs">
       <DependentUpon>201805170508208_TEnum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805300731315_employees.cs" />
+    <Compile Include="Migrations\201805300731315_employees.Designer.cs">
+      <DependentUpon>201805300731315_employees.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\BlogContext.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Column.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\le_leaveApplication.cs" />
     <Compile Include="Models\Product.cs" />
@@ -708,6 +713,8 @@
     <Content Include="Views\Home\SampleMatchSummary_Index.cshtml" />
     <Content Include="Views\Home\FilterColumn.cshtml" />
     <Content Include="Views\Authors\BatchInsert_Index.cshtml" />
+    <Content Include="Views\Authors\_myModal.cshtml" />
+    <Content Include="Views\Home\pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -779,6 +786,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805170508208_TEnum.resx">
       <DependentUpon>201805170508208_TEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805300731315_employees.resx">
+      <DependentUpon>201805300731315_employees.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

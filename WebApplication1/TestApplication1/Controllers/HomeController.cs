@@ -7,6 +7,7 @@ using System.Data.Entity.SqlServer;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -324,7 +325,7 @@ namespace TestApplication1.Controllers
         public JsonResult GetData(string country, string size)
         {
             var list = db.CountrySizes.Where(_ => _.country == country &&_.size==size).ToList();
-            return Json(new { showlist = list }, JsonRequestBehavior.AllowGet);
+            return Json(new { showlist = list,msg=true }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -333,6 +334,51 @@ namespace TestApplication1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult progress2()//http://jsfiddle.net/6m9gf2a2/
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        //[HttpGet]
+        public JsonResult GetResponses()
+        {
+            var list = db.CountrySizes.ToList();
+            return Json(new { showlist = list, msg = true }, JsonRequestBehavior.AllowGet);
+        }
+        
+
+        public ActionResult ModelBind_Index()
+        {
+            var model = new AuthorModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public string Index(AuthorModel author)
+        {
+            var sb = new StringBuilder();
+            try
+            {
+                sb.AppendFormat("Author : {0}", author.Name);
+                sb.AppendLine("<br />");
+                sb.AppendLine("--------------------------------");
+                sb.AppendLine("<br />");
+                foreach (var book in author.Books)
+                {
+                    sb.AppendFormat("Title : {0} | Published Date : {1}", book.Title, book.PublishedDate);
+                    sb.AppendLine("<br />");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return sb.ToString();
         }
     }
 }

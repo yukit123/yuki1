@@ -1,0 +1,64 @@
+﻿<style>
+    #overlay {
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    #progress {
+        position: fixed;
+        z-index: 2147483647;
+        top: 0;
+        left: -6px;
+        width: 0%;
+        height: 2px;
+        background: #b91f1f;
+        -moz-border-radius: 1px;
+        -webkit-border-radius: 1px;
+        border-radius: 1px;
+        -moz-transition: width 500ms ease-out,opacity 400ms linear;
+        -ms-transition: width 500ms ease-out,opacity 400ms linear;
+        -o-transition: width 500ms ease-out,opacity 400ms linear;
+        -webkit-transition: width 500ms ease-out,opacity 400ms linear;
+        transition: width 500ms ease-out,opacity 400ms linear
+    }
+
+        #progress.done {
+            opacity: 0
+        }
+</style>
+<div id="overlay"></div>
+<div id="progress" class="waiting"></div>
+<input id="startBtn" type="button" value="start" onclick="startProgress()">
+<input id="Btn" type="button" value="aaa">
+<input id="starttxt" type="text">
+
+@section scripts{
+    <script>
+        function startProgress() {        
+            $({ property: 0 }).animate({ property: 105 }, {
+                duration: 4000,
+                step: function () {
+                    $("#overlay").show();
+                    var _percent = Math.round(this.property);
+                    $('#progress').css('width', _percent + "%");
+                    if (_percent == 105) {
+                        $("#progress").addClass("done");
+                    }
+                  
+
+                
+                },
+                complete: function () {
+                    //alert('complete');
+                    $("#overlay").hide();
+                }
+            });
+        }
+    </script>
+}

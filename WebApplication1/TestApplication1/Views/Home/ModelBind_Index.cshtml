@@ -1,0 +1,72 @@
+﻿@using TestApplication1.Models
+@model TestApplication1.Models.AuthorModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Index
+</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Author</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div>
+            <input id="btnAddBook" type="button"
+                   onclick="addRow()" value="Add Book" />
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Title
+                    </td>
+                    <td>
+                        Published Date
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="tbBooks"></tbody>
+        </table>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script language="javascript" type="text/javascript">
+        function addRow() {
+
+            @{
+                Model.Books.Add(new Book());
+            }
+
+            var index = $("#tbBooks").children("tr").length;
+
+            var indexCell = "<td style='display:none'><input name='Books.Index' type='hidden' value='" + index + "' /></td>";
+            var titleCell = "<td><input id='Books_" + index + "__Title' name='Books[" + index + "].Title' type='text' value='' /></td>";
+            var publishedCell = "<td><input id='Books_" + index + "__Title' name='Books[" + index + "].PublishedDate' type='text' value='' /></td>";
+            var removeCell = "<td><input id='btnAddBook' type='button' value='Remove' onclick='removeRow(" + index + ");' /></td>";
+
+            var newRow = "<tr id='trBook" + index + "'>" +
+            indexCell + titleCell + publishedCell + removeCell + "</tr>";
+            $("#tbBooks").append(newRow);
+        }
+
+        function removeRow(id) {
+            var controlToBeRemoved = "#trBook" + id;
+            $(controlToBeRemoved).remove();
+        }
+</script>

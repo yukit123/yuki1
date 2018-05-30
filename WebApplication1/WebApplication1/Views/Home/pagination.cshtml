@@ -1,0 +1,240 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@*<link href="~/CSS/ItemStyle.css" rel="stylesheet" />*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/CSS/form_style.css" rel="stylesheet" />
+<link href="~/PureCss/tables-min.css" rel="stylesheet" />
+<link href="~/PureCss/tables.css" rel="stylesheet" />
+
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/datatables.js"></script>
+
+
+
+@using System.Data;
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="div_item_header" style="position: fixed; top: 0; background-color: white ;width:1360px; ">
+    <br>
+    <label class="account_title label_header" style="margin-left:600px">Item Wise Sales Register</label>
+
+</div>
+
+
+<div class="div_content_border" style="height:auto; width: 1000px; margin-left: 170px; margin-top: 60px; ">
+
+
+    <div class="container">
+        <div class="row">
+
+            @using (Html.BeginForm("Search", "Item_Wise_Sales_Register", FormMethod.Post, new { @class = "form-inline" }))
+            {
+
+                <br><br>
+
+
+                <div class="form-group">
+                    <input name="from_date" placeholder="From Date" id="fiscal_year" type="date" class="form-control" style="width:180px" data-toggle="tooltip" title="Start Year">
+                    <input type="hidden" id="date_after_format1">
+                </div>
+
+
+                <div class="form-group">
+                    <input name="to_date" placeholder="To Date" id="fiscal_year" type="date" class="form-control" style="width:180px" data-toggle="tooltip" title="End Year">
+                    <input type="hidden" id="date_after_format2">
+
+                </div>
+
+
+                <div class="form-group">
+                    <input list="get_item" name="item" placeholder="Item" id="fiscal_year" type="text" class="form-control" style="width:180px" data-toggle="tooltip" title="Item">
+
+                </div>
+
+                <datalist id="get_item"></datalist>
+
+                <script type="text/javascript">
+                    $(function () {
+
+                        $(window).on("load", function () {
+                            $.get("/AutoComplete/Get_Item_Name", {
+
+
+                            }, function (data) {
+                                var row;
+                                $.each(data, function (i, v) {
+                                    row += "<option>" + v.item_name + "</option>";
+                                });
+
+                                $("#get_item").append(row);
+                            });
+                        })
+                    })
+
+                </script>
+
+
+                <div class="form-group">
+                    <input list="get_company" id="company" name="company" placeholder="Company" type="text" class="form-control" style="width:180px" data-toggle="tooltip" title="Company">
+
+                    <datalist id="get_company"></datalist>
+
+                    <script type="text/javascript">
+                        $(function () {
+
+                            $(window).on("load", function () {
+                                $.get("/AutoComplete/Get_Company_Name", {
+
+
+                                }, function (data) {
+                                    var row;
+                                    $.each(data, function (i, v) {
+                                        row += "<option>" + v.company_name + "</option>";
+                                    });
+
+                                    $("#get_company").append(row);
+                                });
+                            })
+                        })
+
+                    </script>
+
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    <input name="customer" list="get_customer" placeholder="Customer" type="text" class="form-control" style="width:180px" data-toggle="tooltip" title="Customer">
+                    <datalist id="get_customer"></datalist>
+
+                    <script type="text/javascript">
+                        $(function () {
+
+                            $(window).on("load", function () {
+                                $.get("/AutoComplete/Get_Customer_Name", {
+
+
+                                }, function (data) {
+                                    var row;
+                                    $.each(data, function (i, v) {
+                                        row += "<option>" + v.customer_name + "</option>";
+                                    });
+
+                                    $("#get_customer").append(row);
+                                });
+                            })
+                        })
+
+                    </script>
+
+                </div>
+
+                <br><br>
+                <div class="form-group">
+                    <input list="get_mode_of_payment" name="mode_of_payment" placeholder="Mode of Payment" type="text" class="form-control" style="width:180px" data-toggle="tooltip" title="Mode of Payment">
+                    <datalist id="get_mode_of_payment"></datalist>
+                    <script type="text/javascript">
+                        $(function () {
+
+                            $(window).on("load", function () {
+                                $.get("/AutoComplete/Get_Mode_of_Payment", {
+
+
+                                }, function (data) {
+                                    var row;
+                                    $.each(data, function (i, v) {
+                                        row += "<option>" + v.mode_of_payment + "</option>";
+                                    });
+
+                                    $("#get_mode_of_payment").append(row);
+                                });
+                            })
+                        })
+
+                    </script>
+
+
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-primary" id="bsearch" type="submit" value="Search" />
+                </div>
+
+            }
+
+
+            <div style="overflow-x:auto; width:997px">
+                <table class="table table-hover" id="example1" border="0">
+
+                    <thead style="font-family:Bahnschrift SemiBold;height:20px">
+                        <tr style="color:gray;font-weight:bold;font-family:'Century Gothic';">
+
+                            <th class="text-center">Column</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i < 20; i++)
+                        {
+                            <tr><td>rows</td></tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+  
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    $(function () {
+        $('#example1').DataTable();
+        $("#from_date").change(function () {
+
+            var x = document.getElementById("from_date");
+            var defaultVal = x.defaultValue;
+            var currentVal = x.value;
+
+            var s2 = currentVal;
+            $('#date_after_format1').val(s2);
+        });
+    });
+
+
+    $(function () {
+        $("#to_date").change(function () {
+
+            var x = document.getElementById("to_date");
+            var defaultVal = x.defaultValue;
+            var currentVal = x.value;
+
+            var s2 = currentVal;
+            $('#date_after_format2').val(s2);
+        });
+    });
+
+</script>

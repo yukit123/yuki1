@@ -191,7 +191,12 @@
     <Compile Include="Migrations\201805290211333_countrysizes.Designer.cs">
       <DependentUpon>201805290211333_countrysizes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805301132527_authormodels.cs" />
+    <Compile Include="Migrations\201805301132527_authormodels.Designer.cs">
+      <DependentUpon>201805301132527_authormodels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\Charter.cs" />
     <Compile Include="Models\CountrySize.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
@@ -1028,6 +1033,8 @@
     <Content Include="Views\Home\DropDown.cshtml" />
     <Content Include="Views\Home\progress.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Home\progress2.cshtml" />
+    <Content Include="Views\Home\ModelBind_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1077,6 +1084,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805290211333_countrysizes.resx">
       <DependentUpon>201805290211333_countrysizes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301132527_authormodels.resx">
+      <DependentUpon>201805301132527_authormodels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

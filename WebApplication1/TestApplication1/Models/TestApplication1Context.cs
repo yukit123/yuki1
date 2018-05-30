@@ -11,8 +11,7 @@ namespace TestApplication1.Models
         public DbSet<Charter> Charters { get; set; }
 
         public DbSet<CountrySize> CountrySizes { get; set; }
-
+        public DbSet<AuthorModel> AuthorModels { get; set; }
         
-
     }
 }

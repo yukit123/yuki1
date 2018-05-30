@@ -17,7 +17,20 @@ namespace WebApplication1.Controllers
         // GET: Authors
         public ActionResult Index()
         {
-            return View(db.Author.ToList());
+            ViewBag.type = 0;
+            return View(db.Employees.ToList());
+        }
+
+        public ActionResult myModal(int Id)
+        {
+            ViewBag.type = 1;
+            Employee employee = db.Employees.Find(Id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_myModal", employee);
+
         }
 
         // GET: Authors/Details/5
