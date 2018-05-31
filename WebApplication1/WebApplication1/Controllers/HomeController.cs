@@ -1463,7 +1463,52 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        #region https://forums.asp.net/t/2141538.aspx
+        public class customer_pro
+        {
+            public string customer_name { get; set; }
+            public string customer_group_name { get; set; }
+            public string territory_name { get; set; }
+            public string status { get; set; }
+        }
+        public ActionResult SearchDynamic()
+        {
+            ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public JsonResult Show_Customer()
+        {
+            //DataSet ds = dblayer.Show_Customer();
+            //List<customer_pro> listreg = new List<customer_pro>();
+            //foreach (DataRow dr in ds.Tables[0].Rows)
+            //{
+
+            //    listreg.Add(new customer_pro
+            //    {
+
+            //        customer_name = dr["customer_name"].ToString(),
+            //        customer_group_name = dr["customer_group_name"].ToString(),
+            //        territory_name = dr["territory_name"].ToString(),
+            //        status = dr["status"].ToString(),
+            //        // series = dr["series"].ToString(),
+
+
+            //    });
+            //}
+
+            var listreg = new List<customer_pro>();
+
+            listreg.Add(new customer_pro() { customer_name = "aaa", customer_group_name = "aacustomer", territory_name = "aaterritory", status = "Yes" });
+                                                                                                        
+            listreg.Add(new customer_pro() { customer_name = "bbb", customer_group_name = "bbcustomer", territory_name = "bbterritory", status = "NO" });
+                                                                                                      
+            listreg.Add(new customer_pro() { customer_name = "ccc", customer_group_name = "cccustomer", territory_name = "ccterritory", status = "Yes" });
+            return Json(listreg, JsonRequestBehavior.AllowGet);
+
+        }
+        #endregion
         #endregion
 
 

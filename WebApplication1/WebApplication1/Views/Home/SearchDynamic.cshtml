@@ -1,0 +1,158 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Customer</title>
+    @*<link href="~/CSS/ItemStyle.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<link href="~/bootstrapp/css/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/PureCss/tables-min.css" rel="stylesheet" />*@
+    <link href="~/Content/datatables.min.css" rel="stylesheet" />
+    @*<link href="~/PureCss/tables.css" rel="stylesheet" />*@
+    @*<link href="~/CSS/form_style.css" rel="stylesheet" />*@
+
+
+
+</head>
+<body>
+
+
+    <div class="div_item_header" style="position: fixed; top: 0; background-color: white ;width:1360px; ">
+        <br>
+        <label class="account_title label_header">Customer</label>
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            <input class="btn btn-primary" formaction="@Url.Action("new_Customer", "Customer")" id="Button1" type="submit" value="New" style="margin-left:1200px;margin-top:-60px" />
+        }
+    </div>
+
+
+    <div class="div_content_border" style="height: auto; width: 1000px; margin-left: 170px; margin-top: 60px; ">
+
+
+        <div class="container">
+            <div class="row">
+
+                <br>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="ID" data-toggle="tooltip" title="ID">
+                    </div>
+
+                    <!--<div class="form-group col-sm-offset-2"> -->
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Customer Group" data-toggle="tooltip" title="Customer Group">
+                    </div>
+
+                    <div class="form-group">
+                        <input id="territory" class="form-control" type="text" placeholder="Territory" data-toggle="tooltip" title="Territory">
+                    </div>
+
+
+                </form>
+
+            </div>
+        </div>
+
+        <br>
+        <table class="table table-hover" id="tb_list" width="1000">
+            <thead style="background-color: #eff3f9">
+                <tr style="color:gray;font-weight:bold;font-family:'Century Gothic';">
+                    <th scope="col" style="display:none">Series</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Customer Group</th>
+                    <th scope="col">Tirritory</th>
+
+                </tr>
+            </thead>
+
+
+        </table>
+    </div>
+   
+    @*<script src="~/bootstrapp/js/bootstrap.min.js"></script>
+        <script src="~/bootstrapp/js/bootstrap.js"></script>*@
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        $("#territory").keyup(function () {
+            //split the current value of searchInput
+            var data = this.value.split(" ");
+            //create a jquery object of the rows
+            var jo = $("tbody").find("tr");
+            if (this.value == "") {
+                jo.show();
+                return;
+            }
+            //hide all the rows
+            jo.hide();
+
+            //Recusively filter the jquery object to get results.
+            jo.filter(function (i, v) {
+                var $t = $(this);
+                for (var d = 0; d < data.length; ++d) {
+                    if ($t.is(":contains('" + data[d] + "')")) {
+                        return true;
+                    }
+                }
+                return false;
+            })
+                //show the rows that match.
+                .show();
+        }).focus(function () {
+            this.value = "";
+            $(this).css({
+                "color": "black"
+            });
+            $(this).unbind('focus');
+        }).css({
+            "color": "#C0C0C0"
+        });
+    </script>
+
+    <script>
+
+        $(function () {
+            $.get("/Home/Show_Customer", {}, function (data) {
+
+                var row;
+                $.each(data, function (i, v) {
+
+                    row += "<tr style='font-family:Bahnschrift SemiBold;cursor:pointer'><td style='display:none'>" + v.series + "</td><td>" + v.customer_name + "</td><td>" + v.status + "</td><td>" + v.customer_group_name + "</td><td>" + v.territory_name + "</td>" + "</tr>";
+
+
+                });
+
+                $("#tb_list").append(row);
+
+            });
+        });
+
+
+        $("#tb_list").off("click", "tr").on("click", "tr", function () {
+
+            var series = $(this).find("td:eq(0)").text();
+            window.open("edit_customer?series=" + series + "", "_self");
+
+        });
+
+
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+</body>
+</html>

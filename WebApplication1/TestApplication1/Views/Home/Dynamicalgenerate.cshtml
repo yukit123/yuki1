@@ -1,0 +1,51 @@
+﻿@*@using TestApplication1.Models
+@model TestApplication1.Models.AuthorModel*@
+@{
+    ViewBag.Title = "Dynamicalgenerate";
+}
+
+<h2>Dynamicalgenerate</h2>
+@using (Html.BeginForm("Dynamicalgenerate_Create", "Home"))
+{
+    <input id="btnAdd" type="button" value="Add Quantity" onclick="AddTextBox()" class="btn btn-primary" />
+    <div id="TextBoxContainer">
+        <!--Textboxes will be added here -->
+    </div>
+
+    <input type="submit" value="Create" />
+}
+<script>
+    var count = 0;
+
+    function GetDynamicTextBox(value) {
+        var div = $("<div  style='margin-bottom:5px;' class='form-group'/>");
+
+        var textBox = $("<input />").attr("type", "textbox").attr("name", "DynamicTextBox").attr("class", "textbox");
+        textBox.val(value);
+        div.append(textBox);
+
+        var button = $("<input />").attr("type", "button").attr("value", "Remove");
+        button.attr("onclick", "RemoveTextBox(this)");
+        button.attr("class", "btn btn-sm btn-primary");
+        button.attr("style", "margin-left:5px; margin-top:0px;margin-bottom:5px;");
+        div.append(button);
+
+        //add radio button
+        count++;
+        var radioBtnAnd = ('<input type="radio" name="') + count + ('rbtnCount" value="And" style="margin-left: 5px;">And </input>');
+        div.append(radioBtnAnd);
+        var radioBtnOr = (' <input type="radio" name="') + count + ('rbtnCount" value="Or">Or </input>');
+        div.append(radioBtnOr);
+
+        return div;
+    }
+
+    function AddTextBox() {
+        var div = GetDynamicTextBox("");
+        $("#TextBoxContainer").append(div);
+    }
+
+    function RemoveTextBox(button) {
+        $(button).parent().remove();
+    }
+</script>

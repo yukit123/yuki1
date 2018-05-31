@@ -1,0 +1,61 @@
+﻿@model  TestApplication1.Controllers.HomeController.ManageAIGViewModel
+
+@*//here I also tried this: @model MVCADDRIS.Models.ViewModels.ManageAIGViewModel*@
+
+@{
+
+    ViewBag.Title = "Index";
+
+}
+
+<h2>Index</h2>
+
+<p>
+
+    @Html.ActionLink("Create New", "Create")
+
+</p>
+
+<table>
+
+    <tr>
+
+        <th>
+
+            @Html.DisplayNameFor(model => model.AigNumber)
+
+        </th>
+
+        <th>
+
+            @Html.DisplayNameFor(model => model.AigType)
+
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)  //error is coming from Model here.
+
+    {
+
+        <tr>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.AigNumber)
+
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.AigType)
+
+            </td>
+
+        </tr>
+
+    }
+
+</table>
+
+@*</table>*@

@@ -715,6 +715,7 @@
     <Content Include="Views\Authors\BatchInsert_Index.cshtml" />
     <Content Include="Views\Authors\_myModal.cshtml" />
     <Content Include="Views\Home\pagination.cshtml" />
+    <Content Include="Views\Home\SearchDynamic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

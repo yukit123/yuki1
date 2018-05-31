@@ -19,6 +19,7 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
+           
         </div>
         <div>
             <input id="btnAddBook" type="button"
@@ -59,9 +60,10 @@
             var titleCell = "<td><input id='Books_" + index + "__Title' name='Books[" + index + "].Title' type='text' value='' /></td>";
             var publishedCell = "<td><input id='Books_" + index + "__Title' name='Books[" + index + "].PublishedDate' type='text' value='' /></td>";
             var removeCell = "<td><input id='btnAddBook' type='button' value='Remove' onclick='removeRow(" + index + ");' /></td>";
+            var radioCell = "<td><input type='radio' name='btnCount' value='And' style='margin-left: 5px;'>And<input type='radio' name='btnCount' value='Or'>OR</td>"
 
             var newRow = "<tr id='trBook" + index + "'>" +
-            indexCell + titleCell + publishedCell + removeCell + "</tr>";
+                indexCell + titleCell + publishedCell + removeCell + radioCell + "</tr>";
             $("#tbBooks").append(newRow);
         }
 

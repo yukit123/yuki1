@@ -129,6 +129,7 @@
         {
             <tr>
                 <td>@Html.TextBox(i.ToString(), null, new { @Name = "Number[" + i + "]" })</td>
+
             </tr>
         }
     </table>
@@ -153,20 +154,24 @@
 </table>
     -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <br />
-@foreach (var item in Model)
-{
-    <div class="divdemo">
-        <div class="divinput" style="display:inline">
-            @Html.EditorFor(modelItem => item.BlogId)
-            @Html.EditorFor(modelItem => item.Name)
+
+    @foreach (var item in Model)
+    {
+        <div class="divdemo">
+            <div class="divinput" style="display:inline">
+                @Html.EditorFor(modelItem => item.BlogId)
+                @Html.EditorFor(modelItem => item.Name)
+
+
+            </div>
+            <div class="divbutton" style="display:inline">
+                <input id="Add1" type="button" value="Add new" class="addclass" />
+                <input id="Delete1" type="button" value="Delete" />
+               
+            </div>
+            <br />
         </div>
-        <div class="divbutton" style="display:inline">
-            <input id="Add1" type="button" value="Add new" class="addclass" />
-            <input id="Delete1" type="button" value="Delete" />
-        </div>
-        <br />
-    </div>
-}
+    }
 
 
 

@@ -1035,6 +1035,8 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Home\progress2.cshtml" />
     <Content Include="Views\Home\ModelBind_Index.cshtml" />
+    <Content Include="Views\Home\Dynamicalgenerate.cshtml" />
+    <Content Include="Views\Home\GetEnumeriator_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

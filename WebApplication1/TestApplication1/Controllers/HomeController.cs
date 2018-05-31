@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TestApplication1.Models;
@@ -358,7 +359,7 @@ namespace TestApplication1.Controllers
         }
 
         [HttpPost]
-        public string Index(AuthorModel author)
+        public string ModelBind_Index(AuthorModel author)
         {
             var sb = new StringBuilder();
             try
@@ -379,6 +380,63 @@ namespace TestApplication1.Controllers
             }
 
             return sb.ToString();
+        }
+
+        //public class Dynamicalgenerate
+        //{
+        //    public int Id { get; set; }
+        //    public string DynamicTextBox { get; set; }
+
+        //    public string rbtnCount { get; set; }
+
+
+        //}
+
+        public ActionResult Dynamicalgenerate()
+        {
+            var model = new AuthorModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Dynamicalgenerate_Create(string[] DynamicTextBox, string[] rbtnCount)
+        {
+
+            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            //string message = "";
+            //foreach (string textboxValue in DynamicTextBox)
+            //{
+            //    message += textboxValue + "\\n";
+            //}
+
+            //T1.Quantity = message;
+            return View();
+        }
+
+
+        public class ManageAIGViewModel
+
+        {
+
+           
+            public int ID { get; set; }
+
+            public int? AigNumber { get; set; }
+
+            public string AigType { get; set; }
+        }
+        public ActionResult GetEnumeriator_Index()
+        {
+            var list = new List<ManageAIGViewModel>();
+
+            list.Add(new ManageAIGViewModel() { ID = 1, AigNumber = 11, AigType = "aaaaaAigType" });
+
+            list.Add(new ManageAIGViewModel() { ID = 2, AigNumber = 22, AigType = "bbbbbAigType" });
+
+            list.Add(new ManageAIGViewModel() { ID = 3, AigNumber = 33, AigType = "cccccAigType" });
+            return View(list);
+
         }
     }
 }
