@@ -7,6 +7,10 @@
 </div>
 <div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
 
+<br />
+_______________________________________________________________________________________
+<br />
+
 @*@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
     @Html.EditorFor(model => model.DateDocument, new { @Value = "2015-10-14" })*@
 
@@ -21,6 +25,19 @@
 
 
 @Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id = "aa", @name = "aa", @class = "datepicker", type = "date", @Value = "2015-10-14" } })
+<br />
+_________________________________________________________________________________________________
+<br />
+<input type="date" id="current_date"> @*https://stackoverflow.com/questions/12757911/how-to-display-current-month-year-in-javascript-using-div*@
+
+<input type="month" id="date_of_month_before"> @*https://www.w3schools.com/jsref/jsref_getmonth.asp*@ @*https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month*@
+
+@*<input type="date" id="date">*@
+
+
+@*@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "txtdatepicker" } })*@
+
+<input name="startDate" id="txtdatepicker" class="date-picker" />
 
 <script>
     function move(button) {
@@ -46,6 +63,53 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
+        var d = new Date();
+        //var n1 = d.getMonth();
+        //var n2 = d.getFullYear();
+        //var n3 = d.getDate();
+
+        //var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var date = new Date();
+        date.setFullYear(d.getFullYear());
+        date.setMonth(d.getMonth() - 1);
+
+        var date2 = new Date();
+        date2.setFullYear(d.getFullYear());
+        date2.setMonth(d.getMonth());
+
+
+
+        $(document).ready(function () {
+
+
+            document.getElementById('current_date').valueAsDate = new Date();
+            // document.getElementById('date_of_month_before').valueAsDate = new Date();
+            // document.getElementById('date_of_month_before').valueAsDate = date;
+            //document.getElementById('date_of_month_before').max = "2018-04";
+            if (date.getMonth() < 10) {
+                document.getElementById('date_of_month_before').max = date.getFullYear() + "-0" + date2.getMonth();
+            }
+            else {
+                document.getElementById('date_of_month_before').max = date.getFullYear() + "-" + date2.getMonth();
+
+            }
+
+
+            // document.getElementById('date_of_month_before').valueAsDate = months[date.getMonth()-1];
+            //  document.getElementById('date_of_month_before').innerHTML = months[date.getMonth()-1];
+
+
+            //document.getElementById('date').innerHTML = months[date.getMonth()] + ' ' + date.getFullYear();
+            $('#txtdatepicker').datepicker({
+                changeMonth: true,
+                dateFormat: 'MM'
+            });
+            $("#txtdatepicker").datepicker('option', 'maxDate', new Date(date));
+            //$("#txtFDt").datepicker().datepicker("setMonth", date);
+        });
+
+
+
 
         $("._style_2VKbTR[data-reactid='95'").click(function () {
             event.preventDefault;

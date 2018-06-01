@@ -155,6 +155,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthorModelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1037,9 +1038,15 @@
     <Content Include="Views\Home\ModelBind_Index.cshtml" />
     <Content Include="Views\Home\Dynamicalgenerate.cshtml" />
     <Content Include="Views\Home\GetEnumeriator_Index.cshtml" />
+    <Content Include="Views\AuthorModels\Create.cshtml" />
+    <Content Include="Views\AuthorModels\Delete.cshtml" />
+    <Content Include="Views\AuthorModels\Details.cshtml" />
+    <Content Include="Views\AuthorModels\Edit.cshtml" />
+    <Content Include="Views\AuthorModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AuthorModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

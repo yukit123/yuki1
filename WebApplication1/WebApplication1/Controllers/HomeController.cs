@@ -1501,9 +1501,9 @@ namespace WebApplication1.Controllers
             var listreg = new List<customer_pro>();
 
             listreg.Add(new customer_pro() { customer_name = "aaa", customer_group_name = "aacustomer", territory_name = "aaterritory", status = "Yes" });
-                                                                                                        
+
             listreg.Add(new customer_pro() { customer_name = "bbb", customer_group_name = "bbcustomer", territory_name = "bbterritory", status = "NO" });
-                                                                                                      
+
             listreg.Add(new customer_pro() { customer_name = "ccc", customer_group_name = "cccustomer", territory_name = "ccterritory", status = "Yes" });
             return Json(listreg, JsonRequestBehavior.AllowGet);
 
