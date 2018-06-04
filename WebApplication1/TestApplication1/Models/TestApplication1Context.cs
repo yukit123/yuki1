@@ -12,6 +12,9 @@ namespace TestApplication1.Models
 
         public DbSet<CountrySize> CountrySizes { get; set; }
         public DbSet<AuthorModel> AuthorModels { get; set; }
+        public DbSet<Client> Clients { get; set; }
+
         
+
     }
 }

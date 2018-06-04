@@ -68,6 +68,7 @@ namespace TestApplication1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             AuthorModel authorModel = db.AuthorModels.Find(id);
+           // authorModel.Books = db.AuthorModels.Include("Books");
             if (authorModel == null)
             {
                 return HttpNotFound();

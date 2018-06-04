@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.SqlServer;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -172,7 +173,7 @@ namespace TestApplication1.Controllers
         }
         public ActionResult BuyItem2()
         {
-          
+
             return PartialView();
         }
 
@@ -201,10 +202,10 @@ namespace TestApplication1.Controllers
             //}
             ViewBag.CharterID = db.Charters.Select(a => new SelectListItem
             {
-               
+
                 Value = a.CharterID.ToString(),
-                Text = SqlFunctions.DatePart("yyyy", a.CharterDate)+"/"+ SqlFunctions.DatePart("MM", a.CharterDate)+"/"+ SqlFunctions.DatePart("dd", a.CharterDate) + " "+a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
-                                //Text = a.CharterDate + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+                Text = SqlFunctions.DatePart("yyyy", a.CharterDate) + "/" + SqlFunctions.DatePart("MM", a.CharterDate) + "/" + SqlFunctions.DatePart("dd", a.CharterDate) + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+                //Text = a.CharterDate + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
 
             }
            ).ToList();
@@ -315,7 +316,7 @@ namespace TestApplication1.Controllers
 
         public ActionResult DropDown()
         {
-            List<SelectListItem> country = db.CountrySizes.Select(x => new SelectListItem { Value = x.country, Text = x.country, Selected = false }).DistinctBy(p=>p.Value).ToList();
+            List<SelectListItem> country = db.CountrySizes.Select(x => new SelectListItem { Value = x.country, Text = x.country, Selected = false }).DistinctBy(p => p.Value).ToList();
             List<SelectListItem> size = db.CountrySizes.Select(x => new SelectListItem { Value = x.size, Text = x.size, Selected = false }).DistinctBy(p => p.Value).ToList();
             ViewBag.country = new SelectList(country, "Text", "Value");
             ViewBag.size = new SelectList(size, "Text", "Value");
@@ -325,8 +326,8 @@ namespace TestApplication1.Controllers
         [HttpGet]
         public JsonResult GetData(string country, string size)
         {
-            var list = db.CountrySizes.Where(_ => _.country == country &&_.size==size).ToList();
-            return Json(new { showlist = list,msg=true }, JsonRequestBehavior.AllowGet);
+            var list = db.CountrySizes.Where(_ => _.country == country && _.size == size).ToList();
+            return Json(new { showlist = list, msg = true }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -350,7 +351,7 @@ namespace TestApplication1.Controllers
             var list = db.CountrySizes.ToList();
             return Json(new { showlist = list, msg = true }, JsonRequestBehavior.AllowGet);
         }
-        
+
 
         public ActionResult ModelBind_Index()
         {
@@ -370,7 +371,7 @@ namespace TestApplication1.Controllers
                 sb.AppendLine("<br />");
                 foreach (var book in author.Books)
                 {
-                    sb.AppendFormat("Title : {0} | Published Date : {1}", book.Title, book.PublishedDate);
+                    sb.AppendFormat("Title : {0} | Published Date : {1}|Radio:{2}", book.Title, book.PublishedDate, book.Radiobutton);
                     sb.AppendLine("<br />");
                 }
             }
@@ -419,7 +420,7 @@ namespace TestApplication1.Controllers
 
         {
 
-           
+
             public int ID { get; set; }
 
             public int? AigNumber { get; set; }
@@ -437,6 +438,64 @@ namespace TestApplication1.Controllers
             list.Add(new ManageAIGViewModel() { ID = 3, AigNumber = 33, AigType = "cccccAigType" });
             return View(list);
 
+        }
+
+        //public void ConvertHtmlToImage()
+        //{
+        //    Bitmap m_Bitmap = new Bitmap(400, 600);
+        //    PointF point = new PointF(0, 0);
+        //    SizeF maxSize = new System.Drawing.SizeF(500, 500);
+        //    HtmlRenderer.HtmlRender.Render(Graphics.FromImage(m_Bitmap),
+        //                                            "<html><body><p>This is a shitty html code</p>"
+        //                                            + "<p>This is another html line</p></body>",
+        //                                             point, maxSize);
+
+        //    m_Bitmap.Save(@"C:\Test.png", ImageFormat.Png);
+        //}
+
+        private readonly List<Client> clients = new List<Client>()
+    {
+        new Client { Id = 1, Name = "Julio Avellaneda", Email = "julito_gtu@hotmail.com" },
+        new Client { Id = 2, Name = "Juan Torres", Email = "jtorres@hotmail.com" },
+        new Client { Id = 3, Name = "Oscar Camacho", Email = "oscar@hotmail.com" },
+        new Client { Id = 4, Name = "Gina Urrego", Email = "ginna@hotmail.com" },
+        new Client { Id = 5, Name = "Nathalia Ramirez", Email = "natha@hotmail.com" },
+        new Client { Id = 6, Name = "Raul Rodriguez", Email = "rodriguez.raul@hotmail.com" },
+        new Client { Id = 7, Name = "Johana Espitia", Email = "johana_espitia@hotmail.com" }
+    };
+        public class CustomerModel
+        {
+            public int PageIndex { get; set; }
+            public int PageSize { get; set; }
+            public int RecordCount { get; set; }
+
+            public List<Client> client { get; set; }
+
+
+
+        }
+
+        public ActionResult GridMVC_Index()//https://www.codeproject.com/Tips/597253/Using-the-Grid-MVC-in-ASP-NET-MVC
+        {
+            ViewBag.clients = clients;
+            return View(clients);
+        }
+
+        [HttpPost]
+        public JsonResult AjaxMethod(int pageIndex)
+        {
+            //NorthwindEntities entities = new NorthwindEntities();
+            CustomerModel model = new CustomerModel();
+            model.PageIndex = pageIndex;
+            model.PageSize = 10;
+            model.RecordCount = clients.Count();
+            int startIndex = (pageIndex - 1) * model.PageSize;
+            model.client = (from customer in clients
+                            select customer)
+                            .OrderBy(customer => customer.Id)
+                            .Skip(startIndex)
+                            .Take(model.PageSize).ToList();
+            return Json(model);
         }
     }
 }
