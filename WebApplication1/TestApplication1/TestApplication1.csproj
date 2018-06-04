@@ -164,7 +164,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\author2Controller.cs" />
     <Compile Include="Controllers\AuthorModelsController.cs" />
+    <Compile Include="Controllers\book2Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,8 +211,14 @@
     <Compile Include="Migrations\201806040619348_clients.Designer.cs">
       <DependentUpon>201806040619348_clients.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806041507265_author2book2-1.cs" />
+    <Compile Include="Migrations\201806041507265_author2book2-1.Designer.cs">
+      <DependentUpon>201806041507265_author2book2-1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\author2.cs" />
     <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\book2.cs" />
     <Compile Include="Models\Charter.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CountrySize.cs" />
@@ -1066,6 +1074,16 @@
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Home\GridMVC_Index.cshtml" />
+    <Content Include="Views\author2\Create.cshtml" />
+    <Content Include="Views\author2\Delete.cshtml" />
+    <Content Include="Views\author2\Details.cshtml" />
+    <Content Include="Views\author2\Edit.cshtml" />
+    <Content Include="Views\author2\Index.cshtml" />
+    <Content Include="Views\book2\Create.cshtml" />
+    <Content Include="Views\book2\Delete.cshtml" />
+    <Content Include="Views\book2\Details.cshtml" />
+    <Content Include="Views\book2\Edit.cshtml" />
+    <Content Include="Views\book2\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1122,6 +1140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806040619348_clients.resx">
       <DependentUpon>201806040619348_clients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041507265_author2book2-1.resx">
+      <DependentUpon>201806041507265_author2book2-1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

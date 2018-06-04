@@ -14,7 +14,10 @@ namespace TestApplication1.Models
         public DbSet<AuthorModel> AuthorModels { get; set; }
         public DbSet<Client> Clients { get; set; }
 
-        
+        public DbSet<author2> author2s { get; set; }
+        public DbSet<book2> book2s { get; set; }
+
+
 
     }
 }
