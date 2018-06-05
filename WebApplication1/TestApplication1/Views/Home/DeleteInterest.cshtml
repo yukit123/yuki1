@@ -1,0 +1,63 @@
+﻿@model TestApplication1.Models.Charter
+
+@{
+    ViewBag.Title = "DeleteIneterest";
+ 
+}
+
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <header class="kheader2">
+        <h6 style="color:#A80340">Are you sure you want to delete this Interest?</h6>
+    </header>
+    <div class="well" style="background-color:#f5f5f5; border:3px solid #fff;border-radius:0px;">
+
+        <table class="table" style="border:2px;">
+
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.str2)</th>
+                <td>@Html.DisplayFor(model => model.str2)</td>
+            </tr>
+   
+        </table>
+        <hr class="hr3" />
+        <table>
+            <tr>
+                <td>
+                    @using (Html.BeginForm("DeleteInterest", "Home", FormMethod.Post))
+    {
+                @Html.AntiForgeryToken()
+                @*@Html.HiddenFor(a => a.CharterID, new { htmlAttributes = new { @Name = "id", @Value = "22" } })
+                @Html.HiddenFor(a => a.CharterID, new { htmlAttributes = new { @name = "id", @Value = "33" } })*@
+                @Html.HiddenFor(a => a.CharterID, new { @Name = "id", @Value = "22" } )
+
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btnKh" />
+                    @*<input type="text" value="1" name="id" />*@
+
+                    @*@Html.EditorFor(a => a.CharterID, new { htmlAttributes = new { @Name = "id" } })*@
+
+
+
+                </div>
+}
+                </td>
+                <td style="width:20px;"></td>
+                <td>
+                    <a href=@Url.Action("AllInterests","AdminOperations")>
+                        <button class="btnKh1" title="List">Back</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+</body>
+
+</html>

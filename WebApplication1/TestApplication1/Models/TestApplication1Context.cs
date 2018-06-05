@@ -16,6 +16,10 @@ namespace TestApplication1.Models
 
         public DbSet<author2> author2s { get; set; }
         public DbSet<book2> book2s { get; set; }
+        public DbSet<SampleViewModel> SampleViewModels { get; set; }
+
+        
+
 
 
 

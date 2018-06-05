@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -40,6 +41,19 @@ namespace TestApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult Test()
+        {
+            //string subject = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
+            //var results = Regex.Match(subject, @"^[ -~]+$", RegexOptions.Multiline);
+
+            //string subject2 = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
+            //var results2 = Regex.Match(subject2, @"^[ -~]+$");
+            var list = db.Charters.ToList().FirstOrDefault();
+            return View(list);
+        }
+
+
 
         #region How to use checkbox and submit the check values  https://forums.asp.net/t/1943984.aspx?How+to+use+checkbox+and+submit+the+check+values+
 
@@ -497,5 +511,61 @@ namespace TestApplication1.Controllers
                             .Take(model.PageSize).ToList();
             return Json(model);
         }
+
+        //[Authorize]
+        [HttpGet]
+        public ActionResult DeleteInterest(int? id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Interest cat = db.Interest.Find(id);
+            //if (cat == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            var list = db.Charters.ToList().FirstOrDefault();
+            return View(list);
+
+        }
+
+
+        [HttpPost, ActionName("DeleteInterest")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedI(int id)
+        {
+            var list = db.Charters.ToList().FirstOrDefault();
+            //Remaining code...
+                return View(list);
+        }
+
+
+        private static Random _rnd = new Random();
+
+        private static List<string> _db = new List<string> { "Yes", "No", "Definitely, yes", "I don't know", "Looks like, yes" };
+
+        [HttpGet]
+        public ActionResult Menu_Index()
+        {
+            return View(new SampleViewModel());
+        }
+
+
+        [HttpPost]
+        public JsonResult GetAnswer(string question)
+        {
+            int index = _rnd.Next(_db.Count);
+            var answer = _db[index];
+            return Json(answer);
+        }
+
+        public ActionResult Aspnet_Index()
+        {
+            return View(new SampleViewModel());
+        }
+
+
+
     }
 }

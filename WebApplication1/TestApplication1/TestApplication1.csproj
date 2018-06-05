@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201806041507265_author2book2-1.Designer.cs">
       <DependentUpon>201806041507265_author2book2-1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806050931017_SampleViewModels1.cs" />
+    <Compile Include="Migrations\201806050931017_SampleViewModels1.Designer.cs">
+      <DependentUpon>201806050931017_SampleViewModels1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\author2.cs" />
     <Compile Include="Models\AuthorModel.cs" />
@@ -222,6 +226,7 @@
     <Compile Include="Models\Charter.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CountrySize.cs" />
+    <Compile Include="Models\SampleViewModel.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1084,6 +1089,10 @@
     <Content Include="Views\book2\Details.cshtml" />
     <Content Include="Views\book2\Edit.cshtml" />
     <Content Include="Views\book2\Index.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\DeleteInterest.cshtml" />
+    <Content Include="Views\Home\Menu_Index.cshtml" />
+    <Content Include="Views\Home\Aspnet_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1143,6 +1152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806041507265_author2book2-1.resx">
       <DependentUpon>201806041507265_author2book2-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806050931017_SampleViewModels1.resx">
+      <DependentUpon>201806050931017_SampleViewModels1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

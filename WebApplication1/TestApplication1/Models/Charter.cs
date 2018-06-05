@@ -39,7 +39,9 @@ namespace TestApplication1.Models
         [NotMapped]
         public string str { get; set; }
 
-
+        [NotMapped]
+        [RegularExpression("^[ -~]+$", ErrorMessage = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}")]
+        public string str2 { get; set; }
 
 
     }
