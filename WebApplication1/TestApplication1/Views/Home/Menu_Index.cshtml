@@ -1,45 +1,53 @@
 ﻿@*@model HelloWorldMvcApp.SampleViewModel*@
-@*@{
-    Layout = null;
-}*@
+@{
+        Layout = null;
+    }
 
 <!DOCTYPE html>
 <!-- template from http://getbootstrap.com/getting-started -->
 
 <html lang="en">
 <head>
-    @*<meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap 101 Template</title>*@
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
     <!-- CSS Includes -->
+
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
 
     <style type="text/css">
 
-            /*.field-validation-error {
-                color: #ff0000;
-            }*/
+        .field-validation-error {
+            color: #ff0000;
+        }
+    </style>
 
-     
-        </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="navbar-brand">
-            Navbar
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                @Html.ActionLink("Home", "Index", "Home")
-                @Html.ActionLink("Home", "Index", "Home")
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    @Html.ActionLink("Home", "Index", "Home")
+                    @Html.ActionLink("Home", "Index", "Home")
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+ 
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+
+
 </body>
 </html>

@@ -41,7 +41,18 @@ namespace TestApplication1.Controllers
 
             return View();
         }
+        class Person
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
 
+        class Pet
+        {
+            public string Name { get; set; }
+            public Person Owner { get; set; }
+        }
+    
         public ActionResult Test()
         {
             //string subject = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
@@ -50,10 +61,93 @@ namespace TestApplication1.Controllers
             //string subject2 = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
             //var results2 = Regex.Match(subject2, @"^[ -~]+$");
             var list = db.Charters.ToList().FirstOrDefault();
-            return View(list);
+            //var qq = "au1";
+            //var opportunities = (from c in db.author2s
+            //                     join d in db.book2s on c.Author_id equals d.Author_id
+            //                     group c by new { d.author2.Author_id, d.Title, c.Name }
+            //     into grp
+            //                     select new { product_name = grp.Key.Name, product_tonnage = grp.Key.Title }).Where(_ => _.product_name == qq).ToList();
+
+            List<SelectListItem> country = db.CountrySizes.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.country, Selected = false }).DistinctBy(p => p.Text).ToList();
+            //var GenreLst = new List<string>();
+
+            //var GenreQry = (from d in db.author2s
+
+            //                select new { Name = d.Name, linkkey = d.Author_id }).ToList();
+            //var GenreQry2 = db.author2s.Select(p => new { p.Name, p.Author_id }).GroupBy(p=>p.Name).DistinctBy(p=>p.);
+            //GenreLst.AddRange(GenreQry2.DistinctBy(_=>_.));
+
+            ViewBag.country = new SelectList(country, "Value", "Text");
+
+            #region join tables left join
+
+            //var opportunities = (from c in db.CountrySizes
+            //                     join d in db.AuthorModels on c.Id equals d.Id
+            //                     group c by  new { c.country }
+            //                     into grp
+            //                     select new { product_name = grp.Key., product_tonnage = grp.Key.Title }).ToList();
+
+            //var qry = db.CountrySizes.Join(db.AuthorModels,req => req.Id,spon => spon.Id,(req, spon) => new { CountrySizes = req, AuthorModels = spon })
+            //.GroupBy(both => both.CountrySizes.country)
+            //.Select (p=>new { aaa=p});
+
+
+
+            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
+            Person magnus = new Person { FirstName = "Magnus", LastName = "Hedlund" };
+            Person terry = new Person { FirstName = "Terry", LastName = "Adams" };
+            Person charlotte = new Person { FirstName = "Charlotte", LastName = "Weiss" };
+            Person arlene = new Person { FirstName = "Arlene", LastName = "Huff" };
+
+            Pet barley = new Pet { Name = "Barley", Owner = terry };
+            Pet boots = new Pet { Name = "Boots", Owner = terry };
+            Pet whiskers = new Pet { Name = "Whiskers", Owner = charlotte };
+            Pet bluemoon = new Pet { Name = "Blue Moon", Owner = terry };
+            Pet daisy = new Pet { Name = "Daisy", Owner = magnus };
+
+            // Create two lists.
+            List<Person> people = new List<Person> { magnus, terry, charlotte, arlene };
+            List<Pet> pets = new List<Pet> { barley, boots, whiskers, bluemoon, daisy };
+
+            var query = from person in people
+                        join pet in pets on person equals pet.Owner into gj
+                        from subpet in gj.DefaultIfEmpty()
+                        select new { person.FirstName, PetName = subpet?.Name ?? String.Empty };
+
+            var partialResult = (from c in db.CountrySizes
+                                 join o in db.AuthorModels
+                                 on c.Id equals o.Id into gj
+                                 from subpet in gj.DefaultIfEmpty()
+                                 select new
+                                 {
+                                     c.Id,
+                                     c.country
+                                 }).DistinctBy(m => m.country).ToList();
+            //var partialResult2 = (from c in db.AuthorModels
+            //                      join o in db.CountrySizes
+            //                     on c.Id equals o.Id into gj
+            //                     from subpet in gj.DefaultIfEmpty()
+            //                     select new
+            //                     {
+
+            //                         c.Id,
+            //                         o.
+            //                         c.country
+            //                     }).DistinctBy(m => m.country).ToList();
+
+
+            //var list2 = db.CountrySizes.Select(p => new { p.country, p.Id, p.size }).DistinctBy(p => p.country).ToList();
+            #endregion
+            return View();
         }
 
+        public ActionResult GetNextView(string keywords)
+        {
+            ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
 
         #region How to use checkbox and submit the check values  https://forums.asp.net/t/1943984.aspx?How+to+use+checkbox+and+submit+the+check+values+
 

@@ -1,13 +1,9 @@
-﻿@model TestApplication1.Models.Charter
-@*<h2>Test</h2>
-    <head>
-        <title>Bootstrap Example</title>
-        <meta charset="utf-8">*@
-@*<meta name="viewport" content="width=device-width, initial-scale=1">*@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-@*</head>*@
+﻿@*@model TestApplication1.Models.Charter*@
+
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+
 
 @*<div class="row">
         <div class="col-sm-4">.col-sm-4</div>
@@ -17,43 +13,43 @@
     _________________________________________*@
 
 
-@using (Html.BeginForm("xxx", "Home", FormMethod.Post))
-{
-    <div class="form-group">
-        @Html.LabelFor(model => model.str2, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-  
-            @Html.TextAreaFor(model => model.str2, new { htmlAttributes = new { @class = "form-control" } })
+@*@using (Html.BeginForm("xxx", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.str2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
 
-            @Html.ValidationMessageFor(model => model.str2, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.str2, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.str2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input type="submit" value="submit" />
+    }
+
+    <style>
+        .contents {
+            display: flex;
+            justify-content: center;
+        }
+
+        .content {
+            margin: auto;
+        }
+    </style>
+    <hr>
+    <div class="row contents">
+        <div class="col-sm-4 text-center content">
+            some text
+        </div>
+        <div class="col-sm-4 text-center content">
+            some text<br />some more text
+        </div>
+        <div class="col-sm-4 text-center content">
+            some text<br />some more text <br />some text<br />some more text
         </div>
     </div>
-    <input type="submit" value="submit" />
-}
-
-<style>
-    .contents {
-        display: flex;
-        justify-content: center;
-    }
-
-    .content {
-        margin: auto;
-    }
-</style>
-<hr>
-<div class="row contents">
-    <div class="col-sm-4 text-center content">
-        some text
-    </div>
-    <div class="col-sm-4 text-center content">
-        some text<br />some more text
-    </div>
-    <div class="col-sm-4 text-center content">
-        some text<br />some more text <br />some text<br />some more text
-    </div>
-</div>
-<hr>
+    <hr>*@
 
 @*_________________________________________
     <div class="row">
@@ -83,12 +79,19 @@
         </div>
     </div>*@
 
+@Html.DropDownList("country", null, "Select")
 
 
 @section scripts{
 
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    @*<script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
+    <script type="text/javascript">
+        $("#country").on("change", function () {
+          
+            window.location.href = "@Url.Action("GetNextView", "Home")?keyword=" + $("#country").val();
 
+        });
+    </script>
 
 }

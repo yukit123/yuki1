@@ -1509,6 +1509,14 @@ namespace WebApplication1.Controllers
 
         }
         #endregion
+
+        public ActionResult ifnull() //https://forums.asp.net/t/2141735.aspx
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
         #endregion
 
 

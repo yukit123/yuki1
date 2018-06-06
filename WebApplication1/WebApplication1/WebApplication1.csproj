@@ -716,6 +716,7 @@
     <Content Include="Views\Authors\_myModal.cshtml" />
     <Content Include="Views\Home\pagination.cshtml" />
     <Content Include="Views\Home\SearchDynamic.cshtml" />
+    <Content Include="Views\Home\ifnull.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
