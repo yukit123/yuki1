@@ -2185,29 +2185,37 @@ namespace WebApplication1.Controllers
         #region DropDownList 级联 array to SelectList
         public ActionResult PartnerPreference()
         {
-            var minagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
-            var maxagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
 
-            var minitems = minagelist.Select((n, i) =>
+            var list1 = new List<SelectListItem>
             {
-                return new SelectListItem
-                {
-                    Value = n.ToString(),
-                    Text = i.ToString()
-                };
-            }).ToList();
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"},
+                new SelectListItem{Text="Orange",Value="4"},
 
-            var maxitems = maxagelist.Select((n, i) =>
+            };
+
+            var list2 = new List<SelectListItem>
             {
-                return new SelectListItem
-                {
-                    Value = n.ToString(),
-                    Text = i.ToString()
-                };
-            }).ToList();
+                new SelectListItem{Text="Apple",Value="11"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"},
+                new SelectListItem{Text="Orange",Value="4"},
 
-            ViewBag.minagelist = new SelectList(minitems, "Value", "Value");
-            ViewBag.maxagelist = new SelectList(maxitems, "Value", "Value");
+            };
+          
+            var querylist1 = new List<SelectListItem>();
+            var querylist2 = new List<SelectListItem>();
+
+         
+
+            foreach (var product in list1.Select(p => p.Value).ToList())//Contains
+            {
+                querylist1 = list2.Where(p => p.Value == product).ToList();
+                querylist2.AddRange(querylist1);
+            }
+
+
 
             return View();
         }

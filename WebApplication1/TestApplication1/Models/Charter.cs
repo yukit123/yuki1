@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace TestApplication1.Models
 {
@@ -42,6 +43,8 @@ namespace TestApplication1.Models
         [NotMapped]
         [RegularExpression("^[ -~]+$", ErrorMessage = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}")]
         public string str2 { get; set; }
+
+     
 
 
     }
