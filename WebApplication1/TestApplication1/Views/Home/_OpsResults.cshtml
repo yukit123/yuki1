@@ -1,0 +1,87 @@
+﻿
+@model TestApplication1.Controllers.HomeController.OpsViewModel
+
+@using (Html.BeginForm("SendEmailView", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="emailSubject" class="control-label col-xs-2">Email Subject</label>
+        <div class="col-xs-6">
+            <input type="text" class="form-control" name="EmailSubject" id="EmailSubject" placeholder="subject...">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtEmailBody" class="control-label col-xs-2">Email Body</label>
+        <div class="col-xs-6">
+            <textarea type="text" class="form-control boldFont" id="EMailBody" name="EMailBody" placeholder="email body..." rows="20">
+           
+                @if (ViewBag.RatesCount > 0)
+                {
+                    double totalWeight = 0.00; double totalVolume = 0.00; decimal totalPieces = 0; decimal totalPallets = 0;
+                    var topText = "Origin: " + "\r\n" +
+                        ViewBag.Rates[0].Origin_Name + "\r\n" +
+                        ViewBag.Rates[0].Origin_Address + "\r\n" +
+                        ViewBag.Rates[0].Origin_City + "," + ViewBag.Rates[0].Origin_State + " " + ViewBag.Rates[0].C_Origin_Zip + "\r\n" +
+                        "\r\n" +
+                        "Destination: " + "\r\n" +
+                        ViewBag.Rates[0].Destination + "\r\n" +
+                        ViewBag.Rates[0].Destination_Address + "\r\n" +
+                        ViewBag.Rates[0].Destination_City + "," + ViewBag.Rates[0].Destination_State + " " + ViewBag.Rates[0].C_Origin_Zip
+                        + "\r\n";
+                     @topText;
+                    foreach (var item in ViewBag.Rates)
+                    {
+                        totalWeight = totalWeight + item.weight;
+                        totalVolume = totalVolume + item.volume;
+                        totalPieces = totalPieces + item.pieces;
+                        totalPallets = totalPallets + item.pallets;
+
+                        var emailBody = "\r\n" + "Order Number: " + item.OrderNumber + "\t" + "Freight Class: " + item.FreightClass + "\t" + "\t" + "\t" + "Weight: " + item.weight + "\t" + "Volume: " + item.volume + "\t" + "Pieces: " + item.pieces + "\t" + "Pallets: " + item.pallets + "\r\n";
+                        @emailBody;
+                    }
+
+                    var totals = "\r\n" + "Total Weight: " + totalWeight + "\t" + "\t" + "Total Volume: " + totalVolume + "\t" + "\t" + "Total Pieces: " + totalPieces + "\t" + "\t" + "Total Pallets: " + totalPallets;
+                    @totals;
+                }
+           
+</textarea>
+        </div>
+    </div>
+    @*<div class="form-group">
+            <label for="multiselect" class="control-label col-xs-2">Carrier</label>
+            <span class="col-xs-2">
+
+                <select multiple class="form-control" id="ToEmail" name="ToEmail" required>
+                    <option value="" disabled selected>You can select multiple carriers</option>
+                    @foreach (var option in ViewBag.CarrierList)
+                    {
+
+                        <option select="@option.Text" value="@option.Value">@option.Text</option>
+                    }
+                </select>
+            </span>
+
+        </div>*@
+
+    <div class="form-group">
+        <label for="multiselect" class="control-label col-xs-2">Carrier</label>
+        <span class="col-md-2">
+            @Html.ListBoxFor(model => model.Carrier, new MultiSelectList(Model.Carrier, "Text", "Value"), new { @class = "col-md-2", @name = "ToEmail", @id = "ToEmail" })
+
+
+
+        </span>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-2 col-xs-10">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+}
+
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#ToEmail').multiSelect();
+        });
+    </script>*@

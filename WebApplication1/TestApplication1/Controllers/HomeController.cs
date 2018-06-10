@@ -649,6 +649,76 @@ namespace TestApplication1.Controllers
             return View(new SampleViewModel());
         }
 
+        #region email
+
+        public class OpsViewModel
+        {
+            //public OpsModel OpsModel { get; set; }
+            //public string ToEmailName { get; set; }
+            //public int SelectedId { get; set; }
+
+            public OpsModel OpsModel { get; set; }
+            public IList<SelectListItem> Carrier { get; set; }
+            public int[] SelectedCarrierId { get; set; }
+        }
+
+        public ActionResult email_Index()
+        {
+           // pageSetup();
+            return View("SpotRateRequest");
+        }
+
+        [HttpPost]
+        public ActionResult _OpsResults(int legNumber)
+        {
+            //pageSetup();
+
+            if (legNumber != 0)
+            {
+                //List<CALL_TO_MY_DB_Result> srDetails = db_preproc.CALL_TO_MY_DB__Sel(legNumber).ToList();
+
+                //ViewBag.RatesCount = srDetails.Count();
+                //ViewBag.Rates = srDetails;
+                //List<get_list_Sel_Result> carrierList = db_Get_list_Sel("XXXXX").ToList();
+                //ViewBag.CarrierList = carrierList.Select(c => new SelectListItem
+                //{
+                //    Value = Convert.ToString(c.ToId),
+                //    Text = c.Carrier
+
+                //});
+                //ViewBag.CarrierList = new List<SelectListItem>
+                //{
+                //    new SelectListItem {Text = "Apple", Value = "Apple"},
+                //    new SelectListItem {Text = "Pear", Value = "Pear"},
+                //    new SelectListItem {Text = "Banana", Value = "Banana"},
+                //    new SelectListItem {Text = "Orange", Value = "Orange"},
+                //};
+                var model = new OpsViewModel();
+                model.Carrier  = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Apple1", Value = "Apple"},
+                    new SelectListItem {Text = "Pear1", Value = "Pear"},
+                    new SelectListItem {Text = "Banana1", Value = "Banana"},
+                    new SelectListItem {Text = "Orange1", Value = "Orange"},
+                };
+
+
+                return PartialView("_OpsResults", model);
+            }
+
+
+            return View("SpotRateRequest");
+        }
+
+        [HttpPost]
+        public ActionResult SendEmailView()
+        {
+            //pageSetup();
+            //call SendEmailView view to invoke webmail  
+            return View("SendEmailView");
+        }
+        #endregion
+
 
 
     }

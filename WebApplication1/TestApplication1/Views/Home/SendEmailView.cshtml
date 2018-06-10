@@ -1,0 +1,40 @@
+﻿
+@{
+    //Layout = null;
+    ViewBag.Title = "Send Email";
+}
+
+@{
+    try
+    {
+        //parameters to send email
+        string ToEmail, FromOrSenderEmail = "usersEmail@theiremail.com", SubJect, Body;
+
+        //Reading values from form collection (Querystring) and assigning values to parameters
+        ToEmail = Request["ToEmail"].ToString();
+        SubJect = Request["EmailSubject"].ToString();
+        Body = Request["EMailBody"].ToString();
+        //Configuring webMail class to send emails
+        WebMail.SmtpServer = "smtp.gmail.com"; //gmail smtp server
+        WebMail.SmtpPort = 587; //gmail port to send emails
+        WebMail.SmtpUseDefaultCredentials = true;
+        WebMail.EnableSsl = true; //sending emails with secure protocol
+        WebMail.UserName = FromOrSenderEmail;//EmailId used to send emails from application
+        WebMail.Password = "somePassword"; //GmailPassword;
+        WebMail.From = FromOrSenderEmail; //email sender email address.
+
+        //Sending email
+        WebMail.Send(to: ToEmail, subject: SubJect, body: Body, isBodyHtml: false);
+        <hr />
+        <div class="text-success">
+            //would like to return my _OpsResults here again with the email that was just sent , but disabled, which I can acheive.
+        </div>
+
+    }
+    catch (Exception)
+    {
+        <div class="text-danger">
+            Problem while sending email, please check gmail server details.
+        </div>
+    }
+}  

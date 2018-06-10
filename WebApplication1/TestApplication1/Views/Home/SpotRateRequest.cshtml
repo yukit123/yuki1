@@ -1,0 +1,40 @@
+﻿<div class="form form-horizontal" id="RateWrapper">
+    <div class="vspace20"></div>
+    <div id="emptyDIV">
+        <h2>Rate Request</h2>
+        <div id="panelPrimary" class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    &nbsp;Send Email
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                @using (Ajax.BeginForm("_OpsResults", "Home", new AjaxOptions
+                {
+                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    UpdateTargetId = "searchResults",
+                    OnBegin = "$('button').attr('disabled', true);",
+                    OnComplete = "$('button').attr('disabled', false);"
+
+                }, new { @class = "form-horizontal", id = "formSearchLegNums" }))
+                {
+                    <label for="searchTerm" class="control-label col-xs-2"></label>
+                    <div class="input-group col-sm-4">
+                        <input type="text" class="form-control" id="searchTerm" name="legNumber" value="" style="width:210px;" placeholder="Enter a leg number to begin">
+                        <button type="submit" id="searchButton" data-loading-text="<span class='glyphicon glyphicon-refresh spinning'>
+                                </span>" class="btn btn-primary btn-spinner">Go</button>
+                    </div>
+                }<!-- END of AJAX call-->
+                <div class="vspace20"></div>
+                <div id="searchResults"></div>
+
+                <!--Load partial _OpsResults.cshtml --------------------------->
+
+            </div><!-- END #panelBody --------------------------->
+
+        </div><!-- END #panelPrimary --------------------------->
+
+    </div><!-- END #emptyDIV --------------------------->
+</div>
