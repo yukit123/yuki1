@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201806070542437_client-hiddeninput2.Designer.cs">
       <DependentUpon>201806070542437_client-hiddeninput2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806101522207_OpsModels1.cs" />
+    <Compile Include="Migrations\201806101522207_OpsModels1.Designer.cs">
+      <DependentUpon>201806101522207_OpsModels1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\author2.cs" />
     <Compile Include="Models\AuthorModel.cs" />
@@ -241,6 +245,7 @@
     <Compile Include="Models\Charter.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CountrySize.cs" />
+    <Compile Include="Models\OpsModel.cs" />
     <Compile Include="Models\SampleViewModel.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1147,6 +1152,9 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Home\SpotRateRequest.cshtml" />
+    <Content Include="Views\Home\_OpsResults.cshtml" />
+    <Content Include="Views\Home\SendEmailView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1210,6 +1218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806070542437_client-hiddeninput2.resx">
       <DependentUpon>201806070542437_client-hiddeninput2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101522207_OpsModels1.resx">
+      <DependentUpon>201806101522207_OpsModels1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
