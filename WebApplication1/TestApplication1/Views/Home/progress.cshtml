@@ -24,22 +24,22 @@
 <body>
 
     <br />
-    @using (Ajax.BeginForm("GetResponses", "Home",
+    @*@using (Ajax.BeginForm("GetResponses", "Home",
                    new AjaxOptions
                    {
                        OnSuccess = "OnSuccess",
                        OnFailure = "OnFailure",
                        LoadingElementId = "progress"
                    }))
-    {
+    {*@
         <progress id="prog" value="0" max="100"></progress>
         <div id="overlay"></div>
-        <input id="startBtn" type="submit" value="start">
+        <input id="startBtn" type="submit" value="start" onclick="startProgress()">
         <input id="startBtn" type="button" value="aaa">
         <input id="starttxt" type="text">
 
         @*<div id="numValue">0%</div>*@
-    }
+    @*}*@
 
 </body>
 @*</html>*@

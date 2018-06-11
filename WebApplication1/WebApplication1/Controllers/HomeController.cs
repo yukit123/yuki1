@@ -2183,37 +2183,109 @@ namespace WebApplication1.Controllers
         #endregion
 
         #region DropDownList 级联 array to SelectList
+        public class DemoViewModel
+        {
+          
+            public string Text { get; set; }
+            public string Value { get; set; }
+            public string keyword { get; set; }
+
+        }
+        public class TestViewModel
+        {
+
+            public string Text { get; set; }
+            public string Value { get; set; }
+        }
+
+        public class enquiry_products
+        {
+            public string enquiry_is_active { get; set; }
+            public string opportunity_expiry_date { get; set; }
+            public string opportunity_stage { get; set; }
+
+        }
+
+        public class Hobby
+        {
+            public int HobbyID { get; set; }
+            public string Name { get; set; }
+            public string Type { get; set; }
+            public Person Person { get; set; }
+        }
+
+        public class Person
+        {
+            public int PersonID { get; set; }
+            public int Age { get; set; }
+            public string Name { get; set; }
+            public ICollection<Hobby> Hobbies { get; set; }
+        }
+
         public ActionResult PartnerPreference()
         {
 
-            var list1 = new List<SelectListItem>
+            #region GROUPBY AddRange 
+            var list1 = new List<TestViewModel>
             {
-                new SelectListItem{Text="Apple",Value="1"},
-                new SelectListItem{Text="Banana",Value="2"},
-                new SelectListItem{Text="Orange",Value="3"},
-                new SelectListItem{Text="Orange",Value="4"},
+                new TestViewModel{Text="Apple2",Value="1"},
+                new TestViewModel{Text="Banana",Value="2"},
+                new TestViewModel{Text="Orange",Value="3"}
 
             };
 
-            var list2 = new List<SelectListItem>
+            var list2 = new List<TestViewModel>
             {
-                new SelectListItem{Text="Apple",Value="11"},
-                new SelectListItem{Text="Banana",Value="2"},
-                new SelectListItem{Text="Orange",Value="3"},
-                new SelectListItem{Text="Orange",Value="4"},
+                new TestViewModel{Text="Apple2",Value="11"},
+                new TestViewModel{Text="Banana",Value="2"},
+                new TestViewModel{Text="Orange",Value="3"}
 
             };
-          
-            var querylist1 = new List<SelectListItem>();
-            var querylist2 = new List<SelectListItem>();
 
-         
+            var querylist1 = new List<TestViewModel>();
+            var querylist2 = new List<TestViewModel>();
 
-            foreach (var product in list1.Select(p => p.Value).ToList())//Contains
+
+            foreach (var item in list1.Select(p => p.Value).ToList())
             {
-                querylist1 = list2.Where(p => p.Value == product).ToList();
+                querylist1 = list2.Where(p => p.Value == item).ToList();
                 querylist2.AddRange(querylist1);
             }
+
+            //querylist2.GroupBy(item => item.Text,(key, group) =>  new { GroupName = key, Items = group.ToList() })
+            #endregion
+
+            var Personlist1 = new List<Person>
+            {
+                new Person{PersonID=1,Age=51,Name="aa"},
+                new Person{PersonID=2,Age=10,Name="bb"},
+                new Person{PersonID=3,Age=10,Name="cc"}
+
+            };
+
+            var Hobbylist2 = new List<Hobby>
+            {
+                new Hobby{HobbyID=1,Name="aa",Type="y"},
+                new Hobby{HobbyID=2,Name="bb",Type="y"},
+                new Hobby{HobbyID=3,Name="cc",Type="n"}
+
+            };
+
+
+            #region GROUPBY MUTIPLE
+            var list3 = new List<DemoViewModel>
+            {
+                new DemoViewModel{Text="Apple",keyword="x",Value="1"},
+                new DemoViewModel{Text="Banana",keyword="x",Value="2"},
+                new DemoViewModel{Text="Banana",keyword="p",Value="3"},
+                new DemoViewModel{Text="Orange",keyword="x",Value="4"},
+                new DemoViewModel{Text="Orange",keyword="x",Value="5"},
+
+
+            };
+           
+            //list3.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
+            #endregion
 
 
 

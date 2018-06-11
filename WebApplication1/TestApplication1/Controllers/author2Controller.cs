@@ -17,6 +17,36 @@ namespace TestApplication1.Controllers
         // GET: author2
         public ActionResult Index()
         {
+            ////list3.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
+            //var onelist = db.author2s.ToList();
+            //var manylist = db.book2s.ToList();
+            ////onelist.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
+            ////onelist.GroupBy(s=>s.Name,(key,goup)=>new{GroupName=key,Items=goup.ToList()})
+
+            //onelist.GroupBy(s =>  s.book2.GroupBy(p => p.Author_id));
+            //manylist.GroupBy(s => new { s.Title, s.Publisher }, (key, group) => new { GroupName = key, Items = group.ToList() });
+
+            //var lresult7 = db.author2s
+            //   .Join(db.book2s
+            //      , orderdetail => orderdetail.Author_id
+            //      , order => order.Author_id
+            //      , (orderdetail, order) => new
+            //      {
+            //          order,
+            //          orderdetail
+            //      }).GroupBy(od => new
+            //      {
+            //          od.orderdetail.Author_id,
+            //          od.order.Title
+            //      })
+            //      .OrderBy(d => d.Key.Title)
+            //      .Select(grp => new
+            //      {
+            //          OrderNo = grp.Key.Title
+            //      });
+
+
+
             return View(db.author2s.ToList());
         }
 

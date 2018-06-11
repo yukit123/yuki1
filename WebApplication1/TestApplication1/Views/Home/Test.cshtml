@@ -27,7 +27,7 @@
         <input type="submit" value="submit" />
     }*@
 
-    <style>
+    @*<style>
         .contents {
             display: flex;
             justify-content: center;
@@ -49,7 +49,7 @@
             some text<br />some more text <br />some text<br />some more text
         </div>
     </div>
-    <hr>
+    <hr>*@
 
 @*_________________________________________
     <div class="row">
@@ -80,20 +80,20 @@
     </div>*@
 
 @Html.DropDownList("country", null, "Select")
-<br />
+@*<br />
 <br />
 <button type="button" class="form-control" title="employs" value="11" onclick="DoComfirm()" return false”>comfirm
 
-</button>
+</button>*@
 
 
-<button id="comfirm" class="form-control" onclick="DoComfirm()"></button>
+@*<button id="comfirm" class="form-control" onclick="DoComfirm()"></button>
 
 @section criteriaSecetion
 {
     <div>111111111222222</div>
 
-}
+}*@
 
 
 @section scripts
@@ -105,6 +105,7 @@
         $("#country").on("change", function () {
 
             window.location.href = "@Url.Action("GetNextView", "Home")?keyword=" + $("#country").val();
+      
 
         });
 

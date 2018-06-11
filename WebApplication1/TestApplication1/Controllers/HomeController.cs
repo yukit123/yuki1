@@ -132,11 +132,16 @@ namespace TestApplication1.Controllers
             return View();
         }
 
-        public ActionResult GetNextView(int id)
+        public class TRACK_NMBR_ViewModel
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            public string TRACK_NMBR { get; set; }
+        }
+        public ActionResult GetNextView(string keyword)
+        {
+            // ViewBag.Message = "Your contact page.";
+            TRACK_NMBR_ViewModel vm = new TRACK_NMBR_ViewModel();
+            vm.TRACK_NMBR = keyword;
+            return View(vm);
         }
 
         #region How to use checkbox and submit the check values  https://forums.asp.net/t/1943984.aspx?How+to+use+checkbox+and+submit+the+check+values+
