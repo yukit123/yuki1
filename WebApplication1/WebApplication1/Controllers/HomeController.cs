@@ -561,6 +561,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult AutoSuggests()//https://forums.asp.net/t/2142048.aspx( AUTOCOMPLETE )
+        {
+            return View();
+        }
+
         public class Get_priceViewModel
         {
             public int id { get; set; }
@@ -570,6 +575,8 @@ namespace WebApplication1.Controllers
             public string discount { get; set; }
 
         }
+
+        [HttpPost]
         public ActionResult Get_price()
         {
 

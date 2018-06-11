@@ -14,7 +14,7 @@ namespace TestApplication1.Models
             book2 = new List<book2>();
         }
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public Guid Author_id { get; set; }
         public string Name { get; set; }
         public List<book2> book2 { get; set; }

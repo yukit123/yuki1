@@ -724,7 +724,12 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
-
+        #region Datepicker for Bootstrap
+        public ActionResult BootstrapDatepicker()//https://vitalets.github.io/bootstrap-datepicker/
+        {
+            return View();
+        }
+        #endregion
 
     }
 }

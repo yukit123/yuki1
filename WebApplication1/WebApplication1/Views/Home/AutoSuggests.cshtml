@@ -1,0 +1,100 @@
+﻿
+<style>
+    .ui-autocomplete {
+        height: 200px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .ui-autocomplete {
+        overflow: auto;
+    }
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 145px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .ui-autocomplete {
+        height: auto;
+        max-height: 180px;
+        overflow-x: hidden;
+        z-index: 1002;
+    }
+
+
+
+    .ui-autocomplete {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        background-color: #fff;
+    }
+
+        .ui-autocomplete li {
+            font-family: Arial, Verdana, Sans-Serif;
+            margin: 1px;
+            cursor: pointer;
+            display: block;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+        }
+
+
+        .ui-autocomplete .ui-state-focus {
+            background-color: #66afe9;
+        }
+
+
+    .ui-helper-hidden-accessible {
+        display: none;
+    }
+</style>
+<div>
+    <label for="txt_calling">Text: </label>
+    <input id="txt_calling">
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+        $(document).ready(function () {
+           
+            var list = Array();
+
+            $.ajax({
+                url: "/Home/Get_price",
+                type: "POST",
+                dataType: "json",
+                //data: { _preFix: request.term },
+                success: function (data) {
+                    $.map(data, function (item) {
+                        list.push(item.item_name);
+                       // return { label: item.name, value: item.name };
+                    })
+
+                }
+            })
+            var availableTags = list;
+            $("#txt_calling").autocomplete({              
+                source: availableTags,
+                messages: {
+                    noResults: '',
+                    results: function (resultsCount) { }
+                }
+
+            });
+        })
+    </script>
+}

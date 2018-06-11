@@ -717,6 +717,7 @@
     <Content Include="Views\Home\pagination.cshtml" />
     <Content Include="Views\Home\SearchDynamic.cshtml" />
     <Content Include="Views\Home\ifnull.cshtml" />
+    <Content Include="Views\Home\AutoSuggests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
