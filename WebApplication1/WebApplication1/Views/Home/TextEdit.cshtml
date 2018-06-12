@@ -1,0 +1,68 @@
+﻿@model WebApplication1.Models.Column
+<form enctype="multipart/form-data" id="TextEdit">
+    @*@using (Html.BeginForm("SaveTextEdit", "Home", FormMethod.Post))
+        {*@
+    @*@Html.AntiForgeryToken()*@
+    @*<input  class="btn" value="@Model.Column1">
+        <input  class="btn" >
+        <input  class="btn" >
+        <input  class="btn" >*@
+    @*<input class="btn" name="Column1" value="@Model.Column1">*@
+    <textarea id="Column5" name="Column5" style="width:700px;height:300px;">
+        @Model.Column5
+    </textarea>
+    <input type="button" value="Save" class="btn" id="btnSave">
+</form>
+@*}*@
+@section scripts{
+
+    @*<link rel="stylesheet" href="http://waxolunist.github.io/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css">*@
+    <script src="@Url.Content("http://kindeditor.net/ke4/kindeditor-all-min.js?t=20160331.js")"></script>
+    @*<script src="http://waxolunist.github.io/bootstrap3-wysihtml5-bower/components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+    <script src="@Url.Content("http://waxolunist.github.io/bootstrap3-wysihtml5-bower/components/bootstrap/dist/js/bootstrap.min.js")"></script>
+    <script src="http://waxolunist.github.io/bootstrap3-wysihtml5-bower/components/handlebars/handlebars.runtime.min.js"></script>
+
+    <script src="@Url.Content("http://waxolunist.github.io/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js")"></script>*@
+    <script src="~/Scripts/jquery.form.js"></script>
+
+    <script type="text/javascript">
+        //KindEditor.ready(function (K) {
+  
+        //    window.editor = K.create('#Column5');
+        //});
+        var editor;
+        KindEditor.ready(function (K) {
+            editor = K.create('textarea[name="Column5"]', {
+                //resizeType: 1,
+                langType: 'en',
+                //allowPreviewEmoticons: true,
+                //allowImageUpload: true,
+                //allowFileManager: true,
+                //allowUpload: true,
+                afterBlur: function () {
+                    this.sync();
+                },
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons','link']
+            });
+        });
+
+        //$('#Column5').wysihtml5();
+ 
+
+
+                $('#btnSave').click(function (e) {
+                    $('#TextEdit').ajaxSubmit({ // 这种提交方式在 IE9 时不会处理后台的JsonResult
+                        type: 'post',
+                        dataType: "json",
+                        url: '@Url.Action("SaveTextEdit", "Home")',
+                        data: { Column5: $("#Column5").val()},
+                        success: function (json) {
+                            alert("successfully");
+                        }
+                    })
+                });
+    </script>
+}

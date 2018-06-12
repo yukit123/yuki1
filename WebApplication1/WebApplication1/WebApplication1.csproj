@@ -595,6 +595,9 @@
     <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.form.min.js.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.cookie.js" />
@@ -718,6 +721,7 @@
     <Content Include="Views\Home\SearchDynamic.cshtml" />
     <Content Include="Views\Home\ifnull.cshtml" />
     <Content Include="Views\Home\AutoSuggests.cshtml" />
+    <Content Include="Views\Home\TextEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

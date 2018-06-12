@@ -716,10 +716,13 @@ namespace TestApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendEmailView()
+        public ActionResult SendEmailView(string Carrier)
         {
             //pageSetup();
             //call SendEmailView view to invoke webmail  
+            string list = "someEmail@somedomain.com; anotheremail@anotherdomain.com;";
+            List<string> email = new List<string>();
+           
             return View("SendEmailView");
         }
         #endregion

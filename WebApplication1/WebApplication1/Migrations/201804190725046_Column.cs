@@ -16,7 +16,7 @@ namespace WebApplication1.Migrations
                         Column2 = c.String(),
                         Column3 = c.String(),
                         Column4 = c.String(),
-                        Column5 = c.String(),
+                        Content = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             

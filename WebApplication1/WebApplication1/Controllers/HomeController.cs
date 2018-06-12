@@ -1524,10 +1524,46 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        #endregion
+        public ActionResult TextEdit(int? id) //https://forums.asp.net/t/2141735.aspx
+        {
+            
+            Column model;
+            if (id == null)
+            {
+                 model = new Column();
+            }
+            else
+            {
+                 model = db.Column.Find(id);
+            }
+          
+           
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult SaveTextEdit(String Column5)
+        {
+            var model = new Column();
+            model.Column5 = Column5;
+         
+                db.Column.Add(model);
+                db.SaveChanges();
+                // return RedirectToAction("Index");
+          
+
+            //return View("TextEdit");
+
+            return Json(new { Success = 2 }, JsonRequestBehavior.AllowGet);
+        }
 
 
-        public ActionResult Webgrid()//https://forums.asp.net/t/2132883.aspx
+            #endregion
+
+
+            public ActionResult Webgrid()//https://forums.asp.net/t/2132883.aspx
         {
             ViewBag.Message = "Your contact page.";
             var list = db.Label.ToList();
