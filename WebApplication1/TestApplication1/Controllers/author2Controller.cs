@@ -23,7 +23,7 @@ namespace TestApplication1.Controllers
             ////onelist.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
             ////onelist.GroupBy(s=>s.Name,(key,goup)=>new{GroupName=key,Items=goup.ToList()})
 
-            //onelist.GroupBy(s =>  s.book2.GroupBy(p => p.Author_id));
+            //onelist.GroupBy(s => s.book2.GroupBy(p => p.Author_id));
             //manylist.GroupBy(s => new { s.Title, s.Publisher }, (key, group) => new { GroupName = key, Items = group.ToList() });
 
             //var lresult7 = db.author2s

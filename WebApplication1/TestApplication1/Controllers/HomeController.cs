@@ -81,19 +81,20 @@ namespace TestApplication1.Controllers
 
             #region join tables left join
 
-            ////var opportunities = (from c in db.CountrySizes
-            ////                     join d in db.AuthorModels on c.Id equals d.Id
-            ////                     group c by  new { c.country }
-            ////                     into grp
-            ////                     select new { product_name = grp.Key., product_tonnage = grp.Key.Title }).ToList();
+            //var opportunities = (from c in db.CountrySizes
+            //                     join d in db.AuthorModels on c.Id equals d.Id
+            //                     group c by  new { c.country }
+            //                     into grp
+            //                     select new { product_name = grp.Key., product_tonnage = grp.Key.Title }).ToList();
 
-            ////var qry = db.CountrySizes.Join(db.AuthorModels,req => req.Id,spon => spon.Id,(req, spon) => new { CountrySizes = req, AuthorModels = spon })
-            ////.GroupBy(both => both.CountrySizes.country)
-            ////.Select (p=>new { aaa=p});
+            //var qry = db.CountrySizes.Join(db.AuthorModels,req => req.Id,spon => spon.Id,(req, spon) => new { CountrySizes = req, AuthorModels = spon })
+            //.GroupBy(both => both.CountrySizes.country)
+            //.Select (p=>new { aaa=p});
 
 
 
             //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
 
             //Person magnus = new Person { FirstName = "Magnus", LastName = "Hedlund" };
             //Person terry = new Person { FirstName = "Terry", LastName = "Adams" };
@@ -115,6 +116,8 @@ namespace TestApplication1.Controllers
             //            from subpet22 in gj.DefaultIfEmpty()
             //            select new { person.FirstName, PetName = subpet22?.Name ?? String.Empty };
 
+
+
             //var partialResult = (from c in db.CountrySizes
             //                     join o in db.AuthorModels
             //                     on c.Id equals o.Id into gj
@@ -124,6 +127,106 @@ namespace TestApplication1.Controllers
             //                         c.Id,
             //                         c.country
             //                     }).DistinctBy(m => m.country).ToList();
+
+
+            //partialResult2和partialResult2 表倒个位置，左右连接是相对地
+            //var partialResult2 = (from countr in db.CountrySizes
+            //                     join auth in db.AuthorModels
+            //                     on countr.Id equals auth.Id into gj
+            //                     from j in gj.DefaultIfEmpty()
+            //                     select new
+            //                     {
+            //                         //o.Id,
+            //                         //o.Name
+            //                         ID=j.Id.ToString(),
+            //                         strName=j.Name
+            //                     }).ToList();
+
+            //var partialResult3 = (
+
+            //                      from auth in db.AuthorModels
+            //                      join countr in db.CountrySizes
+
+            //                      on auth.Id equals countr.Id into gj
+            //                      from j in gj.DefaultIfEmpty()
+            //                      select new
+            //                      {
+            //                          ID = j.Id.ToString(),
+            //                          strName = j.country
+            //                      }).ToList();
+
+
+            //partialResult4 内连接
+            //var partialResult4 = (from countr in db.CountrySizes
+            //                      join auth in db.AuthorModels
+            //                      on countr.Id equals auth.Id 
+
+            //                      select new
+            //                      {
+            //                          auth.Id,
+            //                          countr.size                                  
+
+            //                      }).ToList();
+
+            //var partialResult5 = (from country2 in db.CountrySizes
+            //                      join countr in (
+            //                      //db.AuthorModels
+            //                       from auth2 in db.AuthorModels
+            //                       join countr2 in db.CountrySizes
+            //                       on auth2.Id equals countr2.Id into gj
+            //                       from j in gj.DefaultIfEmpty()
+            //                           //select new
+            //                           //{
+            //                           //    CID = j.Id.ToString(),
+            //                           //    AID = auth2.Id.ToString(),
+            //                           //    SIZE = j.size,
+            //                           //    NAME = j.country
+            //                           //}
+            //                       select j
+            //                      )
+            //                      on country2.Id equals countr.Id
+
+            //                      select new
+            //                      {
+            //                          country2.Id,
+            //                          countr.country
+
+            //                      }).ToList();
+
+
+            //var query = (from t2 in db.Table2
+            //                      join innerlist in (
+            //                      //db.CountrySizes
+            //                       from t3 in db.Table3
+            //                       join t1 in db.Table1
+            //                       on t3.Id equals t1.Id into leftlist
+            //                       from j in leftlist.DefaultIfEmpty()
+
+            //                       select new
+            //                       {
+            //                           t1ID = j.Id.ToString(),
+            //                           t3ID = t3.Id.ToString(),
+            //                           AIG_ID = j.AIG_ID,
+            //                           Department_ID = j.Department_ID,
+            //                           Distribution_Code = j.Distribution_Code,
+            //                           D_ID=t3.D_ID,
+            //                           PLA_ID=t3.PLA_ID
+            //                       }
+            //                      )
+            //                      on t2.Id equals innerlist.t1ID
+            //                      where innerlist.AIG_ID == 431 && innerlist.Distribution_Code=='A'
+            //                      orderby t2.PLA_NAME, innerlist.D_ID
+            //                      select new
+            //                      {
+            //                          innerlist.PLA_ID,
+            //                          innerlist.Department_ID,
+            //                          t2.PLA_NAME,
+            //                          innerlist.D_ID,
+            //                          innerlist.Section_ID
+                                      
+            //                      }).ToList();
+
+
 
 
 
@@ -274,10 +377,13 @@ namespace TestApplication1.Controllers
             public string ItmeName { get; set; }
 
         }
-        public ActionResult BuyItem2()
+        public ActionResult BuyItem2(int Id)
         {
-
-            return PartialView();
+            BuyItem employee = new BuyItem();
+            employee.ItemID = 9;
+            employee.ItmeName = "999";
+            employee.StoreID = 99;
+            return PartialView(employee);
         }
 
         [HttpPost]
@@ -731,6 +837,48 @@ namespace TestApplication1.Controllers
         public ActionResult BootstrapDatepicker()//https://vitalets.github.io/bootstrap-datepicker/
         {
             return View();
+        }
+        #endregion
+
+
+        #region Cant Insert Data into Database Using Ajax //https://forums.asp.net/t/2142091.aspx
+        //public class RMA_History
+        //{
+        //    public int Id { get; set; }
+        //    public string Kundenummer { get; set; }
+        //    public string Ordrenummer { get; set; }
+        //}
+
+        public ActionResult ProcessRequestRMAO_Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult ProcessRequestRMA(RMA_History model)
+        {
+
+            ViewBag.ID = model.Id;
+
+            if (ModelState.IsValid)
+            {
+                if (ViewBag.ID == 0)
+                {
+                    db.RMA_Histories.Add(new RMA_History
+                    {
+                        //Id = ViewBag.ID,
+                        Kundenummer = model.Kundenummer,
+                        Ordrenummer = model.Ordrenummer
+
+                    });
+                    db.SaveChanges();
+                }
+
+
+            }
+           
+
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

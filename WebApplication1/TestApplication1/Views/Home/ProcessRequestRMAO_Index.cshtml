@@ -1,0 +1,86 @@
+﻿@model TestApplication1.Models.RMA_History
+@{
+    ViewBag.Title = "ProcessRequestRMAO_Index";
+}
+
+<form>
+
+    <input name="Ordrenummer" type="text" id="Ordrenummer">
+
+    <input name="Kundenummer" type="text" id="Kundenummer">
+
+    @*<input type="hidden" name="Id" id="Id" value="@ViewBag.ID" />*@
+
+    <button id="btn" type="submit">Send</button>
+
+</form>
+
+@section scripts{
+<script>
+    $(document).ready(function () {
+
+        $("#btn").click(function (e) {
+            e.preventDefault();
+            return myfunction();
+        });
+
+
+        function myfunction() {
+
+            var model = {
+
+                Kundenummer: $("#Kundenummer").val(),
+                Ordrenummer: $("#Ordrenummer").val()
+                //Id: $("#Id").val()
+
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "/Home/ProcessRequestRMA",
+                dataType: 'json',
+
+                data: {
+
+                    Kundenummer: model.Kundenummer,
+                    Ordrenummer: model.Ordrenummer
+                    //Id: model.Id
+                },
+
+                //beforeSend: function (status) {
+                //    if (model.Id == 0) {
+                //        //status.Id = model.Id
+                //        status.Kundenummer = model.Kundenummer;
+                //        status.Ordrenummer = model.Ordrenummer;
+
+                //        console.log("Send");
+
+                //    }
+
+                //    else {
+                //        alert("Something Wrong");
+                //    }
+                //},
+                success: function (run) {
+
+                    if (run) {
+
+                        console.log("Send success");
+                    }
+                    else {
+                        alert("Something wrong in success");
+                    }
+
+                },
+
+                error: function () {
+                    console.log('something went wrong - debug it!');
+                }
+            });
+        }
+
+
+    });
+</script>
+
+    }

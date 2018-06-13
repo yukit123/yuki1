@@ -12,6 +12,7 @@
 }
 <hr />
 <div id="partialView">
-    @Html.Partial("BuyItem2")  @*Html.RenderPartial("PartialAdd");*@
+    @*@Html.Partial("BuyItem2")*@  @*Html.RenderPartial("PartialAdd");*@
+    @Html.Action("BuyItem2", "Home", new { Id = Model.StoreID });
 
 </div>  

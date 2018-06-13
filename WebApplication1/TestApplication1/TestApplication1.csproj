@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201806101522207_OpsModels1.Designer.cs">
       <DependentUpon>201806101522207_OpsModels1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806130942509_RMA_History1.cs" />
+    <Compile Include="Migrations\201806130942509_RMA_History1.Designer.cs">
+      <DependentUpon>201806130942509_RMA_History1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\author2.cs" />
     <Compile Include="Models\AuthorModel.cs" />
@@ -246,6 +250,7 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CountrySize.cs" />
     <Compile Include="Models\OpsModel.cs" />
+    <Compile Include="Models\RMA_History.cs" />
     <Compile Include="Models\SampleViewModel.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1158,6 +1163,7 @@
     <Content Include="Views\Home\_OpsResults.cshtml" />
     <Content Include="Views\Home\SendEmailView.cshtml" />
     <Content Include="Views\Home\BootstrapDatepicker.cshtml" />
+    <Content Include="Views\Home\ProcessRequestRMAO_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1224,6 +1230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806101522207_OpsModels1.resx">
       <DependentUpon>201806101522207_OpsModels1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806130942509_RMA_History1.resx">
+      <DependentUpon>201806130942509_RMA_History1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
