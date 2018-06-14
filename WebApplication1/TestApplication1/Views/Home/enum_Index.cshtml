@@ -1,0 +1,21 @@
+﻿@model TestApplication1.Models.Relationship
+
+    @{
+        ViewBag.Title = "enum_Index";
+    }
+
+    <h2>enum_Index</h2>
+
+
+
+    @*@Html.EditorFor(Model => Model.Id)
+    <br />
+    @Html.EditorFor(Model => Model.RelationshipName)
+    <br />*@
+
+    @Html.EnumDropDownListFor(Model => Model.relationshipType,"--Select--", htmlAttributes:
+                                          new
+                                          {
+                                              @class = "form-control"
+                                          })
+

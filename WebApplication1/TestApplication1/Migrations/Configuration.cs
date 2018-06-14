@@ -9,7 +9,7 @@ namespace TestApplication1.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(TestApplication1.Models.TestApplication1Context context)

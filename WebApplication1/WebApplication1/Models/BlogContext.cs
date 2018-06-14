@@ -24,7 +24,10 @@ namespace WebApplication1.Models
         public DbSet<TEnum> TEnums { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
-        
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupProperty> GroupProperties { get; set; }
+
+
 
 
 

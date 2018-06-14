@@ -528,6 +528,10 @@
     <Compile Include="Migrations\201805300731315_employees.Designer.cs">
       <DependentUpon>201805300731315_employees.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806140935219_group1.cs" />
+    <Compile Include="Migrations\201806140935219_group1.Designer.cs">
+      <DependentUpon>201806140935219_group1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -535,6 +539,8 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupProperty.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\le_leaveApplication.cs" />
     <Compile Include="Models\Product.cs" />
@@ -722,6 +728,7 @@
     <Content Include="Views\Home\ifnull.cshtml" />
     <Content Include="Views\Home\AutoSuggests.cshtml" />
     <Content Include="Views\Home\TextEdit.cshtml" />
+    <Content Include="Views\Home\Relationships.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -796,6 +803,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805300731315_employees.resx">
       <DependentUpon>201805300731315_employees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806140935219_group1.resx">
+      <DependentUpon>201806140935219_group1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

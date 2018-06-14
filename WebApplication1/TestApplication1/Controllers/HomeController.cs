@@ -93,7 +93,7 @@ namespace TestApplication1.Controllers
 
 
 
-            //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
 
 
             //Person magnus = new Person { FirstName = "Magnus", LastName = "Hedlund" };
@@ -168,63 +168,65 @@ namespace TestApplication1.Controllers
 
             //                      }).ToList();
 
-            //var partialResult5 = (from country2 in db.CountrySizes
-            //                      join countr in (
-            //                      //db.AuthorModels
-            //                       from auth2 in db.AuthorModels
-            //                       join countr2 in db.CountrySizes
-            //                       on auth2.Id equals countr2.Id into gj
-            //                       from j in gj.DefaultIfEmpty()
-            //                           //select new
-            //                           //{
-            //                           //    CID = j.Id.ToString(),
-            //                           //    AID = auth2.Id.ToString(),
-            //                           //    SIZE = j.size,
-            //                           //    NAME = j.country
-            //                           //}
-            //                       select j
+            //partialResult5 内连接嵌套右连接 nest
+            //var partialResult5 = (from Table2  in db.CountrySizes
+            //                      join InnerJoin in( 
+            //                       from Table3 in db.AuthorModels   
+            //                       join Table1 in db.CountrySizes
+            //                       on Table3.Id equals Table1.Id into leftJoin
+            //                       from j in leftJoin.DefaultIfEmpty()
+            //                       select new
+            //                       {
+            //                           CID = j.Id,
+            //                           AID = Table3.Id,
+            //                           ACC = Table3.Name,
+            //                           SIZE = j.size,
+            //                           NAME = j.country
+            //                       }                                
             //                      )
-            //                      on country2.Id equals countr.Id
-
+            //                      on Table2.Id equals InnerJoin.AID
+            //                      where InnerJoin.AID > 1 && InnerJoin.ACC =="aaa"  
+            //                      orderby Table2.Id, InnerJoin.AID
             //                      select new
             //                      {
-            //                          country2.Id,
-            //                          countr.country
+            //                          Table2.Id,
+            //                          InnerJoin.NAME,
+            //                          InnerJoin.AID
 
             //                      }).ToList();
 
 
             //var query = (from t2 in db.Table2
-            //                      join innerlist in (
-            //                      //db.CountrySizes
-            //                       from t3 in db.Table3
-            //                       join t1 in db.Table1
-            //                       on t3.Id equals t1.Id into leftlist
-            //                       from j in leftlist.DefaultIfEmpty()
+            //             join innerlist in (
+            //              //db.CountrySizes
+            //              from t3 in db.Table3
+            //              join t1 in db.Table1
+            //              on t3.Id equals t1.Id into leftlist
+            //              from j in leftlist.DefaultIfEmpty()
 
-            //                       select new
-            //                       {
-            //                           t1ID = j.Id.ToString(),
-            //                           t3ID = t3.Id.ToString(),
-            //                           AIG_ID = j.AIG_ID,
-            //                           Department_ID = j.Department_ID,
-            //                           Distribution_Code = j.Distribution_Code,
-            //                           D_ID=t3.D_ID,
-            //                           PLA_ID=t3.PLA_ID
-            //                       }
-            //                      )
-            //                      on t2.Id equals innerlist.t1ID
-            //                      where innerlist.AIG_ID == 431 && innerlist.Distribution_Code=='A'
-            //                      orderby t2.PLA_NAME, innerlist.D_ID
-            //                      select new
-            //                      {
-            //                          innerlist.PLA_ID,
-            //                          innerlist.Department_ID,
-            //                          t2.PLA_NAME,
-            //                          innerlist.D_ID,
-            //                          innerlist.Section_ID
-                                      
-            //                      }).ToList();
+            //              select new
+            //              {
+            //                  t1ID = j.Id,
+            //                  t3ID = t3.Id,
+            //                  AIG_ID = j.AIG_ID,
+            //                  Department_ID = j.Department_ID,
+            //                  Distribution_Code = j.Distribution_Code,
+            //                  D_ID = t3.D_ID,
+            //                  PLA_ID = t3.PLA_ID
+            //              }
+            //             )
+            //             on t2.Id equals innerlist.t1ID
+            //             where innerlist.AIG_ID == 431 && innerlist.Distribution_Code == 'A'
+            //             orderby t2.PLA_NAME, innerlist.D_ID
+            //             select new
+            //             {
+            //                 innerlist.PLA_ID,
+            //                 innerlist.Department_ID,
+            //                 t2.PLA_NAME,
+            //                 innerlist.D_ID,
+            //                 innerlist.Section_ID
+
+            //             }).ToList();
 
 
 
@@ -875,12 +877,45 @@ namespace TestApplication1.Controllers
 
 
             }
-           
+            else  //(!ModelState.IsValid) //
+            {
+                var msg = string.Empty;
+                foreach (var value in ModelState.Values)
+                {
+                    if (value.Errors.Count > 0)
+                    {
+                        foreach (var error in value.Errors)
+                        {
+                            msg = msg + error.ErrorMessage;
+                        }
+                    }
+                }
+            }
 
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
+        #region enum 枚举
+
+        public ActionResult enum_Index()
+        {
+
+            //var options = new List<Relationship>();
+
+            //options.Add(new Relationship() { Id = 0, relationshipType = (TestApplication1.Models.RelationshipType.Child), RelationshipName = "ab1" });
+
+            //options.Add(new Relationship() { Id = 1, relationshipType = (TestApplication1.Models.RelationshipType.Self), RelationshipName = "ab2" });
+
+            //options.Add(new Relationship() { Id = 2, relationshipType = (TestApplication1.Models.RelationshipType.Spouse), RelationshipName = "ab3" });
+
+            //var enumlist = options[1];
+            Relationship model = new Relationship();
+            return View(model);
+        }
+        #endregion
+
+       
     }
 }

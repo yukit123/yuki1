@@ -2269,65 +2269,80 @@ namespace WebApplication1.Controllers
         {
 
             #region GROUPBY AddRange 
-            var list1 = new List<TestViewModel>
-            {
-                new TestViewModel{Text="Apple2",Value="1"},
-                new TestViewModel{Text="Banana",Value="2"},
-                new TestViewModel{Text="Orange",Value="3"}
+            //var list1 = new List<TestViewModel>
+            //{
+            //    new TestViewModel{Text="Apple2",Value="1"},
+            //    new TestViewModel{Text="Banana",Value="2"},
+            //    new TestViewModel{Text="Orange",Value="3"}
 
-            };
-
-            var list2 = new List<TestViewModel>
-            {
-                new TestViewModel{Text="Apple2",Value="11"},
-                new TestViewModel{Text="Banana",Value="2"},
-                new TestViewModel{Text="Orange",Value="3"}
-
-            };
-
-            var querylist1 = new List<TestViewModel>();
-            var querylist2 = new List<TestViewModel>();
+            //};
 
 
-            foreach (var item in list1.Select(p => p.Value).ToList())
-            {
-                querylist1 = list2.Where(p => p.Value == item).ToList();
-                querylist2.AddRange(querylist1);
-            }
+            //var list2 = new List<TestViewModel>
+            //{
+            //    new TestViewModel{Text="Apple2",Value="11"},
+            //    new TestViewModel{Text="Banana",Value="2"},
+            //    new TestViewModel{Text="Orange",Value="3"}
+
+            //};
+
+            //var querylist1 = new List<TestViewModel>();
+            //var querylist2 = new List<TestViewModel>();
+
+
+            //foreach (var item in list1.Select(p => p.Value).ToList())
+            //{
+            //    querylist1 = list2.Where(p => p.Value == item).ToList();
+            //    querylist2.AddRange(querylist1);
+            //}
+            #region Contain Any
+            var list11 = new string [] { "33","34" };
+            var products = (from s in db.Author
+                            where s.id != 100 && list11.Any(_=>_==s.id.ToString())
+                            select s).ToList();
+            #endregion
+            //foreach (var item in list11)
+            //{
+            //    //querylist1 = list2.Where(p => p.Value==item).ToList();
+            //    //querylist2.AddRange(querylist1);
+            //    var products = db.Author.Where(s => s.id == item).ToList();
+            //    test.Add(item);
+            //}
+
 
             //querylist2.GroupBy(item => item.Text,(key, group) =>  new { GroupName = key, Items = group.ToList() })
             #endregion
 
-            var Personlist1 = new List<Person>
-            {
-                new Person{PersonID=1,Age=51,Name="aa"},
-                new Person{PersonID=2,Age=10,Name="bb"},
-                new Person{PersonID=3,Age=10,Name="cc"}
+            //var Personlist1 = new List<Person>
+            //{
+            //    new Person{PersonID=1,Age=51,Name="aa"},
+            //    new Person{PersonID=2,Age=10,Name="bb"},
+            //    new Person{PersonID=3,Age=10,Name="cc"}
 
-            };
+            //};
 
-            var Hobbylist2 = new List<Hobby>
-            {
-                new Hobby{HobbyID=1,Name="aa",Type="y"},
-                new Hobby{HobbyID=2,Name="bb",Type="y"},
-                new Hobby{HobbyID=3,Name="cc",Type="n"}
+            //var Hobbylist2 = new List<Hobby>
+            //{
+            //    new Hobby{HobbyID=1,Name="aa",Type="y"},
+            //    new Hobby{HobbyID=2,Name="bb",Type="y"},
+            //    new Hobby{HobbyID=3,Name="cc",Type="n"}
 
-            };
+            //};
 
 
             #region GROUPBY MUTIPLE
-            var list3 = new List<DemoViewModel>
-            {
-                new DemoViewModel{Text="Apple",keyword="x",Value="1"},
-                new DemoViewModel{Text="Banana",keyword="x",Value="2"},
-                new DemoViewModel{Text="Banana",keyword="p",Value="3"},
-                new DemoViewModel{Text="Orange",keyword="x",Value="4"},
-                new DemoViewModel{Text="Orange",keyword="x",Value="5"},
+            //var list3 = new List<DemoViewModel>
+            //{
+            //    new DemoViewModel{Text="Apple",keyword="x",Value="1"},
+            //    new DemoViewModel{Text="Banana",keyword="x",Value="2"},
+            //    new DemoViewModel{Text="Banana",keyword="p",Value="3"},
+            //    new DemoViewModel{Text="Orange",keyword="x",Value="4"},
+            //    new DemoViewModel{Text="Orange",keyword="x",Value="5"},
 
 
-            };
-           
-            //list3.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
+            //};
+
+            ////list3.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
             #endregion
 
 
@@ -2440,6 +2455,46 @@ namespace WebApplication1.Controllers
         {
           
             return View();
+        }
+        #endregion
+
+        #region one to many entity
+
+        public class GroupGroupProperty
+        {
+            public int GroupId { get; set; }
+            public string GroupName { get; set; }
+
+            public string GroupDescription { get; set; }
+
+            public int GroupPropertyId { get; set; }
+            public string GroupPropertyName { get; set; }
+
+            public string GroupPropertyDescription { get; set; }
+
+        }
+
+        public ActionResult Relationships()
+        {
+            
+            //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var partialResult4 = (from gp in db.Groups
+                                  join gpp in db.GroupProperties
+                                  on gp.GrpId equals gpp.Id
+
+                                  select new GroupGroupProperty
+                                  {
+                                      GroupId = gp.GrpId,
+                                      GroupName = gp.Name,
+                                      GroupDescription = gp.Description,
+                                      GroupPropertyId = gpp.Id,
+                                      GroupPropertyName = gp.Name,
+                                      GroupPropertyDescription = gp.Description
+
+                                  }).ToList();
+
+            return View();
+
         }
         #endregion
 

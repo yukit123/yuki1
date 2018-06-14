@@ -250,6 +250,7 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CountrySize.cs" />
     <Compile Include="Models\OpsModel.cs" />
+    <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RMA_History.cs" />
     <Compile Include="Models\SampleViewModel.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
@@ -1164,6 +1165,8 @@
     <Content Include="Views\Home\SendEmailView.cshtml" />
     <Content Include="Views\Home\BootstrapDatepicker.cshtml" />
     <Content Include="Views\Home\ProcessRequestRMAO_Index.cshtml" />
+    <Content Include="Views\Home\enum_Index.cshtml" />
+    <Content Include="Views\Home\Relationships.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
