@@ -20,11 +20,16 @@ namespace TestApplication1.Models
         public DbSet<OpsModel> OpsModels { get; set; }
         public DbSet<RMA_History> RMA_Histories { get; set; }
 
-   
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupProperty> GroupProperties { get; set; }
+
+        public DbSet<Customers> Customers { get; set; }
 
 
 
-        
+
+
+
 
 
 

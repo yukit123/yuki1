@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "PagedListPager_Index";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<!-- import the included stylesheet for some (very basic) default styling -->
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<!-- loop through each of your products and display it however you want. we're just printing the name here -->
+<h2>List of Products</h2>
+<ul>
+    @foreach (var product in ViewBag.OnePageOfProducts)
+    {
+        <li>@product.Name</li>
+    }
+</ul>
+
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+@*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page }))*@
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page ,accountmenu = ViewBag.AccountMenu, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                        {
+                            LinkToFirstPageFormat = "<<",
+                            LinkToPreviousPageFormat = "<",
+                            LinkToNextPageFormat = ">",
+                            LinkToLastPageFormat = ">>",
+                            //DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                            //DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                            //DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                            //DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                            MaximumPageNumbersToDisplay = 0,
+                            DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+                        }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "some_grid_container" }))
+
+@*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page = page }),
+    new PagedListRenderOptions
+    {
+        LinkToFirstPageFormat = "<< Primera",
+        LinkToPreviousPageFormat = "< Anterior",
+        LinkToNextPageFormat = "Siguiente >",
+        LinkToLastPageFormat = "Ultima >>"
+    })*@
+

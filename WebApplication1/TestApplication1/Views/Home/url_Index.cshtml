@@ -1,0 +1,12 @@
+﻿@using WebApplication1.Helpers
+@{
+    ViewBag.Title = "url_Index";
+}
+
+<h2>url_Index</h2>
+
+<a class="pagination-prev btn btn--cta btn--huge btn-text-black flush hard--left pagination-button" href="@Url.Action("Index", "Annonce", new { lang = ViewRes.Shared.Langue, id = ViewBag.id, searchcountry = ViewBag.SearchCountry, currentFilterPlace = ViewBag.CurrentFilterPlace, currentFilter = ViewBag.CurrentFilter, page = previouspage })" title="BLOG @previouspage"><i class="icon icon_left-arrow "></i> <!-- -->@ViewRes.Shared.BlogListPrev</a>
+
+<a class="pagination-next btn btn--cta btn--huge btn-text-black flush pagination-button hard--right" href="@Url.Action("Index", "Annonce", new { lang = ViewRes.Shared.Langue, id = ViewBag.id, searchcountry = ViewBag.SearchCountry, currentFilterPlace = ViewBag.CurrentFilterPlace, currentFilter = ViewBag.CurrentFilter, page = nextpage })" title="BLOG @nextpage">@ViewRes.Shared.BlogListNext<!-- --> <i class="icon icon_right-arrow push-tiny--left"></i></a>
+
+@Html.EncodedActionLink("Encode", "Encrypt", "Home", "", null, "name=a?age=12")

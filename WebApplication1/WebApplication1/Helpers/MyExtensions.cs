@@ -82,6 +82,22 @@ namespace WebApplication1.Helpers
             return Convert.ToBase64String(mStream.ToArray());
         }
 
+        private static string ViewRes(string plainText)
+        {
+            string key = "jdsg432387#";
+            byte[] EncryptKey = { };
+            byte[] IV = { 55, 34, 87, 64, 87, 195, 54, 21 };
+            EncryptKey = System.Text.Encoding.UTF8.GetBytes(key.Substring(0, 8));
+            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            byte[] inputByte = Encoding.UTF8.GetBytes(plainText);
+            MemoryStream mStream = new MemoryStream();
+            CryptoStream cStream = new CryptoStream(mStream, des.CreateEncryptor(EncryptKey, IV), CryptoStreamMode.Write);
+            cStream.Write(inputByte, 0, inputByte.Length);
+            cStream.FlushFinalBlock();
+            return Convert.ToBase64String(mStream.ToArray());
+        }
+
+
         public static string RemoveDiacritics(this String s)
         {
             String normalizedString = s.Normalize(NormalizationForm.FormD);

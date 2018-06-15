@@ -1,4 +1,5 @@
 ﻿using Microsoft.Ajax.Utilities;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -168,32 +169,33 @@ namespace TestApplication1.Controllers
 
             //                      }).ToList();
 
-            //partialResult5 内连接嵌套右连接 nest
-            //var partialResult5 = (from Table2  in db.CountrySizes
-            //                      join InnerJoin in( 
-            //                       from Table3 in db.AuthorModels   
-            //                       join Table1 in db.CountrySizes
-            //                       on Table3.Id equals Table1.Id into leftJoin
-            //                       from j in leftJoin.DefaultIfEmpty()
-            //                       select new
-            //                       {
-            //                           CID = j.Id,
-            //                           AID = Table3.Id,
-            //                           ACC = Table3.Name,
-            //                           SIZE = j.size,
-            //                           NAME = j.country
-            //                       }                                
-            //                      )
-            //                      on Table2.Id equals InnerJoin.AID
-            //                      where InnerJoin.AID > 1 && InnerJoin.ACC =="aaa"  
-            //                      orderby Table2.Id, InnerJoin.AID
-            //                      select new
-            //                      {
-            //                          Table2.Id,
-            //                          InnerJoin.NAME,
-            //                          InnerJoin.AID
+           //// partialResult5 内连接嵌套右连接 nest
+           // var partialResult5 = (from Table2 in db.CountrySizes
+           //                       join InnerJoin in (
+           //                        from Table3 in db.AuthorModels
+           //                        join Table1 in db.CountrySizes
+           //                        on Table3.Id equals Table1.Id into leftJoin
+           //                        from j in leftJoin.DefaultIfEmpty()
+           //                        select new
+           //                        {
+           //                            CID = j.Id,
+           //                            AID = Table3.Id,
+           //                            ACC = Table3.Name,
+           //                            SIZE = j.size,
+           //                            NAME = j.country
+           //                        }
+           //                       )
+           //                       on Table2.Id equals InnerJoin.AID
+           //                       //where InnerJoin.AID > 1 && InnerJoin.ACC == "aaa"
+           //                       where InnerJoin.CID>1 && InnerJoin.SIZE=="aaa"
+           //                       orderby Table2.Id, InnerJoin.AID
+           //                       select new
+           //                       {
+           //                           Table2.Id,
+           //                           InnerJoin.NAME,
+           //                           InnerJoin.AID
 
-            //                      }).ToList();
+           //                       }).ToList();
 
 
             //var query = (from t2 in db.Table2
@@ -916,6 +918,175 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
-       
+        #region  jqGrid
+        public ActionResult jqGrid_Index()//https://www.c-sharpcorner.com/article/using-jqgrid-with-asp-net-mvc/
+        {
+            //http://www.trirand.com/blog/jqgrid/jqgrid.html
+            //http://blog.mn886.net/jqGrid/
+
+            return View();
+        }
+
+
+        public JsonResult GetCustomers(string sord, int page, int rows, string searchString)
+        {
+            // Create Instance of DatabaseContext class for Accessing Database.
+            TestApplication1Context db = new TestApplication1Context();
+
+            //Setting Paging
+            int pageIndex = Convert.ToInt32(page) - 1;
+            int pageSize = rows;
+            var Results = db.Customers.Select(
+                a => new
+                {
+                    a.CustomerID,
+                    a.CompanyName,
+                    a.ContactName,
+                    a.ContactTitle,
+                    a.City,
+                    a.PostalCode,
+                    a.Country,
+                    a.Phone,
+                });
+
+            //Get Total Row Count
+            int totalRecords = Results.Count();
+            var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
+
+            //Setting Sorting
+            if (sord.ToUpper() == "DESC")
+            {
+                Results = Results.OrderByDescending(s => s.CustomerID);
+                Results = Results.Skip(pageIndex * pageSize).Take(pageSize);
+            }
+            else
+            {
+                Results = Results.OrderBy(s => s.CustomerID);
+                Results = Results.Skip(pageIndex * pageSize).Take(pageSize);
+            }
+            //Setting Search
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                Results = Results.Where(m => m.CompanyName == searchString || m.ContactName == searchString);
+            }
+            //Sending Json Object to View.
+            var jsonData = new
+            {
+                total = totalPages,
+                page,
+                records = totalRecords,
+                rows = Results
+            };
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public JsonResult CreateCustomer([Bind(Exclude = "CustomerID")] Customers customers)
+        {
+            StringBuilder msg = new StringBuilder();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (TestApplication1Context db = new TestApplication1Context())
+                    {
+                        db.Customers.Add(customers);
+                        db.SaveChanges();
+                        return Json("Saved Successfully", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    var errorList = (from item in ModelState
+                                     where item.Value.Errors.Any()
+                                     select item.Value.Errors[0].ErrorMessage).ToList();
+
+                    return Json(errorList, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errormessage = "Error occured: " + ex.Message;
+                return Json(errormessage, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public string EditCustomer(Customers customers)
+        {
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (TestApplication1Context db = new TestApplication1Context())
+                    {
+                        db.Entry(customers).State = EntityState.Modified;
+                        db.SaveChanges();
+                        msg = "Saved Successfully";
+                    }
+                }
+                else
+                {
+                    msg = "Some Validation ";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+        public string DeleteCustomer(int Id)
+        {
+            using (TestApplication1Context db = new TestApplication1Context())
+            {
+                Customers customer = db.Customers.Find(Id);
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+                return "Deleted successfully";
+            }
+        }
+        #endregion
+
+        #region convert url.action
+
+        public ActionResult url_Index()
+        {
+
+            //var options = new List<Relationship>();
+
+            //options.Add(new Relationship() { Id = 0, relationshipType = (TestApplication1.Models.RelationshipType.Child), RelationshipName = "ab1" });
+
+            //options.Add(new Relationship() { Id = 1, relationshipType = (TestApplication1.Models.RelationshipType.Self), RelationshipName = "ab2" });
+
+            //options.Add(new Relationship() { Id = 2, relationshipType = (TestApplication1.Models.RelationshipType.Spouse), RelationshipName = "ab3" });
+
+            //var enumlist = options[1];
+            Relationship model = new Relationship();
+            return View(model);
+        }
+
+        #endregion
+
+        #region convert PagedListPager
+
+        public ActionResult PagedListPager_Index(int? page)
+        {
+            //https://github.com/troygoode/PagedList
+            //https://gist.github.com/troygoode/1053136
+            //http://www.nudoq.org/#!/Packages/PagedList.Mvc/PagedList.Mvc/PagedListRenderOptions
+
+            var products = db.author2s.ToList();
+
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var onePageOfProducts = products.ToPagedList(pageNumber, 2); // will only contain 25 products max because of the pageSize
+
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+            return View();
+        }
+
+        #endregion
     }
 }

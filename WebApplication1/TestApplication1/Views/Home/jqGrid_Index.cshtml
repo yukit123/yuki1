@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "jqGrid_Index";
+}
+
+<h2>jqGrid_Index</h2>
+
+<div>
+    <table id="Demogrid"></table>
+    <div id="pager"></div>
+</div>
+<input type="BUTTON" id="ed1" value="Edit row 13" />
+<input type="BUTTON" id="sved1" disabled='true' value="Save row 13" />
+@*<input type="BUTTON" id="cned1" disabled='true' value="Cancel Save" />*@
+
+@section scripts{
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+
+    <script src="~/Scripts/i18n/grid.locale-en.js"></script>
+
+    <script src="~/Scripts/jquery.jqGrid.js"></script>
+    <script>
+        $(function () {
+
+            //debugger;
+            $("#Demogrid").jqGrid
+                ({
+                    url: "/Home/GetCustomers",
+                    datatype: 'json',
+                    mtype: 'Get',
+                    //table header name
+                    colNames: ['CustomerID', 'CompanyName', 'ContactName', 'ContactTitle', 'City', 'PostalCode', 'Country', 'Phone'],
+                    //colModel takes the data from controller and binds to grid
+                    colModel: [
+                        {
+                            name: 'CustomerID',
+                            editable: true,
+                            key: true,
+                            hidden: true,
+                            search: false
+                        },
+                        {
+                            name: "CompanyName", editable: true, editrules: { required: true }, search: true
+                        },
+                        {
+                            name: 'ContactName', editable: true, editrules: { required: true }, search: true
+                        },
+                        {
+                            name: "ContactTitle", editable: true, editrules: { required: true }, search: false
+                        },
+                        {
+                            name: "City", editable: true, editrules: { required: true }, search: false
+                        },
+                        {
+                            name: "PostalCode", editable: true, editrules: { required: true, number: true }, search: false
+                        },
+                        {
+                            name: "Country", editable: true, editrules: { required: true }, search: false
+                        },
+                        {
+                            name: "Phone", editable: true, editrules: { required: true }, search: false
+                        }
+                    ],
+                    height: '100%',
+                    viewrecords: true,
+                    caption: 'JQgrid DEMO',
+                    emptyrecords: 'No records',
+                    rowNum: 10,
+                    editurl: '/Home/EditCustomer',
+                    //pager: jQuery('#pager'),
+                    //rowList: [10, 20, 30, 40],
+
+                    jsonReader:
+                        {
+                            //root: "rows",
+                            //page: "page",
+                            //total: "total",
+                            //records: "records",
+                            repeatitems: false,
+                            //Id: "0"
+                        },
+                    autowidth: true
+                })
+                //.navGrid('#pager',
+                //{
+                //    edit: true,
+                //    add: true,
+                //    del: true,
+                //    search: true,
+                //    refresh: true,
+                //    closeAfterSearch: true
+                //},
+                //{
+                //    // edit option
+                //    zIndex: 100,
+                //    url: '/Home/EditCustomer',
+                //    closeOnEscape: true,
+                //    closeAfterEdit: true,
+                //    recreateForm: true,
+                //    afterComplete: function (response) {
+                //        if (response.responseText) {
+                //            alert(response.responseText);
+                //        }
+                //    }
+                //},
+                //{
+                //    // add option
+                //    zIndex: 100,
+                //    url: "/Home/CreateCustomer",
+                //    closeOnEscape: true,
+                //    closeAfterAdd: true,
+                //    afterComplete: function (response) {
+                //        if (response.responseJSON) {
+                //            if (response.responseJSON == "Saved Successfully") {
+                //                alert("Saved Successfully");
+                //            }
+                //            else {
+                //                var message = "";
+                //                for (var i = 0; i < response.responseJSON.length; i++) {
+                //                    message += response.responseJSON[i];
+                //                    message += "\n";
+                //                }
+                //            }
+
+                //        }
+                //    }
+                //},
+                //{
+                //    // delete option
+                //    zIndex: 100,
+                //    url: "/Home/DeleteCustomer",
+                //    closeOnEscape: true,
+                //    closeAfterDelete: true,
+                //    recreateForm: true,
+                //    msg: "Are you sure you want to delete this Customer?",
+                //    afterComplete: function (response) {
+                //        if (response.responseText) {
+                //            alert(response.responseText);
+                //        }
+                //    }
+                //}
+
+                //);
+
+        });
+
+
+        //$(".ui-pg-div").click(function () {
+        //    $("#Demogrid").jqGrid('editRow', "1");
+        //    this.disabled = 'true';
+        //    $("#sData,#cData").attr("disabled", false);
+        //});
+        //$("#sData").click(function () {
+        //    $("#Demogrid").jqGrid('saveRow', "1");
+        //    $("#sData,#cData").attr("disabled", true);
+        //    $(".ui-pg-div").attr("disabled", false);
+        //});
+
+            $("#ed1").click(function () {
+                $("#Demogrid").jqGrid('editRow', "1");
+                this.disabled = 'true';
+                $("#sved1").attr("disabled", false);
+            });
+            $("#sved1").click(function () {
+                $("#Demogrid").jqGrid('saveRow', "1");
+                $("#sved1").attr("disabled", true);
+                $("#ed1").attr("disabled", false);
+            });
+    </script>
+
+}
