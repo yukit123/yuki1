@@ -169,68 +169,64 @@ namespace TestApplication1.Controllers
 
             //                      }).ToList();
 
-           //// partialResult5 内连接嵌套右连接 nest
-           // var partialResult5 = (from Table2 in db.CountrySizes
-           //                       join InnerJoin in (
-           //                        from Table3 in db.AuthorModels
-           //                        join Table1 in db.CountrySizes
-           //                        on Table3.Id equals Table1.Id into leftJoin
-           //                        from j in leftJoin.DefaultIfEmpty()
-           //                        select new
-           //                        {
-           //                            CID = j.Id,
-           //                            AID = Table3.Id,
-           //                            ACC = Table3.Name,
-           //                            SIZE = j.size,
-           //                            NAME = j.country
-           //                        }
-           //                       )
-           //                       on Table2.Id equals InnerJoin.AID
-           //                       //where InnerJoin.AID > 1 && InnerJoin.ACC == "aaa"
-           //                       where InnerJoin.CID>1 && InnerJoin.SIZE=="aaa"
-           //                       orderby Table2.Id, InnerJoin.AID
-           //                       select new
-           //                       {
-           //                           Table2.Id,
-           //                           InnerJoin.NAME,
-           //                           InnerJoin.AID
+            // partialResult5 内连接嵌套右连接 nest
+            var partialResult5 = (from Table2 in db.CountrySizes
+                                  join InnerJoin in (
+                                   from Table2 in db.AuthorModels
+                                   join Table3 in db.CountrySizes
+                                   on Table2.Id equals Table3.Id into leftJoin
+                                   from j in leftJoin.DefaultIfEmpty()
+                                   select new
+                                   {
+                                       CID = j.Id,
+                                       AID = Table2.Id,
+                                       ACC = Table2.Name,
+                                       SIZE = j.size,
+                                       NAME = j.country
+                                   }
+                                  )
+                                  on Table2.Id equals InnerJoin.AID
+                                  //where InnerJoin.AID > 1 && InnerJoin.ACC == "aaa"
+                                  where InnerJoin.CID > 1 && InnerJoin.SIZE == "aaa"
+                                  orderby Table2.Id, InnerJoin.AID
+                                  select new
+                                  {
+                                      Table2.Id,
+                                      InnerJoin.NAME,
+                                      InnerJoin.AID
 
-           //                       }).ToList();
-
-
-            //var query = (from t2 in db.Table2
-            //             join innerlist in (
-            //              //db.CountrySizes
-            //              from t3 in db.Table3
-            //              join t1 in db.Table1
-            //              on t3.Id equals t1.Id into leftlist
-            //              from j in leftlist.DefaultIfEmpty()
-
-            //              select new
-            //              {
-            //                  t1ID = j.Id,
-            //                  t3ID = t3.Id,
-            //                  AIG_ID = j.AIG_ID,
-            //                  Department_ID = j.Department_ID,
-            //                  Distribution_Code = j.Distribution_Code,
-            //                  D_ID = t3.D_ID,
-            //                  PLA_ID = t3.PLA_ID
-            //              }
-            //             )
-            //             on t2.Id equals innerlist.t1ID
-            //             where innerlist.AIG_ID == 431 && innerlist.Distribution_Code == 'A'
-            //             orderby t2.PLA_NAME, innerlist.D_ID
-            //             select new
-            //             {
-            //                 innerlist.PLA_ID,
-            //                 innerlist.Department_ID,
-            //                 t2.PLA_NAME,
-            //                 innerlist.D_ID,
-            //                 innerlist.Section_ID
-
-            //             }).ToList();
+                                  }).ToList();
 
 
+
+            var partialResult6 = (
+                                   from rightJoinTable in
+                                    (from Table2 in db.AuthorModels
+                                    join Table1 in db.CountrySizes
+                                    on Table2.Id equals Table1.Id into rightJoin
+                                    from rj in rightJoin.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         CID = rj.Id,
+                                         AID = Table2.Id,
+                                         NAME = Table2.Name,
+                                         SIZE = rj.size
+                                     }
+                                    )
+                                   join Table3 in db.CountrySizes
+        
+                                   on rightJoinTable.AID equals Table3.Id into leftjoin
+                                   orderby rightJoinTable.NAME, leftjoin.GroupBy(p=>p.Id)
+
+                                   from lj in leftjoin.DefaultIfEmpty()
+                                   select new
+                                   {
+                                       CID = lj.Id,//data from Table3
+                                       AID = rightJoinTable.AID, //data from Table2
+                                       SIZE = rightJoinTable.SIZE //data from Table1
+                                   }
+                                  
+                                   ).ToList();
 
 
 
@@ -1084,6 +1080,59 @@ namespace TestApplication1.Controllers
             var onePageOfProducts = products.ToPagedList(pageNumber, 2); // will only contain 25 products max because of the pageSize
 
             ViewBag.OnePageOfProducts = onePageOfProducts;
+            return View();
+        }
+
+        public class RMAHistory
+        {
+            public int? Id { get; set; }
+            public DateTime OrdreDato { get; set; }
+            public string AntalRMA { get; set; }
+
+        }
+        public ActionResult RMAList(int? pageNumber)//PagedList
+
+        {
+
+            //List<RMAHistory> query = db.RMAStatus.Join(db.RMA_History, u => u.ID, y => y.StatusID, (u, y) => new { u, y }).
+            //Where(x => x.y.Ordrenummer.Contains(searchingrma) && x.y.Fakturnummer.Contains(searchingrma) || searchingrma == null).
+            //Select(t => new RMAHistory
+            //{
+
+            //    OrdreDato = t.y.OrdreDato,
+            //    AntalRMA = t.y.AntalRMA
+
+
+            //}).OrderBy(t => t.OrdreDato).ToPagedList(pageNumber ?? 1, 5).ToList();
+
+            var query = db.AuthorModels.Join(db.CountrySizes, u => u.Id, y => y.Id, (u, y) => new { u, y }).
+           Where(x => x.y.country.Contains("FILE_DESC 1")).
+           Select(t => new RMAHistory
+           {
+
+               Id = t.y.Id,
+               AntalRMA = t.y.size
+
+
+           }).OrderBy(t => t.Id).ToList();
+
+          //  ViewBag.Model = query;
+            IPagedList<RMAHistory> query2 = query.ToPagedList(pageNumber ?? 1, 5);
+
+
+            return View(query2);
+
+
+
+
+        }
+        #endregion
+
+        #region SideBar
+        public ActionResult SideBar_Index()
+        {
+            //https://blackrockdigital.github.io/startbootstrap-simple-sidebar/#
+
             return View();
         }
 

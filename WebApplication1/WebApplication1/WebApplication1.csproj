@@ -729,6 +729,7 @@
     <Content Include="Views\Home\AutoSuggests.cshtml" />
     <Content Include="Views\Home\TextEdit.cshtml" />
     <Content Include="Views\Home\Relationships.cshtml" />
+    <Content Include="Views\Home\Webgrid2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
