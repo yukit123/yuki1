@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "RMAList";
+}
+
+@*@model List<TestApplication1.Controllers.HomeController.RMAHistory>*@
+@model PagedList.IPagedList<TestApplication1.Controllers.HomeController.RMAHistory>
+@using PagedList;
+@using PagedList.Mvc;
+
+<table>
+
+    <tbody>
+
+        @foreach (var rma in Model)
+        {
+            <tr>
+
+
+                @*<td class="tdft">@rma.OrdreDato.ToString("dd/MM/yyy")</td>*@
+                <td class="tdft">@rma.AntalRMA</td>
+
+               
+
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>
+
+@Html.PagedListPager(Model, pageNumber => Url.Action("RMAList", new
+{
+    pageNumber,
+
+    searching = Request.QueryString["searchingrma"]
+
+}))

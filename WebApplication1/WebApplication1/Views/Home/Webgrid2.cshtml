@@ -1,0 +1,44 @@
+﻿@*@model List<WebApplication1.Controllers.HomeController.ListStrViewModel>*@
+    @{ 
+        var grid = new WebGrid(source: ViewBag.list);
+        var g = new WebGrid(source: ViewBag.addresses);
+
+    }
+
+<div id="main">
+
+    @{
+
+        @MvcHtmlString.Create(
+                                                        grid.GetHtml(tableStyle: "table", htmlAttributes: new { id = "gridT" },
+                                                        columns: grid.Columns(
+
+                                                                grid.Column("field1", "field1xxx", canSort: false),
+                                                                grid.Column("field2", "field2xx", canSort: false),
+                                                                grid.Column("field3", "field3xx", canSort: false))
+
+                                                                ).ToHtmlString()
+
+                  )
+
+        @grid.GetHtml(
+                            columns: new[] {
+                                grid.Column(format: (item) => item)
+
+                            }
+                                );
+            }
+
+        @*@g.GetHtml(
+                            columns: g.Columns(
+                                //g.Column(format: (item) => item)
+                                grid.Column("0", "xx", canSort: false),
+                                grid.Column("1", "xxxx", canSort: false),
+                                grid.Column("2", "xxxxx", canSort: false)
+
+                                )
+                                );
+            }*@
+
+        @*@grid.GetHtml()*@
+    </div>

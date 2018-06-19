@@ -1299,6 +1299,9 @@
     <Content Include="Views\Home\jqGrid_Index.cshtml" />
     <Content Include="Views\Home\url_Index.cshtml" />
     <Content Include="Views\Home\PagedListPager_Index.cshtml" />
+    <Content Include="Views\Home\SideBar_Index.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Home\RMAList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

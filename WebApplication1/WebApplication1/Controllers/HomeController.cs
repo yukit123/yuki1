@@ -1570,6 +1570,51 @@ namespace WebApplication1.Controllers
             return View(list);
         }
 
+        public class ListStrViewModel
+        {
+            public string  field1 { get; set; }
+            public string field2 { get; set; }
+
+            public string field3 { get; set; }
+
+        }
+        public ActionResult Webgrid2()//https://forums.asp.net/t/2132883.aspx
+        {
+            ViewBag.Message = "Your contact page.";
+            var list = db.Label.ToList();
+
+            List<ListStrViewModel> list2 = new List<ListStrViewModel>();
+            list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" } );
+            list2.Add(new ListStrViewModel() { field1 = "bb", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { field1 = "cc", field2 = "cc", field3 = "cc" });
+
+
+            List<String[]> addresses = new List<String[]>();
+            String[] addressesArr = new String[3];
+            addressesArr[0] = "zero";
+            addressesArr[1] = "one";
+            addressesArr[2] = "two";
+
+            addresses.Add(addressesArr);
+            addresses.Add(addressesArr);
+            addresses.Add(addressesArr);
+
+            //List<String> addresses = new List<String>();
+
+            //addresses.Add("aa");
+            //addresses.Add("bb");
+
+            //addresses.Add("cc");
+
+
+
+
+            ViewBag.list = list2;
+            ViewBag.addresses = addresses;
+
+            return View();
+        }
+
         public ActionResult localStorage()
         {
             ViewBag.Message = "Your contact page.";
