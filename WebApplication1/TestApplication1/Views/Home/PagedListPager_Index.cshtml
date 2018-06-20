@@ -1,4 +1,4 @@
-﻿
+﻿@*@model List<TestApplication1.Models.author2>*@
 @{
     ViewBag.Title = "PagedListPager_Index";
 }
@@ -32,7 +32,7 @@
                             //DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
                             //DisplayLinkToLastPage = PagedListDisplayMode.Always,
                             //DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                            MaximumPageNumbersToDisplay = 0,
+                            //MaximumPageNumbersToDisplay = 0,
                             DisplayEllipsesWhenNotShowingAllPageNumbers = false,
                         }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "some_grid_container" }))
 
