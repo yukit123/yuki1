@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<TestApplication1.Controllers.HomeController.BuyItem>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     <link href="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/css/simple-sidebar.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -13,13 +14,23 @@
 
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
+        <div id="sidebar-wrapper" class="toggled">
+           <ul id="sidebar_menu" class="sidebar-nav" style="text-align: right; padding-right: 10px;
+                padding-top: 10px">
+                <li class="sidebar-brand">
+                    <a id="menu-toggle" href="#">
+                        <span id="main_icon" class="navbar-icon fa fa-bars icon">
+                        </span>
+                    </a>
+                </li>
+            </ul> 
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
                         Categories
                     </a>
                 </li>
+
                 <li>
                     <a href="#">Cat1</a>
                 </li>
@@ -51,7 +62,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("United Way Auction", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Auction", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -59,7 +70,10 @@
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
-                    @*@Html.Partial("_LoginPartial")*@
+                    @Html.Partial("_LoginPartial")
+                    @*@Html.Partial("BuyItem2")*@
+                    @*@Html.RenderPartial("_LoginPartial");*@
+                    @*@Html.Action("_LoginPartial", "Home");*@
                 </div>
             </div>
         </div>
@@ -91,7 +105,5 @@
             $("#wrapper").toggleClass("toggled");
         });
     </script>
-
-
 </body>
 </html>

@@ -1610,7 +1610,7 @@ namespace WebApplication1.Controllers
 
 
             ViewBag.list = list2;
-            ViewBag.addresses = addresses;
+            ViewBag.addresses = addresses.ToList();
 
             return View();
         }

@@ -36,10 +36,16 @@ namespace TestApplication1.Controllers
             }
             return View(authorModel);
         }
-
+        public class AuthorViewModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+ 
+        }
         // GET: AuthorModels/Create
         public ActionResult Create()
         {
+            //AuthorViewModel vm = new AuthorViewModel();
             return View();
         }
 
@@ -52,6 +58,8 @@ namespace TestApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //AuthorModel model = new AuthorModel();
+                //model.Name=authorModel.Name;
                 db.AuthorModels.Add(authorModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -59,6 +67,8 @@ namespace TestApplication1.Controllers
 
             return View(authorModel);
         }
+
+       
 
         // GET: AuthorModels/Edit/5
         public ActionResult Edit(int? id)

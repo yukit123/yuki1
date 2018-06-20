@@ -1,5 +1,6 @@
 ﻿@*@model List<WebApplication1.Controllers.HomeController.ListStrViewModel>*@
     @{ 
+       
         var grid = new WebGrid(source: ViewBag.list);
         var g = new WebGrid(source: ViewBag.addresses);
 
@@ -21,24 +22,24 @@
 
                   )
 
-        @grid.GetHtml(
+        @*@grid.GetHtml(
                             columns: new[] {
                                 grid.Column(format: (item) => item)
 
                             }
                                 );
-            }
+            }*@
 
-        @*@g.GetHtml(
+        @g.GetHtml(
                             columns: g.Columns(
-                                //g.Column(format: (item) => item)
-                                grid.Column("0", "xx", canSort: false),
-                                grid.Column("1", "xxxx", canSort: false),
-                                grid.Column("2", "xxxxx", canSort: false)
+                                //grid.Column("0", "xx", canSort: false),
+                                //grid.Column("1", "xxxx", canSort: false),
+                                //grid.Column("2", "xxxxx", canSort: false)
+                                grid.Column(format: (item) => item)
 
                                 )
                                 );
-            }*@
+            }
 
         @*@grid.GetHtml()*@
     </div>

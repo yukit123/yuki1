@@ -1221,6 +1221,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="SlideBar.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1302,6 +1303,9 @@
     <Content Include="Views\Home\SideBar_Index.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Home\RMAList.cshtml" />
+    <Content Include="Views\Home\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
+    <Content Include="Views\Home\Database_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

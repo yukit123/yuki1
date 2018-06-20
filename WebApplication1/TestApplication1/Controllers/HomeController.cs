@@ -187,7 +187,7 @@ namespace TestApplication1.Controllers
                                   )
                                   on Table2.Id equals InnerJoin.AID
                                   //where InnerJoin.AID > 1 && InnerJoin.ACC == "aaa"
-                                  where InnerJoin.CID > 1 && InnerJoin.SIZE == "aaa"
+                                  where InnerJoin.CID > 1 && Equals(InnerJoin.SIZE,"aa")
                                   orderby Table2.Id, InnerJoin.AID
                                   select new
                                   {
@@ -246,6 +246,20 @@ namespace TestApplication1.Controllers
             vm.TRACK_NMBR = keyword;
             return View(vm);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> GetNextView(TRACK_NMBR_ViewModel fILE_RCPTS_LOG)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.FILE_RCPTS_LOG.Add(fILE_RCPTS_LOG);
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(fILE_RCPTS_LOG);
+        //}
 
         #region How to use checkbox and submit the check values  https://forums.asp.net/t/1943984.aspx?How+to+use+checkbox+and+submit+the+check+values+
 
@@ -1134,6 +1148,55 @@ namespace TestApplication1.Controllers
             //https://blackrockdigital.github.io/startbootstrap-simple-sidebar/#
 
             return View();
+        }
+
+        #endregion
+
+        #region sss
+        //public class WidgetView
+        //{
+        //    public string WidgetName { get; set; }
+        //    public string WidgetDescription { get; set; }
+
+
+        //}
+        public class WidgetView
+        {
+            public int vId { get; set; }
+            public string vName { get; set; }
+
+
+        }
+        public ActionResult Database_Index()
+        {
+            List<WidgetView> wdgList = new List<WidgetView>();
+            //var widgetlist = db.Widgets.OrderBy(a => a.SortOrder).ToList();
+
+
+
+            //foreach (var w in widgetlist)
+            //{
+            //    WidgetView widget = new WidgetView();
+            //    widget.WidgetName = w.WidgetName;
+            //    widget.WidgetDescription = w.WidgetDescription;
+            //   // widget.sortorder = w.SortOrder;
+            //    wdgList.Add(widget);
+            //}
+
+           // var widgetlist = db.Database.SqlQuery<Tuple<int, string>>("select * from AuthorModels").ToList();
+            var widgetlist = db.AuthorModels.OrderBy(a => a.Id).ToList();
+
+            foreach (var w in widgetlist)
+            {
+                WidgetView widget = new WidgetView();
+                widget.vId = w.Id;
+                widget.vName = w.Name;
+                // widget.sortorder = w.SortOrder;
+                wdgList.Add(widget);
+            }
+
+
+            return View(wdgList);
         }
 
         #endregion
