@@ -675,7 +675,7 @@ namespace TestApplication1.Controllers
 
         //    m_Bitmap.Save(@"C:\Test.png", ImageFormat.Png);
         //}
-
+        #region  GridMvc 初始化生成GridMvc change下拉框触发生成GridMvc
         private readonly List<Client> clients = new List<Client>()
     {
         new Client { Id = 1, Name = "Julio Avellaneda", Email = "julito_gtu@hotmail.com" },
@@ -710,7 +710,7 @@ namespace TestApplication1.Controllers
             //NorthwindEntities entities = new NorthwindEntities();
             CustomerModel model = new CustomerModel();
             model.PageIndex = pageIndex;
-            model.PageSize = 10;
+            model.PageSize = 3;
             model.RecordCount = clients.Count();
             int startIndex = (pageIndex - 1) * model.PageSize;
             model.client = (from customer in clients
@@ -720,6 +720,25 @@ namespace TestApplication1.Controllers
                             .Take(model.PageSize).ToList();
             return Json(model);
         }
+
+        [HttpPost]
+        public JsonResult getLeads(string UserName)
+        {
+            //NorthwindEntities entities = new NorthwindEntities();
+            CustomerModel model = new CustomerModel();
+            model.PageIndex = 2;
+            model.PageSize = 3;
+            model.RecordCount = clients.Count();
+            int startIndex = (2 - 1) * model.PageSize;
+            model.client = (from customer in clients
+                            select customer)
+                            .OrderBy(customer => customer.Id)
+                            .Skip(startIndex)
+                            .Take(model.PageSize).ToList();
+            return Json(model);
+        }
+
+        #endregion
 
         //[Authorize]
         [HttpGet]

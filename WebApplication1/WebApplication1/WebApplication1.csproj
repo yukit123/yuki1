@@ -730,6 +730,8 @@
     <Content Include="Views\Home\TextEdit.cshtml" />
     <Content Include="Views\Home\Relationships.cshtml" />
     <Content Include="Views\Home\Webgrid2.cshtml" />
+    <Content Include="Views\Home\Table_Index.cshtml" />
+    <Content Include="Views\Home\edit_journal_entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WebApplication1.Models.Author>
+
+@{
+    ViewBag.Title = "Table_Index";
+}
+
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                AuthorName
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorName)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section scripts{
+<script>
+    var rowlist = [];
+    $("#example").off("click", "tr").on("click", "tbody tr", function () {
+       @*//s var series = $("#example tbody tr:not(:eq(0))").text();
+        // var series = $("#example tbody tr)").text()
+                   
+        //window.open("edit_journal_entry?series=" + series + "", "_self");
+        $.each($("#example tbody tr:not(:eq(0))"), function (i, v) {
+            //row += "<option>" + $(v).children().eq(0).text().trim() + "</option>";
+            var row = {};
+            row.id = $(v).children().eq(0).text().trim();
+            row.AuthorName = $(v).children().eq(1).text().trim();
+            rowlist.push(row);
+        });
+
+       //// var str = '[{"id":"2","AuthorName":"BOB"},{"id":"3","AuthorName":"YUKI"}]';
+        //self.location.href = "@Url.Action("edit_journal_entry", "Home")?model=" + rowlist;
+        //self.location.href = "@Url.Action("edit_journal_entry", "Home")?" + JSON.stringify({ model: rowlist });
+
+       // window.open("edit_journal_entry?model=" + rowlist + "", "_self");
+        $.ajax({
+            url: '/Home/edit_journal_entry',     
+            dataType: "json",
+            //type: "post",
+            data: { model: rowlist },
+            success: function (data) {
+                alert(111);
+
+            }
+         
+        })*@
+
+        var id = $(this).find("td:eq(0)").text().trim();
+        var authName = $(this).find("td:eq(1)").text().trim();
+
+        window.open("edit_journal_entry?id=" + id + "&authName=" + authName+"", "_self");
+
+                });
+</script>
+    }

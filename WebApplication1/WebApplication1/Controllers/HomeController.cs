@@ -1559,11 +1559,33 @@ namespace WebApplication1.Controllers
             return Json(new { Success = 2 }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Table_Index()//show modal by clicking on button inside td
+        {
+            var list = db.Author.ToList();
 
-            #endregion
+            return View(list);
+        }
 
 
-            public ActionResult Webgrid()//https://forums.asp.net/t/2132883.aspx
+        public ActionResult edit_journal_entry(int id,string authName)
+        {
+            // var list = db.Author.ToList();
+
+            return View();
+        }
+
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public JsonResult edit_journal_entry(List<Author> model)
+        //{
+        //    // var list = db.Author.ToList();
+
+        //    return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        //}
+        #endregion
+
+
+        public ActionResult Webgrid()//https://forums.asp.net/t/2132883.aspx
         {
             ViewBag.Message = "Your contact page.";
             var list = db.Label.ToList();
@@ -1576,6 +1598,7 @@ namespace WebApplication1.Controllers
             public string field2 { get; set; }
 
             public string field3 { get; set; }
+            //public List<SelectListItem> dropdownlist { get; set; }
 
         }
         public ActionResult Webgrid2()//https://forums.asp.net/t/2132883.aspx
@@ -1583,12 +1606,22 @@ namespace WebApplication1.Controllers
             ViewBag.Message = "Your contact page.";
             var list = db.Label.ToList();
 
+            var selectlist = new List<SelectListItem>// https://forums.asp.net/t/2081566.aspx?How+to+show+dropdown+with+selected+value+in+webgrid      
+            {
+                  //https://stackoverflow.com/questions/12846572/dropdownlist-in-webgrid-mvc4
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.selectlist = selectlist;
+
             List<ListStrViewModel> list2 = new List<ListStrViewModel>();
             list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" } );
             list2.Add(new ListStrViewModel() { field1 = "bb", field2 = "bb", field3 = "bb" });
             list2.Add(new ListStrViewModel() { field1 = "cc", field2 = "cc", field3 = "cc" });
 
-
+  
+           
             List<String[]> addresses = new List<String[]>();
             String[] addressesArr = new String[3];
             addressesArr[0] = "zero";
@@ -1769,12 +1802,14 @@ namespace WebApplication1.Controllers
         {
 
             var options = new List<TEnum>();
+            var date = Convert.ToDateTime("2018-01-01");
 
-            options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
+            //options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
+            options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName = "ab1", Dateofbirth = Convert.ToDateTime("2018-01-01") });
 
-            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Female), EnumName="ab2", Dateofbirth = DateTime.Now });
+            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Female), EnumName="ab2", Dateofbirth = Convert.ToDateTime("2017-06-01") });
 
-            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab3", Dateofbirth = DateTime.Now });
+            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab3", Dateofbirth = Convert.ToDateTime("2018-06-02") });
 
             var enumlist = options[1];
 
@@ -1786,6 +1821,16 @@ namespace WebApplication1.Controllers
             //    new SelectListItem{Text="Orange",Value="3"}
             //};
             //ViewBag.fruit = list;
+            #region dateadd Month
+            //linq to sql
+            //            dateadd(dd, -1, GetDate())：
+            //https://forums.asp.net/t/2142596.aspx
+            //            https://zhidao.baidu.com/question/1305169345966664379.html
+            //            https://www.cnblogs.com/lowkey666/archive/2012/11/23/2784457.html
+
+            //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            //var query = options.Where(p => p.Dateofbirth.Month == DateTime.Now.AddDays(-1).Month && p.Dateofbirth.Year == DateTime.Now.AddDays(-1).Year && p.EnumId == 2).ToList();
+            #endregion
             return View(enumlist);
         }
         [HttpPost]

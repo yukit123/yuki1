@@ -24,13 +24,18 @@
 <body>
     <h1>Grid.MVC</h1>
     <hr />
+    <select id="ddlusername">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
     <div style="width:500px;">
         @Html.Grid(Model).Columns(columns =>
-                         {
-                             columns.Add(c => c.Id).Titled("Client ID");
-                             columns.Add(c => c.Name).Titled("Name").Filterable(true);
-                             columns.Add(c => c.Email).Titled("Email");
-                         }).WithPaging(3).Sortable(true)
+                              {
+                                  columns.Add(c => c.Id).Titled("Client ID");
+                                  columns.Add(c => c.Name).Titled("Name").Filterable(true);
+                                  columns.Add(c => c.Email).Titled("Email");
+                              }).WithPaging(3).Sortable(true)
     </div>
 </body>
 </html>
@@ -38,6 +43,35 @@
 <script>
     $(function () {
         GetCustomers(1);
+        
+            $("#ddlusername").change(function () {               
+                var userName = $("#ddlusername").val();
+                var row = "";
+              
+                $.ajax({
+                    url: '@Url.Action("getLeads", "Home")', //
+                    dataType: "json",
+                    data: JSON.stringify({ UserName: userName }),
+                    type: "Post",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        $("div tbody").empty();
+                        $.each(result.client, function (i, v) {
+
+                            row += "<tr><td>" + v.Id + "</td><td>" + v.Name + "</td><td>" + v.Email + "</td></tr>";
+                        });
+                        $("div tbody").html(row);    
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+
+
+            });
+
+
     });
     $("body").on("click", ".pagination >li >a", function () {
         var url=$(this).attr('href');
