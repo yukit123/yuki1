@@ -21,6 +21,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WebApplication1.Helpers;
 using WebApplication1.Models;
+using static WebApplication1.FilterConfig;
 
 namespace WebApplication1.Controllers
 {
@@ -56,6 +57,7 @@ namespace WebApplication1.Controllers
     public class HomeController : BaseController
     {
         private BlogContext db = new BlogContext();
+        [SessionExpireFilter]
         public ActionResult Index()
         {
             //db.Blogs.FirstOrDefault();
@@ -1825,11 +1827,16 @@ namespace WebApplication1.Controllers
             //linq to sql
             //            dateadd(dd, -1, GetDate())：
             //https://forums.asp.net/t/2142596.aspx
-            //            https://zhidao.baidu.com/question/1305169345966664379.html
-            //            https://www.cnblogs.com/lowkey666/archive/2012/11/23/2784457.html
+            //https://zhidao.baidu.com/question/1305169345966664379.html
+            //https://www.cnblogs.com/lowkey666/archive/2012/11/23/2784457.html
 
             //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            //var query = options.Where(p => p.Dateofbirth.Month == DateTime.Now.AddDays(-1).Month && p.Dateofbirth.Year == DateTime.Now.AddDays(-1).Year && p.EnumId == 2).ToList();
+            //DateTime dt_today = DateTime.Now.AddDays(-1);
+            //var query = options.Where(p => p.Dateofbirth.Month == dt_today.Month && p.Dateofbirth.Year == dt_today.Year && p.EnumId == 2).ToList();
+
+            //var query2 = options.Where(p => p.Dateofbirth.Month == DateTime.Now.AddDays(-1).Month && p.Dateofbirth.Year == DateTime.Now.AddDays(-1).Year && p.EnumId == 2).ToList();
+
+
             #endregion
             return View(enumlist);
         }

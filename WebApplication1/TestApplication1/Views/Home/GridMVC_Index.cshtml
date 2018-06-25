@@ -29,27 +29,43 @@
         <option>2</option>
         <option>3</option>
     </select>
+
     <div style="width:500px;">
         @Html.Grid(Model).Columns(columns =>
-                              {
-                                  columns.Add(c => c.Id).Titled("Client ID");
-                                  columns.Add(c => c.Name).Titled("Name").Filterable(true);
-                                  columns.Add(c => c.Email).Titled("Email");
-                              }).WithPaging(3).Sortable(true)
+                                   {
+                                       columns.Add(c => c.Id).Titled("Client ID");
+                                       columns.Add(c => c.Name).Titled("Name").Filterable(true);
+                                       columns.Add(c => c.Email).Titled("Email");
+                                   }).WithPaging(3).Sortable(true)
     </div>
 </body>
 </html>
 
+
+<img src="@Url.Content("~/images/Arrow.png")" />
+
+<br/>
+<br />
+<input type="button" class="doClick" value="click"/>
+<div class="xx">
+    @*<img class="xx2" />*@
+    @*<img class="xx3" />*@
+</div>
+
 <script>
     $(function () {
         GetCustomers(1);
-        
-            $("#ddlusername").change(function () {               
-                var userName = $("#ddlusername").val();
-                var row = "";
-              
+
+        $("#ddlusername").change(function () {
+            var userName = $("#ddlusername").val();
+            var row = "";
+            var html = '';
+            var html2 = '';
+
+
+
                 $.ajax({
-                    url: '@Url.Action("getLeads", "Home")', //
+                    url: '@Url.Action("getLeads", "Home")', 
                     dataType: "json",
                     data: JSON.stringify({ UserName: userName }),
                     type: "Post",
@@ -57,11 +73,13 @@
                     success: function (result) {
 
                         $("div tbody").empty();
-                        $.each(result.client, function (i, v) {
+                        $.each(result.list.client, function (i, v) {
 
                             row += "<tr><td>" + v.Id + "</td><td>" + v.Name + "</td><td>" + v.Email + "</td></tr>";
                         });
-                        $("div tbody").html(row);    
+
+           
+                       $("div tbody").html(row);
                     },
                     error: function (xhr) {
                         alert("error");
@@ -72,7 +90,27 @@
             });
 
 
+
     });
+    $(".doClick").click(function () {
+           $.ajax({
+                    url: '@Url.Action("getLeads", "Home")', //
+                    dataType: "json",
+                   
+                    success: function (result) {
+
+                        html2 = "<img src='" + result.imagelist + '\'' + "/>";
+            
+
+                        $('.xx').html(html2);
+                      
+                    }
+                    
+                });
+
+
+            });
+
     $("body").on("click", ".pagination >li >a", function () {
         var url=$(this).attr('href');
         var gridpage = getURLParameter(url, 'grid-page');

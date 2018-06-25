@@ -721,21 +721,22 @@ namespace TestApplication1.Controllers
             return Json(model);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult getLeads(string UserName)
         {
-            //NorthwindEntities entities = new NorthwindEntities();
-            CustomerModel model = new CustomerModel();
-            model.PageIndex = 2;
-            model.PageSize = 3;
-            model.RecordCount = clients.Count();
-            int startIndex = (2 - 1) * model.PageSize;
-            model.client = (from customer in clients
-                            select customer)
-                            .OrderBy(customer => customer.Id)
-                            .Skip(startIndex)
-                            .Take(model.PageSize).ToList();
-            return Json(model);
+            ////NorthwindEntities entities = new NorthwindEntities();
+            //CustomerModel model = new CustomerModel();
+            //model.PageIndex = 2;
+            //model.PageSize = 3;
+            //model.RecordCount = clients.Count();
+            //int startIndex = (2 - 1) * model.PageSize;
+            //model.client = (from customer in clients
+            //                select customer)
+            //                .OrderBy(customer => customer.Id)
+            //                .Skip(startIndex)
+            //                .Take(model.PageSize).ToList();
+  
+            return Json(new { imagelist = "/images/Arrow.png" }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
