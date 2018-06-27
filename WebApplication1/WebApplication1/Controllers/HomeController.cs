@@ -54,10 +54,10 @@ namespace WebApplication1.Controllers
 
 
     }
+    [SessionExpireFilter]
     public class HomeController : BaseController
     {
-        private BlogContext db = new BlogContext();
-        [SessionExpireFilter]
+        private BlogContext db = new BlogContext();     
         public ActionResult Index()
         {
             //db.Blogs.FirstOrDefault();
@@ -697,11 +697,26 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public class OpsViewModel
+        {
+            public IList<SelectListItem> Carrier { get; set; }
+            public int[] SelectedCarrierId { get; set; }
+        }
+
         public ActionResult Modalpopup2()
         {
+            var model = new OpsViewModel();
+            model.Carrier = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Apple1", Value = "Apple"},
+                    new SelectListItem {Text = "Pear1", Value = "Pear"},
+                    new SelectListItem {Text = "Banana1", Value = "Banana"},
+                    new SelectListItem {Text = "Orange1", Value = "Orange"},
+                };
+
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            return View(model);
         }
         public ActionResult jsonfile()
         {
@@ -2322,7 +2337,7 @@ namespace WebApplication1.Controllers
 
         #endregion
 
-        #region DropDownList 级联 array to SelectList
+        #region DropDownList 级联 array to SelectList  //https://forums.asp.net/t/2142902.aspx?Fill+two+relative+drop+down+list
         public class DemoViewModel
         {
           

@@ -2,6 +2,7 @@
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.SqlServer;
@@ -1220,5 +1221,77 @@ namespace TestApplication1.Controllers
         }
 
         #endregion
+        public ActionResult clock()//https://cssanimation.rocks/clocks/
+        {
+            return View();
+        }
+
+        public class OfferView
+        {
+            public string CurrencyName { get; set; }
+            public string CurrencyNameISO { get; set; }
+            public string regionSelected { get; set; }
+            public string currencyList { get; set; }
+            public List<SelectListItem> regionSelection { get; set; }
+
+           
+        }
+
+
+        public ActionResult PrimaryView()
+        {
+            //Processing code here
+            var selectlist = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.regionSelect_ddl = selectlist;
+            OfferView model = new OfferView();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult PrimaryView(OfferView model)
+        {
+            //Processing code here
+            var selectlist = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.regionSelect_ddl = selectlist;
+
+            return View();
+        }
+        [HttpGet]
+        public ActionResult PartialView(string selectedRegionName)
+        {
+            OfferView model = new OfferView();
+            model.regionSelected = selectedRegionName;
+            //DataTable dt = new DataTable();
+
+            //if (selectedRegionName == "APAC")
+            //{
+            //    model.currencyList = model.currencyList_APAC.Copy();
+            //}
+            //else if (selectedRegionName == "AMER")
+            //{
+            //    model.currencyList = model.currencyList_AMER.Copy();
+            //}
+            //else if (selectedRegionName == "EMEA")
+            //{
+            //    model.currencyList = model.currencyList_EMEA.Copy();
+            //}
+            //else
+            //{
+            //    return View();
+            //}
+
+            return PartialView("_PartialView", model);
+        }
+
     }
 }

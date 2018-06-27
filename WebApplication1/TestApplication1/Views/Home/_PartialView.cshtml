@@ -1,0 +1,17 @@
+﻿
+@using System.Data;
+@model TestApplication1.Controllers.HomeController.OfferView
+
+@using (Html.BeginForm("PrimaryView", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <p>Region Selected - @Model.regionSelected</p>
+    <p>RI File</p><input type="file" name="RI_File" />
+    <p>Office File</p><input type="file" name="Office_File" />
+    @*foreach (DataRow row in Model.currencyList.Rows)
+        {
+            <p>Live Currency Rate for @row["CurrencyName"] (@row["CurrencyNameISO"]) - @row["Rate"].ToString() (Rate obtained via Yahoo Finance)</p>
+            <p>Currency Conversion Rate for @row["CurrencyName"] (@row["CurrencyNameISO"])</p><input type="text" name="currencyNameLookup_@row["CurrencyName"]" id="currencyNameLookup_@row["CurrencyName"]" />
+        }*@
+    <p>Live Currency Rate for xxxxxxxxxx (Rate obtained via Yahoo Finance)</p>
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}

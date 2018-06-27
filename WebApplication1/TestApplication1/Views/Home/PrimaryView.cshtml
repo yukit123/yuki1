@@ -1,0 +1,35 @@
+﻿
+@model TestApplication1.Controllers.HomeController.OfferView
+
+@{
+    ViewBag.Title = "PrimaryView";
+}
+
+@section scripts{
+<script>
+    $(document).ready(function () {
+        /* This is change event for your dropdownlist */
+        $('#regionSelect_ddl').change(function () {
+            /* Get the selected value of dropdownlist */
+            var selectedRegionId = $('#regionSelect_ddl').val();
+            var selectedRegionName = $('#regionSelect_ddl :selected').text();
+
+            var url = '@Url.Action("PartialView", "Home")' + "?selectedRegionName=" + selectedRegionName;
+                //var viewModel = { regionSelected: selectedRegionName };
+
+                /* Request the partial view with .get request. */
+                $.get(url, function (data) {
+
+                    /* data is the pure html returned from action method, load it to your page */
+                    $('#partialPlaceHolder').html(data);
+                    /* little fade in effect */
+                    $('#partialPlaceHolder').fadeIn('fast');
+                });
+            });
+        });
+</script>
+    }
+
+<p>Region</p>@Html.DropDownList("regionSelect_ddl", null, "--Select Region--")
+
+<div id="partialPlaceHolder" style="display:none;"> </div>

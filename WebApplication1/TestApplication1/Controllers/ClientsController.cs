@@ -17,6 +17,8 @@ namespace TestApplication1.Controllers
         // GET: Clients
         public ActionResult Index()
         {
+
+          
             return View(db.Clients.ToList());
         }
 
@@ -82,6 +84,18 @@ namespace TestApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                #region
+                //批量更新 批量插入 Batch update //https://stackoverflow.com/questions/30738697/batch-update-on-object-list-using-entityframework-6-and-linq
+                //https://forums.asp.net/t/2142833.aspx
+                //var list = db.Clients.Where(x => x.Id < 5).ToList();//.ForEach(a => a.Name = "xx");
+                //list.ForEach(a => a.Name = "xx2");
+                //foreach (Client item in list)
+                //{
+
+                //        db.Entry(item).State = EntityState.Modified;         
+                //}
+                #endregion
+
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

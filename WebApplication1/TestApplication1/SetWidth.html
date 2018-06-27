@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<style>
+    li {
+        width: 100px;
+    }
+
+    .clock {
+        border-radius: 50%;
+        background: #fff url(https://cssanimation.rocks/images/posts/clocks/ios_clock.svg) no-repeat center;
+        background-size: 88%;
+        height: 20em;
+        padding-bottom: 31%;
+        position: relative;
+        width: 20em;
+    }
+
+        .clock.simple:after {
+            background: #000;
+            border-radius: 50%;
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 5%;
+            height: 5%;
+            z-index: 20;
+        }
+
+    .minutes-container, .hours-container, .seconds-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .hours {
+        background: #000;
+        height: 6%;
+        left: 48.75%;
+        position: absolute;
+        top: 45%;
+        transform-origin: 50% 100%;
+        width: 2.5%;
+    }
+
+    .minutes {
+        background: #000;
+        height: 9%;
+        left: 49%;
+        position: absolute;
+        top: 42%;
+        transform-origin: 50% 100%;
+        width: 2%;
+    }
+
+    .seconds {
+        background: #000;
+        height: 12%;
+        left: 49.5%;
+        position: absolute;
+        top: 39%;
+        transform-origin: 50% 80%;
+        width: 1%;
+        z-index: 8;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotateZ(360deg);
+        }
+    }
+
+    .hours-container {
+        animation: rotate 43200s infinite linear;
+    }
+
+    .minutes-container {
+        animation: rotate 3600s infinite steps(60);
+    }
+
+    .seconds-container {
+        animation: rotate 60s infinite steps(60);
+    }
+</style>
+<body>
+
+
+
+    <article class="clock">
+        <div class="hours-container">
+            <div class="hours"></div>
+        </div>
+        <div class="minutes-container">
+            <div class="minutes"></div>
+        </div>
+        <div class="seconds-container">
+            <div class="seconds"></div>
+        </div>
+    </article>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        function initLocalClocks() {
+            // Get the local time using JS
+            var date = new Date;
+            var seconds = date.getSeconds();
+            var minutes = date.getMinutes();
+            var hours = date.getHours();
+
+            // Create an object with each hand and it's angle in degrees
+            var hands = [
+                {
+                    hand: 'hours',
+                    angle: (hours * 30) + (minutes / 2)
+                },
+                {
+                    hand: 'minutes',
+                    angle: (minutes * 6)
+                },
+                {
+                    hand: 'seconds',
+                    angle: (seconds * 6)
+                }
+            ];
+            // Loop through each of these hands to set their angle
+            for (var j = 0; j < hands.length; j++) {
+                var elements = document.querySelectorAll('.' + hands[j].hand);
+                for (var k = 0; k < elements.length; k++) {
+                    elements[k].style.webkitTransform = 'rotateZ(' + hands[j].angle + 'deg)';
+                    elements[k].style.transform = 'rotateZ(' + hands[j].angle + 'deg)';
+                    // If this is a minute hand, note the seconds position (to calculate minute position later)
+                    if (hands[j].hand === 'minutes') {
+                        elements[k].parentNode.setAttribute('data-second-angle', hands[j + 1].angle);
+                    }
+                }
+            }
+        }
+    })
+</script>
+
+<!--<script>
+    new WOW().init();
+</script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-3481417-30', 'auto');
+    ga('send', 'pageview');
+</script>
+<script>
+window.twttr = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function (f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));</script>
+
+<script>-->

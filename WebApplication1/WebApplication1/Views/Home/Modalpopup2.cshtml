@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApplication1.Controllers.HomeController.OpsViewModel
 @{
     ViewBag.Title = "slider";
 }
@@ -11,7 +11,7 @@
     </select>
     <div class="btn-group addedLiItems"></div>
 </span>
-<br/>
+<br />
 <select id="example-getting-started" multiple="multiple">
     <option value="cheese">Cheese</option>
     <option value="tomatoes">Tomatoes</option>
@@ -21,46 +21,52 @@
     <option value="onions">Onions</option>
 </select>
 
+@Html.ListBoxFor(model => model.Carrier, new MultiSelectList(Model.Carrier, "Text", "Value"), new { @class = "col-md-2", @Name = "ToEmail", @id = "ToEmail" })
+
 
 @section scripts{
-@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />*@
-<script src="~/Scripts/bootstrap-multiselect.js"></script>
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />*@
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 
-<script type="text/javascript">
-    //function BuildMultiSelect(result, ddlToBind) {
-    //    $(ddlToBind).html('');
-    //    var ulItem = ' <button type="button" class="multiselect maxWidth dropdown-toggle mt-multiselect btn btn-default btn-circle btn-outline multiSelectListBox filterColumns ddlfilterColumns" data-toggle="dropdown" title="None selected" aria-expanded="false"> <span class="multiselect-selected-text">None selected</span> <b class="caret"> </b> </button> <ul class="multiselect-container dropdown-menu"> <li class="multiselect-item multiselect-filter" value="0"> <div class="input-group"> <span class="input-group-addon"> <i class="glyphicon glyphicon-search"></i> </span> <input class="form-control multiselect-search" type="text" placeholder="Search" autocomplete="off"> <span class="input-group-btn"> <button class="btn btn-default multiselect-clear-filter" type="button"> <i class="glyphicon glyphicon-remove-circle"></i> </button> </span> </div> </li> replaceliItemhere </ul> ';
-    //    var liItem = '';
-    //    if (result.data != undefined || result.data != null) {
-    //        for (var i = 0; i < result.data.length; i++) {
-    //            var optionItem = $('<option class="cardInventoryCardNumberOption" value="' + result.data[i].Value + '">' + result.data[i].Name + '</option>');
-    //            $(optionItem).appendTo($(ddlToBind));
-    //            liItem += '<li> <a tabindex="0"> <label class="checkbox"> <input type="checkbox" value="' + result.data[i].Value + '" autocomplete="off"> ' + result.data[i].Name + ' </label> </a> </li>';
-    //        }
-    //    }
-    //    ulItem = ulItem.replace('replaceliItemhere', liItem);
-    //    $('.multiselect-native-select div.addedLiItems').html(ulItem);
-    //}
+    <script type="text/javascript">
+        //function BuildMultiSelect(result, ddlToBind) {
+        //    $(ddlToBind).html('');
+        //    var ulItem = ' <button type="button" class="multiselect maxWidth dropdown-toggle mt-multiselect btn btn-default btn-circle btn-outline multiSelectListBox filterColumns ddlfilterColumns" data-toggle="dropdown" title="None selected" aria-expanded="false"> <span class="multiselect-selected-text">None selected</span> <b class="caret"> </b> </button> <ul class="multiselect-container dropdown-menu"> <li class="multiselect-item multiselect-filter" value="0"> <div class="input-group"> <span class="input-group-addon"> <i class="glyphicon glyphicon-search"></i> </span> <input class="form-control multiselect-search" type="text" placeholder="Search" autocomplete="off"> <span class="input-group-btn"> <button class="btn btn-default multiselect-clear-filter" type="button"> <i class="glyphicon glyphicon-remove-circle"></i> </button> </span> </div> </li> replaceliItemhere </ul> ';
+        //    var liItem = '';
+        //    if (result.data != undefined || result.data != null) {
+        //        for (var i = 0; i < result.data.length; i++) {
+        //            var optionItem = $('<option class="cardInventoryCardNumberOption" value="' + result.data[i].Value + '">' + result.data[i].Name + '</option>');
+        //            $(optionItem).appendTo($(ddlToBind));
+        //            liItem += '<li> <a tabindex="0"> <label class="checkbox"> <input type="checkbox" value="' + result.data[i].Value + '" autocomplete="off"> ' + result.data[i].Name + ' </label> </a> </li>';
+        //        }
+        //    }
+        //    ulItem = ulItem.replace('replaceliItemhere', liItem);
+        //    $('.multiselect-native-select div.addedLiItems').html(ulItem);
+        //}
 
-    $(function () {
-        //$('#example-getting-started').multiselect();
-        //$('#example-getting-started').multiselect({
+        $(function () {
+            $('#example-getting-started').multiselect();
+            $('#ToEmail').multiselect({
+                nonSelectedText: 'Select All'
+            });
 
-        //    includeSelectAllOption: true
-        //});
+            //$('#example-getting-started').multiselect({
 
-        //var ulItem = ' <button type="button" class="multiselect maxWidth dropdown-toggle mt-multiselect btn btn-default btn-circle btn-outline multiSelectListBox filterColumns ddlfilterColumns" data-toggle="dropdown" title="None selected" aria-expanded="false"> <span class="multiselect-selected-text">None selected</span> <b class="caret"> </b> </button> <ul class="multiselect-container dropdown-menu"> <li class="multiselect-item multiselect-filter" value="0"> <div class="input-group"> <span class="input-group-addon"> <i class="glyphicon glyphicon-search"></i> </span> <input class="form-control multiselect-search" type="text" placeholder="Search" autocomplete="off"> <span class="input-group-btn"> <button class="btn btn-default multiselect-clear-filter" type="button"> <i class="glyphicon glyphicon-remove-circle"></i> </button> </span> </div> </li> replaceliItemhere </ul> ';
-        //$('.multiselect-native-select div.addedLiItems').html(ulItem);
-        $('#ddlCardInventoryCardId').multiselect({
+            //    includeSelectAllOption: true
+            //});
 
-            includeSelectAllOption: true
+            //var ulItem = ' <button type="button" class="multiselect maxWidth dropdown-toggle mt-multiselect btn btn-default btn-circle btn-outline multiSelectListBox filterColumns ddlfilterColumns" data-toggle="dropdown" title="None selected" aria-expanded="false"> <span class="multiselect-selected-text">None selected</span> <b class="caret"> </b> </button> <ul class="multiselect-container dropdown-menu"> <li class="multiselect-item multiselect-filter" value="0"> <div class="input-group"> <span class="input-group-addon"> <i class="glyphicon glyphicon-search"></i> </span> <input class="form-control multiselect-search" type="text" placeholder="Search" autocomplete="off"> <span class="input-group-btn"> <button class="btn btn-default multiselect-clear-filter" type="button"> <i class="glyphicon glyphicon-remove-circle"></i> </button> </span> </div> </li> replaceliItemhere </ul> ';
+            //$('.multiselect-native-select div.addedLiItems').html(ulItem);
+            $('#ddlCardInventoryCardId').multiselect({
+
+                includeSelectAllOption: true
+            });
         });
-    });
 
-        //$(document).ready(function () {
-        //    $('#example-xss').multiselect();
-        //});
-</script>
+                //$(document).ready(function () {
+                //    $('#example-xss').multiselect();
+                //});
+    </script>
 }
