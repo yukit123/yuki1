@@ -25,6 +25,11 @@ namespace TestApplication1.Models
 
         public DbSet<Customers> Customers { get; set; }
 
+        //public DbSet<User> Users { get; set; }
+
+        //public DbSet<Merchant> Merchants { get; set; }
+
+
 
 
 

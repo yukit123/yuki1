@@ -43,3 +43,22 @@
 }
 
 </table>
+<input type="button" value="xx" id="xx"/>
+@section scripts{
+<script>
+    $("#xx").click(function () {
+       var controllerPart = '@Url.Action("", "Clients")';
+       var saveAction = controllerPart + '/Index'
+
+       //window.location.href = "@Url.Action("Index", "Clients")";
+       // window.location.href = '@Url.Action("", "Clients")';
+       // window.location.href = '@Url.Action("", "Home")';
+       // window.location.href = '@Url.Action("Index", "Home")';
+       // window.location.href = '@Url.Action("Index2", "Home")';
+        
+       window.location.href = saveAction;
+    })
+   
+    
+</script>
+    }

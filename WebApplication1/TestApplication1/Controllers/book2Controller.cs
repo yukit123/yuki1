@@ -50,6 +50,8 @@ namespace TestApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Publisher,Author_id")] book2 book2)
         {
+
+      
             if (ModelState.IsValid)
             {
                 db.book2s.Add(book2);

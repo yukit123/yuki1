@@ -240,11 +240,13 @@ namespace TestApplication1.Controllers
         {
             public string TRACK_NMBR { get; set; }
         }
+
         public ActionResult GetNextView(string keyword)
         {
             // ViewBag.Message = "Your contact page.";
             TRACK_NMBR_ViewModel vm = new TRACK_NMBR_ViewModel();
             vm.TRACK_NMBR = keyword;
+            
             return View(vm);
         }
 
@@ -424,6 +426,10 @@ namespace TestApplication1.Controllers
             //{
             //   db.Charters.Select(_ => string.Format("{0:yyy/MM/dd}", _.CharterDate));
             //}
+            
+             //(DateTime.Today.Date.AddMonths(-1))
+            
+
             ViewBag.CharterID = db.Charters.Select(a => new SelectListItem
             {
 
@@ -550,7 +556,7 @@ namespace TestApplication1.Controllers
         [HttpGet]
         public JsonResult GetData(string country, string size)
         {
-            var list = db.CountrySizes.Where(_ => _.country == country && _.size == size).ToList();
+            var list = db.CountrySizes.Where(_ => _.country == country && _.size == size ).ToList();
             return Json(new { showlist = list, msg = true }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1293,5 +1299,32 @@ namespace TestApplication1.Controllers
             return PartialView("_PartialView", model);
         }
 
+        #region BootStrap Validator
+        public class BootStrapValidatorModel
+        {
+            public int Id { get; set; }
+           
+            public string userName { get; set; }
+
+            public string pwd { get; set; }
+
+        }
+
+        public ActionResult BootStrapValidator()
+        {
+
+            //var options = new List<BootStrapValidatorModel>();
+
+            //options.Add(new BootStrapValidatorModel() { Id = 0, userName = "aa", pwd = "ab1" });
+
+            //options.Add(new BootStrapValidatorModel() { Id = 1, userName = "bb", pwd = "ab2" });
+
+            //options.Add(new BootStrapValidatorModel() { Id = 2, userName = "cc", pwd = "ab3" });
+
+            //var enumlist = options[1];
+            CountrySize model = new CountrySize();
+            return View(model);
+        }
+        #endregion
     }
 }
