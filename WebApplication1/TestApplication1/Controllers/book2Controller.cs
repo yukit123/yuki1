@@ -64,20 +64,41 @@ namespace TestApplication1.Controllers
         }
 
         // GET: book2/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            book2 book2 = db.book2s.Find(id);
+            book2 book2 = db.book2s.Find(Id);
             if (book2 == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Author_id = new SelectList(db.author2s, "Author_id", "Name", book2.Author_id);
+
+            ViewBag.DDU = new SelectList(db.author2s,
+                                   "Author_id",
+                                   "Name",
+                                   book2.Author_id);
             return View(book2);
         }
+
+        //public ActionResult Edit(int? Id)
+        //{
+        //    if (Id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DTUnit dTUnit = db.DTUnits.Find(Id);
+        //    if (dTUnit == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.DDU= new SelectList(db.DTUnits, "Id", "Units", dTUnit.Id);
+
+        //    return View(dTUnit);
+        //}
 
         // POST: book2/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

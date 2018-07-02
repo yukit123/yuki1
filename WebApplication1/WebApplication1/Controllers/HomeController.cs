@@ -415,7 +415,7 @@ namespace WebApplication1.Controllers
             //ViewBag.Message = "Your application description page.";
             Blog bl = new Blog();
 
-            bl.DateDocument = Convert.ToDateTime("2018.12.14");
+            //bl.DateDocument = Convert.ToDateTime("2018.12.14");
             return View(bl);
         }
 
@@ -850,7 +850,7 @@ namespace WebApplication1.Controllers
             osrListItems=osrListItems.OrderBy(x => x.Value).ToList();
 
             ViewBag.OSRddl = new SelectList(osrListItems,"Value2","Text2", osrListItems1[0].Value).Distinct();
-            
+
             return View(todo);
             
 

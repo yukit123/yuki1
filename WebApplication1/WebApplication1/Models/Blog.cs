@@ -24,6 +24,9 @@ namespace WebApplication1.Models
         //[DisplayFormat(DataFormatString = "{0:dd-MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DateDocument { get; set; }
 
+        [NotMapped]
+
+        public DateTime Created { get; set; }
 
 
 

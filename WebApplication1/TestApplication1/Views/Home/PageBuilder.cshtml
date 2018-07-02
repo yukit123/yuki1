@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "PageBuilder";
+}
+
+<h2>PageBuilder</h2>
+
+<div class="form-group">
+    <form enctype="multipart/form-data" id="ImgForm">
+        <div class="row">
+            <div class="col-md-11 text-right">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Upload Image</a>
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                                <h3 class="modal-title text-left">Image Uploader</h3>
+
+                            </div>
+                            <div class="modal-body">
+
+                                <input type="file" name="file" id="file" />
+
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="btn btn-default" data-dissmiss="modal" onclick="hideit()">Cancel</a>
+                                <input type="button" class="btn btn-success" value="Submit" id="btnImgSubmit" onclick="doImgSubmit()"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+
+            <div class="row">
+                <div class="col-md-12">
+                    Page Text<br />
+                    <textarea name="PageText" id="PageText"></textarea>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+@section scripts{
+    <script>
+        var hideit = function () {
+            $('#myModal').modal('hide');
+        }
+        $(document).ready(function () {
+
+            $('form', dialog).submit(function (event) {
+                event.preventDefault();
+                //var myFormData = $("#ImgForm").serialize();
+                var myFormData = new FormData($(this)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/Setup/Home/ModalUploader",
+                    contentType: this.enctype,
+                    data: myFormData,
+                    success: function () {
+                        $('#myModal').modal('hide');
+                    }
+                });
+            });
+        });
+
+        function doImgSubmit() {
+            //var imgToUpload = $("input[name=file]").get(0).files[0];
+            //var data = new FormData;
+            //data.append("file", file[0]);
+
+            //var data = new FormData();
+            //data.append("file", $("#file")[0]);
+
+            var file = $("#file").get(0).files;
+            var data = new FormData;
+            data.append("file", file[0]);
+
+            $.ajax({
+                url: '/Home/ModalUploader2',
+                type: 'Post',
+               
+                data: data,
+                contentType: false,
+                processData: false,
+                //data: {file: Request.File[imgToUpload] },
+                success: function (data) {
+                    if (data.flag == 1) {
+                        $('#myModal').modal('hide');
+                        alert("successfully");
+                    }
+                    else {
+                        
+                        alert("fail");
+                    }
+                }
+            })
+        }
+
+    </script>
+}

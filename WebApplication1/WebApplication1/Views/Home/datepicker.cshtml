@@ -17,6 +17,10 @@ ________________________________________________________________________________
 
 @Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "editbox" } })
 
+@Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now } })
+
+@Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss") } })
+
 
 @*<input type="date" value="2015-10-14" onchange="mydate();"></input>*@
 

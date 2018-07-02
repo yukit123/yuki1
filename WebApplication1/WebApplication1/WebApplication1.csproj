@@ -565,6 +565,7 @@
     <Content Include="Content\jquery.treetable.theme.default.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\screen.css" />
+    <Content Include="datepicker.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -577,6 +578,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="windowPrint.html" />
     <EntityDeploy Include="EFBolgModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EFBolgModel.Designer.cs</LastGenOutput>
@@ -732,6 +734,7 @@
     <Content Include="Views\Home\Webgrid2.cshtml" />
     <Content Include="Views\Home\Table_Index.cshtml" />
     <Content Include="Views\Home\edit_journal_entry.cshtml" />
+    <Content Include="window.print" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

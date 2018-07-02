@@ -1319,6 +1319,7 @@
     <Content Include="Views\Home\PrimaryView.cshtml" />
     <Content Include="Views\Home\_PartialView.cshtml" />
     <Content Include="Views\Home\BootStrapValidator.cshtml" />
+    <Content Include="Views\Home\PageBuilder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

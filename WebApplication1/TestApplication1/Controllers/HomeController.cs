@@ -546,6 +546,11 @@ namespace TestApplication1.Controllers
 
         public ActionResult DropDown()
         {
+            #region dropdownlist selected value 预选项
+            // List<SelectListItem> size = db.CountrySizes.Select(x => new SelectListItem { Value = x.size, Text = x.size, Selected = false }).DistinctBy(p => p.Value).ToList();
+            //ViewBag.country = new SelectList(db.CountrySizes, "Id", "country", 3);
+            #endregion
+
             List<SelectListItem> country = db.CountrySizes.Select(x => new SelectListItem { Value = x.country, Text = x.country, Selected = false }).DistinctBy(p => p.Value).ToList();
             List<SelectListItem> size = db.CountrySizes.Select(x => new SelectListItem { Value = x.size, Text = x.size, Selected = false }).DistinctBy(p => p.Value).ToList();
             ViewBag.country = new SelectList(country, "Text", "Value");
@@ -1324,6 +1329,47 @@ namespace TestApplication1.Controllers
             //var enumlist = options[1];
             CountrySize model = new CountrySize();
             return View(model);
+        }
+        #endregion
+
+
+        #region model popup submit without form by ajax FormData Upload
+        public ActionResult PageBuilder()
+        {
+           
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ModalUploader2(HttpPostedFileBase file) //HttpPostedFileBase file有效
+        {
+
+            var file3 = Request.Files[0];//有效
+
+            HttpPostedFileBase file2 = Request.Files["file"]; //有效
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(file.FileName.Replace(" ", "-")));
+                    string extension = Path.GetExtension(file.FileName);
+                    //if (!ValidateExtension(extension))
+                    //{
+                    //    ViewBag.Message = "Not a valid image type.";
+                    //    return View();
+                    //}
+
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+
+            // return View();
+            //return RedirectToAction("PageBuilder");
+
+            return Json(new { Message = ViewBag.Message }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
