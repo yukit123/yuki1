@@ -71,6 +71,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
     </Reference>
@@ -350,10 +353,13 @@
     <Content Include="datepicker.html" />
     <Content Include="DivtoTable.html" />
     <Content Include="favicon.ico" />
+    <Content Include="Fixdiv.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="html2canvas.html" />
     <Content Include="images\Arrow.PNG" />
+    <Content Include="images\test.jpg" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -1229,6 +1235,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="scroll.html" />
     <Content Include="SetWidth.html" />
     <Content Include="SlideBar.html" />
     <Content Include="Web.config">
@@ -1320,6 +1327,9 @@
     <Content Include="Views\Home\_PartialView.cshtml" />
     <Content Include="Views\Home\BootStrapValidator.cshtml" />
     <Content Include="Views\Home\PageBuilder.cshtml" />
+    <Content Include="Views\Home\DynamicLinq.cshtml" />
+    <Content Include="Views\Home\dropdown_menu.cshtml" />
+    <Content Include="Views\book2\IndexVm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

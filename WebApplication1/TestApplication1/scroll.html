@@ -1,0 +1,35 @@
+﻿<!--<img src="images/Arrow.PNG" />-->
+
+<fieldset id="showmoreloading1" class="fieldsetgrey" style=" text-align: center; padding-bottom:4%;">
+    <div class="row">
+        <section class="col col-12 text-center">
+            <img class="img-responsive" src="images/Arrow.PNG" title="@ViewBag.Title" alt="@ViewBag.Title" border="0" style="max-width:100px;">
+        </section>
+        <section class="col col-12 text-center">
+            <h3>@ViewRes.Shared.InProgress</h3>
+        </section>
+    </div>
+</fieldset>
+
+<div id="showmorepag1">
+    <div class="isotope-next-params" data-params="paged=2&amp;posts_per_page=14&amp;post_status=publish&amp;category__in=0" data-layout-type="v3" data-template-type=""></div>
+    <div class="load-more-posts-button-w">
+        <a data-ajax="true" data-ajax-begin="$('#showmoreloading1').show(); $('#showmorepag1').hide();" data-ajax-complete="$('#showmoreloading1').hide();" data-ajax-method="GET" data-ajax-mode="after" data-ajax-update="#some_grid_container" href="@Url.Action(" Index_partial", "Creation" , new { lang=ViewRes.Shared.Langue, sortOrder=ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter, currentFilterSex=ViewBag.CurrentFilterSex, currentFilterTags=ViewBag.CurrentFilterHairTags, page=nextpage })"><i class="os-icon-plus"></i> <span>Load More Posts</span></a>
+    </div>
+    <div class="infinite-scroll-trigger"></div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            for (var i = 0, len = 10; i < len; i++) {
+                var pagetoitvis = "#showmorepag" + i
+                var pagetoit = ".showmorepag" + i
+                if ($(pagetoitvis).isVisible()) {
+                    $(pagetoit).trigger('click');
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,48 @@
+﻿@model TestApplication1.Controllers.book2Controller.bookvm
+@{
+    ViewBag.Title = "IndexVm";
+}
+
+<h2>IndexVm</h2>
+
+<table class="table">
+    <tr>
+        <th>
+           111
+        </th>
+        <th>
+           222
+        </th>
+        <th>
+            333
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.author2)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>      
+        <td>
+            <ul>
+                @foreach (var it in item.book2)
+    {
+            <li>
+                @it.Title
+            </li>
+}
+                </ul>
+</td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>*@
+    </tr>
+    }
+
+</table>

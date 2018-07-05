@@ -14,6 +14,7 @@ ________________________________________________________________________________
 @*@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
     @Html.EditorFor(model => model.DateDocument, new { @Value = "2015-10-14" })*@
 
+@Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "editbox2" } })
 
 @Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "editbox" } })
 
@@ -123,6 +124,28 @@ ________________________________________________________________________________
         $(".editbox").datepicker({
             dateFormat: 'dd/mm/yy'
         })
+
+        var dd = new Date();
+
+        // Set it to one month ago
+        dd.setMonth(dd.getMonth() - 1);
+
+        // Zero the hours
+        dd.setHours(0, 0, 0);
+        dd.setDate(dd.getDate() + 10);
+        // Zero the milliseconds
+        dd.setMilliseconds(0);
+        var myDate = new Date(1978, 2, 11);
+
+        var dy = new Date();
+        //var dy2 = new Date();
+        
+        dy.setFullYear(dy.getFullYear());
+    
+        $(".editbox2").datepicker();//用setDate之前必须先初始化
+       // $(".editbox2").datepicker('setDate', dd);
+        $(".editbox2").datepicker("setDate", "01/01/" + dy.getFullYear());//"01/01/2018"
+        //$(".editbox2").datepicker("setDate", "01/01/2018");//"01/01/2018"
 
 
         function dateTransform(d) {

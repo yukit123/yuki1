@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -713,6 +714,17 @@ namespace TestApplication1.Controllers
         public ActionResult GridMVC_Index()//https://www.codeproject.com/Tips/597253/Using-the-Grid-MVC-in-ASP-NET-MVC
         {
             ViewBag.clients = clients;
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem { Text = "Select", Value = "Select" });
+            items.Add(new SelectListItem { Text = "Active", Value = "Active" });
+            items.Add(new SelectListItem { Text = "In Active", Value = "In Active" });
+            items.Add(new SelectListItem { Text = "Hold", Value = "Hold" });
+
+            ViewBag.Status = new SelectList(items);
+
+
             return View(clients);
         }
 
@@ -936,6 +948,7 @@ namespace TestApplication1.Controllers
                 }
             }
 
+            //return Json(new { success=0,model }, JsonRequestBehavior.AllowGet);
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -1372,5 +1385,134 @@ namespace TestApplication1.Controllers
             return Json(new { Message = ViewBag.Message }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        #region dynamic linq
+        public class Employee
+        {
+            public string Name { get; set; }
+            public string State { get; set; }
+            public string Department { get; set; }
+
+        }
+        public ActionResult DynamicLinq()//https://www.nuget.org/packages/System.Linq.Dynamic/ install
+        {
+
+            IQueryable result;
+            //List<Employee> result2;
+
+            Employee[] empList = new Employee[6];
+            empList[0] = new Employee() { Name = "CA", State = "A", Department = "xyz" };
+            empList[1] = new Employee() { Name = "ZP", State = "B", Department = "xyz" };
+            empList[2] = new Employee() { Name = "AC", State = "B", Department = "xyz" };
+            empList[3] = new Employee() { Name = "AA", State = "A", Department = "xyz" };
+            empList[4] = new Employee() { Name = "A2", State = "A", Department = "pqr" };
+            empList[5] = new Employee() { Name = "BA", State = "B", Department = "pqr" };
+
+            List<string> sortable_bot = empList.Select(_ => _.State).ToList();
+           // List<string> sortable_bot = new List<string>() { "State", "Department" };
+
+            var empqueryable = empList.AsQueryable();
+            var dynamiclinqquery = DynamicQueryable.GroupBy(empqueryable, "new (State, Department)", "it");
+
+
+            var eq = empqueryable.GroupBy("new (State, Department)", "it").Select("new(it.Key as Key, it as Employees)");
+            //var eq = empqueryable.GroupBy("new (State, Department)", "it");
+
+            var keyEmplist = (from dynamic dat in eq select dat).ToList();
+
+            //result2 = eq.Select("new (it.Key as Key , it.Select(it." + sortable_bot[0] + ").Count()  as Count)");
+           //var result2 = eq.Select("new (it.Key as Key , it.Select(it." + sortable_bot[0] + ").Count()  as Count)");
+
+            //  var result3 = eq.Select("new (it.Key as Key , it.Select(it.State).Count()  as Count)");
+            
+
+            foreach (var group in keyEmplist)
+            {
+                var key = group.Key;
+                var elist = group.Employees;
+
+                foreach (var emp in elist)
+                {
+
+                }
+            }
+            
+            return View(keyEmplist);
+        }
+        #endregion
+
+        #region aria-labelledby dropdown-menu bootstrap dropdownlist
+
+        public class dropdown_menuVM
+        {
+            public List<MembershipTypes> MembershipTypes { get; set; }
+            public Customer Customer { get; set; }
+        }
+
+        public class MembershipTypes
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+        }
+
+        public class Customer
+        {
+            public int MembershipTypeId { get; set; }
+            public string MembershipTypeName { get; set; }
+        }
+        public ActionResult dropdown_menu()
+        {
+            List<MembershipTypes> MembershipTypeslist = new List<MembershipTypes>();
+            MembershipTypeslist.Add(new MembershipTypes() { ID = 1, Name = "AA"});
+            MembershipTypeslist.Add(new MembershipTypes() { ID = 2, Name = "BB" });
+            MembershipTypeslist.Add(new MembershipTypes() { ID = 3, Name = "CC" });
+            MembershipTypeslist.Add(new MembershipTypes() { ID = 4, Name = "DD" });
+
+           Customer Customerlist = new Customer() { MembershipTypeId=1, MembershipTypeName = "CustomerAA" };
+
+            dropdown_menuVM model = new dropdown_menuVM();
+            model.Customer = Customerlist;
+            model.MembershipTypes = MembershipTypeslist;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult dropdown_menu(dropdown_menuVM model,int hiddenID)
+        {
+            //List<MembershipTypes> MembershipTypeslist = new List<MembershipTypes>();
+            //MembershipTypeslist.Add(new MembershipTypes() { ID = 1, Name = "AA" });
+            //MembershipTypeslist.Add(new MembershipTypes() { ID = 2, Name = "BB" });
+            //MembershipTypeslist.Add(new MembershipTypes() { ID = 3, Name = "CC" });
+            //MembershipTypeslist.Add(new MembershipTypes() { ID = 4, Name = "DD" });
+
+            //Customer Customerlist = new Customer() { MembershipTypeId = 1, MembershipTypeName = "CustomerAA" };
+
+            //dropdown_menuVM model = new dropdown_menuVM();
+            return View();
+        }
+        #endregion
+
+        //public JsonResult ProcessRequestRMA(RMAHistory model, string SelectedRMAAntal)
+        //{
+        //    var RMA = new RMA_History
+        //    {
+
+        //        Antal = model.Antal,
+        //        AntalRMA = SelectedRMAAntal
+        //    };
+
+        //    if (SelectedRMAAntal > model.Antal)
+        //    {
+        //        return Json(new { success = 0 }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+
+        //        db.RMA_History.Add(RMA);
+        //        db.SaveChanges();
+        //        return Json(new { success = 1, model }, JsonRequestBehavior.AllowGet);
+        //    }
+
+        //}
     }
 }

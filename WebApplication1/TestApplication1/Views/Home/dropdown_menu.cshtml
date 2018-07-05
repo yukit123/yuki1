@@ -1,0 +1,69 @@
+﻿@model TestApplication1.Controllers.HomeController.dropdown_menuVM
+@{
+    ViewBag.Title = "dropdown_menu";
+}
+
+<h2>dropdown_menu</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+
+    <input class="span2" id="hiddenID" name="hiddenID" type="hidden">
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mt-3">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="membershipTypesDrpBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Membership Type
+            </button>
+
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton">
+                @foreach (var memType in Model.MembershipTypes)
+                {
+                    <li role="presentation" onclick="$('#hiddenID').val('@memType.ID');">
+                        <a class="dropdown-item" name="MembershipTypes.ID" data-value="@memType.ID" href="#">@memType.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+    @*<input type="text" id="xxx" name="MembershipTypes.ID" value="@Model.MembershipTypes.i"/>*@
+    @*<div class="dropdown">
+            <button type="button" class="btn dropdown-toggle" id="MembershipTypes.ID"
+                    data-toggle="dropdown">
+                选择您的职位
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="MembershipTypes.ID">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">测试工程师</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">开发工程师</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">销售工程师</a>
+                </li>
+            </ul>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}

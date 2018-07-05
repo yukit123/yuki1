@@ -1,0 +1,99 @@
+﻿<style type="text/css">
+    .espcial {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height:200px;
+    }
+</style>
+
+
+<div class="_cr_content">
+
+    <div class="_cr_cell1">
+
+        <div class="_cr_cell_p">
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+            <div class="_cr_cell_box _cr_cell_p">aaaaaaaaaaaaaaaaaa</div>
+
+
+        </div>
+
+    </div>
+    <div class="_cr_cell2">
+
+        <div class="_cr_cell_p" style="width:400px;height:100px;overflow:auto">
+
+            <a class="btn btn--primary _style_2RJ5vN margin-top2 width-100" href="@Url.Action(" CreationUpload", "Creation" , new { lang=ViewRes.Shared.Langue })" title="@ViewRes.Shared.MenuButton_PhotosTitle"><!-- react-text: 123 --><i class="fa fa-camera"></i><b> @ViewRes.Shared.MenuButton_Photos</b><!-- /react-text --></a>
+
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+            <div class="_cr_cell_box _cr_cell_p">bbbb bbb b b b b</div>
+
+        </div>
+
+    </div>
+    <div class="_cr_cell3 espcial" >
+
+        <div class="_cr_cell_p">
+            <h2 class="widget-title">@ViewRes.Shared.Advertising</h2>
+            <div class="_cr_cell_box _cr_cell_p">@Html.Partial("_Advertise")</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+            <div class="_cr_cell_box _cr_cell_p">cccccccccccccccccc</div>
+
+            <h2 class="widget-title">@ViewRes.Shared.Advertising Google ADSENSE</h2>
+            <div class="_cr_cell_box _cr_cell_p">@Html.Partial("_GoogleAdSense")</div>
+
+            <h2 class="widget-title">@ViewRes.Shared.RightBarBLOGTitle</h2>
+            <div class="_cr_cell_box _cr_cell_p">@Html.Action("RightBarMagazine", "Magazine")</div>
+
+            <h2 class="widget-title">@ViewRes.Shared.RightBarAnnonceTitle</h2>
+            <div class="_cr_cell_box _cr_cell_p">@Html.Action("RightBarAnnonce", "Home")</div>
+
+            <h2 class="widget-title">@ViewRes.Shared.RightBarHairForumTitle</h2>
+            <div class="_cr_cell_box _cr_cell_p">@Html.Action("RightBarHairForum", "Home")</div>
+
+            <div class="_cr_cell_box">cccc</div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--<script>
+    $(document).ready(function () {
+        $(".btn1").click(function () {
+            alert($("div").scrollTop() + " px");
+        });
+    });
+</script>-->

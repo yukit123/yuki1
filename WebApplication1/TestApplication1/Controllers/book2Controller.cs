@@ -21,6 +21,21 @@ namespace TestApplication1.Controllers
             return View(db.book2s.ToList());
         }
 
+        public class bookvm
+        {
+            public List<book2> book2 { get; set; }
+            public List<author2> author2 { get; set; }
+
+        }
+        public ActionResult IndexVm()
+        {
+            //var book2s = db.book2s.Include(b => b.author2);
+            bookvm vm = new bookvm();
+            vm.author2 = db.author2s.ToList();
+            vm.book2 = db.book2s.ToList();
+            return View(vm);
+        }
+
         // GET: book2/Details/5
         public ActionResult Details(int? id)
         {
