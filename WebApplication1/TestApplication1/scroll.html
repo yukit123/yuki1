@@ -1,5 +1,4 @@
 ﻿<!--<img src="images/Arrow.PNG" />-->
-
 <fieldset id="showmoreloading1" class="fieldsetgrey" style=" text-align: center; padding-bottom:4%;">
     <div class="row">
         <section class="col col-12 text-center">
@@ -7,11 +6,38 @@
         </section>
         <section class="col col-12 text-center">
             <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+            <h3>@ViewRes.Shared.InProgress</h3>
+
+
+
+
         </section>
     </div>
 </fieldset>
 
-<div id="showmorepag1">
+<div id="showmorepag1" class="AppendBtn">
     <div class="isotope-next-params" data-params="paged=2&amp;posts_per_page=14&amp;post_status=publish&amp;category__in=0" data-layout-type="v3" data-template-type=""></div>
     <div class="load-more-posts-button-w">
         <a data-ajax="true" data-ajax-begin="$('#showmoreloading1').show(); $('#showmorepag1').hide();" data-ajax-complete="$('#showmoreloading1').hide();" data-ajax-method="GET" data-ajax-mode="after" data-ajax-update="#some_grid_container" href="@Url.Action(" Index_partial", "Creation" , new { lang=ViewRes.Shared.Langue, sortOrder=ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter, currentFilterSex=ViewBag.CurrentFilterSex, currentFilterTags=ViewBag.CurrentFilterHairTags, page=nextpage })"><i class="os-icon-plus"></i> <span>Load More Posts</span></a>
@@ -19,17 +45,35 @@
     <div class="infinite-scroll-trigger"></div>
 </div>
 
-
+<!--<script src="Scripts/jquery-1.7.1.min.js"></script>-->
+<script src="Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(function () {
         $(window).scroll(function () {
-            for (var i = 0, len = 10; i < len; i++) {
-                var pagetoitvis = "#showmorepag" + i
-                var pagetoit = ".showmorepag" + i
-                if ($(pagetoitvis).isVisible()) {
-                    $(pagetoit).trigger('click');
-                }
+            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                //for (var i = 0, len = 10; i < len; i++) {
+                //    var pagetoitvis = "#showmorepag" + i
+                //    var pagetoit = ".showmorepag" + i
+                //    if ($(pagetoitvis).isVisible()) {
+                //        $(pagetoit).trigger('click');
+                //    }
+                //}
+
+                var m = $(".AppendBtn").length;
+                var html = '<div id="showmorepag' + ($(".AppendBtn").length + 1) + '" class="AppendBtn">' +
+                    '<div class="isotope-next-params" data-params="paged=2&amp;posts_per_page=14&amp;post_status=publish&amp;category__in=0" data-layout-type="v3" data-template-type=""></div>' +
+                    '<div class="load-more-posts-button-w">' +
+                    '<a data-ajax="true" data-ajax-begin="$(\'#showmoreloading' + ($(".AppendBtn").length + 1) + '\').show(); $(\'#showmorepag' + ($(".AppendBtn").length + 1) + '\').hide();" data-ajax-complete="$(\'#showmoreloading' + ($(".AppendBtn").length + 1) + '\').hide();" data-ajax-method="GET" data-ajax-mode="after" data-ajax-update="#some_grid_container" href="@Url.Action(" Index_partial", "Creation" , new { lang=ViewRes.Shared.Langue, sortOrder=ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter, currentFilterSex=ViewBag.CurrentFilterSex, currentFilterTags=ViewBag.CurrentFilterHairTags, page=nextpage })"><i class="os-icon-plus"></i> <span>Load More Posts</span></a>' +
+                    '</div>' +
+                    '<div class="infinite-scroll-trigger"></div>' +
+                    '</div>'
+
+                $(".AppendBtn").append(html);
+
+                $(".AppendBtn").first().hide();
             }
+
+
         });
     });
 </script>

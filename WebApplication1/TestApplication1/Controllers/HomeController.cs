@@ -691,13 +691,13 @@ namespace TestApplication1.Controllers
         #region  GridMvc 初始化生成GridMvc change下拉框触发生成GridMvc
         private readonly List<Client> clients = new List<Client>()
     {
-        new Client { Id = 1, Name = "Julio Avellaneda", Email = "julito_gtu@hotmail.com" },
-        new Client { Id = 2, Name = "Juan Torres", Email = "jtorres@hotmail.com" },
-        new Client { Id = 3, Name = "Oscar Camacho", Email = "oscar@hotmail.com" },
-        new Client { Id = 4, Name = "Gina Urrego", Email = "ginna@hotmail.com" },
-        new Client { Id = 5, Name = "Nathalia Ramirez", Email = "natha@hotmail.com" },
-        new Client { Id = 6, Name = "Raul Rodriguez", Email = "rodriguez.raul@hotmail.com" },
-        new Client { Id = 7, Name = "Johana Espitia", Email = "johana_espitia@hotmail.com" }
+        new Client { Id = 1, Name = "Select", Email = "julito_gtu@hotmail.com" },
+        new Client { Id = 2, Name = "Active", Email = "jtorres@hotmail.com" },
+        new Client { Id = 3, Name = "In Active", Email = "oscar@hotmail.com" },
+        new Client { Id = 4, Name = "Hold", Email = "ginna@hotmail.com" },
+        new Client { Id = 5, Name = "Hold", Email = "natha@hotmail.com" },
+        new Client { Id = 6, Name = "Select", Email = "rodriguez.raul@hotmail.com" },
+        new Client { Id = 7, Name = "Select", Email = "johana_espitia@hotmail.com" }
     };
         public class CustomerModel
         {
@@ -722,8 +722,11 @@ namespace TestApplication1.Controllers
             items.Add(new SelectListItem { Text = "In Active", Value = "In Active" });
             items.Add(new SelectListItem { Text = "Hold", Value = "Hold" });
 
-            ViewBag.Status = new SelectList(items);
+            //List<SelectListItem> selectlist = clients.Select(x => new SelectListItem { Value = x.Name, Text = x.Name, Selected=(items.Any(a=>a.Text==x.Name)) }).DistinctBy(p=>p.Value).ToList();
+            //ViewBag.selectlist = new SelectList(items, "Text", "Value");
+  
 
+            ViewBag.Status = new SelectList(items);
 
             return View(clients);
         }

@@ -10,5 +10,8 @@ namespace TestApplication1.Models
         public int Id { get; set; }
         public string Kundenummer { get; set; }
         public string Ordrenummer { get; set; }
+
+        public string NewColum2 { get; set; }//new add
+
     }
 }

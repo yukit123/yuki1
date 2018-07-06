@@ -18,6 +18,8 @@
                 <p>
                     <input type="text" class="input-sm" id="txtlname" />
                 </p>
+
+                <input type="text" name="datefrom" id="datefrom" class="form-control">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -55,7 +57,7 @@
             </td>
 
             <td class="s">
-                <input type="button" value="Edit" >
+                <input type="button" value="Edit">
             </td>
         </tr>
     </tbody>
@@ -64,13 +66,16 @@
 
 
 @section scripts{
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript">
-        $(function () {             
+        $(function () {
+            $('#datefrom').datepicker();
             var prefname; // fname textbox
             var prelname; //lname textbox
             $('#address_table1').on("click", "tr td[class='s']", function (e) {
@@ -89,7 +94,7 @@
             })
         });
 
-     
+
         function doShow() {
             var prefname; // fname textbox
             var prelname; //lname textbox

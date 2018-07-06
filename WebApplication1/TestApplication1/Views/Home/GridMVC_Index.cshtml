@@ -36,9 +36,10 @@
        columns.Add(c => c.Id).Titled("Client ID");
        columns.Add(c => c.Name).Titled("Name").Filterable(true);
        columns.Add(c => c.Email).Titled("Email");
-       columns.Add().Encoded(false).Titled("Select").Sanitized(false).SetWidth(2).RenderValueAs(c => @Html.DropDownList("Select", new SelectList(ViewBag.Status.Items, "Value", "Text"), new { style = "width: 70px;", @class = "form-control" }));
+       columns.Add().Encoded(false).Titled("Select").Sanitized(false).SetWidth(2).RenderValueAs(c => @Html.DropDownList("Select", new SelectList(ViewBag.Status.Items, "Value", "Text", c.Name), new { style = "width: 70px;", @class = "form-control" }));
+       //columns.Add(c => c.Name).Encoded(false).Titled("Select").Sanitized(false).SetWidth(2).RenderValueAs(c => @Html.DropDownList("Select", new SelectList(ViewBag.selectlist, "Value", "Text"), new { style = "width: 70px;", @class = "form-control" }));
 
-                                   }).WithPaging(3).Sortable(true)
+   }).WithPaging(3).Sortable(true)
     </div>
 </body>
 </html>
