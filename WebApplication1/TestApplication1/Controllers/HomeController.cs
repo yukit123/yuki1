@@ -1517,5 +1517,32 @@ namespace TestApplication1.Controllers
         //    }
 
         //}
+
+        public class Timervm
+        {
+            public DateTime EndDate { get; set; }
+
+        }
+        public ActionResult Timer()
+        {
+            List<Timervm> list = new List<Timervm>() {
+            new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
+            new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
+            new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
+            };
+            //return Json(new { list }, JsonRequestBehavior.AllowGet);
+
+           return View(list);
+        }
+        public JsonResult Timerajax()
+        {
+            List<Timervm> list = new List<Timervm>() {
+            new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
+            new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
+            new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
+            };
+            return Json(new {  list }, JsonRequestBehavior.AllowGet);
+            //return View(list);
+        }
     }
 }

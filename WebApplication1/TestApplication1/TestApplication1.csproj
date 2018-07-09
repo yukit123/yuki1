@@ -1338,6 +1338,7 @@
     <Content Include="Views\Home\DynamicLinq.cshtml" />
     <Content Include="Views\Home\dropdown_menu.cshtml" />
     <Content Include="Views\book2\IndexVm.cshtml" />
+    <Content Include="Views\Home\Timer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

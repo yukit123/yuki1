@@ -44,38 +44,47 @@
     </div>
 
 
-    @*<input type="text" id="xxx" name="MembershipTypes.ID" value="@Model.MembershipTypes.i"/>*@
-    @*<div class="dropdown">
-            <button type="button" class="btn dropdown-toggle" id="MembershipTypes.ID"
-                    data-toggle="dropdown">
-                选择您的职位
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="MembershipTypes.ID">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">测试工程师</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">开发工程师</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">销售工程师</a>
-                </li>
-            </ul>
-        </div>*@
-
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="col-xs-3 text-right">
+            <label for="dropdown2">Cogn Desc:</label>
         </div>
-    </div>
-</div>
-}
+        <div class="col-xs-9" @*style="width:100px;"*@>
+            @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control" ,@style = "width:300px;" })
+        </div>
+        </div>
 
-@section scripts{
-<script>
-    $(function () {
-        $("#Customer_MembershipTypeId").attr("style", "width:800px");
-    })
-</script>
-    }
+            @*<input type="text" id="xxx" name="MembershipTypes.ID" value="@Model.MembershipTypes.i"/>*@
+            @*<div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle" id="MembershipTypes.ID"
+                            data-toggle="dropdown">
+                        选择您的职位
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="MembershipTypes.ID">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">测试工程师</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">开发工程师</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">销售工程师</a>
+                        </li>
+                    </ul>
+                </div>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+
+        @section scripts{
+            <script>
+                $(function () {
+                    $("#Customer_MembershipTypeId").attr("style", "width:800px");
+                })
+            </script>
+        }

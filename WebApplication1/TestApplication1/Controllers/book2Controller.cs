@@ -27,7 +27,7 @@ namespace TestApplication1.Controllers
             public List<author2> author2 { get; set; }
 
         }
-        public ActionResult IndexVm()
+        public ActionResult IndexVm()//https://forums.asp.net/t/2143323.aspx
         {
             //var book2s = db.book2s.Include(b => b.author2);
             bookvm vm = new bookvm();
