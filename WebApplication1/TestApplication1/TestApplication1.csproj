@@ -1339,6 +1339,8 @@
     <Content Include="Views\Home\dropdown_menu.cshtml" />
     <Content Include="Views\book2\IndexVm.cshtml" />
     <Content Include="Views\Home\Timer.cshtml" />
+    <Content Include="Views\Home\Devexpress_Combobox.cshtml" />
+    <Content Include="Views\Home\validation_modalpopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

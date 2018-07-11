@@ -18,6 +18,7 @@
     @Html.TextAreaFor(model => model.LabelId, new { htmlAttributes = new { @class = "form-control", @name = "Name"} })
     @Html.ValidationMessageFor(model => model.LabelId)
     <input type="submit" value="Save" id="btnSave">
+         @*<input type="button" value="Create" id="validate" class="btn btn-default"/>*@
 }
 
 @section scripts{
@@ -25,6 +26,13 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript">
+        //$('#validate').click(function () {
+        //    $('form').validate();
+
+        //    if ($('form').valid()) {
+        //        //trigger modal
+        //    }
+        //});
         $(function () {
             $(".AAA").rules("add", {
                 required: true,

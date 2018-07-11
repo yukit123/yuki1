@@ -2,6 +2,7 @@
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -1525,14 +1526,14 @@ namespace TestApplication1.Controllers
         }
         public ActionResult Timer()
         {
-            List<Timervm> list = new List<Timervm>() {
-            new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
-            new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
-            new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
-            };
+            //List<Timervm> list = new List<Timervm>() {
+            //new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
+            //new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
+            //new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
+            //};
             //return Json(new { list }, JsonRequestBehavior.AllowGet);
 
-           return View(list);
+           return View();
         }
         public JsonResult Timerajax()
         {
@@ -1544,5 +1545,49 @@ namespace TestApplication1.Controllers
             return Json(new {  list }, JsonRequestBehavior.AllowGet);
             //return View(list);
         }
+
+        #region devexpress combobox
+        public ActionResult Devexpress_Combobox()
+        {
+            //question https://forums.asp.net/p/2143575/6217140.aspx?p=True&t=636668664003231385
+            //https://demos.devexpress.com/MVCxDataEditorsDemos/Editors/ComboBox
+            //https://github.com/DevExpress-Examples/mvc-combobox-extension-cascading-combo-boxes-e2844
+            // https://documentation.devexpress.com/AspNet/8163/ASP-NET-MVC-Extensions/Getting-Started/Integration-into-ASP-NET-MVC-Project/Manual-Integration-into-an-Existing-Project
+            //https://documentation.devexpress.com/AspNet/11418/ASP-NET-WebForms-Controls/Data-Editors/Editor-Types/ASPxComboBox/Overview/ASPxComboBox-Overview
+            //https://documentation.devexpress.com/AspNet/16137/ASP-NET-MVC-Extensions/Getting-Started/How-It-Works
+            ViewBag.Message = "Your contact page.";
+
+            Session["Contactid"] = db.CountrySizes.ToList();
+
+            return View();
+        }
+        #endregion
+
+        # region validation_modalpopupexample
+        public class CedulaAppViewModel
+        {
+            [Required]
+            [Display(Name = "Firstname")]
+            public string Firstname { get; set; }
+            [Required]
+            [Display(Name = "Middle Initial")]
+            public string MiddleInitial { get; set; }
+            [Required]
+            [Display(Name = "Surname")]
+            public string Surname { get; set; }
+        }
+
+        public ActionResult validation_modalpopup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult validation_modalpopup(string Firstname)
+        {
+             return View();
+        }
+
+        #endregion
     }
 }

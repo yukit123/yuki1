@@ -1665,6 +1665,64 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Webgrid2(string searchString)
+        {
+
+            List<ListStrViewModel> list2;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+
+                var list = db.Label.ToList();
+
+                var selectlist = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+                ViewBag.selectlist = selectlist;
+
+                list2 = new List<ListStrViewModel>();
+                list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" });
+
+              
+
+                
+            }
+            else
+            {
+                var selectlist = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+                ViewBag.selectlist = selectlist;
+
+                list2 = new List<ListStrViewModel>();
+                list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" });
+                list2.Add(new ListStrViewModel() { field1 = "bb", field2 = "bb", field3 = "bb" });
+                list2.Add(new ListStrViewModel() { field1 = "cc", field2 = "cc", field3 = "cc" });
+           
+            }
+            ViewBag.list = list2;
+            return View(list2);
+
+        }
+
+
+        private static string GetSearchConditionValue(IDictionary<string, string> searchConditions, string key)
+        {
+            string tempValue = string.Empty;
+
+            if (searchConditions != null && searchConditions.Keys.Contains("Conditions1"))
+            {
+                searchConditions.TryGetValue(key, out tempValue);
+            }
+            return tempValue;
+        }
+
         public ActionResult localStorage()
         {
             ViewBag.Message = "Your contact page.";

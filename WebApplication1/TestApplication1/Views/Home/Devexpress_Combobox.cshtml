@@ -1,0 +1,36 @@
+﻿@*@using DevExpress.Web.Mvc;*@
+@{
+    ViewBag.Title = "Devexpress_Combobox";
+}
+
+<h2>Devexpress_Combobox</h2>
+@*@using (Html.BeginForm())
+{
+    @Html.DevExpress().ComboBox(
+                                                                                            settings =>
+                                                                                            {
+                                                                                                settings.Name = "Contratid";
+
+
+                                                                                                settings.Properties.DropDownWidth = 600;
+
+                                                                                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                                                                                settings.ShowModelErrors = false;
+                                                                                                settings.Properties.ValidationSettings.ValidateOnLeave = false;
+                                                                                                settings.Properties.ValidationSettings.Display = Display.None;
+                                                                                                settings.Properties.CallbackPageSize = 15;
+
+                                                                                                settings.Properties.TextField = "ReferenceDossier";
+                                                                                                settings.Properties.TextFormatString = "{0}";
+                                                                                                settings.Properties.ValueField = "idDossier";
+                                                                                                settings.Properties.ValueType = typeof(decimal);
+
+                                                                                                settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { change(s); }";
+                                                                                                settings.Properties.Columns.Add("ReferenceDossier", "Réference", 40);
+                                                                                                settings.Properties.Columns.Add("Libelle", "Libelle", 40);
+
+                                                                                                settings.Height = 30;
+                                                                                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                                                                            }
+                                                                                        ).BindList(Session["Contactid"]).GetHtml()
+}*@

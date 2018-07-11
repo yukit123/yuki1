@@ -1,12 +1,6 @@
 ﻿@model List<TestApplication1.Controllers.HomeController.Timervm>
 @{
     ViewBag.Title = "Timer";
-    var i = 0;
-    var count = Model.Count();
-    var p = 0;
-    var list = Model;
-    //var items = Json.Encode(Model);
-    //var items = Model;
 
 }
 
@@ -22,41 +16,26 @@
             url: '/Home/Timerajax',
             type: 'GET',
             success: function (data) {
-
+                if (data.list.length > 0) {
+                    for (var p = 1; p < data.list.length; p++) {
+                var html = '<text id="timeLeft' + p + '"></text>';
+                $(".timeLeft").append(html);
+            }
+        }
                 $.each(data.list, function (i, v) {
-                    //countdown(v.EndDate.Year, v.EndDate.Month, v.EndDate.Day, v.EndDate.Hour);
-                    countdown(new Date(v.EndDate.match(/\d+/)[0] * 1).getFullYear(), new Date(v.EndDate.match(/\d+/)[0] * 1).getMonth()+1, new Date(v.EndDate.match(/\d+/)[0] * 1).getDay(), new Date(v.EndDate.match(/\d+/)[0] * 1).getHours());
+                    countdown(new Date(v.EndDate.match(/\d+/)[0] * 1).getFullYear(), new Date(v.EndDate.match(/\d+/)[0] * 1).getMonth() + 1, new Date(v.EndDate.match(/\d+/)[0] * 1).getDate(), new Date(v.EndDate.match(/\d+/)[0] * 1).getHours(),i);
 
                 });
             }
         })
 
-        //var list = JSON.stringify(items);
-        if (@count> 0) {
-            for (var p = 1; p <@count; p++) {
-                var html = '<text id="timeLeft' + p + '"></text>';
-                $(".timeLeft").append(html);
-            }
-        }
-
-
-        //$.each($.parseJSON(list), function (i,v) {
-        //    countdown(v.EndDate.Year, v.EndDate.Month, v.EndDate.Day, v.EndDate.Hour);
-        //});
-
-        @*for (p = 0; p <@count; p++) {
-            countdown(list[p].EndDate.Year, list[p].EndDate.Month, list[p].EndDate.Day, list[p].EndDate.Hour);
-     
-
-        }*@
+   
     })
 </script>
-@*@foreach (var item in Model)
-{*@
+
 <script>
-        function countdown(endYear, endMonth, endDay, endHours) {
-            @*for (p=0; p <@count; p++)
-            {*@
+        function countdown(endYear, endMonth, endDay, endHours,count) {
+      
                 window.setInterval(function () {
 
             var now = new Date();
@@ -74,51 +53,20 @@
 
             var second = Math.floor(leftSecond - day * 24 * 60 * 60 - hour * 3600 - minute * 60);
 
-            if (@p == 0) {
+            if (count == 0) {
                 document.getElementById("timeLeft").innerHTML = day + "d " + hour + "h "
                     + minute + "m " + second + "s ";
             }
             else {
-                @*var html = '<text id="timeLeft' +@i+'"></text>';
-                $("#timeLeft").after(html);*@
-                document.getElementById("timeLeft"+@p).innerHTML = day + "d " + hour + "h "
+                document.getElementById("timeLeft"+count).innerHTML = day + "d " + hour + "h "
                     + minute + "m " + second + "s ";
             }
-                
+
 
                 }, 1000);
-            //}
+          
         }
-
-        @*function StartCount(endYear, endMonth, endDay, endHours) {
-            var now = new Date();
-            var endDate = new Date(endYear, endMonth - 1, endDay, endHours);
-
-            var leftTime = endDate.getTime() - now.getTime();
-
-            var leftSecond = parseInt(leftTime / 1000);
-
-            var day = Math.floor(leftSecond / (60 * 60 * 24));
-
-            var hour = Math.floor((leftSecond - day * 24 * 60 * 60) / 3600);
-
-            var minute = Math.floor((leftSecond - day * 24 * 60 * 60 - hour * 3600) / 60);
-
-            var second = Math.floor(leftSecond - day * 24 * 60 * 60 - hour * 3600 - minute * 60);
-
-            if (@p == 0) {
-                document.getElementById("timeLeft").innerHTML = day + "d " + hour + "h "
-                    + minute + "m " + second + "s ";
-            }
-            else {
- 
-                document.getElementById("timeLeft"+@p).innerHTML = day + "d " + hour + "h "
-                    + minute + "m " + second + "s ";
-            }
-        }*@
-         @*@(i++);*@
-    @*countdown(@item.EndDate.Year, @item.EndDate.Month, @item.EndDate.Day,@item.EndDate.Hour)*@
-
+    
 </script>
    
 

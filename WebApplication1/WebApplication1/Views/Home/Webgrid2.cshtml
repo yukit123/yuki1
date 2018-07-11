@@ -7,40 +7,29 @@
     }
 
 <div id="main">
+    <div>
+        @using (Html.BeginForm("Webgrid2", "Home", FormMethod.Post))
+        {
+            <input type="text" name="searchString" id="searchString" /><input type="submit" value="Search" />
+        }
 
+    </div>
     @{
-
         @MvcHtmlString.Create(
-                                                                  grid.GetHtml(tableStyle: "table", htmlAttributes: new { id = "gridT" },
-                                                                  columns: grid.Columns(
+                     grid.GetHtml(tableStyle: "table", htmlAttributes: new { id = "gridT" },
+                     columns: grid.Columns(
 
-                                                                          grid.Column("field1", "field1xxx", canSort: false),
-                                                                          grid.Column("field2", "field2xx", canSort: false),
-                                                                          grid.Column("field3", "field3xx", canSort: false),
-                                                                        grid.Column("dropdownlist", "Select", canSort: false,
-                                                                        format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>))
+                           grid.Column("field1", "field1xxx", canSort: false),
+                           grid.Column("field2", "field2xx", canSort: false),
+                           grid.Column("field3", "field3xx", canSort: false),
+                           grid.Column("dropdownlist", "Select", canSort: false,
+                           format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>))
 
-                                                                                 ).ToHtmlString()
+                       ).ToHtmlString()
 
-                                  )
+           )
 
-        @*@grid.GetHtml(
-                            columns: new[] {
-                                grid.Column(format: (item) => item)
 
-                            }
-                                );
-            }*@
-
-                        @*@g.GetHtml(
-                                            columns: g.Columns(
-                                                //grid.Column("0", "xx", canSort: false),
-                                                //grid.Column("1", "xxxx", canSort: false),
-                                                //grid.Column("2", "xxxxx", canSort: false)
-                                                grid.Column(format: (item) => item)
-
-                                                )
-                                                );*@
     }
 
     @*@grid.GetHtml()*@
