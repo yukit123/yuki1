@@ -43,30 +43,33 @@ namespace TestApplication1.Controllers
  
         }
         // GET: AuthorModels/Create
-        public ActionResult Create()
+        public ActionResult Create(AuthorModel authorModel)
         {
-            //AuthorViewModel vm = new AuthorViewModel();
-            return View();
+            AuthorViewModel vm = new AuthorViewModel();
+            //vm.Name = "111";
+             return View();
+            //return new RedirectResult(Url.Action("PartialView", "Home", vm.Name));
+           // return RedirectToAction("PartialView", "Home", new { selectedRegionName= vm.Name });
         }
 
         // POST: AuthorModels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] AuthorModel authorModel)
-        {
-            if (ModelState.IsValid)
-            {
-                //AuthorModel model = new AuthorModel();
-                //model.Name=authorModel.Name;
-                db.AuthorModels.Add(authorModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,Name")] AuthorModel authorModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //AuthorModel model = new AuthorModel();
+        //        //model.Name=authorModel.Name;
+        //        db.AuthorModels.Add(authorModel);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(authorModel);
-        }
+        //    return View(authorModel);
+        //}
 
         // GET: AuthorModels/Edit/5
         public ActionResult Edit(int? id)

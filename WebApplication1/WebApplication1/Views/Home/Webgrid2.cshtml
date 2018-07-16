@@ -5,7 +5,32 @@
         var g = new WebGrid(source: ViewBag.addresses);
 
     }
+<style type="text/css">
+    tbody {
+        font-family: Arial;
+        font-size: 10pt;
+    }
 
+    .Grid {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+        .Grid th {
+            background-color: #F7F7F7;
+            font-weight: bold;
+        }
+
+        .Grid th, .Grid td {
+            padding: 5px;
+            border: 1px solid #ccc;
+            width: 120px;
+        }
+
+        .Grid, .Grid table td {
+            border: 0px solid #ccc;
+        }
+</style>
 <div id="main">
     <div>
         @using (Html.BeginForm("Webgrid2", "Home", FormMethod.Post))
@@ -16,7 +41,7 @@
     </div>
     @{
         @MvcHtmlString.Create(
-                     grid.GetHtml(tableStyle: "table", htmlAttributes: new { id = "gridT" },
+                     grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
                      columns: grid.Columns(
 
                            grid.Column("field1", "field1xxx", canSort: false),

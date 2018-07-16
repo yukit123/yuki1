@@ -1341,6 +1341,7 @@
     <Content Include="Views\Home\Timer.cshtml" />
     <Content Include="Views\Home\Devexpress_Combobox.cshtml" />
     <Content Include="Views\Home\validation_modalpopup.cshtml" />
+    <Content Include="Views\Home\Timer2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1546,6 +1546,18 @@ namespace TestApplication1.Controllers
             //return View(list);
         }
 
+        public ActionResult Timer2()
+        {
+            //List<Timervm> list = new List<Timervm>() {
+            //new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
+            //new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
+            //new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
+            //};
+            //return Json(new { list }, JsonRequestBehavior.AllowGet);
+
+            return View();
+        }
+
         #region devexpress combobox
         public ActionResult Devexpress_Combobox()
         {
@@ -1577,13 +1589,13 @@ namespace TestApplication1.Controllers
             public string Surname { get; set; }
         }
 
-        public ActionResult validation_modalpopup()
+        public ActionResult validation_modalpopup()//https://forums.asp.net/p/2143505/6217182.aspx?Re+MVC+trigger+validation+on+button+click
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult validation_modalpopup(string Firstname)
+        public ActionResult validation_modalpopup(CedulaAppViewModel model)
         {
              return View();
         }

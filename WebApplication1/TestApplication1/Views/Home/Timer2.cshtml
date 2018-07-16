@@ -1,0 +1,65 @@
+﻿<html>
+<head>
+
+    <script>
+        @{DateTime convert = DateTime.Now.ToLocalTime();}
+        var serverTime = (@convert.Hour * 60 * 60) + (@convert.Minute * 60) + @convert.Second;
+        var serverOffset = serverTime - getClientTime();
+        setInterval(displayTime, 1000); // <-- calls this function again in 1 second.
+
+        function getClientTime() {
+            var time = new Date();
+
+            return (time.getHours() * 60 * 60) +
+                (time.getMinutes() * 60) + (time.getSeconds());
+        }
+
+        function displayTime() {
+            var d = new Date();
+            var t = getClientTime() + serverOffset;
+            var hh12 = "";
+            var ap = "";
+            var mm = d.getMonth() + 1;
+            var dd = d.getDate();
+            var yy = d.getFullYear();
+            var hh = Math.floor(t / 60 / 60);
+            if (hh == 0) {
+                hh12 = "12";
+                ap = "AM";
+            } else if (hh < 12) {
+                hh12 = hh;
+                if (hh12 < 10) hh12 = "0" + hh12;
+                ap = "AM";
+            } else if (hh == 12) {
+                hh12 = hh;
+                ap = "PM";
+            } else {
+                hh12 = hh - 12;
+                if (hh12 < 10) hh12 = "0" + hh12;
+                ap = "PM";
+            }
+            var mi = Math.floor(t / 60 % (hh * 60));
+            if (mi < 10) mi = "0" + mi;
+            var ss = Math.floor(t % 60);
+            if (ss < 10) ss = "0" + ss;
+            var disp = mm + "/" + dd + "/" + yy + " " + hh12 + ":" + mi + ":" + ss + " " + ap;
+            document.getElementById('clock').innerHTML = disp;
+
+      /*
+      var hours = Math.floor(serverTime / 60 / 60);
+      var minutes = Math.floor(serverTime / 60 % (hours * 60));
+      var seconds = Math.floor(serverTime % 60);
+
+      document.getElementById("clock").innerHTML = hours + ":" +
+          minutes + ":" + seconds; // <-- updates the "clock" div.
+      */
+
+        }
+
+    </script>
+</head>
+<body onload="startTime()">
+ 
+    <text id="clock"></text>
+    </body>
+</html>

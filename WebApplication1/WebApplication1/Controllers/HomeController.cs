@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -447,6 +448,7 @@ namespace WebApplication1.Controllers
             var list = db.Label.ToList().FirstOrDefault();
             // ProjectAndStudentModels pvm = new ProjectAndStudentModels();
             // pvm.StudentsAndID = db.Student.ToList();
+            //Label list2 = db.Label.ToList().FirstOrDefault();
 
             return View(list);
         }
@@ -849,7 +851,7 @@ namespace WebApplication1.Controllers
             osrListItems.AddRange(osrListItems2);
             osrListItems=osrListItems.OrderBy(x => x.Value).ToList();
 
-            ViewBag.OSRddl = new SelectList(osrListItems,"Value2","Text2", osrListItems1[0].Value).Distinct();
+            ViewBag.OSRddl = new SelectList(osrListItems,"Value","Text", osrListItems1[0].Value).Distinct();
 
             return View(todo);
             
@@ -2156,10 +2158,17 @@ namespace WebApplication1.Controllers
         #endregion
 
         #region MVC Edit view with Picture
+        public static Image resizeMyImage(Image imgToResize, Size size)
+        {
+
+            return (Image)(new Bitmap(imgToResize, size));
+        }
+
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult ImageUpload()
+        public JsonResult ImageUpload(/*HttpPostedFileBase Filedata*/)
         {
+            #region upload and save image
             //ImageDatabaseEntities6 db = new ImageDatabaseEntities6();
             // file = Request.Files["ImageFile"]; 
             //HttpPostedFileBase file = Request.Files["SelectImage"]; //Request.Files
@@ -2182,6 +2191,24 @@ namespace WebApplication1.Controllers
                 imgId = img.LabelId;
             }
             return Json("3", JsonRequestBehavior.AllowGet);
+
+            #endregion
+            #region 调整图片大小 并保存图片 save and resize image 
+            //Image sourceimage = Image.FromStream(Filedata.InputStream);  //mainImg is of type HttpPostedFileBase
+            //Guid g = Guid.NewGuid();
+            //string fileName = g + "_" + System.IO.Path.GetFileName(Filedata.FileName);
+            //Image thumbnail = resizeMyImage(sourceimage, new Size(525, 328));
+
+
+            ////string thumbnailsPath = System.IO.Path.Combine(
+            ////    Server.MapPath("~/Uploads/apartments/thumbnails"), fileName);
+            ////var path = Path.Combine(Server.MapPath("/images/"), fileName);
+            //var path= System.IO.Path.Combine(
+            //    Server.MapPath("/images/"), fileName);
+
+            //thumbnail.Save(path);
+            //return View();
+            #endregion
         }
         public JsonResult DisplayingImage(int imgID) //https://stackoverflow.com/questions/17721009/url-action-not-working-not-showing-picture-in-img //image src call mvc action show pic
         {
