@@ -267,6 +267,10 @@
     <Compile Include="Migrations\201807060408213_RMA_Historyaddnew2.Designer.cs">
       <DependentUpon>201807060408213_RMA_Historyaddnew2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807180511056_author2-ValidationAttribute1.cs" />
+    <Compile Include="Migrations\201807180511056_author2-ValidationAttribute1.Designer.cs">
+      <DependentUpon>201807180511056_author2-ValidationAttribute1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\author2.cs" />
     <Compile Include="Models\AuthorModel.cs" />
@@ -1342,6 +1346,7 @@
     <Content Include="Views\Home\Devexpress_Combobox.cshtml" />
     <Content Include="Views\Home\validation_modalpopup.cshtml" />
     <Content Include="Views\Home\Timer2.cshtml" />
+    <Content Include="Views\Home\Groupby_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1423,6 +1428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807060408213_RMA_Historyaddnew2.resx">
       <DependentUpon>201807060408213_RMA_Historyaddnew2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180511056_author2-ValidationAttribute1.resx">
+      <DependentUpon>201807180511056_author2-ValidationAttribute1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace TestApplication1.Models
 {
+    
     public class Charter
     {
         public int CharterID { get; set; }
@@ -44,7 +45,9 @@ namespace TestApplication1.Models
         [RegularExpression("^[ -~]+$", ErrorMessage = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}")]
         public string str2 { get; set; }
 
-     
+ 
+
+
 
 
     }

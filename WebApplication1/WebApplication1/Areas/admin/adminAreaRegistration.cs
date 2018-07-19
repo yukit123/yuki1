@@ -14,13 +14,26 @@ namespace WebApplication1.Areas.admin
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+            //context.MapRoute(
+            //    "admin_default",
+            //    "admin/{controller}/{action}/{id}",
+            //   new { controller = "Home", action = "Index", id = "" }
+            //    //namespaces: new string[] { "admin.Controllers" }
+
+            //);
+
+
             context.MapRoute(
-                "admin_default",
-                "admin/{controller}/{action}/{id}",
-               new { controller = "Home", action = "Index", id = "" }
-                   //namespaces: new string[] { "admin.Controllers" }
-                  
-            );
+        "AboutAdd",
+        "admin/HakkimizdaEkle",
+      defaults: new { controller = "Home", action = "Index2" });
+
+            context.MapRoute(
+                          "admin_default",
+                          "admin/{controller}/{action}/{id}",
+                          new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+
+                      );
         }
     }
 }

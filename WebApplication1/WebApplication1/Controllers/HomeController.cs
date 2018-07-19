@@ -58,7 +58,8 @@ namespace WebApplication1.Controllers
     [SessionExpireFilter]
     public class HomeController : BaseController
     {
-        private BlogContext db = new BlogContext();     
+        private BlogContext db = new BlogContext();
+
         public ActionResult Index()
         {
             //db.Blogs.FirstOrDefault();
@@ -69,7 +70,7 @@ namespace WebApplication1.Controllers
             vm2.authors = db.Author.ToList();
             var list = db.Blogs.ToList();
             ViewBag.auth = db.Author.ToList();
-            ViewBag.auth2 = db.Author.Select(_=>_.AuthorName).ToList();
+            ViewBag.auth2 = db.Author.Select(_ => _.AuthorName).ToList();
             ViewBag.auth3 = db.Author.Select(_ => _.AuthorName).ToArray();
 
             #region LINQ 和 where  lamda都不允许数据转换 Regex.Replace
@@ -830,7 +831,9 @@ namespace WebApplication1.Controllers
         public ActionResult Edit(/*int? id, string owner*/)
         {
 
-                Label todo = db.Label.Find(1);
+            var cvgetid = db.Label.SingleOrDefault(p => p.LabelId==2);
+            Label todo = db.Label.Find(cvgetid.LabelId);
+            Label qq = db.Label.Where(p => p.LabelId == 2).SingleOrDefault();
                 if (todo == null)
                 {
                     return HttpNotFound();
@@ -2466,13 +2469,22 @@ namespace WebApplication1.Controllers
         {
 
             #region GROUPBY AddRange 
-            //var list1 = new List<TestViewModel>
-            //{
-            //    new TestViewModel{Text="Apple2",Value="1"},
-            //    new TestViewModel{Text="Banana",Value="2"},
-            //    new TestViewModel{Text="Orange",Value="3"}
+            var list1 = new List<TestViewModel>
+            {
+                new TestViewModel{Text="Apple2",Value="1"},
+                new TestViewModel{Text="Banana",Value="2"},
+                new TestViewModel{Text="Orange",Value="3"},
+                new TestViewModel{Text="Banana",Value="4"},
+                new TestViewModel{Text="Orange",Value="5"},
+                new TestViewModel{Text="Banana",Value="2"},
+                new TestViewModel{Text="Banana",Value="4"},
+                new TestViewModel{Text="Banana",Value="5"}
 
-            //};
+
+
+
+
+            };
 
 
             //var list2 = new List<TestViewModel>
@@ -2483,8 +2495,8 @@ namespace WebApplication1.Controllers
 
             //};
 
-            //var querylist1 = new List<TestViewModel>();
-            //var querylist2 = new List<TestViewModel>();
+            var querylist1 = new List<TestViewModel>();
+            var querylist2 = new List<TestViewModel>();
 
 
             //foreach (var item in list1.Select(p => p.Value).ToList())
@@ -2493,14 +2505,15 @@ namespace WebApplication1.Controllers
             //    querylist2.AddRange(querylist1);
             //}
             #region Contain Any
-            var list11 = new string [] { "33","34" };
-            var products = (from s in db.Author
-                            where s.id != 100 && list11.Any(_=>_==s.id.ToString())
-                            select s).ToList();
+            //var list11 = new string [] { "33","34" };
+            //var products = (from s in db.Author
+            //                where s.id != 100 && list11.Any(_=>_==s.id.ToString())
+            //                select s).ToList();
             #endregion
+       
             //foreach (var item in list11)
             //{
-            //    //querylist1 = list2.Where(p => p.Value==item).ToList();
+            //    //querylist1 = list2.Where(p => p.Value == item).ToList();         
             //    //querylist2.AddRange(querylist1);
             //    var products = db.Author.Where(s => s.id == item).ToList();
             //    test.Add(item);

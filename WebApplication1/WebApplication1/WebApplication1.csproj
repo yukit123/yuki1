@@ -532,6 +532,10 @@
     <Compile Include="Migrations\201806140935219_group1.Designer.cs">
       <DependentUpon>201806140935219_group1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807180259417_Charter-ValidationAttribute1.cs" />
+    <Compile Include="Migrations\201807180259417_Charter-ValidationAttribute1.Designer.cs">
+      <DependentUpon>201807180259417_Charter-ValidationAttribute1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -598,6 +602,7 @@
     <Content Include="Areas\Accounts\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Accounts\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Accounts\Views\Accounts\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Home\Index2.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Scripts\datatables.min.js" />
@@ -811,6 +816,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806140935219_group1.resx">
       <DependentUpon>201806140935219_group1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180259417_Charter-ValidationAttribute1.resx">
+      <DependentUpon>201807180259417_Charter-ValidationAttribute1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

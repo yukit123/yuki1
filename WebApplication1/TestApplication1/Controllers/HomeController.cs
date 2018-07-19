@@ -202,34 +202,34 @@ namespace TestApplication1.Controllers
 
 
 
-            var partialResult6 = (
-                                   from rightJoinTable in
-                                    (from Table2 in db.AuthorModels
-                                    join Table1 in db.CountrySizes
-                                    on Table2.Id equals Table1.Id into rightJoin
-                                    from rj in rightJoin.DefaultIfEmpty()
-                                     select new
-                                     {
-                                         CID = rj.Id,
-                                         AID = Table2.Id,
-                                         NAME = Table2.Name,
-                                         SIZE = rj.size
-                                     }
-                                    )
-                                   join Table3 in db.CountrySizes
+            //var partialResult6 = (
+            //                       from rightJoinTable in
+            //                        (from Table2 in db.AuthorModels
+            //                        join Table1 in db.CountrySizes
+            //                        on Table2.Id equals Table1.Id into rightJoin
+            //                        from rj in rightJoin.DefaultIfEmpty()
+            //                         select new
+            //                         {
+            //                             CID = rj.Id,
+            //                             AID = Table2.Id,
+            //                             NAME = Table2.Name,
+            //                             SIZE = rj.size
+            //                         }
+            //                        )
+            //                       join Table3 in db.CountrySizes
         
-                                   on rightJoinTable.AID equals Table3.Id into leftjoin
-                                   orderby rightJoinTable.NAME, leftjoin.GroupBy(p=>p.Id)
+            //                       on rightJoinTable.AID equals Table3.Id into leftjoin
+            //                       orderby rightJoinTable.NAME, leftjoin.GroupBy(p=>p.Id)
 
-                                   from lj in leftjoin.DefaultIfEmpty()
-                                   select new
-                                   {
-                                       CID = lj.Id,//data from Table3
-                                       AID = rightJoinTable.AID, //data from Table2
-                                       SIZE = rightJoinTable.SIZE //data from Table1
-                                   }
+            //                       from lj in leftjoin.DefaultIfEmpty()
+            //                       select new
+            //                       {
+            //                           CID = lj.Id,//data from Table3
+            //                           AID = rightJoinTable.AID, //data from Table2
+            //                           SIZE = rightJoinTable.SIZE //data from Table1
+            //                       }
                                   
-                                   ).ToList();
+            //                       ).ToList();
 
 
 
@@ -243,13 +243,14 @@ namespace TestApplication1.Controllers
             public string TRACK_NMBR { get; set; }
         }
 
-        public ActionResult GetNextView(string keyword)
+        public ActionResult GetNextView(string keyword/*int id*/)
         {
-            // ViewBag.Message = "Your contact page.";
+            //var xx = Request.QueryString["id"].ToString();
+            ViewBag.Message = "Your contact page.";
             TRACK_NMBR_ViewModel vm = new TRACK_NMBR_ViewModel();
             vm.TRACK_NMBR = keyword;
-            
-            return View(vm);
+
+            return View();
         }
 
         //[HttpPost]
@@ -1601,5 +1602,23 @@ namespace TestApplication1.Controllers
         }
 
         #endregion
+
+        public class Groupby_IndexVm
+        {
+            public int MyProperty { get; set; }
+            public List<author2> author2 { get; set; }
+
+        }
+        public ActionResult Groupby_Index()
+        {
+            //var list = new List<TestViewModel>();
+            var list = db.CountrySizes.GroupBy(p => p.country, (key, group) => new { GroupName = key, Items = group.ToList() });
+            ViewData["List"] = db.CountrySizes.GroupBy(p => p.country).ToList();
+
+            var model = db.CountrySizes.GroupBy(p => p.country).ToArray();
+
+
+            return View(model);
+        }
     }
 }

@@ -12,7 +12,7 @@
 <div>@Html.DropDownList("CharterID", String.Empty)</div>
 <table class="table">
     <tr>
-       
+
         <th>
             CharterDestinationLocation1
             @*@Html.DisplayNameFor(model => model.Charter.CharterDesignatorString)*@
@@ -25,31 +25,34 @@
             CharterGroupGenderString
             @*@Html.DisplayNameFor(model => model.Charter.CharterDesignatorString)*@
         </th>
-      
+
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-    <tr>
+        <tr>
 
 
-        <td>
-            <a href=@Html.DisplayFor(modelItem => item.CharterDestinationLocation1)>@Html.DisplayFor(modelItem => item.CharterDestinationLocation1)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CharterGroup)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CharterGroupGenderString)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CharterID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.CharterID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CharterID })
-        </td>
+            <td>
+                <a href=@Html.DisplayFor(modelItem => item.CharterDestinationLocation1)>@Html.DisplayFor(modelItem => item.CharterDestinationLocation1)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharterGroup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharterGroupGenderString)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CharterID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CharterID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CharterID })
+            </td>
 
-    </tr>
+        </tr>
     }
 
 </table>
+
+
+

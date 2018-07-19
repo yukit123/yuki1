@@ -21,30 +21,30 @@
                 <th>@Html.DisplayNameFor(model => model.str2)</th>
                 <td>@Html.DisplayFor(model => model.str2)</td>
             </tr>
-   
+
         </table>
         <hr class="hr3" />
         <table>
             <tr>
                 <td>
                     @using (Html.BeginForm("DeleteInterest", "Home", FormMethod.Post))
-    {
-                @Html.AntiForgeryToken()
-                @*@Html.HiddenFor(a => a.CharterID, new { htmlAttributes = new { @Name = "id", @Value = "22" } })
-                @Html.HiddenFor(a => a.CharterID, new { htmlAttributes = new { @name = "id", @Value = "33" } })*@
-                @Html.HiddenFor(a => a.CharterID, new { @Name = "id", @Value = "22" } )
+                    {
+                        @Html.AntiForgeryToken()
+                        @*@Html.HiddenFor(a => a.CharterID, new { htmlAttributes = new { @Name = "id", @Value = "22" } })
+                            @Html.HiddenFor(a => a.CharterID, new { htmlAttributes = new { @name = "id", @Value = "33" } })*@
+                        @Html.HiddenFor(a => a.CharterID, new { @Name = "id", @Value = "22" })
 
 
-                <div class="form-actions no-color">
-                    <input type="submit" value="Delete" class="btnKh" />
-                    @*<input type="text" value="1" name="id" />*@
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Delete" class="btnKh" />
+                            @*<input type="text" value="1" name="id" />*@
 
-                    @*@Html.EditorFor(a => a.CharterID, new { htmlAttributes = new { @Name = "id" } })*@
+                            @*@Html.EditorFor(a => a.CharterID, new { htmlAttributes = new { @Name = "id" } })*@
 
 
 
-                </div>
-}
+                        </div>
+                    }
                 </td>
                 <td style="width:20px;"></td>
                 <td>
@@ -55,8 +55,6 @@
             </tr>
         </table>
     </div>
-
-
 
 </body>
 

@@ -1,0 +1,65 @@
+﻿@*@model TestApplication1.Models.CountrySize*@
+@model IEnumerable<IGrouping<string, TestApplication1.Models.CountrySize>>
+
+@{
+    ViewBag.Title = "Groupby_Index";
+}
+
+<h2>Groupby_Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Category
+            @*@Html.ActionLink("OfficeSupplyCategory1", "Index", new { sortOrder = ViewBag.CategorySort, currentFilter = ViewBag.CurrentFilter })*@
+        </th>
+        <th>
+            Item
+            @*@Html.ActionLink("OfficeSupplyItem", "Index", new { sortOrder = ViewBag.itemSort, currentFilter = ViewBag.CurrentFilter })*@
+        </th>
+   
+    </tr>
+
+    @*@foreach (var item in (dynamic)ViewData["List"])
+        {
+            <tr>
+                <td>
+                    @item.Key
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var it in item.Group)
+                        {
+                            <li>
+                                @it.size
+                            </li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }*@
+
+
+    @foreach (var group in Model)
+    {
+
+        <tr>
+            <td>
+                @group.Key
+            </td>
+            <td>
+                <ul>
+                    @foreach (var it in group.Select(p=>p.size).ToArray())
+                    {
+                        <li>
+                            @it
+                        </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    }
+
+
+
+</table>
