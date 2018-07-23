@@ -26,6 +26,7 @@ using static WebApplication1.FilterConfig;
 
 namespace WebApplication1.Controllers
 {
+    
     public class Student
     {
         public int ID { get; set; }
@@ -59,6 +60,12 @@ namespace WebApplication1.Controllers
     public class HomeController : BaseController
     {
         private BlogContext db = new BlogContext();
+
+        public ActionResult About()
+        {
+
+            return View();
+        }
 
         public ActionResult Index()
         {
@@ -874,8 +881,8 @@ namespace WebApplication1.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View(todo);
-          
+             return View(todo);
+         
         }
 
         public ActionResult CostCodeReport()
@@ -1626,7 +1633,7 @@ namespace WebApplication1.Controllers
         public ActionResult Webgrid2()//https://forums.asp.net/t/2132883.aspx
         {
             ViewBag.Message = "Your contact page.";
-            var list = db.Label.ToList();
+            //var list = db.Label.ToList();
 
             var selectlist = new List<SelectListItem>// https://forums.asp.net/t/2081566.aspx?How+to+show+dropdown+with+selected+value+in+webgrid      
             {
@@ -1713,6 +1720,8 @@ namespace WebApplication1.Controllers
             }
             ViewBag.list = list2;
             return View(list2);
+
+           // return Json(11, JsonRequestBehavior.AllowGet);
 
         }
 

@@ -76,8 +76,7 @@
                     success: function (result) {
 
                         $("div tbody").empty();
-                        $.each(result.list.client, function (i, v) {
-
+                        $.each(result.list.client, function (i, v) {                           
                             row += "<tr><td>" + v.Id + "</td><td>" + v.Name + "</td><td>" + v.Email + "</td></tr>";
                         });
 

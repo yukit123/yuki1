@@ -1,0 +1,53 @@
+﻿
+<table id="tbl">
+
+    <tr>
+        <td>
+            <img src="images/Arrow.PNG" width="50"/>
+        </td>
+        <td>13.08.2014 18:33:24</td>
+        <td>Branch Refund</td>
+        <td>0,10 EUR</td>
+    </tr>
+
+
+    <tr>
+        <td>
+          
+            <img src="images/Arrow.PNG" width="50"/>
+        </td>
+        <td>13.08.2014 18:33:24</td>
+        <td>Branch Refund</td>
+        <td>0,10 EUR</td>
+    </tr>
+
+
+    <tr>
+        <td>
+            <img src="images/Arrow.PNG" width="50"/>
+        </td>
+        <td>13.08.2014 18:33:24</td>
+        <td>Branch Refund</td>
+        <td>0,10 EUR</td>
+    </tr>
+
+</table>
+
+<script src="Scripts/jquery-1.7.1.min.js"></script>
+<script>
+    $("#tbl tr").off("click", "td").on("click", "td", function () {
+
+        if ($(this).parent()[0] != $("#tbl tr").first()[0]) {
+            $(this).parent().find("img").attr('src', 'images/test.jpg');
+            if ($(this).parent().prev().find("img").attr('src') == "images/test.jpg") {
+                $(this).parent().prev().find("img").attr('src', 'images/Arrow.PNG');
+
+            }
+         
+        }
+        else
+        {
+            $(this).parent().find("img").attr('src', 'images/test.jpg');
+        }
+    })
+</script>

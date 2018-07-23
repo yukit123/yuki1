@@ -57,8 +57,8 @@
 
     <div class="form-group">
         @Html.Label("User Name", new { @class = "control-label", @style = "padding: 0 90px;" })
-        @Html.TextBoxFor(model => model.country, new { @id = "txtUserName", style = "width: 250px;", @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.country, new { @id = "txtUserName", @Value = ViewBag.AAA,style = "width: 250px;", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger"})
 
     </div>
 

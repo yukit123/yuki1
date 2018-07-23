@@ -18,6 +18,7 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             ViewBag.type = 0;
+    
             return View(db.Employees.ToList());
         }
 

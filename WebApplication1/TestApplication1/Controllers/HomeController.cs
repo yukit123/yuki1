@@ -674,6 +674,13 @@ namespace TestApplication1.Controllers
             list.Add(new ManageAIGViewModel() { ID = 2, AigNumber = 22, AigType = "bbbbbAigType" });
 
             list.Add(new ManageAIGViewModel() { ID = 3, AigNumber = 33, AigType = "cccccAigType" });
+
+
+            //var studentQuestions = list.OrderBy(x => Guid.NewGuid()).Take(1);
+         
+            //var studentQuestions2 = list.OrderBy(x => Guid.NewGuid()).First();
+            //var Id = studentQuestions2.ID;
+            //var sss = list.Where(p => p.ID != Id);
             return View(list);
 
         }
@@ -1346,6 +1353,8 @@ namespace TestApplication1.Controllers
 
             //var enumlist = options[1];
             CountrySize model = new CountrySize();
+            model.country = "xx";
+            ViewBag.AAA = "xx2";
             return View(model);
         }
         #endregion

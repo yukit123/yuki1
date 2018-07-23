@@ -12,7 +12,9 @@ namespace WebApplication1.Areas.admin.Controllers
         //[HttpPost]
         public ActionResult Index()
         {
-            //return RedirectToAction("Index","Home",new { area="Home"});
+            //return RedirectToAction("Index2","Home",new { area="Home"});
+            //return RedirectToAction("HakkimizdaEkle",new { area = "admin" });
+            //return RedirectToAction("Index2", "Home", new { area = "admin" });
             return View();
         }
 

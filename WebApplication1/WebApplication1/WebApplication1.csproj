@@ -575,12 +575,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\Arrow.PNG" />
+    <Content Include="navbar.html" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ToolTip.html" />
     <Content Include="Views\Authors\_myModal.cshtml" />
     <Content Include="windowPrint.html" />
     <EntityDeploy Include="EFBolgModel.edmx">
