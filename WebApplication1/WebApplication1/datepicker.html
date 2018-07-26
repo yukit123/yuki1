@@ -1,25 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+
+    <!--<span style='color: ? "red" : "green")'>111</span>-->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             var d = new Date();
-            function twoDigitDate(d){
-                return ((d.getDate()).toString().length == 1) ? "0"+(d.getDate()).toString() : (d.getDate()).toString();
+            function twoDigitDate(d) {
+                return ((d.getDate()).toString().length == 1) ? "0" + (d.getDate()).toString() : (d.getDate()).toString();
             };
-            function twoDigitMonth(d){
-                return ((d.getMonth()+1).toString().length == 1) ? "0"+(d.getMonth()+1).toString() : (d.getMonth()+1).toString();
+            function twoDigitMonth(d) {
+                return ((d.getMonth() + 1).toString().length == 1) ? "0" + (d.getMonth() + 1).toString() : (d.getMonth() + 1).toString();
             };
-            var today_ISO_date = d.getFullYear()+"-"+twoDigitMonth(d)+"-"+twoDigitDate(d); // in yyyy-mm-dd format
+            var today_ISO_date = d.getFullYear() + "-" + twoDigitMonth(d) + "-" + twoDigitDate(d); // in yyyy-mm-dd format
 
             document.getElementById('datepicker').setAttribute("value", today_ISO_date);
 
             var dd_mm_yyyy;
-            $("#datepicker").change( function(){
+            $("#datepicker").change(function () {
                 changedDate = $(this).val(); //in yyyy-mm-dd format obtained from datepicker
                 var date = new Date(changedDate);
-                dd_mm_yyyy = twoDigitDate(date)+"-"+twoDigitMonth(date)+"-"+date.getFullYear(); // in dd-mm-yyyy format
+                dd_mm_yyyy = twoDigitDate(date) + "-" + twoDigitMonth(date) + "-" + date.getFullYear(); // in dd-mm-yyyy format
                 $('#textbox').val(dd_mm_yyyy);
             });
 

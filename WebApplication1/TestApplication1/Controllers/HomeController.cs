@@ -59,6 +59,11 @@ namespace TestApplication1.Controllers
     
         public ActionResult Test()
         {
+            #region 日期 今天 比较
+            //(db.Charters.FirstOrDefault().CharterDate).ToString().Substring(0,10).Trim()==DateTime.Now.ToString("d")
+            //var list = db.Charters.Where(_ => (_.CharterDate).ToString().Substring(0, 10).Trim() == DateTime.Now.ToString().Substring(0, 10).Trim()).Take(10).ToList();
+            #endregion
+            // var q = db.Charters.Where(x => DateTime.Compare(x.CharterDate, DateTime.Now.Date) == 0).ToList();
             //string subject = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
             //var results = Regex.Match(subject, @"^[ -~]+$", RegexOptions.Multiline);
 
@@ -1035,7 +1040,10 @@ namespace TestApplication1.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 Results = Results.Where(m => m.CompanyName == searchString || m.ContactName == searchString);
+                //Results = Results.Take(2).ToList();
+
             }
+            //var list= db.Customers.Take(2).ToList();
             //Sending Json Object to View.
             var jsonData = new
             {
@@ -1628,6 +1636,26 @@ namespace TestApplication1.Controllers
 
 
             return View(model);
+        }
+
+        public ActionResult GetCurrentTime()
+        {
+           
+         return View();
+            
+        }
+
+        //[System.Web.Services.WebMethod]
+     
+        public JsonResult GetCurrentTime2(/*string name*/) // public static string GetCurrentTime(string name)
+        {
+            System.Threading.Thread.Sleep(1000);
+            //return "Hello " + name + Environment.NewLine + "The Current Time is: "
+            //    + DateTime.Now.ToString();
+
+            return Json(new { flag = 1 }, JsonRequestBehavior.AllowGet);
+
+
         }
     }
 }

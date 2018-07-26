@@ -1,0 +1,40 @@
+﻿@*@using Kendo.Mvc.UI
+@Styles.Render("~/Content/kendo/css")
+@model List<WebApplication1.Controllers.HomeController.kendoTreeviewVM>
+
+@(Html.Kendo().TreeView()
+                                                                  .Name("productsstreeview")
+                                                                  .TemplateId("productsTreeview-template")
+                                                                  .BindTo(Model, mappings =>
+                                                                  {
+                                                                      mappings.For<MyModel.Products>(binding => binding.ItemDataBound((item, tier) =>
+                                                                      {
+                                                                          item.Text = tier.Name;
+                                                                          item.Id = tier.Id.ToString();
+                                                                          if (tier.Level == 1)
+                                                                          {
+                                                                              item.SpriteCssClasses = "root";
+                                                                          }
+                                                                      })
+                                                                          .Children(tier => tier.Products1));
+                                                                  })
+
+)
+
+@(Html.Kendo().DatePicker().Name("datepicker"))
+
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.mobile.min.css" />
+
+<script src="https://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
+
+<script>
+
+
+    $(function () {
+        // Notice that the Name() of the treeview is used to get its client-side instance
+        var treeview = $("#productsstreeview").data("kendoTreeView");
+    });
+</script>*@

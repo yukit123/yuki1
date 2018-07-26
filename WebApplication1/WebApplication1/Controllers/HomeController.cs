@@ -1,5 +1,5 @@
 ﻿using ClosedXML.Excel;
-using Kendo.Mvc;
+//using Kendo.Mvc;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -23,10 +24,11 @@ using System.Web.Script.Serialization;
 using WebApplication1.Helpers;
 using WebApplication1.Models;
 using static WebApplication1.FilterConfig;
+//using Kendo.Mvc.UI
 
 namespace WebApplication1.Controllers
 {
-    
+
     public class Student
     {
         public int ID { get; set; }
@@ -59,6 +61,7 @@ namespace WebApplication1.Controllers
     [SessionExpireFilter]
     public class HomeController : BaseController
     {
+
         private BlogContext db = new BlogContext();
 
         public ActionResult About()
@@ -492,7 +495,7 @@ namespace WebApplication1.Controllers
             var list = db.Cities.Where(_ => _.CountryId == id).ToList();
             //if (list == null)
             //{
-                return Json(new { showlist = list }, JsonRequestBehavior.AllowGet);
+            return Json(new { showlist = list }, JsonRequestBehavior.AllowGet);
             //}
             //else
             //{
@@ -528,7 +531,7 @@ namespace WebApplication1.Controllers
 
             var stulist = new List<datalistView>();
 
-           // var re = from a in stulist select a;
+            // var re = from a in stulist select a;
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
@@ -548,7 +551,7 @@ namespace WebApplication1.Controllers
             //}
             //convert the required data to jsontype
 
-          // var list233 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
+            // var list233 = "{\"rows\": [{ \"id\": 1, \"name\": \"All Tasks\", \"begin\": \"3/4/2010\", \"end\": \"3/20/2010\", \"progress\": 60, \"iconCls\": \"icon-ok\" }]}";
             return Json(stulist, JsonRequestBehavior.AllowGet);
         }
 
@@ -563,7 +566,7 @@ namespace WebApplication1.Controllers
             //osrListItems.AddRange(osrListItems2);
             //osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
-            List<SelectListItem> osrListItems3=db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).ToList();
+            List<SelectListItem> osrListItems3 = db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).ToList();
             ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text");
             return View();
         }
@@ -618,7 +621,7 @@ namespace WebApplication1.Controllers
                     discount = row["discount"].ToString()
                 });
             }
-           
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -748,7 +751,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Foreach()
         {
-          
+
             JiontableViewModel jtvm = new JiontableViewModel();
             Label2 labvm = new Label2();
             labvm.LabelId = 1;
@@ -757,7 +760,7 @@ namespace WebApplication1.Controllers
             var p = db.Project.ToList();
             var l = db.Label.ToList();
             var SesseionItem3 = (from y in db.Label.ToList()
-                                join si in db.Project.ToList() on y.LabelId equals si.Id
+                                 join si in db.Project.ToList() on y.LabelId equals si.Id
                                  select new JiontableViewModel()
                                  {
                                      Id = y.LabelId,
@@ -766,7 +769,7 @@ namespace WebApplication1.Controllers
                                  }).ToList();
 
             var SesseionItem2 = (from y in db.Label.ToList()
-                               
+
                                  select new JiontableViewModel()
                                  {
                                      Id = y.LabelId,
@@ -823,7 +826,7 @@ namespace WebApplication1.Controllers
             //return JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
 
             var sr = new StreamReader(Request.InputStream);
-             var stream = sr.ReadToEnd();
+            var stream = sr.ReadToEnd();
 
             return Json(stream, JsonRequestBehavior.AllowGet);
         }
@@ -838,33 +841,33 @@ namespace WebApplication1.Controllers
         public ActionResult Edit(/*int? id, string owner*/)
         {
 
-            var cvgetid = db.Label.SingleOrDefault(p => p.LabelId==2);
+            var cvgetid = db.Label.SingleOrDefault(p => p.LabelId == 2);
             Label todo = db.Label.Find(cvgetid.LabelId);
             Label qq = db.Label.Where(p => p.LabelId == 2).SingleOrDefault();
-                if (todo == null)
-                {
-                    return HttpNotFound();
-                }
+            if (todo == null)
+            {
+                return HttpNotFound();
+            }
 
-                var options = new List<Label>();
-                options.Add(new Label() { LabelId =11, LabelName = "New Request" });
-                options.Add(new Label() { LabelId =12, LabelName = "Reviewed" });
-                options.Add(new Label() { LabelId =13, LabelName = "Started" });
-                options.Add(new Label() { LabelId =14, LabelName = "In Progress" });
-                options.Add(new Label() { LabelId =15, LabelName = "Completed" });
-                ViewBag.Status = options;
+            var options = new List<Label>();
+            options.Add(new Label() { LabelId = 11, LabelName = "New Request" });
+            options.Add(new Label() { LabelId = 12, LabelName = "Reviewed" });
+            options.Add(new Label() { LabelId = 13, LabelName = "Started" });
+            options.Add(new Label() { LabelId = 14, LabelName = "In Progress" });
+            options.Add(new Label() { LabelId = 15, LabelName = "Completed" });
+            ViewBag.Status = options;
             //List<SelectListItem> osrListItems = db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName }).ToList();
-            List<SelectListItem> osrListItems1 = db.Label.Where(w => w.LabelId == 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName,Selected=true }).Distinct().ToList();
-            List<SelectListItem> osrListItems2 = db.Label.Where(w => w.LabelId != 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected=false }).Distinct().ToList();
+            List<SelectListItem> osrListItems1 = db.Label.Where(w => w.LabelId == 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).Distinct().ToList();
+            List<SelectListItem> osrListItems2 = db.Label.Where(w => w.LabelId != 2).Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = false }).Distinct().ToList();
             List<SelectListItem> osrListItems = new List<SelectListItem>();
             osrListItems.AddRange(osrListItems1);
             osrListItems.AddRange(osrListItems2);
-            osrListItems=osrListItems.OrderBy(x => x.Value).ToList();
+            osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
-            ViewBag.OSRddl = new SelectList(osrListItems,"Value","Text", osrListItems1[0].Value).Distinct();
+            ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
 
             return View(todo);
-            
+
 
         }
 
@@ -875,14 +878,14 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Description,CreatedDate,Task,Status,FollowUp,Group,Owner")] string OSRddl, Label todo)
         {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(todo).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-             return View(todo);
-         
+            if (ModelState.IsValid)
+            {
+                db.Entry(todo).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(todo);
+
         }
 
         public ActionResult CostCodeReport()
@@ -893,7 +896,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public ActionResult RunCostCodeReport(string StartDate,string EndDate)
+        public ActionResult RunCostCodeReport(string StartDate, string EndDate)
         {
             //do sth ....
             return View();
@@ -912,7 +915,7 @@ namespace WebApplication1.Controllers
 
             string myKeywords = "mvc,code,development";
             var myKeywords2 = myKeywords.Split(',');
-            var relatedQuestions=new List<Search>();
+            var relatedQuestions = new List<Search>();
             foreach (var i in myKeywords2)
             {
                 relatedQuestions.AddRange(db.Search.Where(m => m.Keyword.Contains(i)).ToList());
@@ -1017,21 +1020,21 @@ namespace WebApplication1.Controllers
         {
 
 
-           //第一种方法
-              //   //var path = @"http://localhost:50638/api/GetFile/2";
-              //  var path = @"D://";
-              //  var file = Path.Combine(path, "test.pdf");  
-              ////  var url = @Url.Content("http://localhost:50638/api/GetFile/2");
-              //  file = Path.GetFullPath(file);
-              //  //if (!file.StartsWith(path))
-              //  //{
-              //  //    // someone tried to be smart and sent 
-              //  //    // ?filename=..\..\creditcard.pdf as parameter
-              //  //    throw new HttpException(403, "Forbidden");
-              //  //}
-              //  return File(file, "application/pdf");
+            //第一种方法
+            //   //var path = @"http://localhost:50638/api/GetFile/2";
+            //  var path = @"D://";
+            //  var file = Path.Combine(path, "test.pdf");  
+            ////  var url = @Url.Content("http://localhost:50638/api/GetFile/2");
+            //  file = Path.GetFullPath(file);
+            //  //if (!file.StartsWith(path))
+            //  //{
+            //  //    // someone tried to be smart and sent 
+            //  //    // ?filename=..\..\creditcard.pdf as parameter
+            //  //    throw new HttpException(403, "Forbidden");
+            //  //}
+            //  return File(file, "application/pdf");
 
-              //第二种方法
+            //第二种方法
             var fileStream = new FileStream("D://" + "test.pdf",
                                      FileMode.Open,
                                      FileAccess.Read
@@ -1048,7 +1051,7 @@ namespace WebApplication1.Controllers
             var file = Path.Combine(path, "test.pdf");
             file = Path.GetFullPath(file);
             string mimeType = "application/pdf";
-    Response.AppendHeader("Content-Disposition", "inline; filename=" + "test.pdf");
+            Response.AppendHeader("Content-Disposition", "inline; filename=" + "test.pdf");
             return File(file, mimeType);
         }
 
@@ -1125,12 +1128,12 @@ namespace WebApplication1.Controllers
                 });
             }
 
-       
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult storeProcedure2()//调用存储过程
         {
-         
+
             string sql = "kd_selFoodItemsSearch";
             ////string sql = "EXEC kd_selFoodItemsSearch @OrgID,@SearchText";
 
@@ -1149,13 +1152,13 @@ namespace WebApplication1.Controllers
         {
 
             string sql = "kd_selFoodItem";
-        
+
             SqlCommand command = new SqlCommand();
             command.CommandText = sql;
             command.Parameters.AddWithValue("@OrgID", 2);
             SqlParameter parOutput = command.Parameters.Add("@fid", SqlDbType.Int);  //定义输出参数  
             SqlParameter parOutput2 = command.Parameters.Add("@cid", SqlDbType.Int);  //定义输出参数  
-            SqlParameter parOutput3 = command.Parameters.Add("@fit", SqlDbType.NVarChar,50);  //定义输出参数  
+            SqlParameter parOutput3 = command.Parameters.Add("@fit", SqlDbType.NVarChar, 50);  //定义输出参数  
             parOutput.Direction = ParameterDirection.Output;  //参数类型为Output  
             parOutput2.Direction = ParameterDirection.Output;  //参数类型为Output  
             parOutput3.Direction = ParameterDirection.Output;  //参数类型为Output  
@@ -1183,7 +1186,8 @@ namespace WebApplication1.Controllers
 
                 while (reader.Read())
                 {
-                    FoodViewModel e = new FoodViewModel {
+                    FoodViewModel e = new FoodViewModel
+                    {
                         FoodID = (int)reader["FoodID"],
                         CategoryID = (int)reader["CategoryID"],
                         FoodItem = reader["FoodItem"].ToString()
@@ -1211,13 +1215,13 @@ namespace WebApplication1.Controllers
             }
             return list;
         }
-    
-    #endregion
 
-    #region Export Excel Create/ADD DELETE DOCUMENT
+        #endregion
+
+        #region Export Excel Create/ADD DELETE DOCUMENT
 
 
-    public ActionResult Index_Export()
+        public ActionResult Index_Export()
         {
             return View();
         }
@@ -1409,7 +1413,7 @@ namespace WebApplication1.Controllers
         //        return stream;
         //    }
         //}
-        
+
         //public ActionResult Refresh()
         //{
         //    //ViewBag.students = ImportExportTool.GetStudents();
@@ -1555,18 +1559,18 @@ namespace WebApplication1.Controllers
 
         public ActionResult TextEdit(int? id) //https://forums.asp.net/t/2141735.aspx
         {
-            
+
             Column model;
             if (id == null)
             {
-                 model = new Column();
+                model = new Column();
             }
             else
             {
-                 model = db.Column.Find(id);
+                model = db.Column.Find(id);
             }
-          
-           
+
+
 
             return View(model);
         }
@@ -1577,11 +1581,11 @@ namespace WebApplication1.Controllers
         {
             var model = new Column();
             model.Column5 = Column5;
-         
-                db.Column.Add(model);
-                db.SaveChanges();
-                // return RedirectToAction("Index");
-          
+
+            db.Column.Add(model);
+            db.SaveChanges();
+            // return RedirectToAction("Index");
+
 
             //return View("TextEdit");
 
@@ -1596,7 +1600,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult edit_journal_entry(int id,string authName)
+        public ActionResult edit_journal_entry(int id, string authName)
         {
             // var list = db.Author.ToList();
 
@@ -1623,7 +1627,7 @@ namespace WebApplication1.Controllers
 
         public class ListStrViewModel
         {
-            public string  field1 { get; set; }
+            public string field1 { get; set; }
             public string field2 { get; set; }
 
             public string field3 { get; set; }
@@ -1645,12 +1649,12 @@ namespace WebApplication1.Controllers
             ViewBag.selectlist = selectlist;
 
             List<ListStrViewModel> list2 = new List<ListStrViewModel>();
-            list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" } );
+            list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" });
             list2.Add(new ListStrViewModel() { field1 = "bb", field2 = "bb", field3 = "bb" });
             list2.Add(new ListStrViewModel() { field1 = "cc", field2 = "cc", field3 = "cc" });
 
-  
-           
+
+
             List<String[]> addresses = new List<String[]>();
             String[] addressesArr = new String[3];
             addressesArr[0] = "zero";
@@ -1698,9 +1702,9 @@ namespace WebApplication1.Controllers
                 list2 = new List<ListStrViewModel>();
                 list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" });
 
-              
 
-                
+
+
             }
             else
             {
@@ -1716,12 +1720,12 @@ namespace WebApplication1.Controllers
                 list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" });
                 list2.Add(new ListStrViewModel() { field1 = "bb", field2 = "bb", field3 = "bb" });
                 list2.Add(new ListStrViewModel() { field1 = "cc", field2 = "cc", field3 = "cc" });
-           
+
             }
             ViewBag.list = list2;
             return View(list2);
 
-           // return Json(11, JsonRequestBehavior.AllowGet);
+            // return Json(11, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -1781,7 +1785,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult AddDeleteRow()
         {
-            
+
 
             var options = new List<Label>();
 
@@ -1790,7 +1794,7 @@ namespace WebApplication1.Controllers
             options.Add(new Label() { LabelId = 12, LabelName = "lab2" });
 
             options.Add(new Label() { LabelId = 13, LabelName = "lab3" });
-           
+
             return View(options);
 
         }
@@ -1818,7 +1822,7 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 le_leaveApplication.LeaveDurationDays = (int)(le_leaveApplication.LeaveTo - le_leaveApplication.LeaveFrom).TotalDays + 1;
-                
+
                 // minus weekend and public holidays.
                 //ViewBag.list = le_leaveApplication as le_leaveApplication;
                 //return View("ApplyLeavePreview", le_leaveApplication);
@@ -1827,7 +1831,7 @@ namespace WebApplication1.Controllers
 
             }
 
-           
+
             return RedirectToAction("ApplyLeave");
         }
 
@@ -1896,9 +1900,9 @@ namespace WebApplication1.Controllers
             //options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
             options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName = "ab1", Dateofbirth = Convert.ToDateTime("2018-01-01") });
 
-            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Female), EnumName="ab2", Dateofbirth = Convert.ToDateTime("2017-06-01") });
+            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Female), EnumName = "ab2", Dateofbirth = Convert.ToDateTime("2017-06-01") });
 
-            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab3", Dateofbirth = Convert.ToDateTime("2018-06-02") });
+            options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.Male), EnumName = "ab3", Dateofbirth = Convert.ToDateTime("2018-06-02") });
 
             var enumlist = options[1];
 
@@ -1928,10 +1932,10 @@ namespace WebApplication1.Controllers
             return View(enumlist);
         }
         [HttpPost]
-        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox, TEnum tEnum,string Dateofbirth)
+        public ActionResult MultipleSelect(List<string> fruit, List<string> fruitListbox, TEnum tEnum, string Dateofbirth)
         {
 
-        
+
             var list = new List<SelectListItem>
             {
                 new SelectListItem{Text="Apple",Value="1"},
@@ -1958,7 +1962,7 @@ namespace WebApplication1.Controllers
 
         public class ImportExcelViewModel
         {
-  
+
             public string email { get; set; }
             public string RowNb { get; set; }
 
@@ -1996,7 +2000,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                
+
                 if (Request.Files.Count > 0)
                 {
                     try
@@ -2026,7 +2030,7 @@ namespace WebApplication1.Controllers
                                     /********************************Validtae*************************/
                                     var importExcelRow = new ImportExcelViewModel
                                     {
-                                       // email = workSheet.Cells[rowIterator, 1].Value.ToString(),
+                                        // email = workSheet.Cells[rowIterator, 1].Value.ToString(),
                                         RowNb = workSheet.Cells[rowIterator, 2].Value.ToString()
 
 
@@ -2048,14 +2052,14 @@ namespace WebApplication1.Controllers
                                         //}
                                         //else
                                         //{
-                                            //save records of error  that are not saved
-                                            var errorImportExcelRow = new ImportExcelViewModel
-                                            {
-                                                email = importExcelRow.email,
-                                                RowNb = importExcelRow.RowNb
+                                        //save records of error  that are not saved
+                                        var errorImportExcelRow = new ImportExcelViewModel
+                                        {
+                                            email = importExcelRow.email,
+                                            RowNb = importExcelRow.RowNb
 
-                                            };
-                                            errorLstImportExcel.Add(errorImportExcelRow);
+                                        };
+                                        errorLstImportExcel.Add(errorImportExcelRow);
                                         //}
                                     }
 
@@ -2065,7 +2069,7 @@ namespace WebApplication1.Controllers
                                 else
                                 {
                                     //something wrong in validation
-                                    return Json(false,JsonRequestBehavior.AllowGet);
+                                    return Json(false, JsonRequestBehavior.AllowGet);
                                 }
 
 
@@ -2113,7 +2117,7 @@ namespace WebApplication1.Controllers
                             return Json(false, JsonRequestBehavior.AllowGet);
 
                         }
-                        return Json(false,JsonRequestBehavior.AllowGet);
+                        return Json(false, JsonRequestBehavior.AllowGet);
                     }
                     catch (Exception e)
                     {
@@ -2161,7 +2165,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        
+
         public ActionResult MyMap()
         {
 
@@ -2229,7 +2233,7 @@ namespace WebApplication1.Controllers
             var img = db.Label.SingleOrDefault(x => x.LabelId == id);
             return Json(img.LabelName, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Pic_Edit(int? ImageId=1)
+        public ActionResult Pic_Edit(int? ImageId = 1)
         {
             if (ImageId == null)
             {
@@ -2282,7 +2286,7 @@ namespace WebApplication1.Controllers
             using (XLWorkbook wb = new XLWorkbook())
             {
                 wb.Worksheets.Add(dt);
-               // var workbook = new XLWorkbook();
+                // var workbook = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Merge Cells");
 
                 // Merge a row
@@ -2336,8 +2340,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult StoredProcedure_Index()
         {
-            
-                DataTable _DataTable = GenerateDataTable();
+
+            DataTable _DataTable = GenerateDataTable();
             SqlParameter Parameter = new SqlParameter("@param1", _DataTable);
             Parameter.TypeName = "dbo.UsersTableType";
             db.Database.ExecuteSqlCommand("exec User_Insert @param1", Parameter);
@@ -2410,7 +2414,7 @@ namespace WebApplication1.Controllers
 
                 var fileName = Path.GetFileName(file2.FileName);
 
-              //  var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                //  var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                 var path = Path.Combine(Server.MapPath("/images/"), fileName);
 
                 file2.SaveAs(path);
@@ -2425,11 +2429,11 @@ namespace WebApplication1.Controllers
             if (file != null)
             {
                 file.SaveAs(Server.MapPath("/images/" + file.FileName));
-                return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             }
-            return Json(new { success = false}, JsonRequestBehavior.AllowGet);
-           
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+
         }
 
         #endregion
@@ -2437,7 +2441,7 @@ namespace WebApplication1.Controllers
         #region DropDownList 级联 array to SelectList  //https://forums.asp.net/t/2142902.aspx?Fill+two+relative+drop+down+list
         public class DemoViewModel
         {
-          
+
             public string Text { get; set; }
             public string Value { get; set; }
             public string keyword { get; set; }
@@ -2519,7 +2523,7 @@ namespace WebApplication1.Controllers
             //                where s.id != 100 && list11.Any(_=>_==s.id.ToString())
             //                select s).ToList();
             #endregion
-       
+
             //foreach (var item in list11)
             //{
             //    //querylist1 = list2.Where(p => p.Value == item).ToList();         
@@ -2577,12 +2581,12 @@ namespace WebApplication1.Controllers
             public int LabelId { get; set; }
             public string LabelName { get; set; }
 
-            public string  CityName { get; set; }
+            public string CityName { get; set; }
 
 
         }
 
-  
+
         public ActionResult SampleMatchSummary_Index()
         {
             ViewBag.CasteId = new SelectList(db.Label.ToList(), "LabelId", "LabelName");
@@ -2590,7 +2594,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult SampleMatchSummary_Index( int[] castemultilist, string LanguageId, int? page)
+        public ActionResult SampleMatchSummary_Index(int[] castemultilist, string LanguageId, int? page)
         {
             var profilelist2 = new List<mixViewModel>();
             foreach (var item in castemultilist)
@@ -2611,19 +2615,19 @@ namespace WebApplication1.Controllers
                 //              ).ToList<ViewProfileVM>().ToPagedList(page ?? 1, 10);
 
                 var profilelist = (from l in db.Label.ToList()
-                                     join c in db.Cities.ToList() on l.LabelId equals c.CountryId
-                                     where  l.LabelId==item
-                                     select new mixViewModel()
-                                     {
-                                         LabelId = l.LabelId,
-                                         LabelName = l.LabelName,
-                                         CityName = c.CityName
-                                     }).ToList();
-               profilelist2.AddRange(profilelist);
+                                   join c in db.Cities.ToList() on l.LabelId equals c.CountryId
+                                   where l.LabelId == item
+                                   select new mixViewModel()
+                                   {
+                                       LabelId = l.LabelId,
+                                       LabelName = l.LabelName,
+                                       CityName = c.CityName
+                                   }).ToList();
+                profilelist2.AddRange(profilelist);
 
             }
             ViewBag.profilelist = profilelist2.ToPagedList(page ?? 1, 5);
- 
+
             //var list = db.Cities.Where(_ => _.CountryId == castemultilist.).ToList();
             ViewBag.CasteId = new SelectList(db.Label.ToList(), "LabelId", "LabelName");
             //int castelist1 = Convert.ToInt32(castemultilist);
@@ -2672,7 +2676,7 @@ namespace WebApplication1.Controllers
         #region Multifilter
         public ActionResult FilterColumn(string filter)
         {
-          
+
             return View();
         }
         #endregion
@@ -2695,7 +2699,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Relationships()
         {
-            
+
             //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             var partialResult4 = (from gp in db.Groups
                                   join gpp in db.GroupProperties
@@ -2717,7 +2721,40 @@ namespace WebApplication1.Controllers
         }
         #endregion
 
+
+        #region kendo treeview
+        public class kendoTreeviewVM
+        {
+            public int Id { get; set; }
+            public int? IdParent { get; set; }
+            public int? Level { get; set; }
+            public string Name { get; set; }
+
+        }
+        public ActionResult kendo_treeview()
+        {
+
+
+            //var products =
+            //   RepositoryFunctions.ProductsRepository.GetProducts().OrderBy(p => p.Name).ToList();
+            //return PartialView(products);
+
+            // return null;
+
+            var list = new List<kendoTreeviewVM>
+            {
+                new kendoTreeviewVM{Id=1,IdParent=0,Level=0,Name="Product 1"},
+                new kendoTreeviewVM{Id=2,IdParent=1,Level=1,Name="Item 1"},
+                new kendoTreeviewVM{Id=3,IdParent=1,Level=1,Name="Item 2"},
+                new kendoTreeviewVM{Id=4,IdParent=2,Level=2,Name="Sub Item 1"}
+
+            };
+            return View(list);
+        }
+        #endregion
+
     }
+
 }
 
 

@@ -75,11 +75,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Close.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="image\test.jpg" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Close.aspx.cs">
+      <DependentUpon>Close.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Close.aspx.designer.cs">
+      <DependentUpon>Close.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "GetCurrentTime";
+}
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />*@
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+
+
+<style>
+        .buttonload {
+            background-color: #4CAF50; /* Green background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 12px 24px; /* Some padding */
+            font-size: 16px; /* Set a font-size */
+        }
+
+        /* Add a right margin to each icon */
+        .fa {
+            margin-left: -12px;
+            margin-right: 8px;
+        }
+    </style>
+<button id="btnSubmit" class="buttonload" onclick="return ShowCurrentTime()">
+    Submit
+</button>
+
+<button type="button" class="btn btn-primary" data-loading-text="Loading...">Loading state</button>
+<div id="dvTime"></div>
+
+<div style="margin:3em;">
+    <button type="button" class="btn btn-primary btn-lg " id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Submit Order</button>
+    <br>
+    <br>
+    <button type="button" class="btn btn-primary btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Submit Order</button>
+</div>
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('.btn').on('click', function () {
+        var $this = $(this);
+        $this.button('loading');
+        //setTimeout(function () {
+        //    $this.button('reset');
+        //}, 8000);
+        $.ajax({
+            url: "GetCurrentTime2/Home",
+            type: 'GET',
+            //async: false,
+            //data: '{name: "Mudassar" }',
+            success: function (response) {
+                //$("#btnSubmit").html('Submit');
+                //$("#dvTime").html(response.flag.d);
+                $this.button('reset');
+            }
+        })
+    });
+
+    function ShowCurrentTime() {
+        $("#btnSubmit").html('<i class="fa fa-spinner fa-spin"></i>Loading');
+        //$.ajax({
+        //    type: "POST",
+        //    url: "Home/GetCurrentTime2",
+        //    data: '{name: "Mudassar" }',
+        //    //contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {
+        //        $("#btnSubmit").html('Submit');
+        //        $("#dvTime").html(response.d);
+        //    },
+        //    failure: function (response) {
+        //        alert(response.d);
+        //    }
+
+
+        //});
+
+        $.ajax({
+            url: "GetCurrentTime2/Home",
+            type: 'GET',
+            //async: false,
+            //data: '{name: "Mudassar" }',
+            success: function (response) {
+                $("#btnSubmit").html('Submit');
+                $("#dvTime").html(response.flag.d);
+            }
+        })
+        return false;
+    }
+</script>
+
