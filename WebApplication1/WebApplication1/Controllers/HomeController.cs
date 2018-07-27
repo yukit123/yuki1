@@ -72,6 +72,24 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
+            #region Regex
+            string studentinfo = "Student Info : \n[]Student Attendance \n[]Student Lunch Time\n[]Student Play time\n[]Student Library time, \nStudent Class room Info : \n[]Maths Class Time \n[]Physics Class Time \n[]GK Class Time \n\nFinal Report";
+            List<string> pattern = new List<string>();
+            pattern.Add("\\[\\]");
+            string[] studentRecord = null;
+
+            try
+            {
+                if (studentinfo != null && pattern != null)
+                {
+                    studentRecord = Regex.Split(studentinfo, @"" + pattern[0] + "", RegexOptions.IgnoreCase).Where(s => s.Contains(pattern[0]) && s != string.Empty).ToArray().Select(p => p.Replace(pattern[0], string.Empty)).ToArray();
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            #endregion
             //db.Blogs.FirstOrDefault();
             //db.Blogs.ToList()
             //BolgViewModel vm = new BolgViewModel();
@@ -138,6 +156,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Index(string[] Number)
         {
+            
             string strConn = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
             // string sqlstr = "INSERT INTO Table (Number) VALUES (@Number)";
 
@@ -1627,6 +1646,7 @@ namespace WebApplication1.Controllers
 
         public class ListStrViewModel
         {
+            public int Id { get; set; }
             public string field1 { get; set; }
             public string field2 { get; set; }
 
@@ -1634,8 +1654,9 @@ namespace WebApplication1.Controllers
             //public List<SelectListItem> dropdownlist { get; set; }
 
         }
-        public ActionResult Webgrid2()//https://forums.asp.net/t/2132883.aspx
+        public ActionResult Webgrid2(/*int page = 1*/)//https://forums.asp.net/t/2132883.aspx
         {
+            
             ViewBag.Message = "Your contact page.";
             //var list = db.Label.ToList();
 
@@ -1649,9 +1670,13 @@ namespace WebApplication1.Controllers
             ViewBag.selectlist = selectlist;
 
             List<ListStrViewModel> list2 = new List<ListStrViewModel>();
-            list2.Add(new ListStrViewModel() { field1 = "aa", field2 = "aa", field3 = "aa" });
-            list2.Add(new ListStrViewModel() { field1 = "bb", field2 = "bb", field3 = "bb" });
-            list2.Add(new ListStrViewModel() { field1 = "cc", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id=1,field1 = "aa1", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id=2,field1 = "bb2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id=3,field1 = "cc3", field2 = "cc", field3 = "cc" });
+
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "bb5", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "cc6", field2 = "cc", field3 = "cc" });
 
 
 
@@ -1672,8 +1697,11 @@ namespace WebApplication1.Controllers
 
             //addresses.Add("cc");
 
+            #region 无效 在这个例子中
+            // int skip = page != 0 ? (page - 1) : 0;
 
-
+            //list2 = list2.OrderBy(_ => _.Id).Skip(skip * 1).Take(1).ToList();
+            #endregion
 
             ViewBag.list = list2;
             ViewBag.addresses = addresses.ToList();

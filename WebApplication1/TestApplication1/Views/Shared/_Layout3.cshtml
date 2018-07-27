@@ -10,8 +10,13 @@
             e.preventDefault();
             $("#wrapper").toggleClass("active");
         });
+        $(function () {
+       
+                document.getElementById("demo").innerHTML = "SOME TEXTXXXXXXXXXXXXXXX";
+         
+        })
     </script>
-    <style>
+    @*<style>
         .row {
             margin-left: 0px;
             margin-right: 0px;
@@ -146,26 +151,28 @@
             }
 
         media (max-width:767px) {
-            #wrapper {
-                padding-left: 70px;
+            #wrapper
+
+        {
+            padding-left: 70px;
+            transition: all .4s ease 0s;
+        }
+
+        #sidebar-wrapper {
+            left: 70px;
+        }
+
+        #wrapper.active {
+            padding-left: 150px;
+        }
+
+            #wrapper.active #sidebar-wrapper {
+                left: 150px;
+                width: 150px;
                 transition: all .4s ease 0s;
             }
-
-            #sidebar-wrapper {
-                left: 70px;
-            }
-
-            #wrapper.active {
-                padding-left: 150px;
-            }
-
-                #wrapper.active #sidebar-wrapper {
-                    left: 150px;
-                    width: 150px;
-                    transition: all .4s ease 0s;
-                }
         }
-    </style>
+    </style>*@
 </head>
 
 <div id="wrapper" class="active">
@@ -197,4 +204,5 @@
     </div>
 
 </div>
+@Html.Partial("_LoginPartial")
 </html>

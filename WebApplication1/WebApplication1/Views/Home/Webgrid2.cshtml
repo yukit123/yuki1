@@ -1,7 +1,6 @@
 ﻿@*@model List<WebApplication1.Controllers.HomeController.ListStrViewModel>*@
     @{ 
-
-        var grid = new WebGrid(source: ViewBag.list);
+        
         var g = new WebGrid(source: ViewBag.addresses);
 
     }
@@ -40,19 +39,23 @@
 
     </div>
     @{
+        var grid = new WebGrid(source: ViewBag.list, canPage: true, rowsPerPage: 1);
+        grid.Pager(WebGridPagerModes.NextPrevious);
         @MvcHtmlString.Create(
-                     grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
-                     columns: grid.Columns(
+    @grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
+columns: grid.Columns(
 
-                           grid.Column("field1", "field1xxx", canSort: false),
-                           grid.Column("field2", "field2xx", canSort: false),
-                           grid.Column("field3", "field3xx", canSort: false),
-                           grid.Column("dropdownlist", "Select", canSort: false,
-                           format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>))
+  grid.Column("field1", "field1xxx", canSort: false),
+  grid.Column("field2", "field2xx", canSort: false),
+  grid.Column("field3", "field3xx", canSort: false),
+  grid.Column("dropdownlist", "Select", canSort: false,
+  format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>))
 
-                       ).ToHtmlString()
+        //);
+        ).ToHtmlString()
 
-           )
+
+        )
 
 
     }
