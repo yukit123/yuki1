@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="jquery-ui.css">-->
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+    <!--<script src="jquery-1.12.4.js"></script>-->
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <!--<script src="jquery-ui.js"></script>-->
+    <script src="Scripts/jquery-ui.js"></script>
+</head>
+<body>
+    <div align="center" id="container">
+        eWeb Products <br>
+        <datalist id="languages" style="overflow-y: auto!important"></datalist>
+        Filter
+        <select name="filter" id="filter">
+            <option value="All" selected="selected">All</option>
+            <option value="Product Name">Product Name</option>
+            <option value="Product Code">Product Code</option>
+            <option value="Product Description">Product Description</option>
+        </select>
+        <input type="text" list="languages" data-list="language" data-listid="languages" name="language" size="100" />
+        <br> <br>
+    </div>
+    <script>
+		$(document).ready(function()
+        {
+            var DataList = [];
+			BuildDataList();
+			DataList["language"] = DataList;
+
+            $("input").on("keypress", function () {
+				populate($(this).data());
+            });
+
+			$("select").on("change", function() {
+				BuildDataList();
+				DataList["language"] = DataList;
+				populate($(this).data());
+			});
+
+			function populate(data)
+			{
+				var element = $('#' + data.listid);
+				var items = DataList[data.list];
+
+				element.find('option').remove().end();
+
+				$.each(items, function (index, value)
+				{
+					element.append('<option value = "' + value + '"/>');
+				});
+			}
+
+			function BuildDataList() {
+				$.ajax({
+					type: "GET",
+					url: "XML_F52E2B61-18A1-11d1-B105-00805F49916B1.xml",
+					cache: false,
+					dataType: "xml",
+					success: function(xml) {
+						 var filter = $('#filter :selected').text();
+
+						 //Empty Auto Complete List
+						 //DataList["language"] = [];
+
+						 switch (filter)
+						 {
+							 case "All":
+
+								$(xml).find('Products').each(function()
+								 {
+									//Add Product Names To List
+									$(this).find("prd_name").each(function(){
+										var name = $(this).text();
+										 DataList.push(String(name));
+									});
+
+									//Add Product Codes To List
+									$(this).find("prd_code").each(function(){
+										var code = $(this).text();
+										 DataList.push(String(code));
+									});
+
+									//Add Product Descriptions To List
+									$(this).find("prd_description").each(function(){
+										var description = $(this).text();
+										 DataList.push(String(description));
+									});
+								});
+							 break;
+							case "Product Name":
+								//Add Product Names To List
+								$(xml).find('Products').each(function()
+								 {
+									$(this).find("prd_name").each(function(){
+										var name = $(this).text();
+										 DataList.push(String(name));
+									});
+								});
+							break;
+							case "Product Code":
+								//Add Product Codes To List
+								$(xml).find('Products').each(function()
+								 {
+									$(this).find("prd_code").each(function(){
+										var code = $(this).text();
+										 DataList.push(String(code));
+									});
+								});
+							break;
+							case "Product Description":
+								//Add Product Descriptions To List
+								$(xml).find('Products').each(function()
+								 {
+									$(this).find("prd_description").each(function(){
+										var description = $(this).text();
+										 DataList.push(String(description));
+									});
+								});
+							break;
+							default:
+								alert("Data Filtering Error!");
+							break;
+						 }
+
+						//Get Data List Count
+						var counter = DataList["language"].length;
+						alert(counter);
+					}
+				});
+			}
+		});
+    </script>
+</body>
+</html>

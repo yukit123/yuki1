@@ -70,7 +70,7 @@
                     caption: 'JQgrid DEMO',
                     emptyrecords: 'No records',
                     rowNum: 10,
-                    editurl: '/Home/EditCustomer',
+                    editurl: '/Home/EditCustomer',//$("#Demogrid").jqGrid('saveRow', "1");//edit自带按钮
                     pager: jQuery('#pager'),
                     rowList: [10, 20, 30, 40],
 
@@ -87,17 +87,18 @@
                 })
                 .navGrid('#pager',
                 {
-                    edit: true,
-                    add: true,
-                    del: true,
-                    //search: true,
-                    refresh: true,
-                    closeAfterSearch: true
+                    //edit: true,
+                    //add: true,
+                    //del: true,
+                    ////search: true,
+                    //refresh: true,
+                    //closeAfterSearch: true
+                    edit: true, add: false, del: true, search: false 
                 }
                 //{
                 //    // edit option
                 //    zIndex: 100,
-                //    url: '/Home/EditCustomer',
+                //    url: '/Home/EditCustomer',//自带按钮
                 //    closeOnEscape: true,
                 //    closeAfterEdit: true,
                 //    recreateForm: true,
