@@ -1657,5 +1657,124 @@ namespace TestApplication1.Controllers
 
 
         }
+
+        #region convert html to pdf, convert html to string
+        public class RenderViewToStringVM //Google：css file instead of hard code when convert html to string  https://forums.asp.net/p/2144785/6222115.aspx?p=True&t=636687605754101009
+        {
+            public int ID { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string FavouriteGames { get; set; }
+        }
+
+        public static class StringUtilities
+        {
+            public static string RenderViewToString(System.Web.Mvc.ControllerContext context, string viewPath, object model = null, bool partial = false)
+            {
+                // first find the ViewEngine for this view
+                ViewEngineResult viewEngineResult = null;
+                if (partial)
+                {
+                    viewEngineResult = ViewEngines.Engines.FindPartialView(context, viewPath);
+                }
+                else
+                {
+                    viewEngineResult = ViewEngines.Engines.FindView(context, viewPath, null);
+                }
+
+                if (viewEngineResult == null)
+                {
+                    throw new FileNotFoundException("View cannot be found.");
+                }
+
+                // get the view and attach the model to view data
+                var view = viewEngineResult.View;
+                context.Controller.ViewData.Model = model;
+
+                string result = null;
+
+                using (var sw = new StringWriter())
+                {
+                    var ctx = new ViewContext(context, view, context.Controller.ViewData, context.Controller.TempData, sw);
+                    view.Render(ctx, sw);
+                    result = sw.ToString();
+                }
+
+                return result.Trim();
+            }
+        }
+
+      
+
+        public ActionResult RenderViewToString_Index()
+        {
+
+            //        List<string> css = new List<string>()
+            //{
+            //    "Student.css",
+            //};
+
+            //        IList<string> cssTags = new List<string>();
+
+            //        StringBuilder cssTag = new StringBuilder();
+
+            //        css.ForEach(c =>
+            //        {
+            //            cssTag.AppendLine(string.Format(@"<link href=""{0}"" rel=""stylesheet"" type=""text/css"" />", HttpUtility.HtmlEncode(c)));
+            //        });
+
+            //        ViewData["css"] = cssTag.ToString();
+
+            List<RenderViewToStringVM> SVTSvm = new List<RenderViewToStringVM>
+            {
+            new RenderViewToStringVM {ID=1,FirstName="Joy", LastName="Roy", FavouriteGames="Hocky"},
+            new RenderViewToStringVM {ID=2,FirstName="Raja", LastName="Basu", FavouriteGames="Cricket"},
+            new RenderViewToStringVM {ID=3,FirstName="Arijit", LastName="Banerjee",FavouriteGames="Foot Ball"},
+            new RenderViewToStringVM {ID=4,FirstName="Dibyendu", LastName="Saha", FavouriteGames="Tennis"},
+            new RenderViewToStringVM {ID=5,FirstName="Sanjeeb", LastName="Das", FavouriteGames="Hocky"},
+            };
+
+
+            var viewToString = StringUtilities.RenderViewToString(ControllerContext, "~/Views/Home/RenderViewToString_Index.cshtml", SVTSvm, true);
+
+            // return resulted pdf document
+            FileResult fileResult = new FileContentResult(PdfSharpConvert(viewToString), "application/pdf");
+            fileResult.FileDownloadName = "Document.pdf";
+            return fileResult;
+
+            //return View();
+
+        }
+        public static Byte[] PdfSharpConvert(String html)
+        {
+            Byte[] res = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var pdf = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(html, PdfSharp.PageSize.A4);
+                pdf.Save(ms);
+                res = ms.ToArray();
+            }
+            return res;
+        }
+
+        #endregion
+
+        #region upload
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(HttpPostedFileBase file, string namee, string username, string password, string emaill)
+        {
+      
+
+            return View();
+        }
+        #endregion
     }
+
+
 }

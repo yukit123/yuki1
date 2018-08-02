@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication1.Models.Employee>
+﻿@*@model IEnumerable<WebApplication1.Models.Employee>*@
 @{
     ViewBag.Title = "Index";
 }
@@ -6,7 +6,7 @@
 
 @*<div class="modal fade" id="myModal">
 
-</div>*@
+    </div>*@
 <div id='myModal' class='modal'>
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,50 +15,55 @@
     </div>
 
 </div>
-<table class="table">
-    <th>FirstName</th>
-    <th>LastName</th>
-    <th>Salary</th>
-    <th>Department</th>
-    <th>Position</th>
-    <th>ViewDetails</th>
-    <th>Details</th>
-    @foreach (var item in Model)
-    {
+@*<table class="table">
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Salary</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>ViewDetails</th>
+        <th>Details</th>
+        @foreach (var item in Model)
+        {
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ViewDetails)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })|
-                    @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.id })
-                    @Html.ActionLink("Details2", "Details", new { id = item.id })*@
-                @*<input type="button" value="Details2" id="Details2" onclick="doModel(@item.Id)" />*@
-                <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewDetails)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })|
+                        @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.id })
+                        @Html.ActionLink("Details2", "Details", new { id = item.id })
+                    <input type="button" value="Details2" id="Details2" onclick="doModel(@item.Id)" />
+                    <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
 
-            </td>
-        </tr>
-    }
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>*@
+
+<a href="javascript:void(0);" class="anchorDetail" data-id="1">Send id=1</a>
+<a href="javascript:void(0);" class="anchorDetail" data-id="3">Send id=3</a>
+
+
 @*@section scripts{
         <script src="http://localhost:60112/Scripts/bootstrap.js"></script>
         <script>
@@ -93,12 +98,12 @@
 
 @section scripts
 {
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>*@
     <script>
         var TeamDetailPostBackURL = '/Authors/myModal';
-      
+
         $(function () {
             $(".anchorDetail").click(function () {
                 var $buttonClicked = $(this);

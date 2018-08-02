@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <!--<video width="400" controls>
+        <source src="mov_bbb.mp4" type="video/mp4">
+        <source src="mov_bbb.ogg" type="video/ogg">
+
+        Your browser does not support HTML5 video.
+    </video>-->
+    <video controls="controls">
+        <source src="Content/mov_bbb.mp4" onloadedmeta='this.play()' type="video/mp4" />
+    </video>
+</body>
+</html>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/c/video.js"></script>
+<script>
+
+    //console.log("Downloading video...hellip;Please wait...")
+    //var xhr = new XMLHttpRequest();
+    //xhr.open('GET', 'BigBuck.m4v', true);
+    //xhr.responseType = 'blob';
+    //xhr.onload = function (e) {
+    //    if (this.status == 200) {
+    //        console.log("got it");
+    //        var myBlob = this.response;
+    //        var vid = (window.webkitURL || window.URL).createObjectURL(myBlob);
+    //        // myBlob is now the blob that the object URL pointed to.
+    //        var video = document.getElementById("video");
+    //        console.log("Loading video into element");
+    //        video.src = vid;
+    //        // not needed if autoplay is set for the video element
+    //        // video.play()
+    //    }
+    //}
+
+    //xhr.send();
+</script>
