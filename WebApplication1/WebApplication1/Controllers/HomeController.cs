@@ -1654,6 +1654,7 @@ namespace WebApplication1.Controllers
             //public List<SelectListItem> dropdownlist { get; set; }
 
         }
+
         public ActionResult Webgrid2(/*int page = 1*/)//https://forums.asp.net/t/2132883.aspx
         {
             
@@ -2442,7 +2443,6 @@ namespace WebApplication1.Controllers
 
                 var fileName = Path.GetFileName(file2.FileName);
 
-                //  var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                 var path = Path.Combine(Server.MapPath("/images/"), fileName);
 
                 file2.SaveAs(path);
@@ -2456,7 +2456,8 @@ namespace WebApplication1.Controllers
             var file = Request.Files[0];
             if (file != null)
             {
-                file.SaveAs(Server.MapPath("/images/" + file.FileName));
+                var fileName = Path.GetFileName(file.FileName);
+                file.SaveAs(Server.MapPath("/images/" + fileName));
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             }

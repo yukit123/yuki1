@@ -1268,6 +1268,7 @@
     <Content Include="scroll.html" />
     <Content Include="SetWidth.html" />
     <Content Include="SlideBar.html" />
+    <Content Include="table.html" />
     <Content Include="video.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
