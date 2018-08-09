@@ -1774,6 +1774,41 @@ namespace TestApplication1.Controllers
             return View();
         }
         #endregion
+
+        #region FormCollection 
+
+        public class TestModel
+        {
+            public string TestInput { get; set; }
+        }
+
+        public ActionResult FormCollection_Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult FormCollection_Index(/*FormCollection collection*/string str) //https://forums.asp.net/t/2145179.aspx
+        {
+         
+            #region 第一种方法
+            //var model = new TestModel();
+            //TryUpdateModel(model, collection); //collection["TestInput"]
+
+            //Response.Write("[" + model.TestInput + "]");
+
+            //// return Content("Success");//空白页面显示Success
+            //return View();//原页面上显示值
+            #endregion
+
+
+            #region 第一种方法
+            return Json(new { flag = str }, JsonRequestBehavior.AllowGet);
+            #endregion
+            //string name = collection["Name"];
+            //return Content("Success");
+        }
+        #endregion
     }
 
 

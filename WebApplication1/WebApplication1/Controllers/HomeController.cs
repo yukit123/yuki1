@@ -464,7 +464,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public JsonResult IsStudentExists(int? Id)
+        public JsonResult IsStudentExists(int? Id)//https://www.c-sharpcorner.com/article/remote-validation-in-mvc-5-to-check-if-username-and-email-id-exists/
         {
             var list = db.Student.ToList();
 

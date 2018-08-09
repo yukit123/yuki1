@@ -1370,6 +1370,7 @@
     <Content Include="Views\Home\GetCurrentTime.cshtml" />
     <Content Include="Views\Home\RenderViewToString_Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\FormCollection_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,54 @@
+﻿@*第一种方法*@
+@*@model TestApplication1.Controllers.HomeController.TestModel
+    @{
+        ViewBag.Title = "FormCollection_Index";
+    }
+
+    <h2>FormCollection_Index</h2>
+
+    <html>
+    <head>
+        <title>TestForm</title>
+    </head>
+    <body>
+        <div>
+            @using (Html.BeginForm())
+            {
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.TestInput)
+                </div>
+                <div class="editor-label">
+                    @Html.TextBoxFor(m => m.TestInput)
+                </div>
+                <input type="submit" value="Test Form" />
+            }
+        </div>
+    </body>
+    </html>*@
+
+
+@*第二种方法*@
+<input type="text" class="text" />
+<input type="submit" value="submit" class="Dosubmit" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".Dosubmit").click(function () {
+            var strformData = new FormData();
+            strformData.append("str", $(".text").val());
+
+            $.ajax({
+                url: "/Home/FormCollection_Index",
+                type: 'POST',
+                //cache: false,
+                contentType: false,
+                processData: false,
+                data: strformData,
+                success: function (data) {
+                    alert(data.flag);
+                }
+            });
+        });
+    });
+</script>
