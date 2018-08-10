@@ -17,7 +17,7 @@ namespace TestApplication1.Controllers
         // GET: book2
         public ActionResult Index()
         {
-            var book2s = db.book2s.Include(b => b.author2);
+            //var book2s = db.book2s.Include(b => b.author2);
             return View(db.book2s.ToList());
         }
 

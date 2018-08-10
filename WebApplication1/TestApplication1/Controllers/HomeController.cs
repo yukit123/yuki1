@@ -177,33 +177,33 @@ namespace TestApplication1.Controllers
 
             //                      }).ToList();
 
-            // partialResult5 内连接嵌套右连接 nest
-            var partialResult5 = (from Table2 in db.CountrySizes
-                                  join InnerJoin in (
-                                   from Table2 in db.AuthorModels
-                                   join Table3 in db.CountrySizes
-                                   on Table2.Id equals Table3.Id into leftJoin
-                                   from j in leftJoin.DefaultIfEmpty()
-                                   select new
-                                   {
-                                       CID = j.Id,
-                                       AID = Table2.Id,
-                                       ACC = Table2.Name,
-                                       SIZE = j.size,
-                                       NAME = j.country
-                                   }
-                                  )
-                                  on Table2.Id equals InnerJoin.AID
-                                  //where InnerJoin.AID > 1 && InnerJoin.ACC == "aaa"
-                                  where InnerJoin.CID > 1 && Equals(InnerJoin.SIZE,"aa")
-                                  orderby Table2.Id, InnerJoin.AID
-                                  select new
-                                  {
-                                      Table2.Id,
-                                      InnerJoin.NAME,
-                                      InnerJoin.AID
+            //// partialResult5 内连接嵌套右连接 nest
+            //var partialResult5 = (from Table2 in db.CountrySizes
+            //                      join InnerJoin in (
+            //                       from Table2 in db.AuthorModels
+            //                       join Table3 in db.CountrySizes
+            //                       on Table2.Id equals Table3.Id into leftJoin
+            //                       from j in leftJoin.DefaultIfEmpty()
+            //                       select new
+            //                       {
+            //                           CID = j.Id,
+            //                           AID = Table2.Id,
+            //                           ACC = Table2.Name,
+            //                           SIZE = j.size,
+            //                           NAME = j.country
+            //                       }
+            //                      )
+            //                      on Table2.Id equals InnerJoin.AID
+            //                      //where InnerJoin.AID > 1 && InnerJoin.ACC == "aaa"
+            //                      where InnerJoin.CID > 1 && Equals(InnerJoin.SIZE, "aa")
+            //                      orderby Table2.Id, InnerJoin.AID
+            //                      select new
+            //                      {
+            //                          Table2.Id,
+            //                          InnerJoin.NAME,
+            //                          InnerJoin.AID
 
-                                  }).ToList();
+            //                      }).ToList();
 
 
 
@@ -222,7 +222,7 @@ namespace TestApplication1.Controllers
             //                         }
             //                        )
             //                       join Table3 in db.CountrySizes
-        
+
             //                       on rightJoinTable.AID equals Table3.Id into leftjoin
             //                       orderby rightJoinTable.NAME, leftjoin.GroupBy(p=>p.Id)
 
@@ -233,11 +233,40 @@ namespace TestApplication1.Controllers
             //                           AID = rightJoinTable.AID, //data from Table2
             //                           SIZE = rightJoinTable.SIZE //data from Table1
             //                       }
-                                  
+
             //                       ).ToList();
 
 
-
+            var query = db.CountrySizes
+           .Join(db.AuthorModels, p => p.Id, pt => pt.Id,
+               (p, pt) => new { p, pt = pt.Name })
+           .GroupJoin(db.AuthorModels,
+               p => p.p.Id,
+               pip => pip.Id,
+               (p1, pip) => new { Products = p1, ProductInsuranceProduct = pip })
+               .SelectMany
+               (
+                   x => x.ProductInsuranceProduct.DefaultIfEmpty(),
+                   (x, y) => new
+                   {
+                       aa = x.Products.p.Id,
+                       bb = x.Products.p.country,
+                       cc = x.Products.p.size,
+                       dd = x.Products.p.value,
+                       ee = x.Products.pt,
+                        //Here I want to fill in to my custom property max for ID_ProductInsuranceProduct, MaxId is a custom property in a model
+                      MaxId = x.ProductInsuranceProduct.Max(pip => pip.Id)
+                   })
+               .GroupBy(x =>
+                 new
+                 {
+                     x.aa,
+                     x.bb,
+                     x.cc,
+                     x.dd,
+                     x.ee,
+                     x.MaxId
+                 });
             ////var list2 = db.CountrySizes.Select(p => new { p.country, p.Id, p.size }).DistinctBy(p => p.country).ToList();
             #endregion
             return View();
@@ -1788,9 +1817,9 @@ namespace TestApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult FormCollection_Index(/*FormCollection collection*/string str) //https://forums.asp.net/t/2145179.aspx
+        public ActionResult FormCollection_Index(/*FormCollection collection*/string str)
         {
-         
+
             #region 第一种方法
             //var model = new TestModel();
             //TryUpdateModel(model, collection); //collection["TestInput"]
@@ -1801,10 +1830,16 @@ namespace TestApplication1.Controllers
             //return View();//原页面上显示值
             #endregion
 
+            #region Request.Params
+            //var ItemValue = Request["ProdID"];
+            //var ParamsValue = Request.Params["ProdID"];
+            #endregion
 
             #region 第一种方法
             return Json(new { flag = str }, JsonRequestBehavior.AllowGet);
             #endregion
+
+              return View();
             //string name = collection["Name"];
             //return Content("Success");
         }
