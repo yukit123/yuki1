@@ -79,7 +79,7 @@ namespace TestApplication1.Controllers
         }
 
         // GET: book2/Edit/5
-        public ActionResult Edit(int? Id)
+        public ActionResult Edit(int Id,string str)
         {
             if (Id == null)
             {

@@ -75,13 +75,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BootStrap Validation.aspx" />
     <Content Include="Close.aspx" />
     <Content Include="Global.asax" />
     <Content Include="image\test.jpg" />
+    <Content Include="modal popup.aspx" />
+    <Content Include="modal popup2.aspx" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BootStrap Validation.aspx.cs">
+      <DependentUpon>BootStrap Validation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BootStrap Validation.aspx.designer.cs">
+      <DependentUpon>BootStrap Validation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Close.aspx.cs">
       <DependentUpon>Close.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -91,6 +103,20 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="modal popup.aspx.cs">
+      <DependentUpon>modal popup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modal popup.aspx.designer.cs">
+      <DependentUpon>modal popup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="modal popup2.aspx.cs">
+      <DependentUpon>modal popup2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modal popup2.aspx.designer.cs">
+      <DependentUpon>modal popup2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebForm1.aspx.cs">

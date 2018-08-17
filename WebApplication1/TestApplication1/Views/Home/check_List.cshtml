@@ -31,9 +31,21 @@
                 <td>
                     @Html.HiddenFor(m => Model[i].ProductId)
                     @Html.CheckBoxFor(m => Model[i].IsSelected)
+
                 </td>
             </tr>
         }
     </table>
     <input type="submit" />
 }
+
+@*@Html.CheckBox("xxx", new { id = "benefitId", onclick = "return false;"})
+    <input type="checkbox" onclick="this.checked=!this.checked;">
+@section scripts{
+    <script>
+            function undisable(obj) {
+                //document.getElementById("benefitId").disabled = false;
+                $(obj).removeAttr("disabled");
+            }
+    </script>
+}*@

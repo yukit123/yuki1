@@ -767,7 +767,7 @@ namespace TestApplication1.Controllers
 
             //List<SelectListItem> selectlist = clients.Select(x => new SelectListItem { Value = x.Name, Text = x.Name, Selected=(items.Any(a=>a.Text==x.Name)) }).DistinctBy(p=>p.Value).ToList();
             //ViewBag.selectlist = new SelectList(items, "Text", "Value");
-  
+
 
             ViewBag.Status = new SelectList(items);
 

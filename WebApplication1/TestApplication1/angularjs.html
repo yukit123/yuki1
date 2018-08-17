@@ -1,0 +1,65 @@
+﻿https://stackoverflow.com/questions/41395566/how-to-export-html-data-to-pdf-in-angularjs
+<!--<!doctype html>
+<html ng-app="app">
+
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div ng-controller="listController">
+        <div id="exportthis">
+            {{data}}
+        </div>
+        <button ng-click="export()">export</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var app = angular.module("app", []);
+
+    app.controller("listController", ["$scope",
+        function ($scope) {
+            $scope.data = [{ "agence": "CTM", "secteur": "Safi", "statutImp": "operationnel" }];
+
+            $scope.export = function () {
+                html2canvas(document.getElementById('exportthis'), {
+                    onrendered: function (canvas) {
+                        var data = canvas.toDataURL();
+                        var docDefinition = {
+                            content: [{
+                                image: data,
+                                width: 500,
+                            }]
+                        };
+                        pdfMake.createPdf(docDefinition).download("test.pdf");
+                    }
+                });
+            }
+        }
+    ]);
+</script>-->
+Export HTML Table to Excel, Pdf, CSV and Doc
+https://plnkr.co/edit/HmKBjYmJNjp8mPzIlg52?p=preview
+
+<body ng-app="PopupDemo">
+    <div ng-controller="PopupDemoCont">
+        <h2 class="text-center">Angularjs-Popup</h2>
+        <button ng-click="open()" class="btn btn-warning">Simple Popup</button>
+    </div>
+</body>
+<script>
+    angular.module('PopupDemo').controller('PopupDemoCont', ['$scope','$modal',function ($scope, $modal) {
+    $scope.open = function () {
+    console.log('opening pop up');
+    var modalInstance = $modal.open({
+    templateUrl: 'popup.html',
+    });
+    }
+    }]);
+</script>

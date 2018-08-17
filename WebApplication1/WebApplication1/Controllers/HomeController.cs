@@ -156,7 +156,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Index(string[] Number)
         {
-            
+
             string strConn = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
             // string sqlstr = "INSERT INTO Table (Number) VALUES (@Number)";
 
@@ -1657,7 +1657,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Webgrid2(/*int page = 1*/)//https://forums.asp.net/t/2132883.aspx
         {
-            
+
             ViewBag.Message = "Your contact page.";
             //var list = db.Label.ToList();
 
@@ -1671,9 +1671,9 @@ namespace WebApplication1.Controllers
             ViewBag.selectlist = selectlist;
 
             List<ListStrViewModel> list2 = new List<ListStrViewModel>();
-            list2.Add(new ListStrViewModel() { Id=1,field1 = "aa1", field2 = "aa", field3 = "aa" });
-            list2.Add(new ListStrViewModel() { Id=2,field1 = "bb2", field2 = "bb", field3 = "bb" });
-            list2.Add(new ListStrViewModel() { Id=3,field1 = "cc3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "bb2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "cc3", field2 = "cc", field3 = "cc" });
 
             list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
             list2.Add(new ListStrViewModel() { Id = 5, field1 = "bb5", field2 = "bb", field3 = "bb" });
@@ -2760,6 +2760,13 @@ namespace WebApplication1.Controllers
             public string Name { get; set; }
 
         }
+
+        //public class kendoTreeviewVM2
+        //{
+        //    public int Id { get; set; }
+        //    public string Name { get; set; }
+
+        //}
         public ActionResult kendo_treeview()
         {
 
@@ -2778,7 +2785,188 @@ namespace WebApplication1.Controllers
                 new kendoTreeviewVM{Id=4,IdParent=2,Level=2,Name="Sub Item 1"}
 
             };
+
+            #region https://forums.asp.net/t/2145521.aspx
+            // var list2 = list.Select(a => new kendoTreeviewVM2
+            // {
+
+            //     Id = a.Id+a.IdParent.Value+a.Level.Value,
+            //     Name = "ss"
+
+            // }
+            //).ToList();
+            #endregion
             return View(list);
+        }
+        #endregion
+
+        //public ClientReceiptViewModel GetClientPolicy(string id)
+        //{
+        //    var result = new ClientReceiptViewModel();
+        //    var query = "Select *, CONVERT(bigint,RowVersionNo) as RowVersionNo2 FROM Underwriting_PolicyFile WHERE PolicyRefCode = @PolicyRefCode; ";
+        //    result.Underwriting_PolicyFile = context.Query<Underwriting_PolicyFile>(query, new
+        //    {
+        //        PolicyRefCode = id
+        //    }).FirstOrDefault();
+
+        //    if (result.Underwriting_PolicyFile != null)
+        //    {
+        //        var query2 = "Select PolicyRefCode, DebitNoteNo,InsBranchCode,TransactionCode, BranchCode, PolicyCode,InsuerLeadCode, PercentageCover,ClientType,ClientCode,InsurerCode," +
+        //         "CONVERT(bigint, RowVersionNo) as RowVersionNo2 FROM Underwriting_InsurerPolicyDistribution WHERE PolicyRefCode = @PolicyRefCode " +
+        //         "AND CommenceDate = @CDate AND ExpiryDate = @ExDate AND RenewalDate = @RDate AND TerminalDate = @TDate AND(TransactionCode = '0001' OR TransactionCode = '0002'); ";
+
+
+        //        result.Underwriting_InsurerPolicyDistribution =
+        //        context.Query<Underwriting_InsurerPolicyDistribution>(query2, new
+        //        {
+        //            PolicyRefCode = id,
+        //            CDate = result.Underwriting_PolicyFile.CommenceDate,
+        //            ExDate = result.Underwriting_PolicyFile.ExpiryDate,
+        //            RDate = result.Underwriting_PolicyFile.RenewalDate,
+        //            TDate = result.Underwriting_PolicyFile.TerminalDate
+        //        }).ToList();
+
+        //    }
+        //    return result;
+
+        //}
+
+        #region
+        public class Employee
+        {
+            public int EmployeeID { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public int EmailID { get; set; }
+            public string Country { get; set; }
+            public string City { get; set; }
+
+        }
+
+        public ActionResult EmployeeList()
+        {
+
+            var list = new List<Employee>
+            {
+                new Employee{EmployeeID=1,FirstName="f1",LastName="l1",EmailID=1,Country="c1",City="ct1"},
+                new Employee{EmployeeID=2,FirstName="f2",LastName="l2",EmailID=2,Country="c2",City="ct2"},
+                new Employee{EmployeeID=3,FirstName="f3",LastName="l3",EmailID=3,Country="c3",City="ct3"},
+                new Employee{EmployeeID=4,FirstName="f4",LastName="l4",EmailID=4,Country="c4",City="ct4"}
+
+            };
+            var employees = list.OrderBy(e => e.FirstName).ToList();
+            return View(employees);
+        }
+
+        public ActionResult GetEmployeebyID(int ID)
+        {
+            //Employee employee = list.Find(ID);
+            Employee employee = new Employee();
+            employee.EmployeeID = 2;
+            employee.FirstName = "xx";
+
+            //return View(employee);
+            return RedirectToAction("EmployeeList", employee);
+            // return PartialView("_ViewEmployee", employee);
+        }
+
+        public ActionResult _ViewEmployee(int? ID)
+        {
+            Employee employee = new Employee();
+            employee.EmployeeID = 2;
+            employee.FirstName = "f2";
+            employee.LastName = "l2";
+            employee.EmailID = 2;
+            employee.Country = "c2";
+            employee.City = "ct2";
+
+
+
+            return PartialView(employee);
+        }
+
+        public ActionResult DeleteEmployee(int ID)
+        {
+            //using (DemoEntities dc = new DemoEntities())
+            //{
+            //    var v = list.Where(a => a.EmployeeID == ID).FirstOrDefault();
+            //    if (v != null)
+            //    {
+            //        dc.Employees.Remove(v);
+            //        dc.SaveChanges();
+
+            //    }
+            //}
+            return RedirectToAction("EmployeeList");
+        }
+
+        [HttpPost]
+        public ActionResult AddEditEmployee(Employee emp)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    // Get Employee By ID
+            //    Employee obj = dc.Employees.Find(emp.EmployeeID);
+
+            //    if (obj == null)
+            //    {
+            //        // Insert new Employee
+            //        dc.Employees.Add(emp);
+            //        dc.SaveChanges();
+            //    }
+            //    else
+            //    {
+            //        obj.FirstName = emp.FirstName;
+            //        obj.LastName = emp.LastName;
+            //        obj.EmailID = emp.EmailID;
+            //        obj.City = emp.City;
+            //        obj.Country = emp.Country;
+            //        dc.SaveChanges();
+            //    }
+            //}
+
+
+            return RedirectToAction("EmployeeList");
+        }
+        #endregion
+
+        #region Bootstrap dynamic modal content
+
+        public class QuestionViewModel
+        {
+            public string Title { get; set; }
+            public string Description { get; set; }
+
+        }
+
+        public ActionResult Bootstrapmodal_Index()
+        {
+           
+
+            return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            // Get the data using the Id and pass the needed data to view.
+
+            var vm = new QuestionViewModel();
+
+            var list = new List<QuestionViewModel>
+            {
+                new QuestionViewModel{Title="t1",Description="f1"},
+                new QuestionViewModel{Title="t2",Description="f2"},
+                new QuestionViewModel{Title="t3",Description="f3"},
+                new QuestionViewModel{Title="t4",Description="f4"}
+
+            };
+            //var question = list.FirstOrDefault(a => a.Id == id);
+            //// To do: Add null checks
+
+            //vm.Id = question.Id;
+            vm = list.FirstOrDefault();
+
+            return PartialView(vm);
         }
         #endregion
 

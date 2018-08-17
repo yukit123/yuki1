@@ -1,0 +1,9 @@
+﻿@Html.CheckBoxFor(model => model.benefit, new { id = "benefitId", onclick = "undisable();" })
+
+  
+<script>
+    function undisable() {
+        document.getElementById("benefitId").disabled = false;
+    }
+</script>
+   

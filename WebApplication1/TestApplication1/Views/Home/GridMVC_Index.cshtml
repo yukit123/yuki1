@@ -12,13 +12,19 @@
 
 <html>
 <head>
+    @*<meta name="viewport" content="width=device-width" />
+        <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+        <script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/ASPSnippets_Pager.min.js")"></script>
+        <title>Index</title>*@
+
     <meta name="viewport" content="width=device-width" />
-    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
-    @*<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>*@
-    <script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/ASPSnippets_Pager.min.js")"></script>
+    <link href="http://gridmvc.azurewebsites.net/Content/Gridmvc.css" rel="stylesheet" />
+    <link href="http://gridmvc.azurewebsites.net/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="http://gridmvc.azurewebsites.net/Scripts/jquery-2.0.3.min.js"></script>
+    <script src="http://gridmvc.azurewebsites.net/Scripts/gridmvc.js"></script>
     <title>Index</title>
 </head>
 <body>
@@ -31,7 +37,7 @@
     </select>
 
     <div style="width:500px;">
-        @Html.Grid(Model).Columns(columns =>
+        @*@Html.Grid(Model).Columns(columns =>
    {
        columns.Add(c => c.Id).Titled("Client ID");
        columns.Add(c => c.Name).Titled("Name").Filterable(true);
@@ -39,7 +45,17 @@
        columns.Add().Encoded(false).Titled("Select").Sanitized(false).SetWidth(2).RenderValueAs(c => @Html.DropDownList("Select", new SelectList(ViewBag.Status.Items, "Value", "Text", c.Name), new { style = "width: 70px;", @class = "form-control" }));
        //columns.Add(c => c.Name).Encoded(false).Titled("Select").Sanitized(false).SetWidth(2).RenderValueAs(c => @Html.DropDownList("Select", new SelectList(ViewBag.selectlist, "Value", "Text"), new { style = "width: 70px;", @class = "form-control" }));
 
-   }).WithPaging(3).Sortable(true)
+   }).WithPaging(3).Sortable(true)*@
+
+        @Html.Grid(Model).Columns(Columns =>
+                   {
+                       Columns.Add(c=>c.Id).Titled("Code").Filterable(true);
+                       Columns.Add(c => c.Name).Titled("Create Date").Filterable(true);
+                       Columns.Add(c => c.Email).Titled("Email").Filterable(true);
+
+
+                   }).WithPaging(3).Sortable(true).Selectable(false)
+
     </div>
 </body>
 </html>
@@ -56,7 +72,7 @@
 </div>
 
 <script>
-    $(function () {
+    @*$(function () {
         GetCustomers(1);
 
         $("#ddlusername").change(function () {
@@ -153,5 +169,5 @@
             PageSize: model.PageSize,
             RecordCount: model.RecordCount
         });
-    };
+    };*@
 </script>

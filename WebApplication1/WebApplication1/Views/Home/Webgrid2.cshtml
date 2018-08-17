@@ -36,7 +36,7 @@
         {
             <input type="text" name="searchString" id="searchString" /><input type="submit" value="Search" />
         }
-
+                                                                      
     </div>
     @{
         var grid = new WebGrid(source: ViewBag.list, canPage: true, rowsPerPage: 1);
@@ -48,16 +48,31 @@ columns: grid.Columns(
   grid.Column("field1", "field1xxx", canSort: false),
   grid.Column("field2", "field2xx", canSort: false),
   grid.Column("field3", "field3xx", canSort: false),
+  grid.Column(columnName: "Images", header: "Images",
+             format:@<text>@Html.Raw("<img src=\"/images/Arrow.png\" />")</text>),
+  grid.Column(columnName: "Images2", header: "Images2",
+        format:@<img src="~/images/Arrow.PNG" />),
   grid.Column("dropdownlist", "Select", canSort: false,
-  format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>))
+                      format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>),
+     grid.Column(header: "Actions", format: (item) =>
+                     new HtmlString(
 
-        //);
-        ).ToHtmlString()
+                         Html.ActionLink("Edit", "Edit", new { id = item.ID }).ToString() + " | " +
 
+                           Html.ActionLink("create", "Create", new { id = item.ID }).ToString() + " | " +
+                            Html.ActionLink("Invoice", "Invoice", new { id = item.ID }).ToString() + " | " +
+                         Html.ActionLink("Delete", "Delete", new { id = item.ID }).ToString()
 
-        )
+                         ), style: "Action"
 
+         )
+          )
 
+                                     //);
+                                     ).ToHtmlString()
+
+                                 )
+        
     }
 
     @*@grid.GetHtml()*@

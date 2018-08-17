@@ -94,6 +94,7 @@ namespace TestApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             author2 author2 = db.author2s.Find(id);
             if (author2 == null)
             {

@@ -8,7 +8,8 @@ namespace WebApplication1.Models
 {
     public class Label
     {
-        [Range(10, 100, ErrorMessage = "年龄不能大于{2} 不能小于{1}")]
+        //[Range(10, 100, ErrorMessage = "年龄不能大于{2} 不能小于{1}")]
+        [Range(10, 100, ErrorMessage = "The field is required and cannot be empty")]
         public int LabelId { get; set; }
         public string LabelName { get; set; }
         //public List<Label> labinfo { get; set; }

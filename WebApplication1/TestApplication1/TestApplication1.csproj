@@ -46,6 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=18.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -285,6 +289,13 @@
       <DependentUpon>201807180511056_author2-ValidationAttribute1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Modal Popup.aspx.cs">
+      <DependentUpon>Modal Popup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modal Popup.aspx.designer.cs">
+      <DependentUpon>Modal Popup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\author2.cs" />
     <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\book2.cs" />
@@ -302,6 +313,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angularjs.html" />
     <Content Include="BootstrapValidate.html" />
     <Content Include="ChangeIcon.html" />
     <Content Include="clickTd.html" />
@@ -390,6 +402,7 @@
     <Content Include="html2canvas.html" />
     <Content Include="images\Arrow.PNG" />
     <Content Include="images\test.jpg" />
+    <Content Include="Modal Popup.aspx" />
     <Content Include="picture.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />

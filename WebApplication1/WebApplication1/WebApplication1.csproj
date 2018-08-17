@@ -589,12 +589,14 @@
     <Content Include="images\Arrow.PNG" />
     <Content Include="navbar.html" />
     <Content Include="navbar2.html" />
+    <Content Include="press13.html" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="selector.html" />
     <Content Include="ToolTip.html" />
     <Content Include="Views\Authors\_myModal.cshtml" />
     <Content Include="windowPrint.html" />
@@ -755,6 +757,11 @@
     <Content Include="Views\Home\edit_journal_entry.cshtml" />
     <Content Include="window.print" />
     <Content Include="Views\Home\kendo_treeview.cshtml" />
+    <Content Include="Views\Home\EmployeeList.cshtml" />
+    <Content Include="Views\_ViewEmployee.cshtml" />
+    <Content Include="Views\Home\_ViewEmployee.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Bootstrapmodal_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
