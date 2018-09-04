@@ -21,6 +21,8 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WebApiTest.Controllers;
+using WebApiTest.Models;
 using WebApplication1.Helpers;
 using WebApplication1.Models;
 using static WebApplication1.FilterConfig;
@@ -402,21 +404,42 @@ namespace WebApplication1.Controllers
         // Controllet part
         public JsonResult Get_Accounts()
         {
-            //DataSet ds = dblayer.Get_Company_Name();
-            //List<Accounts> listreg = new List<Accounts>();
+            DataSet ds = new DataSet();
+            string connectionString =
+            @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "select * from Student";
+            // cmd.Connection = con;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(ds);
             //foreach (DataRow dr in ds.Tables[0].Rows)
             //{
-            //    String Account_ID = dr["account_name"].ToString();
-            //    listreg.Add(new Accounts
+            //    listreg.Add(new Student
             //    {
-            //        Account_Id = Account_ID.Replace(" ", String.Empty),
             //        Account_name = dr["account_name"].ToString(),
             //        Account_Parent = dr["parent_account_ID"].ToString(),
             //    });
             //}
-            //return Json(listreg, JsonRequestBehavior.AllowGet);
-            string listjsonstr = "[{\"nodeID\": {\"1\": [{\"ID\": \"1.1\",\"childNodeType\": \"branch\",\"childData\": [\"1.1: column 1\"]}],\"1.1\": [{\"ID\": \"1.1.1\",\"childNodeType\": \"leaf\",\"childData\": [\"1.1.1: column 1\"]}],\"2\": [{\"ID\": \"2.1\",\"childNodeType\": \"leaf\",\"childData\": [\"2.1: column 1\"]}]}}]";
-            return Json(new { list = listjsonstr }, JsonRequestBehavior.AllowGet);
+
+            var stulist = new List<datalistView>();
+
+            // var re = from a in stulist select a;
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                stulist.Add(new datalistView
+                {
+                    datalistView_id = Convert.ToInt32(row["ID"]),
+                    datalistView_Name = row["SName"].ToString()
+                });
+            }
+            return Json(stulist, JsonRequestBehavior.AllowGet);
+            //string listjsonstr = "[{\"nodeID\": {\"1\": [{\"ID\": \"1.1\",\"childNodeType\": \"branch\",\"childData\": [\"1.1: column 1\"]}],\"1.1\": [{\"ID\": \"1.1.1\",\"childNodeType\": \"leaf\",\"childData\": [\"1.1.1: column 1\"]}],\"2\": [{\"ID\": \"2.1\",\"childNodeType\": \"leaf\",\"childData\": [\"2.1: column 1\"]}]}}]";
+            //return Json(new { list = listjsonstr }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult TreeTable4()//icon folder for tree table
         {
@@ -446,7 +469,7 @@ namespace WebApplication1.Controllers
             //ViewBag.Message = "Your application description page.";
             Blog bl = new Blog();
 
-            //bl.DateDocument = Convert.ToDateTime("2018.12.14");
+            bl.DateDocument = Convert.ToDateTime("2018.12.14");
             return View(bl);
         }
 
@@ -1758,6 +1781,46 @@ namespace WebApplication1.Controllers
 
         }
 
+        public ActionResult Webgrid3()
+        {
+            ViewBag.Message = "Your contact page.";
+            var list = db.Label.ToList();
+            return View(list);
+        }
+        #region webgrid webapi
+       
+
+        [HttpGet]
+        public ActionResult webgrid4(string ResourceID="")
+        {
+            try
+            {
+                ViewBag.ResourceList = ToSelectList();
+                ViewBag.Title = "Order Recognition";
+              
+                    ResourceController api = new ResourceController();
+                    return View(api.GetResources(ResourceID));//error:The type 'ApiController' is defined in an assembly that is not referenced. You must add a reference to assembly 'System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'.
+                                                              //solution:Install-Package Microsoft.AspNet.WebApi.Core -version 5.2.3,it will be OK.
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [NonAction]
+        public SelectList ToSelectList()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            list.Add(new SelectListItem { Text = "Allex", Value = "A" });
+            list.Add(new SelectListItem { Text = "Blake", Value = "B" });
+            list.Add(new SelectListItem { Text = "Chris", Value = "C" });
+            list.Add(new SelectListItem { Text = "Dan", Value = "D" });
+            return new SelectList(list, "Value", "Text");
+        }
+        #endregion
 
         private static string GetSearchConditionValue(IDictionary<string, string> searchConditions, string key)
         {
@@ -2434,10 +2497,22 @@ namespace WebApplication1.Controllers
         }
 
         #region Upload file to file server without submit
+        //public class selectmodelVM
+        //{
+        //    public int Id { get; set; }
+        //    public string Text { get; set; }
+        //    public string Value { get; set; }
 
-        public ActionResult UploadOutSubmit(HttpPostedFileBase file2)
+        //}
+
+        public ActionResult UploadOutSubmit(HttpPostedFileBase file2/*, string selectvalue*/)
         {
-
+            //var list = new List<selectmodelVM>
+            //{
+            //    new selectmodelVM{Text="1",Value="1"},
+            //    new selectmodelVM{Text="2",Value="2"},
+            //    new selectmodelVM{Text="3",Value="3"}
+            //};
             if (file2 != null && file2.ContentLength > 0)
             {
 
@@ -2448,7 +2523,7 @@ namespace WebApplication1.Controllers
                 file2.SaveAs(path);
             }
 
-            return View();
+            return View(/*list*/);
         }
         [HttpPost]
         public ActionResult UploadOutSubmitAjax()//Edge not work =>solution:Path.GetFileName(file2.FileName)
@@ -2854,6 +2929,7 @@ namespace WebApplication1.Controllers
                 new Employee{EmployeeID=4,FirstName="f4",LastName="l4",EmailID=4,Country="c4",City="ct4"}
 
             };
+            ViewBag.XX = 11;
             var employees = list.OrderBy(e => e.FirstName).ToList();
             return View(employees);
         }
@@ -2864,7 +2940,7 @@ namespace WebApplication1.Controllers
             Employee employee = new Employee();
             employee.EmployeeID = 2;
             employee.FirstName = "xx";
-
+  
             //return View(employee);
             return RedirectToAction("EmployeeList", employee);
             // return PartialView("_ViewEmployee", employee);
@@ -2879,9 +2955,7 @@ namespace WebApplication1.Controllers
             employee.EmailID = 2;
             employee.Country = "c2";
             employee.City = "ct2";
-
-
-
+            
             return PartialView(employee);
         }
 
@@ -2941,8 +3015,12 @@ namespace WebApplication1.Controllers
 
         public ActionResult Bootstrapmodal_Index()
         {
-           
-
+            #region not in in linq
+            //var exceptionList = new List<string> { "USAcity1", "USAcity1", "USAcity2" };
+            //var query = db.Cities
+            //                         .Select(e => e.CityName)
+            //                         .Where(e => !exceptionList.Distinct().Contains(e)).ToList();
+            #endregion
             return View();
         }
 

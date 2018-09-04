@@ -71,7 +71,7 @@
 <div id="main">
 
     @{
-        var grid = new WebGrid(source: Model);      
+        var grid = new WebGrid(source: Model);
         @MvcHtmlString.Create(
                                      grid.GetHtml(
                                          tableStyle: "table",
@@ -83,25 +83,26 @@
                                              grid.Column("LabelId", "LabelId", canSort: false),
                                              grid.Column("LabelName", "LabelName", canSort: false),
                                              grid.Column("", "LabelId", format: @<input id="checkbox" type="checkbox" value="@item.LabelId" onclick="DoAdd(this)" />),
-                                                        //grid.Column("LabelId", "LabelId", canSort: false),
+                                                                        //grid.Column("LabelId", "LabelId", canSort: false),
 
 
-                                                        grid.Column(format: (item) =>
-                                                        {
-                                                            WebGrid subGrid = new WebGrid(source: Model);
-                                                            return subGrid.GetHtml(
-                                                                htmlAttributes: new { id = "subT" },
-                                                                columns: subGrid.Columns(
-                                                                    subGrid.Column("LabelId", "LabelId", canSort: false),
-                                                                    subGrid.Column("LabelName", "LabelName", canSort: false)
-                                                                    )
-                                                                );
-                                                        }, canSort: false)
-                                                        )
-                                                    ).ToHtmlString()
-                                                )
+                                                                        grid.Column(format: (item) =>
+                                                                        {
+                                                                            WebGrid subGrid = new WebGrid(source: Model);
+                                                                            return subGrid.GetHtml(
+                                                                                htmlAttributes: new { id = "subT" },
+                                                                                columns: subGrid.Columns(
+                                                                                    subGrid.Column("LabelId", "LabelId", canSort: false),
+                                                                                    subGrid.Column("LabelName", "LabelName", canSort: false)
+                                                                                    )
+                                                                                );
+                                                                        }, canSort: false)
+                                                                        )
+                                                                    ).ToHtmlString()
+                                                                )
     }
-</div>
+
+    </div>
 @section scripts{
 <script>
 

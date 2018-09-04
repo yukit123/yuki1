@@ -17,33 +17,33 @@
 </table>
 
 @*<table id="example-basic">
-    <caption>
-        <a href="#" onclick="jQuery('#example-basic').treetable('expandAll'); return false;">Expand all</a>
-        <a href="#" onclick="jQuery('#example-basic').treetable('collapseAll'); return false;">Collapse all</a>
-    </caption>
-    <thead>
-        <tr>
-            <th>Tree column</th>
-            <th>Additional data</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-tt-id="1" data-tt-branch='true'>
-            <td>1: column 1</td>
-            <td>1: column 2</td>
-        </tr>
+        <caption>
+            <a href="#" onclick="jQuery('#example-basic').treetable('expandAll'); return false;">Expand all</a>
+            <a href="#" onclick="jQuery('#example-basic').treetable('collapseAll'); return false;">Collapse all</a>
+        </caption>
+        <thead>
+            <tr>
+                <th>Tree column</th>
+                <th>Additional data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-tt-id="1" data-tt-branch='true'>
+                <td>1: column 1</td>
+                <td>1: column 2</td>
+            </tr>
 
-        <tr data-tt-id="2" data-tt-branch='true'>
-            <td>2: column 1</td>
-            <td>2: column 2</td>
-        </tr>
+            <tr data-tt-id="2" data-tt-branch='true'>
+                <td>2: column 1</td>
+                <td>2: column 2</td>
+            </tr>
 
-        <tr data-tt-id="3" data-tt-branch='true'>
-            <td>3: column 1</td>
-            <td>3: column 2</td>
-        </tr>
-    </tbody>
-</table>*@
+            <tr data-tt-id="3" data-tt-branch='true'>
+                <td>3: column 1</td>
+                <td>3: column 2</td>
+            </tr>
+        </tbody>
+    </table>*@
 
 <table id="basic">
     <caption>
@@ -75,11 +75,13 @@
             <td>3: column 2</td>
         </tr>
         @*<tr data-tt-id="1.2" data-tt-parent-id="1">
-            <td>2.1: column 1</td>
-            <td>2.1: column 2</td>
-        </tr>*@
+                <td>2.1: column 1</td>
+                <td>2.1: column 2</td>
+            </tr>*@
     </tbody>
 </table>
+<input type="text" id="start_date" />
+<input type="text" id="end_date" />
 
 @section scripts{
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -89,7 +91,14 @@
     <script src="~/Scripts/jquery.treetable.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-ui-1.10.2.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script type="text/javascript">
+        $('#start_date').datepicker();
+        $('#end_date').datepicker();
         //$(document).ready(function () {
         //    $("#example-basic").treetable({
         //        expandable: true,
@@ -137,11 +146,22 @@
             async: false,
             success: function (response) {
                 data = $.map(response, function (item, a) {
+
+
+                    //var start_year = item.datalistView_Name;
+                    //var start_year2 = start_year.substr(0, 1)
+
+                    //var end_year = item.datalistView_Name;
+                    //var end_year2 = end_year.substr(0, 2)
+
+
+                    //$("#start_date").val("2018-10-10");
+                    //$("#end_date").val("10/10/2018");
                     $("#basic tr[data-tt-id=1]").after("<tr data-tt-id='4' data-tt-parent-id='1'><td>aa</td><td>aa</td></tr>");
                     $("#basic").treetable({ expandable: true });
 
                 });
-              
+
             },
             dataType: "json"
         });

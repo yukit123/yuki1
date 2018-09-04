@@ -76,6 +76,7 @@ namespace TestApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Author_id,Name")] author2 author2)
         {
+
             if (ModelState.IsValid)
             {
                 author2.Author_id = Guid.NewGuid();
@@ -101,6 +102,14 @@ namespace TestApplication1.Controllers
                 return HttpNotFound();
             }
             return View(author2);
+        }
+
+        public JsonResult UpdateNtf(int? id, string status)
+        {
+
+      
+            return Json(11, JsonRequestBehavior.AllowGet);
+
         }
 
         // POST: author2/Edit/5

@@ -1,0 +1,41 @@
+﻿<table id="mytable" border="1">
+    <tr><th>checked</th><th>id</th><th>desc</th></tr>
+    <tr><td><input id="cb1" type="checkbox" name="checker1" value="123" /></td><td>123</td><td>pilj</td></tr>
+    <tr><td><input id="cb1" type="checkbox" name="checker1" value="456" /></td><td>456</td> <td>ddgdg</td></tr>
+    <tr><td><input id="cb1" type="checkbox" name="checker1" value="789" /></td><td>789</td><td>setwe</td></tr>
+</table>
+<button id="jqcc">Get values</button>
+<table id="tbl" border="1"></table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $("#jqcc").click(function () {
+        var table = document.getElementById('mytable');
+        var jsonArr = [];
+        $('input:checkbox:checked', table).parents("tr").each(function () {
+            //for (var i = 1, row; row = table.rows[i]; i++) {
+            //    var col = row.cells;
+            //    var jsonObj = {
+            //        company: col[0].innerHTML,
+            //        contact: col[1].innerHTML,
+            //        country: col[2].innerHTML,
+            //    }
+
+            //    jsonArr.push(jsonObj);
+
+            //}
+            var jsonObj = {
+                company: $(this).children().eq(0)[0].innerHTML,
+                contact: $(this).children().eq(1)[0].innerHTML,
+                country: $(this).children().eq(2)[0].innerHTML,
+            }
+
+            jsonArr.push(jsonObj);
+
+        });
+        for (var i = 0; i < jsonArr.length; i++) {
+
+            $("#tbl").append("<tr><td>" + jsonArr[i].company + "</td><td>" + jsonArr[i].contact + "</td><td  style='cursor:pointer'>" + jsonArr[i].country + "</td></tr>")
+
+        }
+    })
+</script>

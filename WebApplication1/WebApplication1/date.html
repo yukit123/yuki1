@@ -1,0 +1,545 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fiscal Year</title>
+
+    <link href="~/CSS/form_style.css" rel="stylesheet" />
+    <link href="~/CSS/ItemStyle.css" rel="stylesheet" />
+    <link href="~/bootstrapp/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/bootstrapp/css/bootstrap-theme.min.css" rel="stylesheet" />
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <!--<link href="~/bootstrapp/css/bootstrap.min.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <!--<script src="~/bootstrapp/js/bootstrap.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link href="~/CSS/bootstrap_datepicker1.css" rel="stylesheet" />
+    <script src="~/CSS/bootstrap-datepicker2.js"></script>
+
+
+    @*
+    <link href="~/CSS/bootstrap_datepicker1.css" rel="stylesheet" />
+    <script src="~/CSS/bootstrap-datepicker2.js"></script>*@
+
+
+
+    <link href="https://vitalets.github.io/bootstrap-datepicker/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+
+    <script src="https://vitalets.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+</head>
+<body>
+
+    <!----------------------------------------------------------------------------->
+
+    <div class="form-group" style="display:none">
+        <label style="font-family: Consolas;margin-left:25px">Series</label><br>
+        <input class="form-control" value="@Request[" series"]" id="series" name="series" type="text" style="width: 350px; margin-left: 20px">
+    </div>
+
+    <!-----------------------------------modal Company----------------------------------->
+
+
+    <div class="modal fade" id="ModalCompany" style="margin-left:20px">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:900px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title expander_style">Editing Row</h4>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="lable_style" style="font-family: Consolas;margin-left:25px">Company</label><br>
+                            <input class="form-control textbox_style" id="modal_company" type="text" style="width: 350px; margin-left: 20px">
+                        </div>
+
+                    </form>
+                    <br>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btn_company" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!------------------------------------------------------------------------------------------->
+    <div class="div_item_header" style="position: fixed; top: 0; background-color: white ;width:1380px; ">
+        <br>
+        <span style="margin-left:30px;cursor:pointer" id="account_span"> > Accounts </span>
+        <span style="margin-left:30px;cursor:pointer" id="new_span"> > Fiscal Year </span>
+        <label class="account_title label_header" style="margin-left:400px">Fiscal Year</label>
+        <input class="btn btn-primary btn btn-outline-success" id="save" type="submit" value="Save" style="margin-left:1200px;margin-top:-60px" />
+
+    </div>
+
+
+    <div class="div_content_border" style="height: auto; width: 900px; margin-left: 170px; margin-top: 60px; ">
+
+        <!-------First Row Content----->
+        <br>
+        <div class="container">
+            <div class="row">
+                <br>
+
+                <form class="form-inline">
+                    <div class="form-group ">
+                        <label class="lable_style" style="font-family: Consolas;margin-left:25px">Year Name</label><br>
+                        <input id="year_name" class="form-control textbox_style" type="text" style="width: 350px; margin-left: 20px;background-color:#FFFEF3">
+                    </div>
+                </form>
+                <br>
+
+                <form class="form-inline" style="margin-left:20px">
+                    <div class="form-group">
+                        <label class="contain">
+                            Disabled
+                            <input id="ch_disable" type="checkbox" style="margin-left:5px">
+                            <span class="checkmark"></span>
+                        </label>
+                        <input type="hidden" id="t_disable" value="False">
+
+                    </div>
+
+                </form>
+
+
+                <br>
+                <form class="form-inline">
+
+                    <div class="form-group ">
+                        <label class="lable_style" style="font-family: Consolas;margin-left:25px">Year Start Date</label><br>
+                        <input id="start_date" class="form-control textbox_style" style="width: 350px; margin-left: 20px;background-color:#FFFEF3">
+                    </div>
+                </form>
+                <br>
+
+                <form class="form-inline">
+                    <div class="form-group ">
+                        <label class="lable_style" style="font-family: Consolas;margin-left:25px">Year End Date</label><br>
+                        <input id="end_date" class="form-control textbox_style" type="text" style="width: 350px; margin-left: 20px;background-color:#FFFEF3">
+                    </div>
+
+                </form>
+
+                <br><br>
+
+                <div style="background-color: lightgray; width: 898px; height:1px">
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            $('#start_date').datepicker();
+            $('#end_date').datepicker();
+
+        </script>
+
+        <!--End First Row--->
+        <!-----Second Row Content------------->
+        <br>
+        <div class="container">
+            <div class="row">
+                <br>
+
+                <form class="form-inline">
+
+
+
+                    <div class="form-group  ">
+
+                        @*<input type="button" id="btnAddPerson" value="send table">*@
+                        <br>
+
+                        <table class="table table-striped table-bordered table-hover table_header_style authors-list" id="address_table" style="width:900px">
+                            <thead style="background-color: #eff3f9">
+                                <tr>
+                                    <th style="width:20px"><input type="checkbox" id="Check_Table_Rows" /></th>
+                                    <th>Company</th>
+                                    <th style="display:none">series</th>
+                                    <th style="width:20px"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                        <input type="submit" style="margin-left:5px" class="btn btn-success btn btn-outline-success add_row1" value="Add Row" />
+                        <input type="button" id="Delete_Table_Rows" style="margin-left:5px" class="btn btn-danger btn btn-outline-danger" value="Delete Row(s)" />
+                        <br><br>
+                        <script type="text/javascript">
+                            //add row s
+                            jQuery(function () {
+                                var counter = 1;
+                                jQuery('.add_row1').click(function (event) {
+                                    event.preventDefault();
+
+                                    var newRow = jQuery('<tr><td style="width:20px"><input type="checkbox" /></td><td><input style="background-color:transparent;border:none;width:100%" class="form-control" list="get_company" type="text" name="Company01"></td> <td style="display:none"><input type="text" value="' + $("#series").val() + '" name="Series"></td> <td style="width:20px"> <img src="@Url.Content("~/images/Arrow.png")" style="width:8px;height:8px;cursor:pointer" /></td></tr>');
+
+
+                                    counter++;
+                                    jQuery('table.authors-list').append(newRow);
+
+                                });
+                            });
+                        </script>
+
+                        <datalist id="get_company"></datalist>
+                        <script type="text/javascript">
+                            $(function () {
+                                $(window).on("load", function () {
+                                    $.get("/Fiscal_year/Get_Company_Name", {
+                                    }, function (data) {
+                                        var row;
+                                        $.each(data, function (i, v) {
+                                            row += "<option>" + v.company_names + "</option>";
+                                        });
+                                        $("#get_company").append(row);
+                                    });
+                                })
+                            })
+
+                        </script>
+
+                        <script type="text/javascript">
+                            $(function () {
+                                //get data from te
+                                $("#btnAddPerson").bind("click", function () {
+                                    var AddressesDataJSON = $("#address_table").find('input').serializeArray();
+                                    console.log(AddressesDataJSON);
+                                    alert(JSON.stringify(AddressesDataJSON));
+
+
+                                    $.ajax({
+                                        url: "/Fiscal_year/fiscal_tb_edit",
+                                        type: "POST",
+                                        data: JSON.stringify(AddressesDataJSON),
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        error: function (response) {
+                                            alert(response.responseText);
+                                        },
+                                        success: function (response) {
+
+                                        }
+                                    });
+
+                                });
+                            });
+
+                        </script>
+
+
+                    </div>
+                </form>
+                <div style="background-color: lightgray; width: 898px; height:1px">
+                </div>
+            </div>
+        </div>
+        <!--End Second Row--->
+    </div>
+
+    <br><br><br><br><br>
+
+    <script src="~/datepicker_style/events.js"></script>
+    <script src="~/datepicker_style/datePicker.min.js"></script>
+
+
+    <script type="text/javascript">
+        'use strict';
+
+        window.myDatePicker = new DatePicker('.date', {
+            datePickerClass: 'date-picker has-week-no',
+            sundayBased: false,
+            renderWeekNo: true,
+            events: events
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        //ispaid
+        $('#ch_disable').change(function () {
+            if ($(this).is(':checked')) $('#t_disable').val("True");
+            else $('#t_disable').val("False");
+        });
+
+    </script>
+
+
+    <script>
+        $(function () {
+
+            $(window).on("load", function () {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Fiscal_Year/Fiscal_Year_Detail',
+                    data: { series: $("#series").val() },
+                    success: function (response) {
+                        data = $.map(response, function (item, a) {
+
+                            var start_year = item.Year_Start_Date;
+                            var start_year2 = start_year.substr(0, 10)
+
+                            var end_year = item.Year_End_Date;
+                            var end_year2 = end_year.substr(0, 10)
+
+
+                            $("#start_date").val(start_year2);
+                            $("#end_date").val(end_year2);
+                            $("#t_disable").val(item.Disabled);
+                            $("#year_name").val(item.Year_Name);
+
+                            if ($("#t_disable").val() == "True") {
+                                $('#ch_disable').prop('checked', true);
+                                                                 }
+
+
+                            if ($("#t_disable").val() == "False") {
+                                $('#ch_disable').prop('checked', false);
+                                                                  }
+
+
+                        });
+                    },
+                    dataType: "json"
+                });
+            })
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------------------>
+    <script>
+                    $(function () {
+
+                        $(window).on("load", function () {
+
+                            $.get("/Fiscal_year/Fiscal_Year_Detail_Fiscal_Year_Company", {
+
+                                series: $("#series").val(),
+
+                            }, function (data) {
+
+                                var row;
+                                $.each(data, function (i, v) {
+                                    row += "<tr><td style='width:20px'><input type='checkbox'></td><td><input value='" + v.company_names + "'  class='form-control' list='get_company' style='background-color:transparent; border:none;width:100%' name='Company01' type='text' /></td>  <td style='display:none'><input type='text' value='" + $("#series").val() + "' name='Series'></td>  <td style='width:20px'><img src='@Url.Content("~/images/Arrow.png")' style='width:8px;height:8px;cursor:pointer' /></td></tr>";
+                                   // row+ = ('<tr><td style="width:20px"><input type="checkbox" /></td><td><input style="background-color:transparent;border:none;width:100%" class="form-control" list="get_company" type="text" name="Company01"></td><td style="width:20px"> <img src="@Url.Content("~/images/Arrow.png")" style="width:8px;height:8px;cursor:pointer" /></td></tr>');
+
+
+                                });
+
+                                $("#address_table").append(row);
+
+                            });
+                        });
+                    });
+    </script>
+
+
+
+
+
+    <script>
+        $(window).load(function () {
+
+        });
+        function Delete_Tbl_rows(Tbl_ID) {
+            var Table_Length = $(Tbl_ID + " tr").length;
+            for (var i = 1; i < Table_Length; i++) {
+                if ($(Tbl_ID + " tr:eq('" + i + "') td:eq(0) input").is(':checked')) {
+                    $(Tbl_ID + " tr:eq('" + i + "')").remove();
+                    Delete_Tbl_rows(Tbl_ID);
+                }
+            }
+        }
+        $("#Delete_Table_Rows").on("click", function () {
+            Delete_Tbl_rows("#address_table");
+        });
+        //----------------------------------------------------------------------------------
+        // Checking All the rows in Table
+        $("#Check_Table_Rows").on("change", function () {
+            var Table_Length = $("#address_table tr").length;
+            if ($(this).is(':checked')) {
+                for (var i = 1; i < Table_Length; i++) {
+                    $("#address_table tr:eq('" + i + "') td:eq(0) input").prop('checked', true);
+                }
+            }
+            if ($(this).is(':not(:checked)')) {
+                for (var i = 1; i < Table_Length; i++) {
+                    $("#address_table tr:eq('" + i + "') td:eq(0) input").prop('checked', false);
+                }
+            }
+        });
+        $("#save").click(function () {
+            var Error = '';
+
+            var myTable1 = $("#address_table tr").length;
+            var job_start_date = $("#start_date");
+            var job_end_date = $("#end_date");
+
+            $("#start_date, #end_date").datepicker();
+
+            var date_received = $("#start_date").datepicker('getDate');
+            var date_completed = $("#end_date").datepicker('getDate');
+
+            if (date_received > date_completed) { Error += "start date cannot be greater than or equal to end date"; }
+
+
+            if (Error.length == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Fiscal_year/update_fiscal_year",
+                    data: {
+                        series: $("#series").val(),
+                        year: $("#year_name").val(),
+                        year_start_date: $("#start_date").val(),
+                        year_end_date: $("#end_date").val(),
+                        disabled: $("#t_disable").val(),
+                    },
+                    success: function (data) {
+                        alert(data);
+
+                        window.location.href = '@Url.Action("list_fiscal_year_DataTable", "Fiscal_year")';
+
+                    }
+                }).complete(function () {
+
+                    if (myTable1 > 1) {
+                        var AddressesDataJSON = $("#address_table").find('input').serializeArray();
+                        console.log(AddressesDataJSON);
+                        alert(JSON.stringify(AddressesDataJSON));
+
+
+                        $.ajax({
+                            url: "/Fiscal_year/fiscal_tb_edit",
+                            type: "POST",
+                            data: JSON.stringify(AddressesDataJSON),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            error: function (response) {
+                                alert(response.responseText);
+                            },
+                            success: function (response) {
+
+                            }
+                        });
+                    }
+                })
+            }
+            else {
+                alert(Error);
+            }
+            // alert(Error.length);
+        });
+
+        function isValidDate(date) {
+            var result = false;
+            var R_date = new Date(date);
+            if (isNaN(parseInt(R_date.getFullYear())) || isNaN(parseInt(R_date.getMonth())) || isNaN(parseInt(R_date.getDate()))) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        function Greater_date(F_date, S_date) {
+            var FirstDate = new Date(F_date);
+            var SecondDate = new Date(S_date);
+            if (FirstDate.getFullYear()) {
+
+            }
+        }
+    </script>
+
+
+
+
+    <!----------------------------------------Modal Sales Team--------------------------------------------------->
+    <script type="text/javascript">
+
+
+        var modal_company;
+
+
+        $("#address_table").off("click", "img").on("click", "img", function () {
+            modal_company = $(this).closest('tr').find(":text:eq(0)");
+
+            $("#modal_company").val($(modal_company).val());
+
+            $("#ModalCompany").modal("show");
+
+        });
+        $("#btn_company").click(function () {
+
+            $(modal_company).val($("#modal_company").val());
+
+            $("#ModalCompany").modal("hide");
+        })
+
+
+    </script>
+
+
+    <!--<script>
+        $('#start_date').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+
+
+        $('#end_date').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+
+    </script>-->
+
+
+    <script>
+        $(document).ready(function () {
+            function disableBack() {
+                window.history.forward()
+            }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) {
+                if (evt.persisted)
+                    disableBack()
+            }
+        });
+    </script>
+
+    <script>
+
+    $("#account_span").on("click", function () {
+        window.location.href = '@Url.Action("AccountItem", "AccountItem")';
+
+    });
+
+
+        $("#new_span").on("click", function () {
+            window.location.href = '@Url.Action("list_fiscal_year_DataTable", "Fiscal_Year")';
+
+        });
+
+    </script>
+
+</body>
+</html>

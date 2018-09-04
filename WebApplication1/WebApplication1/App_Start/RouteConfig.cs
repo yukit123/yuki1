@@ -24,7 +24,7 @@ namespace WebApplication1
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "WebApplication1.Controllers" }
+                namespaces: new string[] { "WebApplication1.Controllers" }           
             ).DataTokens.Add("area", "Home");
             //.DataTokens.Add("area", "Home");
             //

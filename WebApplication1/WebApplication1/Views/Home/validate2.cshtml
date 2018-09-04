@@ -30,8 +30,7 @@
 
             var textBox = "<div class='form-group'><label>Other  Name</label><input id='LabelId' name='LabelId' type='text' value='' class='form-control'/></div>";
             @*textBox +=@Html.Raw("Html.ValidationMessageFor(model => model.LeaveDurationDays })");*@
-            textBox +='@Html.Raw(HttpUtility.HtmlDecode(Html.ValidationMessageFor(m => m.LabelId,"", new { @class = "text-danger" }).ToHtmlString()))';
-
+            textBox += '@Html.Raw(HttpUtility.HtmlDecode(Html.ValidationMessageFor(m => m.LabelId,"", new { @class = "text-danger" }).ToHtmlString()))';
             $("form").append(textBox);
         })
         //$('#validate').click(function () {

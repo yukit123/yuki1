@@ -1,0 +1,10 @@
+﻿
+<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var txt = '{"Total":10,"NumPerPage":50,"currentPage":1,"Result":[{"GoodsId":"00000000-0000-0000-0000-000000000000","GoodsNum":null,"GoodsName":null,"Author":null,"Supplier":null,"TypeId":0,"TypeList":null,"TypeName":null,"Page":0,"Price":null,"StatusId":0,"StatusList":null,"StatusName":null,"Owner":"00000000-0000-0000-0000-000000000000","OwnerName":null,"CreatedOn":"0001-01-01T00:00:00","Total":5,"Id":0,"Note":"Jim"},{"GoodsId":"00000000-0000-0000-0000-000000000000","GoodsNum":null,"GoodsName":null,"Author":null,"Supplier":null,"TypeId":0,"TypeList":null,"TypeName":null,"Page":0,"Price":null,"StatusId":0,"StatusList":null,"StatusName":null,"Owner":"00000000-0000-0000-0000-000000000000","OwnerName":null,"CreatedOn":"0001-01-01T00:00:00","Total":4,"Id":0,"Note":"Damon"}]}';
+var obj = JSON.parse(txt);
+    $.each(obj.Result, function (index, value)
+				{
+        console.log("Total:" + value.Total + " Note:" + value.Note);
+				});
+</script>

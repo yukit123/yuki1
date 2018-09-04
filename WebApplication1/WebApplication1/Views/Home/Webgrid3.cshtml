@@ -1,0 +1,87 @@
+﻿@model List<WebApplication1.Models.Label>
+@{
+    Layout = null;
+    //List<Label> lstcart = Model.ToList();
+    //var tot = lstcart.Sum(a => a.price);
+    //var gst = 0.18 * tot;
+    //var ftot = tot + gst;
+    var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+    grid.Bind(source: Model, rowCount: Model.Count(), autoSortAndPage: false);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Execute Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/nw content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/nw content/jquery-ui.js"></script>
+    <link href="~/Content/nw content/style.css" rel="stylesheet" />
+    <script src="~/Content/jquery-3.2.1.min.js"></script>
+    <link href="~/Content/buttons.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Content/nw_contentt/style.css" rel="stylesheet" />*@
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+
+    <title>ViewCart</title>
+
+</head>
+<body style="background-image:url('../../pics/abstract_black_shiny_lines_heart_367_1920x1080.jpg')">
+    <h1 style="text-align:center">Your Cart</h1>
+    <div class="services-content">
+        <div class="container" style="background-color:black">
+            @grid.Table(
+                 htmlAttributes: new { @id = "grid", @style = "font-size:25px" },
+                 tableStyle: "table table-responsive table-bordered table-hover",
+                 columns: grid.Columns(
+                 grid.Column(format: @<span class="link">
+                        <a class="Delete" href="javascript:;">Delete</a>
+                    </span>),
+                                  grid.Column(columnName: "cardesc", header: "Car Name", format: @<span class="label">@item.LabelId</span>, style: "CarName"),
+                                grid.Column(columnName: "images", header: "Images", format:
+                        @<img id="imagebtn" src="~/images/test.jpg" style="width: 120px;height: 120px;" />, style: "Imagepix"),
+                            grid.Column(columnName: "price", header: "Price (In Rs.)", format:@<span>
+                                <span class="label">@item.LabelName</span>
+                                <input class="text" type="text" value="@item.LabelName" style="display:none" />
+                            </span>, style: "Price")
+                           )
+                           )
+        </div>
+
+
+</html>
+
+<script>
+    $("body").on("click", "#grid TBODY .Delete", function () {
+        debugger;
+        if (confirm("Do you want to delete this row?")) {
+            var row = $(this).closest("tr");
+            var carid = row.find(".label").html();
+            $.ajax({
+                type: "POST",
+                url: "/Cars/DeleteCart",
+                data: '{carid: ' + JSON.stringify(carid) + '}',
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    if ($("#grid TBODY tr").length == 1) {
+                        row.find(".label").html("");
+                        row.find(".text").val("");
+                        row.find(".link").hide();
+                    } else {
+                        row.remove();
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>

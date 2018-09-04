@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<WebApplication1.Models.Employee>*@
+﻿@model IEnumerable<WebApplication1.Models.Employee>
 @{
     ViewBag.Title = "Index";
 }
@@ -15,7 +15,7 @@
     </div>
 
 </div>
-@*<table class="table">
+<table class="table">
         <th>FirstName</th>
         <th>LastName</th>
         <th>Salary</th>
@@ -46,11 +46,11 @@
                     @Html.DisplayFor(modelItem => item.ViewDetails)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id })|
-                        @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.id })
-                        @Html.ActionLink("Details2", "Details", new { id = item.id })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                        @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.Id })
+                        @Html.ActionLink("Details2", "Details", new { id = item.Id })
                     <input type="button" value="Details2" id="Details2" onclick="doModel(@item.Id)" />
                     <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
 
@@ -58,7 +58,7 @@
             </tr>
         }
 
-    </table>*@
+    </table>
 
 <a href="javascript:void(0);" class="anchorDetail" data-id="1">Send id=1</a>
 <a href="javascript:void(0);" class="anchorDetail" data-id="3">Send id=3</a>

@@ -8,6 +8,8 @@
 <div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
 
 <br />
+@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "form-control datepicker" } })
+
 _______________________________________________________________________________________
 <br />
 
@@ -29,7 +31,7 @@ ________________________________________________________________________________
     new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@
 
 
-@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id = "aa", @name = "aa", @class = "datepicker", type = "date", @Value = "2015-10-14" } })
+@*@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id = "aa", @name = "aa", @class = "datepicker", type = "date", @Value = "2015-10-14" } })*@
 <br />
 _________________________________________________________________________________________________
 <br />
@@ -42,127 +44,140 @@ ________________________________________________________________________________
 
 @*@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "txtdatepicker" } })*@
 
+_________________________________________________________________________________________________
+<input id="start_date" class="form-control textbox_style" style="width: 350px; margin-left: 20px;background-color:#FFFEF3">
+
+
 <input name="startDate" id="txtdatepicker" class="date-picker" />
+<script>
+    function move(button) {
+        var p = button.parentElement;
+        if (button.parentElement.parentElement.id == "ChooseLeft") {
+            document.getElementById("ChooseRight").append(p)
+        } else {
+            document.getElementById("ChooseLeft").append(p)
+        }
+    }
+    function remove(button) {
+        button.parentElement.remove();
+    }
+</script>
+
+
+
+@section scripts{
+
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-ui-1.10.2.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script>
-        function move(button) {
-            var p = button.parentElement;
-            if (button.parentElement.parentElement.id == "ChooseLeft") {
-                document.getElementById("ChooseRight").append(p)
-            } else {
-                document.getElementById("ChooseLeft").append(p)
-            }
-        }
-        function remove(button) {
-            button.parentElement.remove();
-        }
-    </script>
+        var d = new Date();
+        //var n1 = d.getMonth();
+        //var n2 = d.getFullYear();
+        //var n3 = d.getDate();
+
+        //var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var date = new Date();
+        date.setFullYear(d.getFullYear());
+        date.setMonth(d.getMonth() - 1);
+
+        var date2 = new Date();
+        date2.setFullYear(d.getFullYear());
+        date2.setMonth(d.getMonth());
 
 
 
-    @section scripts{
+        $(document).ready(function () {
 
-        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
-        @*<script src="~/Scripts/jquery-ui-1.10.2.js"></script>*@
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd.mm.yy'
 
-        <script>
-            $("#myModal").modal("show");
-            var d = new Date();
-            //var n1 = d.getMonth();
-            //var n2 = d.getFullYear();
-            //var n3 = d.getDate();
-
-            //var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var date = new Date();
-            date.setFullYear(d.getFullYear());
-            date.setMonth(d.getMonth() - 1);
-
-            var date2 = new Date();
-            date2.setFullYear(d.getFullYear());
-            date2.setMonth(d.getMonth());
-
-           
-
-            $(document).ready(function () {
-
-
-                document.getElementById('current_date').valueAsDate = new Date();
-                // document.getElementById('date_of_month_before').valueAsDate = new Date();
-                // document.getElementById('date_of_month_before').valueAsDate = date;
-                //document.getElementById('date_of_month_before').max = "2018-04";
-                if (date.getMonth() < 10) {
-                    document.getElementById('date_of_month_before').max = date.getFullYear() + "-0" + date2.getMonth();
-                }
-                else {
-                    document.getElementById('date_of_month_before').max = date.getFullYear() + "-" + date2.getMonth();
-
-                }
-
-
-                // document.getElementById('date_of_month_before').valueAsDate = months[date.getMonth()-1];
-                //  document.getElementById('date_of_month_before').innerHTML = months[date.getMonth()-1];
-
-
-                //document.getElementById('date').innerHTML = months[date.getMonth()] + ' ' + date.getFullYear();
-                $('#txtdatepicker').datepicker({
-                    changeMonth: true,
-                    dateFormat: 'MM'
-                });
-                $("#txtdatepicker").datepicker('option', 'maxDate', new Date(date));
-                //$("#txtFDt").datepicker().datepicker("setMonth", date);
             });
 
+            document.getElementById('current_date').valueAsDate = new Date();
+            // document.getElementById('date_of_month_before').valueAsDate = new Date();
+            // document.getElementById('date_of_month_before').valueAsDate = date;
+            //document.getElementById('date_of_month_before').max = "2018-04";
+            if (date.getMonth() < 10) {
+                document.getElementById('date_of_month_before').max = date.getFullYear() + "-0" + date2.getMonth();
+            }
+            else {
+                document.getElementById('date_of_month_before').max = date.getFullYear() + "-" + date2.getMonth();
 
-
-
-            $("._style_2VKbTR[data-reactid='95'").click(function () {
-                event.preventDefault;
-                alert("s");
-            })
-
-            $(".editbox").datepicker({
-                dateFormat: 'dd/mm/yy'
-            })
-
-            var dd = new Date();
-
-            // Set it to one month ago
-            dd.setMonth(dd.getMonth() - 1);
-
-            // Zero the hours
-            dd.setHours(0, 0, 0);
-            dd.setDate(dd.getDate() + 10);
-            // Zero the milliseconds
-            dd.setMilliseconds(0);
-            var myDate = new Date(1978, 2, 11);
-
-            var dy = new Date();
-            //var dy2 = new Date();
-
-            dy.setFullYear(dy.getFullYear());
-
-            $(".editbox2").datepicker();//用setDate之前必须先初始化
-            // $(".editbox2").datepicker('setDate', dd);
-            $(".editbox2").datepicker("setDate", "01/01/" + dy.getFullYear());//"01/01/2018"
-            //$(".editbox2").datepicker("setDate", "01/01/2018");//"01/01/2018"
-
-
-            function dateTransform(d) {
-                var s = (new Date(d)).toString().split(' ');
-                return [s[2], s[1], s[3]].join('-');
             }
 
-            function mydate() {
-                d = new Date(document.getElementById("dt").value);
-                dt = d.getDate();
-                mn = d.getMonth();
-                mn++;
-                yy = d.getFullYear();
-                document.getElementById("ndt").value = dt + "/" + mn + "/" + yy
-                document.getElementById("ndt").hidden = false;
-                document.getElementById("dt").hidden = true;
-            }
-        </script>
-    }
+
+            // document.getElementById('date_of_month_before').valueAsDate = months[date.getMonth()-1];
+            //  document.getElementById('date_of_month_before').innerHTML = months[date.getMonth()-1];
+
+
+            //document.getElementById('date').innerHTML = months[date.getMonth()] + ' ' + date.getFullYear();
+            $('#txtdatepicker').datepicker({
+                changeMonth: true,
+                dateFormat: 'MM'
+            });
+            $("#txtdatepicker").datepicker('option', 'maxDate', new Date(date));
+            //$("#txtFDt").datepicker().datepicker("setMonth", date);
+        });
+
+
+
+
+        $("._style_2VKbTR[data-reactid='95'").click(function () {
+            event.preventDefault;
+            alert("s");
+        })
+
+        $(".editbox").datepicker({
+            dateFormat: 'dd/mm/yy'
+        })
+
+        var dd = new Date();
+
+        // Set it to one month ago
+        dd.setMonth(dd.getMonth() - 1);
+
+        // Zero the hours
+        dd.setHours(0, 0, 0);
+        dd.setDate(dd.getDate() + 10);
+        // Zero the milliseconds
+        dd.setMilliseconds(0);
+        var myDate = new Date(1978, 2, 11);
+
+        var dy = new Date();
+        //var dy2 = new Date();
+
+        dy.setFullYear(dy.getFullYear());
+
+        $(".editbox2").datepicker();//用setDate之前必须先初始化
+        // $(".editbox2").datepicker('setDate', dd);
+        $(".editbox2").datepicker("setDate", "01/01/" + dy.getFullYear());//"01/01/2018"
+        //$(".editbox2").datepicker("setDate", "01/01/2018");//"01/01/2018"
+
+
+        function dateTransform(d) {
+            var s = (new Date(d)).toString().split(' ');
+            return [s[2], s[1], s[3]].join('-');
+        }
+
+        function mydate() {
+            d = new Date(document.getElementById("dt").value);
+            dt = d.getDate();
+            mn = d.getMonth();
+            mn++;
+            yy = d.getFullYear();
+            document.getElementById("ndt").value = dt + "/" + mn + "/" + yy
+            document.getElementById("ndt").hidden = false;
+            document.getElementById("dt").hidden = true;
+        }
+
+        $("#start_date").datepicker({
+            dateFormat: 'dd/mm/yy'
+        })
+    </script>
+}
 

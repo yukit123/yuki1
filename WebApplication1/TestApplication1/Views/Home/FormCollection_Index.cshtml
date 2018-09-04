@@ -1,30 +1,29 @@
 ﻿@*第一种方法*@
-@*@model TestApplication1.Controllers.HomeController.TestModel
-    @{
-        ViewBag.Title = "FormCollection_Index";
-    }
+@model TestApplication1.Controllers.HomeController.TestModel
+@{
+    ViewBag.Title = "FormCollection_Index";
+}
 
-    <h2>FormCollection_Index</h2>
-
-    <html>
-    <head>
-        <title>TestForm</title>
-    </head>
-    <body>
-        <div>
-            @using (Html.BeginForm())
-            {
-                <div class="editor-label">
-                    @Html.LabelFor(m => m.TestInput)
-                </div>
-                <div class="editor-label">
-                    @Html.TextBoxFor(m => m.TestInput)
-                </div>
-                <input type="submit" value="Test Form" />
-            }
-        </div>
-    </body>
-    </html>*@
+<h2>FormCollection_Index</h2>
+<html>
+<head>
+    <title>TestForm</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.TestInput)
+            </div>
+            <div class="editor-label">
+                @Html.TextBoxFor(m => m.TestInput)
+            </div>
+            <input type="submit" value="Test Form" />
+        }
+    </div>
+</body>
+</html>
 
 
 @*第二种方法*@

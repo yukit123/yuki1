@@ -12,7 +12,7 @@
 <body>
     <div class="col-sm-12  well" id="criteria2">
 
-        @using (Ajax.BeginForm("MyMap", "Homes",new AjaxOptions { HttpMethod = "GET" },new { @method = "get" }))
+        @using (Ajax.BeginForm("MyMap", "Homes",new AjaxOptions { HttpMethod = "GET", OnFailure = "failureValidation" },new { @method = "get" }))
         {
             <div id="divInterestDetails2" class="form-horizontal mini" style="margin-bottom: 0px;">
                 <fieldset>
@@ -43,5 +43,8 @@
     </div>
 </body>
 </html>
+<script>
+    function failureValidation() { alert(111);}
+</script>
 
 

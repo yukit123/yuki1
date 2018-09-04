@@ -76,6 +76,14 @@ namespace WebApplication1.Controllers
                              ischeck = false
                          }).ToList();
 
+            //var solk = (from v in db.Author
+            //            select new
+            //            {
+            //                v.id
+            //            }).ToList();
+
+            //List<int> solk2 = (from v in db.Author select v.id).ToList();
+
             // Store the actual collection in the ViewBag (not using a SelectList)
             ViewBag.Interests = data2;
 

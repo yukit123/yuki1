@@ -1,0 +1,55 @@
+﻿@model List<TestApplication1.Controllers.Home2Controller.MessagesVM>
+@{
+    ViewBag.Title = "Partial_Index";
+}
+
+
+
+
+<a class="btnChangestu">11111</a>
+<input type="hidden" name="ChangeStu" id="ChangeStu" value="læst besked" />
+@section scripts{
+<script>
+
+    $(document).ready(function () {
+
+        //$('.btnChangestu').click(function () {
+
+            var id = $(this).attr('id');
+            var ChangeStu = $("#ChangeStu").val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateMSGStatus", "Home2")',
+                data: {
+                    IDMSG: 3,
+                    ChangeStu: "xxx"
+                },
+                dataType: 'json',
+                success: function (result) {
+
+                    if (!$.trim(result)) {
+
+                        console.log("error");
+                    } else {
+
+                        result.MSGType = ChangeStu;
+                        result.ID = id;
+
+                        console.log("Ok");
+                    }
+
+                },
+                error: function () {
+                    console.log('something went wrong - debug it!');
+                }
+            })
+
+        //});
+
+
+    });
+</script>
+    }
+
+

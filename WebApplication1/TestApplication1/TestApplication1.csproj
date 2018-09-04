@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AuthorModelsController.cs" />
     <Compile Include="Controllers\book2Controller.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -288,6 +289,22 @@
     <Compile Include="Migrations\201807180511056_author2-ValidationAttribute1.Designer.cs">
       <DependentUpon>201807180511056_author2-ValidationAttribute1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808220706308_expert1.cs" />
+    <Compile Include="Migrations\201808220706308_expert1.Designer.cs">
+      <DependentUpon>201808220706308_expert1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808220749150_expert2.cs" />
+    <Compile Include="Migrations\201808220749150_expert2.Designer.cs">
+      <DependentUpon>201808220749150_expert2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808290317431_tool1.cs" />
+    <Compile Include="Migrations\201808290317431_tool1.Designer.cs">
+      <DependentUpon>201808290317431_tool1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808290608344_tool2.cs" />
+    <Compile Include="Migrations\201808290608344_tool2.Designer.cs">
+      <DependentUpon>201808290608344_tool2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -303,6 +320,7 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CountrySize.cs" />
     <Compile Include="Models\Customers.cs" />
+    <Compile Include="Models\expert.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\GroupProperty.cs" />
     <Compile Include="Models\OpsModel.cs" />
@@ -310,10 +328,12 @@
     <Compile Include="Models\RMA_History.cs" />
     <Compile Include="Models\SampleViewModel.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
+    <Compile Include="Models\Tool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="angularjs.html" />
+    <Content Include="array.html" />
     <Content Include="BootstrapValidate.html" />
     <Content Include="ChangeIcon.html" />
     <Content Include="clickTd.html" />
@@ -402,6 +422,7 @@
     <Content Include="html2canvas.html" />
     <Content Include="images\Arrow.PNG" />
     <Content Include="images\test.jpg" />
+    <Content Include="Jsonparse.html" />
     <Content Include="Modal Popup.aspx" />
     <Content Include="picture.html" />
     <Content Include="Scripts\angular-animate.js" />
@@ -1385,6 +1406,10 @@
     <Content Include="Views\Home\RenderViewToString_Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\FormCollection_Index.cshtml" />
+    <Content Include="Views\Home2\Create.cshtml" />
+    <Content Include="Views\Home2\Partial_Index.cshtml" />
+    <Content Include="Views\Home2\Index.cshtml" />
+    <Content Include="Views\Home2\_GetMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1469,6 +1494,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807180511056_author2-ValidationAttribute1.resx">
       <DependentUpon>201807180511056_author2-ValidationAttribute1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808220706308_expert1.resx">
+      <DependentUpon>201808220706308_expert1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808220749150_expert2.resx">
+      <DependentUpon>201808220749150_expert2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808290317431_tool1.resx">
+      <DependentUpon>201808290317431_tool1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808290608344_tool2.resx">
+      <DependentUpon>201808290608344_tool2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

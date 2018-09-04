@@ -1811,23 +1811,32 @@ namespace TestApplication1.Controllers
             public string TestInput { get; set; }
         }
 
+        public class TestModel2
+        {
+            public string TestInput { get; set; }
+            public string TestInput2 { get; set; }
+
+        }
+
         public ActionResult FormCollection_Index()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult FormCollection_Index(/*FormCollection collection*/string str)
+        public ActionResult FormCollection_Index(FormCollection collection/*,string str*/)
         {
 
             #region 第一种方法
-            //var model = new TestModel();
-            //TryUpdateModel(model, collection); //collection["TestInput"]
+            var model = new TestModel();
+            TryUpdateModel(model, collection); //collection["TestInput"]
+            //var model2 = new TestModel2();
+            //UpdateModel(model2, null, new string[] { "TestInput", "TestInput2" });
+            
+            Response.Write("[" + model.TestInput + "]");
 
-            //Response.Write("[" + model.TestInput + "]");
-
-            //// return Content("Success");//空白页面显示Success
-            //return View();//原页面上显示值
+            // return Content("Success");//空白页面显示Success
+            return View();//原页面上显示值
             #endregion
 
             #region Request.Params
@@ -1836,7 +1845,7 @@ namespace TestApplication1.Controllers
             #endregion
 
             #region 第一种方法
-            return Json(new { flag = str }, JsonRequestBehavior.AllowGet);
+           // return Json(new { flag = str }, JsonRequestBehavior.AllowGet);
             #endregion
 
               return View();

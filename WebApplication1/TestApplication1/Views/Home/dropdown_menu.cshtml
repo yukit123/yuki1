@@ -49,7 +49,9 @@
             <label for="dropdown2">Cogn Desc:</label>
         </div>
         <div class="col-xs-9" @*style="width:100px;"*@>
-            @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control" ,@style = "width:1000px;" })
+            @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control", @style = "width:1000px;" })
+            @Html.DropDownListFor(n => n.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Name", "ID"), "Please select")
+
         </div>
         </div>
 

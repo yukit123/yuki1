@@ -32,7 +32,7 @@
     </div>*@
 
     <div id="saveDiv">
-        @{ Html.RenderAction("_ViewEmployee", new { ID = ""}); }
+        @{ Html.RenderAction("_ViewEmployee", new { ID = ViewBag.XX}); }
     </div>
 
     <div id="partial">
@@ -107,6 +107,7 @@
 </html>
 
 <script>
+    
     function doEdit(obj) {
         //$.ajax({
         //    url: '/Home/GetEmployeebyID',
@@ -130,6 +131,7 @@
 
                 var url = "@Html.Raw(Url.Action("_ViewEmployee", "Home", new { ID = "sempar" }))";
         url = url.replace("sempar", ID);
-                $('#partial').load(url);
+        $('#partial').load(url);
+        //$('#partial').show();
         }
 </script>

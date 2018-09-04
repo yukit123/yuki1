@@ -23,8 +23,6 @@
     Layout = null;
 }
 
-
-
 <div class="div_item_header" style="position: fixed; top: 0; background-color: white ;width:1360px; ">
     <br>
     <label class="account_title label_header" style="margin-left:600px">Item Wise Sales Register</label>
@@ -73,12 +71,13 @@
 
                             }, function (data) {
                                 var row;
+                                var html;
+
                                 $.each(data, function (i, v) {
                                     row += "<option>" + v.item_name + "</option>";
                                 });
 
-                                $("#get_item").append(row);
-                            });
+                                $("#get_item").append(row);                            });
                         })
                     })
 

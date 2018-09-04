@@ -1,4 +1,4 @@
-﻿
+﻿@*<input id="AddNewProd" type="button" value="New Prod" class="btn btn-primary" onclick="location.href='@Url.Action("Index2", "Home",new { area="admin",lang="fr"})'" />*@
 <tr>
     <td>
         <button type="button" class="btn btn-success btn-sm  modal-link"
@@ -12,9 +12,9 @@
 <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
     <a href="#close" title="Close" class="modal-close-btn">X</a>
     <div class="modal-content">
-        <div class="modal-body"></div>
+        @*<div class="modal-body"></div>*@
     </div>
-</div>
+    </div>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -28,9 +28,11 @@
 
             $.get($(this).data("targeturl"), function (data) {
 
-                $('<div id="modal-container" class="modal fade">' +
-                    '<div class="modal-content" id= "modalbody" >' +
-                    data + '</div></div>').modal();
+                //$('<div id="modal-container" class="modal fade">' +
+                //    '<div class="modal-content" id= "modalbody" >' +
+                //    data + '</div></div>').modal();
+                $('<div id="modal-container" class="modal fade">' + data + '</div></div>').modal();
+
                 //$("#modal-container").append(data);
                 //$("#modal-container").modal('show');
 
