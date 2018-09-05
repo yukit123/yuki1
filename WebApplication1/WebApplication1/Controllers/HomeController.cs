@@ -499,11 +499,21 @@ namespace WebApplication1.Controllers
         public ActionResult validate2()
         {
             var list = db.Label.ToList().FirstOrDefault();
+            List<string> IDs = db.Label.Select(x => x.LabelName.ToString()).ToList();
             // ProjectAndStudentModels pvm = new ProjectAndStudentModels();
             // pvm.StudentsAndID = db.Student.ToList();
             //Label list2 = db.Label.ToList().FirstOrDefault();
-
-            return View(list);
+            #region ListBoxFor 多选 model binding 
+            var model = new Label();
+            model.ListaProdotti = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Apple1", Value = "1"},
+                    new SelectListItem {Text = "Pear1", Value = "2"},
+                    new SelectListItem {Text = "Banana1", Value = "3"},
+                    new SelectListItem {Text = "Orange1", Value = "4"},
+                };
+            #endregion
+            return View(model);//list
         }
 
         public ActionResult TestAction()

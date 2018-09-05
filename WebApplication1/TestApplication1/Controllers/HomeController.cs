@@ -873,8 +873,11 @@ namespace TestApplication1.Controllers
             //public int SelectedId { get; set; }
 
             public OpsModel OpsModel { get; set; }
+            [Required]
             public IList<SelectListItem> Carrier { get; set; }
-            public int[] SelectedCarrierId { get; set; }
+            [Required]
+            public string[] SelectedCarrierId { get; set; }
+
         }
 
         public ActionResult email_Index()
@@ -911,10 +914,10 @@ namespace TestApplication1.Controllers
                 var model = new OpsViewModel();
                 model.Carrier  = new List<SelectListItem>
                 {
-                    new SelectListItem {Text = "Apple1", Value = "Apple"},
-                    new SelectListItem {Text = "Pear1", Value = "Pear"},
-                    new SelectListItem {Text = "Banana1", Value = "Banana"},
-                    new SelectListItem {Text = "Orange1", Value = "Orange"},
+                    new SelectListItem {Text = "Apple1", Value = "1"},
+                    new SelectListItem {Text = "Pear1", Value = "2"},
+                    new SelectListItem {Text = "Banana1", Value = "3"},
+                    new SelectListItem {Text = "Orange1", Value = "4"},
                 };
 
 
@@ -926,7 +929,7 @@ namespace TestApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendEmailView(string Carrier)
+        public ActionResult SendEmailView(OpsViewModel model,string Carrier)
         {
             //pageSetup();
             //call SendEmailView view to invoke webmail  

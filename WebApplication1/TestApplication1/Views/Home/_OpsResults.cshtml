@@ -66,9 +66,13 @@
     <div class="form-group">
         <label for="multiselect" class="control-label col-xs-2">Carrier</label>
         <span class="col-md-2">
-            @Html.ListBoxFor(model => model.Carrier, new MultiSelectList(Model.Carrier, "Text", "Value"), new { @class = "col-md-2" ,@Name= "ToEmail",@id= "ToEmail" })
+            @Html.ListBoxFor(model => model.Carrier, new MultiSelectList(Model.Carrier, "Value","Text" ), new { @class = "col-md-2"@*, @Name = "ToEmail", @id = "ToEmail"*@})
+            @*@Html.ListBoxFor(model => model.SelectedCarrierId, new MultiSelectList(Model.Carrier, "Value", "Text"), new { @class = "col-md-2"})*@
+            @*相当于*@
+            @Html.ListBoxFor(model => model.SelectedCarrierId, Model.Carrier, new { @class = "col-md-2" })
 
 
+            @Html.ValidationMessageFor(model => model.SelectedCarrierId, "", new { @class = "text-danger" })
 
         </span>
     </div>

@@ -16,6 +16,7 @@ namespace TestApplication1.Models
 
         [Display(Name = "Body")]
         [DataType(DataType.MultilineText)]
+        [Required]
         public string EMailBody { get; set; }
 
         [DataType(DataType.EmailAddress), Display(Name = "To")]

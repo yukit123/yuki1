@@ -305,6 +305,10 @@
     <Compile Include="Migrations\201808290608344_tool2.Designer.cs">
       <DependentUpon>201808290608344_tool2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809050633027_automatic-mgration.cs" />
+    <Compile Include="Migrations\201809050633027_automatic-mgration.Designer.cs">
+      <DependentUpon>201809050633027_automatic-mgration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -1506,6 +1510,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808290608344_tool2.resx">
       <DependentUpon>201808290608344_tool2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809050633027_automatic-mgration.resx">
+      <DependentUpon>201809050633027_automatic-mgration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

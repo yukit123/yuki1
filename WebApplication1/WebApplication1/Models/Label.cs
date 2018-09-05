@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WebApplication1.Models
 {
@@ -13,6 +15,11 @@ namespace WebApplication1.Models
         public int LabelId { get; set; }
         public string LabelName { get; set; }
         //public List<Label> labinfo { get; set; }
+        [NotMapped]
+        [Required]
+        public List<int> ProdottiIds { get; set; }
+        [NotMapped]
+        public IList<SelectListItem> ListaProdotti { get; set; }
     }
 
     public class Label2
@@ -20,6 +27,7 @@ namespace WebApplication1.Models
         public int LabelId { get; set; }
         public string LabelName { get; set; }
         public List<Label> labinfo { get; set; }
+ 
     }
 
     //public enum Gender
