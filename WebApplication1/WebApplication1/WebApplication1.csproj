@@ -595,6 +595,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\Arrow.PNG" />
     <Content Include="images\test.jpg" />
+    <Content Include="location-attr.html" />
     <Content Include="navbar.html" />
     <Content Include="navbar2.html" />
     <Content Include="press13.html" />

@@ -876,7 +876,7 @@ namespace TestApplication1.Controllers
             [Required]
             public IList<SelectListItem> Carrier { get; set; }
             [Required]
-            public string[] SelectedCarrierId { get; set; }
+            public List<string> SelectedCarrierId { get; set; }
 
         }
 

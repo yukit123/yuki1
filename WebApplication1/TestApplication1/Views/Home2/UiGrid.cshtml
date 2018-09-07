@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS之过滤器</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
+    <script src="/release/ui-grid.js"></script>
+    <script src="/release/ui-grid.css"></script>
+    <script>
+        angular.module('app', ['ngTouch', 'ui.grid'])
+            .controller('MainCtrl', MainCtrl);
+
+        function MainCtrl() {
+            this.myData = [
+                {
+                    firstName: "Cox",
+                    lastName: "Carney",
+                    company: "Enormo",
+                    employed: true
+                },
+                {
+                    firstName: "Lorraine",
+                    lastName: "Wise",
+                    company: "Comveyer",
+                    employed: false
+                },
+                {
+                    firstName: "Nancy",
+                    lastName: "Waters",
+                    company: "Fuelton",
+                    employed: false
+                }
+            ];
+        }
+    </script>
+</head>
+<body>
+    @*<div ng-app="app" ng-controller="filterCon">
+        <input type="text" ng-model="username" /><br><br>
+        大写：{{username | uppercase}}<br><br>
+        小写：{{username | lowercase}}<br>
+    </div>*@
+
+    <div ng-controller="MainCtrl as $ctrl">
+        <div id="grid1" ui-grid="{ data: $ctrl.myData }" class="grid"></div>
+    </div>
+</body>
+</html>

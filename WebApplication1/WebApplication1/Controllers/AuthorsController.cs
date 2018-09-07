@@ -158,7 +158,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,AuthorName")] Author author)
+        public ActionResult Edit([Bind(Include = "id,AuthorName")] Author author,string hid)
         {
             if (ModelState.IsValid)
             {

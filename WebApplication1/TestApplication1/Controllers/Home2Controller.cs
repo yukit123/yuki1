@@ -120,5 +120,11 @@ namespace TestApplication1.Controllers
             }
             return Json(u, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult UiGrid()
+        {
+      
+            return View();
+        }
     }
 }
