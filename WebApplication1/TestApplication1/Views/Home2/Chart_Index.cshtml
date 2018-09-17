@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Chart_Index";
+}
+
+<h2>Chart_Index</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <img src="@Url.Action("CreateBar")" alt="Bar Chart using MVC" />
+                </td>
+                <td>
+                    <img src="@Url.Action("CreatePie")" alt="Pie Chart using MVC" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <img src="@Url.Action("CreateLine")" alt="Line Chart using MVC" />
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Gallery_Create";
+}
+
+<h2>Gallery_Create</h2>
+@using (Html.BeginForm("Gallery_Create2", "Home2", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+
+    <div id="table-board" class="site-main" role="main">
+        <!-- Title -->
+        <input id="title" type="text"
+               class="form-control form-control-lg"
+               placeholder="제목: 25자 이내 텍스트를 입력하세요."
+               style="margin-bottom:30px"
+               required>
+        <small id="title"></small>
+
+        <!-- summernote 영역 -->
+        <div id="summernote" class=""></div>
+
+        <!-- Thumnail -->
+        <div>
+            <label for="attachFile">파일첨부</label>
+            <input type="file"
+                   id="thumnail"
+                   placeholder="대표 이미지를 첨부하세요."
+                   accept="image/gif, image/jpeg, image/png"
+                   onchange="readURL(this);" name="file2"> 
+        </div>
+
+        <div class="create-button">
+            <button id="btnSubmit" @*onclick="dosubmit()"*@ type="submit" class="col align-self-center btn btn-primary" />저장
+            <button id="btnCancel" onclick="goBack()" class="col-md-auto btn btn-primary">취소</button>
+        </div>
+    </div>
+    }
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            console.log("included this page");
+
+            $('#summernote').summernote({
+                placeholder: "내용을 입력하세요.",
+                tabsize: 2,
+                height: 400,
+                minHeight: 400,
+                maxHeight: null
+            });
+
+            //$('#btnSubmit').on('click', function () {
+            //    var markupStr = $('#summernote').summernote('code');
+            //    var data = new Object();
+            //    data.title = $("#title").val();
+            //    data.contents = encodeURI(markupStr);
+            //    data.thumnail = $('#thumnail').val();
+            //    console.log("thumnail -> " + data.thumnail);
+            //    if (isValid(data)) submit(data);
+            //});
+
+
+            function isValid(param) {
+                //Null Check
+                if (!validation.NullCheck(param.title)) {
+                    alert("제목을 입력하세요."); return false;
+                }
+                if (param.title.length > 25) {
+                    alert("제목은 25자 이내로 작성하세요."); return false;
+                }
+                if ($('#summernote').summernote('isEmpty')) {
+                    alert('내용을 입력하세요.'); return false;
+                }
+                if (!validation.NullCheck(param.thumnail)) {
+                    alert("대표이미지를 첨부하세요.");
+                    return false;
+                }
+
+                return true;
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //$('#falseinput').attr('src', e.target.result);
+                    $('#thumnail').val(e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        function dosubmit() {
+            var data = $('#thumnail').val();
+            //var file_data = $("#thumnail").prop("files")[0];
+            //var form_data = new FormData();
+            //form_data.append("file", file_data);
+            $.ajax({
+                type: "post",
+                url: "/Home2/Gallery_Create2",
+                data: {
+                    "THUMNAIL": data
+                },
+                //data: form_data,
+                dataType: "json",
+                error: function () {
+                    alert("시스템 오류입니다.");
+                },
+                success: function (data) {
+                    alert(data.message);
+                    $(location).attr("href", "Home2/Gallery");
+                }
+
+            });
+        }
+    </script>
+}

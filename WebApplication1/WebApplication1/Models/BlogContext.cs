@@ -26,6 +26,9 @@ namespace WebApplication1.Models
 
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupProperty> GroupProperties { get; set; }
+        public DbSet<SName> SNames { get; set; }
+
+        
 
 
 

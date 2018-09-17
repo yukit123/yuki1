@@ -1416,6 +1416,9 @@
     <Content Include="Views\Home2\Index.cshtml" />
     <Content Include="Views\Home2\_GetMessages.cshtml" />
     <Content Include="Views\Home2\UiGrid.cshtml" />
+    <Content Include="Views\Home2\Create_Index.cshtml" />
+    <Content Include="Views\Home2\Chart_Index.cshtml" />
+    <Content Include="Views\Home2\Gallery_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

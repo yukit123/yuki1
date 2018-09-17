@@ -552,6 +552,10 @@
     <Compile Include="Migrations\201807180259417_Charter-ValidationAttribute1.Designer.cs">
       <DependentUpon>201807180259417_Charter-ValidationAttribute1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809120829442_SName1.cs" />
+    <Compile Include="Migrations\201809120829442_SName1.Designer.cs">
+      <DependentUpon>201809120829442_SName1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -566,6 +570,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProjectAndStudentModels.cs" />
     <Compile Include="Models\Search.cs" />
+    <Compile Include="Models\SName.cs" />
     <Compile Include="Models\TEnum.cs" />
     <Compile Include="Models\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -853,6 +858,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807180259417_Charter-ValidationAttribute1.resx">
       <DependentUpon>201807180259417_Charter-ValidationAttribute1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809120829442_SName1.resx">
+      <DependentUpon>201809120829442_SName1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

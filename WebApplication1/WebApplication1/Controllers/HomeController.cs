@@ -2916,7 +2916,7 @@ namespace WebApplication1.Controllers
 
         //}
 
-        #region
+        #region //https://forums.asp.net/t/2146631.aspx  event.preventDefault();
         public class Employee
         {
             public int EmployeeID { get; set; }
@@ -2950,11 +2950,28 @@ namespace WebApplication1.Controllers
             Employee employee = new Employee();
             employee.EmployeeID = 2;
             employee.FirstName = "xx";
-  
-            //return View(employee);
+
+            //return View("EmployeeList", employee);
             return RedirectToAction("EmployeeList", employee);
             // return PartialView("_ViewEmployee", employee);
         }
+
+        //[HttpPost]
+        //public ActionResult GetEmployeebyID(int ID)
+        //{
+        //    if (Request.IsAjaxRequest())
+        //    {
+        //        Employee employee = new Employee();
+        //        employee.EmployeeID = 2;
+        //        employee.FirstName = "xx";
+        //        return PartialView("_ViewEmployee", employee);
+        //    }
+        //    else
+        //    {
+        //        return PartialView("_ViewEmployee", null);
+        //    }
+        //}
+
 
         public ActionResult _ViewEmployee(int? ID)
         {
@@ -3023,6 +3040,15 @@ namespace WebApplication1.Controllers
 
         }
 
+        public class EmptyRows
+        {
+            public int Id { get; set; }
+            public string name1 { get; set; }
+            public string name2 { get; set; }
+            public string name3 { get; set; }
+
+
+        }
         public ActionResult Bootstrapmodal_Index()
         {
             #region not in in linq
@@ -3030,6 +3056,19 @@ namespace WebApplication1.Controllers
             //var query = db.Cities
             //                         .Select(e => e.CityName)
             //                         .Where(e => !exceptionList.Distinct().Contains(e)).ToList();
+            #endregion
+            #region how to merge rows with same id
+            //var vm = new EmptyRows();
+
+            //var list = new List<EmptyRows>
+            //{
+            //    new EmptyRows{Id=1,name1="t1"},
+            //    new EmptyRows{Id=1,name2="f2"},
+            //    new EmptyRows{Id=1,name3="f3"},
+            //    new EmptyRows{Id=2,name1="t4",name2="f4",name3="f4"}
+
+            //};
+            //var list2 = list.GroupBy(x => x.Id).ToList();
             #endregion
             return View();
         }

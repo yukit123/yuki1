@@ -26,13 +26,19 @@
 </head>
 <body>
     @*<div>
-        @Html.Partial("_ViewEmployee", new WebApplication1.Controllers.HomeController.Employee())
+            @Html.Partial("_ViewEmployee", new WebApplication1.Controllers.HomeController.Employee())
 
 
-    </div>*@
+        </div>*@
 
-    <div id="saveDiv">
-        @{ Html.RenderAction("_ViewEmployee", new { ID = ViewBag.XX}); }
+    @*<div id="saveDiv">
+            @{ Html.RenderAction("_ViewEmployee", new { ID = ViewBag.XX}); }
+        </div>*@
+
+    <div id="divPartialView">
+        @*@Html.Partial("_ViewEmployee", new WebApplication1.Controllers.HomeController.Employee())*@
+        @{ Html.RenderAction("_ViewEmployee", new { ID = ViewBag.XX }); }
+        @*@{Html.RenderPartial("_ViewEmployee", new MVCApplication.Models.Employee());}*@
     </div>
 
     <div id="partial">
@@ -109,7 +115,7 @@
 <script>
     
     function doEdit(obj) {
-        //$.ajax({
+        @*//$.ajax({
         //    url: '/Home/GetEmployeebyID',
         //    async: false,
         //    dataType: "json",
@@ -132,6 +138,21 @@
                 var url = "@Html.Raw(Url.Action("_ViewEmployee", "Home", new { ID = "sempar" }))";
         url = url.replace("sempar", ID);
         $('#partial').load(url);
-        //$('#partial').show();
+        //$('#partial').show();*@
+        var ID = obj;
+          $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetEmployeebyID", "Home")",
+              data: { ID: ID },
+                dataType: 'html',
+                success: function (data) {
+                    alert(data);
+                    $('#divPartialView').html(data);
+                    //return false;
+                }
+
+            });
+
+
         }
 </script>

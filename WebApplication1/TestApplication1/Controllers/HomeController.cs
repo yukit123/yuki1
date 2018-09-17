@@ -26,6 +26,8 @@ namespace TestApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        //How to render an ASP.NET MVC view as a string?
+        //https://stackoverflow.com/questions/483091/how-to-render-an-asp-net-mvc-view-as-a-string
         private TestApplication1Context db = new TestApplication1Context();
         public ActionResult Index()
         {
