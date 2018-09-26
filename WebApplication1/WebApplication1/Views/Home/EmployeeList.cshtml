@@ -37,7 +37,7 @@
 
     <div id="divPartialView">
         @*@Html.Partial("_ViewEmployee", new WebApplication1.Controllers.HomeController.Employee())*@
-        @{ Html.RenderAction("_ViewEmployee", new { ID = ViewBag.XX }); }
+        @{ Html.RenderAction("_ViewEmployee"); }
         @*@{Html.RenderPartial("_ViewEmployee", new MVCApplication.Models.Employee());}*@
     </div>
 

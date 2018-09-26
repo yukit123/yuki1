@@ -6,7 +6,7 @@
 }
 
 @section scripts{
-<script>
+    <script>
     $(document).ready(function () {
         /* This is change event for your dropdownlist */
         $('#regionSelect_ddl').change(function () {
@@ -27,9 +27,10 @@
                 });
             });
         });
-</script>
-    }
+    </script>
+}
+
 
 <p>Region</p>@Html.DropDownList("regionSelect_ddl", null, "--Select Region--")
-
+<p>Region</p>@Html.DropDownListFor(m => m.ddl1, null, "--Select--")
 <div id="partialPlaceHolder" style="display:none;"> </div>

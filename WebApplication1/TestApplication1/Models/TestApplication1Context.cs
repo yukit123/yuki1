@@ -28,6 +28,8 @@ namespace TestApplication1.Models
         public DbSet<expert> experts { get; set; }
 
         public DbSet<Tool> Tools { get; set; }
+        public DbSet<StudentAccount> StudentAccounts { get; set; }
+
 
 
 

@@ -1,0 +1,36 @@
+﻿<!--https://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful-->
+<!--https://forums.asp.net/t/2147068.aspx-->
+<style>
+
+    .progress {
+        cursor: progress;
+    }
+</style>
+<p class="progress">progress</p>
+<button class="xx">11111111</button>
+<p>progress</p>
+<p>progress</p>
+<p>progress</p>
+<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(".xx").click(function () {
+        $(this).css("cursor", "progress");
+
+        //var x = setTimeout(function () {
+        //    console.log(11);
+        //}, 3000);
+        //clearTimeout(x);
+
+        setTimeout(function () {
+            console.log('timeout1')
+            new Promise(function (resolve) {
+                console.log('timeout1_promise')
+                resolve()
+            }).then(function () {
+                console.log('timeout1_then')
+                $(".xx").css("cursor", "default");//完成之后执行（不知道对错）
+            })
+        }, 2000);
+
+    })
+</script>

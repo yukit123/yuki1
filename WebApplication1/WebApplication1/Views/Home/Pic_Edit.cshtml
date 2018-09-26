@@ -4,11 +4,13 @@
 @*<img src="@Url.Content(Model.FilePath)" height="140" />*@
 <img src="@Url.Content("~/images/Arrow.PNG")" height="140" />
 
+@*<img src="@Html.ValueFor(x=>x.FilePath)" />*@
+
 
 <br /><br />
 <h3>Upload the Jobs image:</h3>
 <form id="Form" name="Form" action="@Url.Action("ImageUpload", "Home" )" enctype="multipart/form-data" method="post">
-@*<form id="Form" name="Form" action="@Url.Action("Index2", "Home" ,new { area = "admin" })" enctype="multipart/form-data" method="post">*@
+    @*<form id="Form" name="Form" action="@Url.Action("Index2", "Home" ,new { area = "admin" })" enctype="multipart/form-data" method="post">*@
 
     @Html.AntiForgeryToken()
     <div class="container">
@@ -47,7 +49,7 @@
 
 <script>
     var UploadImage = function () {
-    
+
         var file = $("#SelectImage").get(0).files;
         var data = new FormData;
         data.append("ImageFile", file[0]);
@@ -59,17 +61,17 @@
             processData: false,
             success: function (imgID) {
                 $.ajax({
-                    async:true,
+                    async: true,
                     url: "/Home/DisplayingImage",
-                    data: { "imgID": parseInt(imgID)},
+                    data: { "imgID": parseInt(imgID) },
                     success: function (data) {
                         data = "Area1.png";
                         $("#UploadedImage").empty();
-                        $("#UploadedImage").append('<img src="/images/' + data+'"class=img-responsive  thimbnail"/>');
+                        $("#UploadedImage").append('<img src="/images/' + data + '"class=img-responsive  thimbnail"/>');
                     }
                 })
-               
-               
+
+
             }
         })
     }
@@ -78,4 +80,4 @@
 
 
 
-    @Html.ActionLink("Back to List", "Index")
+@Html.ActionLink("Back to List", "Index")

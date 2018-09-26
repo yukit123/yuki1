@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -211,7 +215,7 @@ namespace TestApplication1.Controllers
             public string CTGRY_CD { get; set; }
             public DateTime REG_DT { get; set; }
             public string STATUS { get; set; }
-            public string USER_ID { get; set; }       
+            public string USER_ID { get; set; }
 
         }
 
@@ -226,22 +230,22 @@ namespace TestApplication1.Controllers
             var isSuccess = "T";
             var message = "게시글을 등록했습니다.";
 
-   
-                var idChar = "NT";
-                var today = DateTime.Now.ToString("yyyyMMdd");
 
-        
+            var idChar = "NT";
+            var today = DateTime.Now.ToString("yyyyMMdd");
 
-                // Install_images 
-                string strThumnail = Request.Form.Get("THUMNAIL");
-                //var bytes = Convert.FromBase64String(strThumnail.Split('\\')[5]);
+
+
+            // Install_images 
+            string strThumnail = Request.Form.Get("THUMNAIL");
+            //var bytes = Convert.FromBase64String(strThumnail.Split('\\')[5]);
             var file = Request.Files[0];
             string filePath = "/images/";
-                string fileName = 2 + "-00001.jpg";
+            string fileName = 2 + "-00001.jpg";
 
             //Image image = Image.FromStream(new MemoryStream(bytes));
             file.SaveAs(Server.MapPath("~" + filePath + fileName));
-  
+
 
             //db.INSTALL_IMG.Add(new INSTALL_IMG { BRD_ID = model.BRD_ID, FILE_NM = fileName, FILE_PATH = filePath, NO = 1, THUMNAIL_YN = "Y" });
 
@@ -250,6 +254,173 @@ namespace TestApplication1.Controllers
 
 
             return Json(new { isSuccess = isSuccess, message = message });
+        }
+        #endregion
+
+        #region System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerAsyncWrapper
+        //public class AppMenuParam
+        //{
+        //    public int ApplicationID { get; set; }
+        //    public string serverLoc { get; set; }
+
+        //}
+        public class ApplicationMenuDO
+        {
+            public int ApplicationID { get; set; }
+            public string ApplicationStr { get; set; }
+
+        }
+
+        public ActionResult SideBar_Index()
+        {
+
+            return View();
+        }
+        public ActionResult SideBar()
+        {
+            List<ApplicationMenuDO> crresult = new List<ApplicationMenuDO>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                //client.BaseAddress = new Uri("www.baidu.com");
+                //MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                //client.DefaultRequestHeaders.Accept.Add(contentType);
+                //HttpResponseMessage response = client.GetAsync("/Services/Utilities.svc/GetApplicationMenu/1/5").Result;
+
+                //var stringData = response.Content.ReadAsStringAsync().Result;
+
+                //JObject result = JObject.Parse(stringData);
+
+                //var clientarray = result["GetApplicationMenuResult"].Value<JArray>();
+                //List<ApplicationMenuDO> clients = clientarray.ToObject<List<ApplicationMenuDO>>();
+
+                var clients = new List<ApplicationMenuDO>
+            {
+                new ApplicationMenuDO{ApplicationID=1,ApplicationStr="f1"},
+                new ApplicationMenuDO{ApplicationID=2,ApplicationStr="f2"},
+                new ApplicationMenuDO{ApplicationID=3,ApplicationStr="f3"},
+                new ApplicationMenuDO{ApplicationID=4,ApplicationStr="f4"}
+
+            };
+
+                return PartialView("_SideBar", clients);
+            }
+        }
+        #endregion
+        #region https://forums.asp.net/t/2146927.aspx .Find()
+
+        public StudentAccount StudentLogin(string uname, string passwd)
+        {
+            StudentAccount dbEntry = db.StudentAccounts.Where(x=>x.Username== uname &&x.Password== passwd).SingleOrDefault();
+            if (dbEntry != null)
+            {
+
+            }
+            return dbEntry;
+        }
+
+      
+        public ViewResult Login_Index(string username, string password)
+        {
+            StudentAccount studentAccount = new StudentAccount();
+            if (ModelState.IsValid)
+            {
+                var login = StudentLogin(username, password);
+
+                TempData["message"] = string.Format(" Login successful");
+                return View("Login_Index");
+            }
+            else
+            {             // there is something wrong with the data values               
+                return View(studentAccount);
+            }
+        }
+        #endregion
+        #region Raw SQL Queries https://forums.asp.net/t/2146612.aspx
+        public class tablevm
+        {
+            public int id { get; set; }
+            public string product { get; set; }
+            public int price { get; set; }
+        }
+
+        public ActionResult RawSQL()
+        {
+
+            //显示explicitly添加主键https://forums.asp.net/p/2147073/6230529.aspx?p=True&t=636730908382274261 //SET IDENTITY_INSERT StudentAccounts ON;  
+            db.Database.ExecuteSqlCommand("insert into StudentAccounts values('Conditioner', 'expense4');");
+                var query = db.StudentAccounts.SqlQuery("select * from StudentAccounts").ToList<StudentAccount>();
+                var query2 = db.Database.SqlQuery<StudentAccount>("select * from StudentAccounts").ToList<StudentAccount>();
+            var query4 = db.Database.SqlQuery<StudentAccount>("select Userid,Username from StudentAccounts");
+                var query3 = db.Database.SqlQuery<tablevm>("select t1.Username, t1.Password, SUM(t1.Userid) as price from StudentAccounts as t1 group by t1.Password,t1.Username").ToList<tablevm>();
+
+            ViewBag.Provlist = new SelectList(query2, "Userid", "Username");
+            return View("RawSQL");
+        }
+
+        #endregion
+
+        #region Saving data to the json file(Newtonsoft,Json.NET)
+        public class Model
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+        public ActionResult jsonFile()//https://www.newtonsoft.com/json/help/html/DeserializeWithJsonSerializerFromFile.htm
+        {
+            //https://stackoverflow.com/questions/50207714/save-data-to-json-file-use-angular-js-and-asp-net-mvc-actions
+            //http://www.cnblogs.com/yanweidie/p/4605212.html
+            //https://forums.asp.net/p/2147069/6230491.aspx?p=True&t=636730799151782689 CASE
+            Model model = new Model
+            {
+                Id = 2,
+                Name = "aaa111222"
+            };
+
+            #region This sample serializes JSON to a file.
+            // serialize JSON to a string and then write string to a file
+            System.IO.File.WriteAllText(@"D:\model3.json", JsonConvert.SerializeObject(model));
+
+            // serialize JSON directly to a file
+            //using (StreamWriter file = System.IO.File.CreateText(@"d:\model2.json"))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    serializer.Serialize(file, model);
+            //}
+            #endregion
+
+
+            #region This sample deserializes JSON retrieved from a file.
+            // read file into a string and deserialize JSON to a type
+            Model model2 = JsonConvert.DeserializeObject<Model>(System.IO.File.ReadAllText(@"D:\model.json"));
+
+            // deserialize JSON directly from a file
+            //using (StreamReader file = System.IO.File.OpenText(@"D:\model.json"))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    Model model3 = (Model)serializer.Deserialize(file, typeof(Model));
+            //}
+            #endregion
+            return View();
+        }
+        #endregion
+
+        #region loading icon
+        public ActionResult LoadingIcon()//https://forums.asp.net/p/2147203/6230964.aspx?p=True&t=636734159695481938
+        {
+
+            return View();
+        }
+
+        public JsonResult LoadingIcon_GetCurrentTime(/*string name*/) // public static string GetCurrentTime(string name)
+        {
+            System.Threading.Thread.Sleep(2000);
+            //return "Hello " + name + Environment.NewLine + "The Current Time is: "
+            //    + DateTime.Now.ToString();
+
+            return Json(new { flag = 1 }, JsonRequestBehavior.AllowGet);
+
+
         }
         #endregion
     }

@@ -751,6 +751,9 @@ namespace WebApplication1.Controllers
             labvm.LabelName = "XX1";
             labvm.labinfo = db.Label.ToList();
             // var list = db.Label.ToList();
+
+            ViewBag.OSRddl = new SelectList(db.Label.ToList(), "LabelId", "LabelName").Distinct();
+
             return View(labvm);
 
         }
@@ -2348,6 +2351,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(jobs);
         }
         [HttpPost]
@@ -2971,7 +2975,6 @@ namespace WebApplication1.Controllers
         //        return PartialView("_ViewEmployee", null);
         //    }
         //}
-
 
         public ActionResult _ViewEmployee(int? ID)
         {

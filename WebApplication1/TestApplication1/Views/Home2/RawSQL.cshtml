@@ -1,0 +1,12 @@
+﻿@model TestApplication1.Models.StudentAccount
+@{
+    ViewBag.Title = "RawSQL";
+}
+
+<h2>RawSQL</h2>
+
+@*@Html.DropDownListFor(m => m.Provlist, null, "--Select--")*@
+
+@*@Html.DropDownList("Provlist")*@
+
+@Html.DropDownList("ddlProviderslist", ViewBag.Provlist as SelectList, "- - select Provider - -", new { @class = "form-control" })

@@ -50,6 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -309,6 +312,10 @@
     <Compile Include="Migrations\201809050633027_automatic-mgration.Designer.cs">
       <DependentUpon>201809050633027_automatic-mgration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809190746069_StudentAccounts.cs" />
+    <Compile Include="Migrations\201809190746069_StudentAccounts.Designer.cs">
+      <DependentUpon>201809190746069_StudentAccounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -331,6 +338,7 @@
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RMA_History.cs" />
     <Compile Include="Models\SampleViewModel.cs" />
+    <Compile Include="Models\StudentAccount.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -416,6 +424,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="convertNumber.html" />
+    <Content Include="cursor_progress.html" />
     <Content Include="datepicker.html" />
     <Content Include="DivtoTable.html" />
     <Content Include="favicon.ico" />
@@ -1419,6 +1428,12 @@
     <Content Include="Views\Home2\Create_Index.cshtml" />
     <Content Include="Views\Home2\Chart_Index.cshtml" />
     <Content Include="Views\Home2\Gallery_Create.cshtml" />
+    <Content Include="Views\Home2\SideBar_Index.cshtml" />
+    <Content Include="Views\Home2\_SideBar.cshtml" />
+    <Content Include="Views\Home2\Login_Index.cshtml" />
+    <Content Include="Views\Home2\RawSQL.cshtml" />
+    <Content Include="Views\Home2\jsonFile.cshtml" />
+    <Content Include="Views\Home2\LoadingIcon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1518,6 +1533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809050633027_automatic-mgration.resx">
       <DependentUpon>201809050633027_automatic-mgration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809190746069_StudentAccounts.resx">
+      <DependentUpon>201809190746069_StudentAccounts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

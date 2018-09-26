@@ -1310,9 +1310,14 @@ namespace TestApplication1.Controllers
             public string CurrencyNameISO { get; set; }
             public string regionSelected { get; set; }
             public string currencyList { get; set; }
-            public List<SelectListItem> regionSelection { get; set; }
 
-           
+            public string Code { get; set; }
+            public string ProviderName { get; set; }
+            public List<SelectListItem> ddl1 { get; set; }
+            public List<SelectListItem> ddl2 { get; set; }
+
+
+
         }
 
 
@@ -1325,8 +1330,19 @@ namespace TestApplication1.Controllers
                 new SelectListItem{Text="Banana",Value="2"},
                 new SelectListItem{Text="Orange",Value="3"}
             };
+
+            var selectlist2 = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple2",Value="1"},
+                new SelectListItem{Text="Banana2",Value="2"},
+                new SelectListItem{Text="Orange2",Value="3"}
+            };
             ViewBag.regionSelect_ddl = selectlist;
             OfferView model = new OfferView();
+            model.ddl1 = selectlist;
+            model.ddl2 = selectlist2;
+            model.Code = "111";
+            model.ProviderName = "aaa";
             return View(model);
         }
 
