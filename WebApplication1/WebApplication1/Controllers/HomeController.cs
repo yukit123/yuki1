@@ -2787,6 +2787,7 @@ namespace WebApplication1.Controllers
 
             //}
             return View();
+            //return PartialView(ViewBag.profilelist);
         }
 
         #endregion

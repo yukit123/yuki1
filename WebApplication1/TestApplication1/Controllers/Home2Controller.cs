@@ -355,7 +355,15 @@ namespace TestApplication1.Controllers
                 var query3 = db.Database.SqlQuery<tablevm>("select t1.Username, t1.Password, SUM(t1.Userid) as price from StudentAccounts as t1 group by t1.Password,t1.Username").ToList<tablevm>();
 
             ViewBag.Provlist = new SelectList(query2, "Userid", "Username");
-            return View("RawSQL");
+
+            #region String Format
+            //https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings
+            //http://www.runoob.com/python/att-string-format.html
+            //https://docs.microsoft.com/en-us/dotnet/api/system.web.ui.webcontrols.boundfield.dataformatstring?redirectedfrom=MSDN&view=netframework-4.7.2#System_Web_UI_WebControls_BoundField_DataFormatString
+            //http://www.csharp-examples.net/string-format-double/
+            var list = db.StudentAccounts.ToList().FirstOrDefault();
+            #endregion
+            return View(list);
         }
 
         #endregion
@@ -422,6 +430,105 @@ namespace TestApplication1.Controllers
 
 
         }
+        #endregion
+        #region  https://forums.asp.net/t/2147256.aspx
+        public ActionResult RealTimeReports()
+        {
+
+            return View();
+        }
+        #endregion
+
+        #region  File upload in ASP.NET MVC using Dropzone JS and HTML5
+        public ActionResult SaveUploadedFile_Index()//https://www.codeproject.com/Articles/874215/File-upload-in-ASP-NET-MVC-using-Dropzone-JS-and-H fail
+        {
+            //https://forums.asp.net/t/2084302.aspx?File+upload+with+Dropzone+JS+in+MVC get
+            //https://qawithexperts.com/article/asp.net/file-uploading-using-dropzone-js-html5-in-mvc/81 get
+            //https://www.telerik.com/blogs/upload-large-files-asp-net-radasyncupload not DropzoneJS
+            //https://forums.asp.net/p/2147323/6231492.aspx?p=True&t=636736918300808180
+            return View();
+        }
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"\")));//images-WallImages
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+                        var fileName1 = Path.GetFileName(file.FileName);
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
+        }
+        #endregion
+        #region 复杂模型 造假数据
+        public class StudentCourse_VM
+        {
+            public Student Student { get; set; }
+            public List<Course> CourseList { get; set; }
+
+        }
+        public class Course
+        {
+            public int CourseID { get; set; }
+            public string CourseName { get; set; }
+            public string CourseCode { get; set; }
+        }
+        public class Student
+        {
+            public int StuID { get; set; }
+            public string StuName { get; set; }
+            public int Age { get; set; }
+        }
+        public ActionResult ComplexModel_Data() // https://forums.asp.net/t/2146765.aspx
+        {
+            StudentCourse_VM vm = new StudentCourse_VM();
+            vm.Student = new Student() { StuID = 1001, StuName = "AA", Age = 22 };
+            vm.CourseList = new List<Course>() {
+                new Course(){ CourseID= 101, CourseName = "CA", CourseCode="C001"},
+                new Course(){ CourseID= 102, CourseName = "CB", CourseCode="C002"},
+                new Course(){ CourseID= 103, CourseName = "CC", CourseCode="C003"},
+            };
+            return View(vm);
+        }
+        //@Html.EditorFor(m => m.CourseList[i].CourseID, new { htmlAttributes = new { @class = "text-center" } })
+
         #endregion
     }
 }

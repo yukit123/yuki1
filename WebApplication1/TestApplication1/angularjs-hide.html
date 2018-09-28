@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+<style>
+    li.Home, li.Search, li.User, li.logout, li.ResetPassword {
+        display: none;
+    }
+</style>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <ul>
+            <li class="Home"><a href="~/Home/Home">Home</a></li>
+            <li class="Search"><a href="~/TransactionSearch/TransactionSearch">Search</a></li>
+            <li class="User"><a href="~/UserCreation/Create">Create User</a></li>
+            <li class="logout" style="float:right"><a href="">Logout</a></li>
+            <li class="ResetPassword" style="float:right"><a href="~/ResetPassword/Reset">Reset Password</a></li>
+        </ul>
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            //    $scope.firstName = "John";
+            //    $scope.lastName = "Doe";
+            //});
+
+            var result = '{ "data":"John" , "lastName":"Doe" }';
+            var query = JSON.parse(result);
+
+            //result.then(function (response) {
+            //    $scope.ResponseData = response.data;
+
+            //    if (1) {
+
+            $("li.Home").show(); // It working for current Login page.. but not  working when redirects to all pages(Home) once login. this css class need to working in entire application
+
+            $("li.Search").show(); // It working for current Login page.. but not  working when redirects to all pages(search) once login. this css class need to working in entire application
+
+            //  PostResultURL(); // This passing url to home page
+
+            //    }
+
+            //    else {
+
+            //        alert(111);
+
+            //    }
+            //})
+
+
+            //promise.then(function (response) {
+            //    console.log(response);
+            //}, function (error) {
+            //    console.log(error);
+            //});
+        });
+    </script>
+
+</body>
+</html>

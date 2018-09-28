@@ -14,6 +14,7 @@ namespace TestApplication1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Userid { get; set; }
         public string Username { get; set; }
+        [DisplayFormat(DataFormatString = "{0:###:00}", ApplyFormatInEditMode = true)]
         public string Password { get; set; }
         [NotMapped]
         public SelectList Provlist { get; set; }

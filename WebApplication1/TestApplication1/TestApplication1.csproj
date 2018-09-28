@@ -316,6 +316,10 @@
     <Compile Include="Migrations\201809190746069_StudentAccounts.Designer.cs">
       <DependentUpon>201809190746069_StudentAccounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809270233386_StudentAccounts2.cs" />
+    <Compile Include="Migrations\201809270233386_StudentAccounts2.Designer.cs">
+      <DependentUpon>201809270233386_StudentAccounts2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -344,6 +348,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angularjs-hide.html" />
     <Content Include="angularjs.html" />
     <Content Include="array.html" />
     <Content Include="BootstrapValidate.html" />
@@ -435,6 +440,9 @@
     <Content Include="html2canvas.html" />
     <Content Include="images\Arrow.PNG" />
     <Content Include="images\test.jpg" />
+    <Content Include="images\WallImages\imagepath\ajax1.PNG" />
+    <Content Include="images\WallImages\imagepath\angularjs datepicker1.PNG" />
+    <Content Include="images\WallImages\imagepath\BBQ1.gif" />
     <Content Include="Jsonparse.html" />
     <Content Include="Modal Popup.aspx" />
     <Content Include="picture.html" />
@@ -474,6 +482,14 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrapValidator.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />
+    <Content Include="Scripts\dropzone\basic.css" />
+    <Content Include="Scripts\dropzone\basic.min.css" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.min.js" />
+    <Content Include="Scripts\dropzone\dropzone.css" />
+    <Content Include="Scripts\dropzone\dropzone.js" />
+    <Content Include="Scripts\dropzone\dropzone.min.css" />
+    <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1434,6 +1450,9 @@
     <Content Include="Views\Home2\RawSQL.cshtml" />
     <Content Include="Views\Home2\jsonFile.cshtml" />
     <Content Include="Views\Home2\LoadingIcon.cshtml" />
+    <Content Include="Views\Home2\RealTimeReports.cshtml" />
+    <Content Include="Views\Home2\_ExcelDownloadLink.cshtml" />
+    <Content Include="Views\Home2\SaveUploadedFile_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1536,6 +1555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809190746069_StudentAccounts.resx">
       <DependentUpon>201809190746069_StudentAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809270233386_StudentAccounts2.resx">
+      <DependentUpon>201809270233386_StudentAccounts2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

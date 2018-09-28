@@ -1,0 +1,51 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "RealTimeReports";
+}
+
+<h2>RealTimeReports</h2>
+
+@{ Html.RenderPartial("_ExcelDownloadLink", new ViewDataDictionary { { "model", "Report" } }); }
+
+<div class="table-responsive text-center">
+    <table class="table table-bordered">
+        @*@Html.Partial("_ShowReports_tr", new Ranking24.Models.Report())*@
+
+        <tbody class="data">
+
+            <tr>
+                <td>
+                    11111111111
+                </td>
+                <td>
+                    111111
+                </td>
+                <td>
+                    11111111111111
+                </td>
+                <td>
+                    111111
+                </td>
+                <td>
+                    <p class="badge">
+                        1111
+                    </p>
+                </td>
+                <td>
+                    11111111
+                </td>
+                <td>
+                    111111
+                </td>
+                <td>
+                    111111
+                </td>
+            </tr>
+
+        </tbody>
+
+
+    </table>
+    @Html.PagedListPager((IPagedList)ViewBag.profilelists, Page => Url.Action("_ShowReports", new { Page, IsRealTime = true }))
+</div>
