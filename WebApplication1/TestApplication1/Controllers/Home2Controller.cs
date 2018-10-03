@@ -416,7 +416,7 @@ namespace TestApplication1.Controllers
         #region loading icon
         public ActionResult LoadingIcon()//https://forums.asp.net/p/2147203/6230964.aspx?p=True&t=636734159695481938
         {
-
+            
             return View();
         }
 
@@ -425,8 +425,8 @@ namespace TestApplication1.Controllers
             System.Threading.Thread.Sleep(2000);
             //return "Hello " + name + Environment.NewLine + "The Current Time is: "
             //    + DateTime.Now.ToString();
-
-            return Json(new { flag = 1 }, JsonRequestBehavior.AllowGet);
+            var list = db.CountrySizes.ToList();
+            return Json(new { flag = 1,list }, JsonRequestBehavior.AllowGet);
 
 
         }
@@ -515,6 +515,7 @@ namespace TestApplication1.Controllers
             public int StuID { get; set; }
             public string StuName { get; set; }
             public int Age { get; set; }
+            public bool? ResourceDVR { get; set; }
         }
         public ActionResult ComplexModel_Data() // https://forums.asp.net/t/2146765.aspx
         {
@@ -529,6 +530,13 @@ namespace TestApplication1.Controllers
         }
         //@Html.EditorFor(m => m.CourseList[i].CourseID, new { htmlAttributes = new { @class = "text-center" } })
 
+        #endregion
+        #region bootstrap tab
+        public ActionResult bootstrapTab() 
+        {
+            
+            return View();
+        }
         #endregion
     }
 }

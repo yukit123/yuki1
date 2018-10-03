@@ -1,0 +1,25 @@
+﻿@model TestApplication1.Controllers.Home2Controller.StudentCourse_VM
+@{
+    ViewBag.Title = "ComplexModel_Data";
+}
+
+<h2>ComplexModel_Data</h2>
+
+@*@foreach (var item in Model)
+    {
+        if (Convert.ToBoolean(item.Student.ResourceDVR))
+        {
+          @Html.DisplayFor(modelItem => item.Student.ResourceDVR)
+        }
+    }*@
+
+@if (!Convert.ToBoolean(Model.Student.ResourceDVR))
+{
+    @Html.DisplayFor(modelItem => Model.Student.ResourceDVR)
+    <p>111</p>
+}
+
+@*@if (Model.Student.ResourceDVR)
+{
+    <p>222</p>
+}*@

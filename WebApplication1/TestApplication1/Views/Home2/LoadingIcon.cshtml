@@ -17,6 +17,7 @@
 </style>
 <div id="pageloaddiv">
 </div>
+<table id="myTable"></table>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -25,11 +26,17 @@
             success: function (msg) {
                 if (msg.flag == 1) {
                     $('#pageloaddiv').hide();
-                    alert("load successfully")
+                    alert("load successfully");
+                    var row="";
+                    $.each(msg.list, function (i, v) {
+                        row += "<tr><td>" + v.Id + "</td><td>" + v.size +"</td></tr>";
+                    });
+
+                    $("#myTable").append(row);
                 }
                 else {
                     $('#pageloaddiv').show();   
-                    alert("load faild")
+                    alert("load faild");
                 }
             }
         })

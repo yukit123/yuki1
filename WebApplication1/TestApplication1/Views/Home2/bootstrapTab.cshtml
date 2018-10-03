@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "bootstrapTab";
+}
+<input id="Previous" type="button" value="<" class="btn btn-primary" onclick="doTab('Previous')" />
+
+<input id="Next" type="button" value=">" class="btn btn-primary" onclick="doTab('Next')" />
+
+
+
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data_id="1" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data_id="2" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data_id="3" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">1111111111111111111</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">22222222222222222222</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">33333333333333333333</div>
+</div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script>
+    function doTab(obj) {
+        var index = $(".active").attr("data_id");
+        if (obj == "Previous") {
+            index = parseInt(index) - 1;
+        }
+        else {
+            index = parseInt(index) + 1;
+        }
+        $('.nav-tabs a[data_id="' + index + '"]').tab('show');
+    }
+</script>
