@@ -52,6 +52,9 @@
             @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control", @style = "width:1000px;" })
             @Html.DropDownListFor(n => n.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Name", "ID"), "Please select")
 
+            @Html.DropDownListFor(n => n.Customer.MembershipTypeId, Model.MembershipTypes.Select(y => new SelectListItem { Value = y.ID.ToString(), Text = y.Name }), "Select an organization ", new { @id = "cmbOrganization" })
+
+
         </div>
         </div>
 
@@ -88,5 +91,9 @@
                 //$(function () {
                 //    $("#Customer_MembershipTypeId").attr("style", "width:800px");
                 //})
+
+                if (organizationId !== null) {
+                    $("#cmbOrganization").val(organizationId).trigger('change');
+                }
             </script>
         }

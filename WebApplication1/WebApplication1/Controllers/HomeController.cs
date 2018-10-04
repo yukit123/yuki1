@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -1101,13 +1102,19 @@ namespace WebApplication1.Controllers
 
         public FileResult GetDocument()
         {
-            //byte[] doc = Pdf();
-            var path = @"D://";
-            var file = Path.Combine(path, "test.pdf");
-            file = Path.GetFullPath(file);
-            string mimeType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "inline; filename=" + "test.pdf");
-            return File(file, mimeType);
+           // System.Diagnostics.Debug.WriteLine("111");
+
+            Debugger.Log(1,"11","Home DisplayPDF() invoked");
+            string zFileu = Server.MapPath(@"~/images/") + "test.pdf";
+            return File(zFileu, "application/pdf");
+
+            ////byte[] doc = Pdf();
+            //var path = @"D://";
+            //var file = Path.Combine(path, "test.pdf");
+            //file = Path.GetFullPath(file);
+            //string mimeType = "application/pdf";
+            //Response.AppendHeader("Content-Disposition", "inline; filename=" + "test.pdf");
+            //return File(file, mimeType);
         }
 
         public virtual ActionResult pdf2()

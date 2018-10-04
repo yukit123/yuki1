@@ -8,7 +8,7 @@
 @*@Html.DropDownListFor(m => m.Provlist, null, "--Select--")*@
 
 @*@Html.DropDownList("Provlist")*@
-@Html.DropDownList("ddlProviderslist", ViewBag.Provlist as SelectList, "- - select Provider - -", new { @class = "form-control" })
+@Html.DropDownList("ddlProviderslist", ViewBag.GradesList1 as SelectList, "- - select Provider - -", new { @class = "form-control" })
 
 
 @*@Html.TextBoxFor(m => m.Password, (String.Format("{0:0:00}", Convert.ToInt32(Model.Password.Split(' ')[0])) + "aaa"))*@

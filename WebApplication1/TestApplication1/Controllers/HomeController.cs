@@ -1543,7 +1543,7 @@ namespace TestApplication1.Controllers
            Customer Customerlist = new Customer() { MembershipTypeId=1, MembershipTypeName = "CustomerAA" };
 
             dropdown_menuVM model = new dropdown_menuVM();
-            model.Customer = Customerlist;
+            //model.Customer = Customerlist;
             model.MembershipTypes = MembershipTypeslist;
             return View(model);
         }

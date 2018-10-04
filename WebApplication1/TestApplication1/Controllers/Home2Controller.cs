@@ -343,6 +343,12 @@ namespace TestApplication1.Controllers
             public string product { get; set; }
             public int price { get; set; }
         }
+        public class tablevm2
+        {
+            public int uid { get; set; }
+            public string uname { get; set; }
+            public string pwd { get; set; }
+        }
 
         public ActionResult RawSQL()
         {
@@ -351,9 +357,18 @@ namespace TestApplication1.Controllers
             db.Database.ExecuteSqlCommand("insert into StudentAccounts values('Conditioner', 'expense4');");
                 var query = db.StudentAccounts.SqlQuery("select * from StudentAccounts").ToList<StudentAccount>();
                 var query2 = db.Database.SqlQuery<StudentAccount>("select * from StudentAccounts").ToList<StudentAccount>();
-            var query4 = db.Database.SqlQuery<StudentAccount>("select Userid,Username from StudentAccounts");
+            var query4 = db.Database.SqlQuery<tablevm2>("select Userid as uid,Username as uname,Password as pwd from StudentAccounts").ToList<tablevm2>();
                 var query3 = db.Database.SqlQuery<tablevm>("select t1.Username, t1.Password, SUM(t1.Userid) as price from StudentAccounts as t1 group by t1.Password,t1.Username").ToList<tablevm>();
 
+
+            var GradesList = new List<int>();
+
+            for (int i = 5; i <= 10; i++)
+            {
+                GradesList.Add(i);
+            }
+
+            ViewBag.GradesList1 = new SelectList(GradesList);
             ViewBag.Provlist = new SelectList(query2, "Userid", "Username");
 
             #region String Format
