@@ -2605,6 +2605,31 @@ namespace WebApplication1.Controllers
 
         public ActionResult PartnerPreference()
         {
+            #region
+            var minagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+            var maxagelist = new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+
+            var minitems = minagelist.Select((n, i) =>
+            {
+                return new SelectListItem
+                {
+                    Value = n.ToString(),
+                    Text = i.ToString()
+                };
+            }).ToList();
+
+            var maxitems = maxagelist.Select((n, i) =>
+            {
+                return new SelectListItem
+                {
+                    Value = n.ToString(),
+                    Text = i.ToString()
+                };
+            }).ToList();
+
+            ViewBag.minagelist = new SelectList(minitems, "Value", "Value");
+            ViewBag.maxagelist = new SelectList(maxitems, "Value", "Value");
+            #endregion
 
             #region GROUPBY AddRange 
             var list1 = new List<TestViewModel>

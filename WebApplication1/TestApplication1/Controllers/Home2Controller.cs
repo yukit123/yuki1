@@ -352,6 +352,27 @@ namespace TestApplication1.Controllers
 
         public ActionResult RawSQL()
         {
+            #region Combine two columns into one column in linq https://forums.asp.net/t/2147635.aspx
+            var l = (from s in db.CountrySizes
+                     where s.size.StartsWith("b") || s.country.StartsWith("F")
+                     select new { Name = s.size }).Distinct().OrderBy(s => s.Name).ToList();
+            var ls = (from s in db.CountrySizes
+                     where s.size.StartsWith("b") || s.country.StartsWith("F")
+                     select new { s.Id,s.country,s.size,s.value }).ToList();
+            //var lss = (from s in db.CountrySizes
+            //          where s.size.StartsWith("b") || s.country.StartsWith("F")
+            //          select new {  Name=s.size.Union(s.country)}).ToList();
+            var allItems = db.CountrySizes
+                .Where(s=>s.size.StartsWith("b") || s.country.StartsWith("F"))
+                .Select(t => new[] { t.size,t.country })
+                .SelectMany(i => i).Distinct().OrderBy(i => i)
+                .ToList();
+
+            var allItems2 = db.CountrySizes
+               .Where(s => s.size.StartsWith("b") || s.country.StartsWith("F"))
+               .SelectMany(c => new[] { c.country, c.size }).Distinct().OrderBy(i => i)
+               .ToList();
+            #endregion
 
             //显示explicitly添加主键https://forums.asp.net/p/2147073/6230529.aspx?p=True&t=636730908382274261 //SET IDENTITY_INSERT StudentAccounts ON;  
             db.Database.ExecuteSqlCommand("insert into StudentAccounts values('Conditioner', 'expense4');");
@@ -361,14 +382,6 @@ namespace TestApplication1.Controllers
                 var query3 = db.Database.SqlQuery<tablevm>("select t1.Username, t1.Password, SUM(t1.Userid) as price from StudentAccounts as t1 group by t1.Password,t1.Username").ToList<tablevm>();
 
 
-            var GradesList = new List<int>();
-
-            for (int i = 5; i <= 10; i++)
-            {
-                GradesList.Add(i);
-            }
-
-            ViewBag.GradesList1 = new SelectList(GradesList);
             ViewBag.Provlist = new SelectList(query2, "Userid", "Username");
 
             #region String Format
@@ -513,10 +526,20 @@ namespace TestApplication1.Controllers
         }
         #endregion
         #region 复杂模型 造假数据
+
+        //public class StudentCourse_VM
+        //{
+        //    public List<ExamViewModel> ExamDetails { get; set; }
+        //    public string Action { get; set; }
+
+        //    public IEnumerable<SelectListItem> GradeItems { get; set; }
+
+        //}
         public class StudentCourse_VM
         {
             public Student Student { get; set; }
             public List<Course> CourseList { get; set; }
+            public IEnumerable<SelectListItem> GradeItems { get; set; }
 
         }
         public class Course
@@ -534,13 +557,25 @@ namespace TestApplication1.Controllers
         }
         public ActionResult ComplexModel_Data() // https://forums.asp.net/t/2146765.aspx
         {
+
+            //https://forums.asp.net/t/2147638.aspx DropDownListFor inline
+            var GradesList = new List<SelectListItem>();
+
+            for (int i = 5; i <= 10; i++)
+            {
+                GradesList.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() }); ;
+            }
+
+         //   ViewBag.GradesList1 = new SelectList(GradesList);
+
             StudentCourse_VM vm = new StudentCourse_VM();
             vm.Student = new Student() { StuID = 1001, StuName = "AA", Age = 22 };
             vm.CourseList = new List<Course>() {
-                new Course(){ CourseID= 101, CourseName = "CA", CourseCode="C001"},
-                new Course(){ CourseID= 102, CourseName = "CB", CourseCode="C002"},
-                new Course(){ CourseID= 103, CourseName = "CC", CourseCode="C003"},
+                new Course(){ CourseID= 6, CourseName = "CA", CourseCode="C001"},
+                new Course(){ CourseID= 7, CourseName = "CB", CourseCode="C002"},
+                new Course(){ CourseID= 8, CourseName = "CC", CourseCode="C003"},
             };
+            vm.GradeItems = GradesList;
             return View(vm);
         }
         //@Html.EditorFor(m => m.CourseList[i].CourseID, new { htmlAttributes = new { @class = "text-center" } })

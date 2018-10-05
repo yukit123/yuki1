@@ -1518,7 +1518,7 @@ namespace TestApplication1.Controllers
         public class dropdown_menuVM
         {
             public List<MembershipTypes> MembershipTypes { get; set; }
-            public Customer Customer { get; set; }
+            public List<Customer> Customer { get; set; }
         }
 
         public class MembershipTypes
@@ -1539,11 +1539,17 @@ namespace TestApplication1.Controllers
             MembershipTypeslist.Add(new MembershipTypes() { ID = 2, Name = "BB" });
             MembershipTypeslist.Add(new MembershipTypes() { ID = 3, Name = "CC" });
             MembershipTypeslist.Add(new MembershipTypes() { ID = 4, Name = "DD" });
+            //https://stackoverflow.com/questions/2631397/dropdownlistfor-does-not-select-value-if-in-for-loop
+            List<Customer> Customerlist = new List<Customer>();
+            Customerlist.Add(new Customer() { MembershipTypeId = 2, MembershipTypeName = "CustomerAA1" });
+            Customerlist.Add(new Customer() { MembershipTypeId = 3, MembershipTypeName = "CustomerAA2" });
+            Customerlist.Add(new Customer() { MembershipTypeId = 4, MembershipTypeName = "CustomerAA3" });
+            Customerlist.Add(new Customer() { MembershipTypeId = 5, MembershipTypeName = "CustomerAA4" });
 
-           Customer Customerlist = new Customer() { MembershipTypeId=1, MembershipTypeName = "CustomerAA" };
+            //Customer Customerlist = new Customer() { MembershipTypeId=2, MembershipTypeName = "CustomerAA" };
 
             dropdown_menuVM model = new dropdown_menuVM();
-            //model.Customer = Customerlist;
+            model.Customer = Customerlist;
             model.MembershipTypes = MembershipTypeslist;
             return View(model);
         }

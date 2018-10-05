@@ -20,6 +20,13 @@
 }
 
 @*@if (Model.Student.ResourceDVR)
-{
-    <p>222</p>
-}*@
+    {
+        <p>222</p>
+    }*@
+
+
+@*https://forums.asp.net/t/2147638.aspx DropDownListFor inline*@
+@Html.DropDownListFor(m => m.CourseList[0].CourseID, Model.GradeItems.Select(y => new SelectListItem { Value = y.Value, Text = y.Text, Selected = (y.Value == Model.CourseList[0].CourseID.ToString()) }).ToList(), "Select an organization ")
+@Html.DropDownListFor(m => m.CourseList[1].CourseID, Model.GradeItems, "- - select Provider - -")
+
+@*@Html.DropDownListFor(m => m.CourseList[1].CourseID, new SelectList(Model.GradeItems, Model.CourseList[1])), "- - select Provider - -")*@

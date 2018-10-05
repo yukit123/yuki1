@@ -21,10 +21,10 @@
 
 
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(m => m.Customer.MembershipTypeId)
         @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control" })
-    </div>
+    </div>*@
 
     <div class="form-group mt-3">
         <div class="dropdown">
@@ -49,10 +49,10 @@
             <label for="dropdown2">Cogn Desc:</label>
         </div>
         <div class="col-xs-9" @*style="width:100px;"*@>
-            @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class = "form-control", @style = "width:1000px;" })
-            @Html.DropDownListFor(n => n.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Name", "ID"), "Please select")
+            @Html.DropDownListFor(m => m.MembershipTypes[0].ID, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type22", new { @class = "form-control", @style = "width:1000px;" })
+            @Html.DropDownListFor(n => n.Customer[0].MembershipTypeId, new SelectList(Model.MembershipTypes, "ID", "Name",Model.Customer[0]), "Please select")
 
-            @Html.DropDownListFor(n => n.Customer.MembershipTypeId, Model.MembershipTypes.Select(y => new SelectListItem { Value = y.ID.ToString(), Text = y.Name }), "Select an organization ", new { @id = "cmbOrganization" })
+            @Html.DropDownListFor(n => n.Customer[0].MembershipTypeId, Model.MembershipTypes.Select(y => new SelectListItem { Value = y.ID.ToString(), Text = y.Name, Selected = (y.ID == Model.Customer[0].MembershipTypeId) }).ToList(), "Select an organization ", new { @id = "cmbOrganization" })
 
 
         </div>
