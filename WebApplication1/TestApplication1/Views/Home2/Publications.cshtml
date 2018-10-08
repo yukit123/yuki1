@@ -1,0 +1,17 @@
+﻿@model TestApplication1.Models.book2
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModal-label">Publications</h4>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: .9em">
+                <span style=" color: #d69903; font-weight: bold">Publication:</span><br />
+                @Html.TextAreaFor(model => model.Title)
+            </p>
+        </div>
+
+    </div>
+</div>

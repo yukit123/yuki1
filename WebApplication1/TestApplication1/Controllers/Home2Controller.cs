@@ -352,6 +352,12 @@ namespace TestApplication1.Controllers
 
         public ActionResult RawSQL()
         {
+            #region Sum nested values with Linq https://forums.asp.net/t/2147726.aspx
+            var total = (from user in db.author2s
+                         from order in user.book2
+                         select (int?)order.Id).Sum() ?? 0;
+            var total2 = db.author2s.SelectMany(user => user.book2).Sum(product => (int?)product.Id) ?? 0;
+            #endregion
             #region Combine two columns into one column in linq https://forums.asp.net/t/2147635.aspx
             var l = (from s in db.CountrySizes
                      where s.size.StartsWith("b") || s.country.StartsWith("F")
@@ -586,6 +592,40 @@ namespace TestApplication1.Controllers
         {
             
             return View();
+        }
+        #endregion
+
+        #region https://forums.asp.net/t/2147685.aspx#
+        public ActionResult Details()
+        {
+            //var qry = (from a in db.book2s
+
+            //           where a.Author_id == new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")
+
+            //           select a).ToList();
+            book2 book2 = db.book2s.Find(1);
+            return View(book2);
+        }
+        [HttpGet]
+        public ActionResult Publications(/*Guid id*/)
+        {
+
+            var qry = (from a in db.book2s
+
+                       where a.Author_id == new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")
+
+                       select a).FirstOrDefault();
+
+
+
+
+                if (qry == null)
+                {
+                    return HttpNotFound();
+                }
+                // return PartialView("_PartialDialog", qry);
+                return PartialView(qry);
+
         }
         #endregion
     }

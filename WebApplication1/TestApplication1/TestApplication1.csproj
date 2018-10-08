@@ -432,6 +432,7 @@
     <Content Include="cursor_progress.html" />
     <Content Include="datepicker.html" />
     <Content Include="DivtoTable.html" />
+    <Content Include="dropzone.html" />
     <Content Include="favicon.ico" />
     <Content Include="Fixdiv.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1455,6 +1456,8 @@
     <Content Include="Views\Home2\SaveUploadedFile_Index.cshtml" />
     <Content Include="Views\Home2\ComplexModel_Data.cshtml" />
     <Content Include="Views\Home2\bootstrapTab.cshtml" />
+    <Content Include="Views\Home2\Details.cshtml" />
+    <Content Include="Views\Home2\Publications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
