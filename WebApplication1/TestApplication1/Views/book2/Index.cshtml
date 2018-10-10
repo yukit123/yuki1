@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<TestApplication1.Models.book2>
+@*@model IEnumerable
+@using TestApplication1.Models*@
 
 @{
     ViewBag.Title = "Index";
 }
 @*<style>
-    .container {
-        margin-left: 0px;
-        margin-right: 0px;
-        /*increase width as per your need*/
-        max-width: 1500px;
-    }
-</style>*@
+        .container {
+            margin-left: 0px;
+            margin-right: 0px;
+            /*increase width as per your need*/
+            max-width: 1500px;
+        }
+    </style>*@
 <h2>Index</h2>
 
 <p>
@@ -30,32 +32,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.author2.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Publisher)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            @Html.ActionLink("Proceed>>>", "Edit", new { id = item.Id,str="sss" })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.author2.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Proceed>>>", "Edit", new { id = item.Id, str = "sss" })
 
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
-<input type="button" value="xx" id="xx"/>
+<input type="button" value="xx" id="xx" />
 @section scripts{
-<script>
+    <script>
     $("#xx").click(function () {
        var controllerPart = '@Url.Action("", "Clients")';
        var saveAction = controllerPart + '/Index'
@@ -65,10 +68,10 @@
        // window.location.href = '@Url.Action("", "Home")';
        // window.location.href = '@Url.Action("Index", "Home")';
        // window.location.href = '@Url.Action("Index2", "Home")';
-        
+
        window.location.href = saveAction;
     })
-   
-    
-</script>
-    }
+
+
+    </script>
+}

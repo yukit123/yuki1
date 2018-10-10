@@ -490,6 +490,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult IsStudentExists(int? Id)//https://www.c-sharpcorner.com/article/remote-validation-in-mvc-5-to-check-if-username-and-email-id-exists/
         {
+            //https://forums.asp.net/p/2147748/6233086.aspx?p=True&t=636746440919715939
             var list = db.Student.ToList();
 
             //check if any of the UserName matches the UserName specified in the Parameter using the ANY extension method. 
@@ -497,7 +498,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult validate2()
+        public ActionResult validate2()//此例需要提交后验证 直接验证参考：https://forums.asp.net/p/2147782/6233257.aspx?p=True&t=636747254515733755
         {
             var list = db.Label.ToList().FirstOrDefault();
             List<string> IDs = db.Label.Select(x => x.LabelName.ToString()).ToList();
@@ -2382,8 +2383,23 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public FileResult ClosedXML_Export()
+        public FileResult ClosedXML_Export(string usename,string usename2)
         {
+            #region 劫持返回验证信息 表单 AJAX ActionResult
+            //if (!string.IsNullOrEmpty(usename))
+            //{
+            //    var data = db.Blogs.Where(x => x.Name == usename).ToList();
+            //    if (data.Count == 0)
+            //    {
+            //        return Json(new { status = true, list = data }, JsonRequestBehavior.AllowGet);
+            //    }
+            //    else {
+            //        return Json(new { status = true, list = data }, JsonRequestBehavior.AllowGet);
+            //    }
+            //}
+
+            //return Json(new { status = true}, JsonRequestBehavior.AllowGet);
+            #endregion
             DataTable dt = new DataTable("Grid");
             dt.Columns.AddRange(new DataColumn[2] { new DataColumn("CustomerId"),
                                             new DataColumn("ContactName") });
