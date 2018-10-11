@@ -1458,6 +1458,8 @@
     <Content Include="Views\Home2\bootstrapTab.cshtml" />
     <Content Include="Views\Home2\Details.cshtml" />
     <Content Include="Views\Home2\Publications.cshtml" />
+    <Content Include="Views\Home2\DropAppliPopup.cshtml" />
+    <Content Include="Views\Home2\DropAppliPopup_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

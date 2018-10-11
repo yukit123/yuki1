@@ -628,5 +628,24 @@ namespace TestApplication1.Controllers
 
         }
         #endregion
+        #region
+        public ActionResult DropAppliPopup_Index()
+        {
+            
+            return View();
+        }
+        public ActionResult DropAppliPopup(string Objid, string Petname, string Petaddress, string opname, string opmotor)
+        {
+            //ViewBag.Year = new SelectList(db.tbl_Year.OrderByDescending(x => x.year), "year", "year");
+            //ViewBag.DrpReason = new SelectList(db.tbl_DroppingReason, "id", "Reason");
+            //ViewBag.Petname = Petname;
+            //ViewBag.Petaddress = Petaddress;
+            //ViewBag.Petid = Objid;
+            //ViewBag.OName = opname;
+            //ViewBag.OMotor = opmotor;
+
+            return PartialView("DropAppliPopup");
+        }
+        #endregion
     }
 }
