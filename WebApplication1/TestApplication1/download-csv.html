@@ -1,0 +1,128 @@
+﻿<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var data = [
+        ['Foo', 'programmer'],
+        ['Bar', 'bus driver'],
+        ['Moo', 'Reindeer Hunter']
+    ];
+
+
+    function download_csv() {
+        var csv = 'Name,Title\n';
+        data.forEach(function (row) {
+            csv += row.join(',');
+            csv += "\n";
+        });
+
+        console.log(csv);
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'people.csv';
+        hiddenElement.click();
+    }
+
+    function download_csv2() {
+       
+        $('.ibody tr input').each(function (a, b) {
+            var count = 0;
+            var csv2 = 'Name,Title\n';
+            csv2 += $('.ibody tr input')[a].value.join(',');
+            csv2 += "\n";
+            var name = $('.fl', b).text();
+            if (name.indexOf(".CSV") !== -1 && name.indexOf("TAS") !== -1) {
+                var d = a - 9;
+                var hiddenIFrameID = 'hiddenDownloader' + count++;
+                var element = document.createElement('a');
+                element.href = "data:text/csv;charset=utf-8," + d;
+                element.target = '_blank';
+                element.classList.add("download");
+                document.body.append(element);
+
+            }
+        });
+        setTimeout(function () {
+            var linkslength = $(".download").length;
+            for (var i = 0; i < linkslength; i++) {
+                $(".download")[i].click()
+            }
+        }, 500);
+    }
+</script>
+
+<button onclick="download_csv()">Download CSV</button>
+
+<button onclick="download_csv2()">Download CSV2</button>
+
+
+<table cellspacing="0" width="100%" class="ibody" border="0" cellpadding="0">
+    <colgroup>
+        <col width="4px">
+        <col width="18px">
+        <col width="90px">
+        <col>
+        <col width="4px">
+    </colgroup>
+    <tbody>
+        <tr id="tr_userId" rowtype="control">
+            <td class="fls"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+            <td class="fe">&nbsp;</td>
+            <td class="fl"><label>User Id:</label></td>
+            <td nowrap="" class="fd"><input id="inpUserId" name="userId" onchange="this.value = this.value.toUpperCase();" type="text" autocomplete="off"></td>
+            <td class="frs"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+        </tr>
+        <tr rowtype="separator">
+            <td class="fls"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+            <td colspan="3" background="fw/def/image/separator.gif"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+            <td class="frs"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+        </tr>
+        <tr id="tr_password" rowtype="control">
+            <td class="fls"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+            <td class="fe">&nbsp;</td>
+            <td class="fl"><label>Password:</label></td>
+            <td nowrap="" class="fd"><input id="inpPassword" name="password" type="password" autocomplete="off"></td>
+            <td class="frs"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+        </tr>
+        <tr rowtype="buttons">
+            <td class="fls"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+            <td class="fe">&nbsp;</td>
+            <td class="fl">&nbsp;</td>
+            <td class="fd">
+                <table cellspacing="0" width="100%" class="fb" border="0" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td width="100%">&nbsp;</td>
+                            <td align="right">
+                                <div id="btnLogon" onclick="new Button(this.id, ButtonType.BUTTON, '').submit();">
+                                    <table cellspacing="0" class="tbtn" border="0" cellpadding="0">
+                                        <tbody>
+                                            <tr valign="middle">
+                                                <td><img id="btnBgL" width="16" height="17" border="0" src="fw/def/image/buttons/btnTxtBgL1.gif"></td>
+                                                <td id="btnMiddle" align="middle" background="fw/def/image/buttons/btnTxtBgM1.gif" style="background-position: right;" nowrap=""><span id="btnLogonLabel" style="color:#002855" class="tbtn">Logon</span></td>
+                                                <td><img id="btnBgR" width="8" height="17" border="0" src="fw/def/image/buttons/btnTxtBgR1.gif"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                            <td align="right">
+                                <div id="btnRegister" onclick="new Button(this.id, ButtonType.BUTTON, '').submit();">
+                                    <table cellspacing="0" class="tbtn" border="0" cellpadding="0">
+                                        <tbody>
+                                            <tr valign="middle">
+                                                <td><img id="btnBgL" width="16" height="17" border="0" src="fw/def/image/buttons/btnTxtBgL1.gif"></td>
+                                                <td id="btnMiddle" align="middle" background="fw/def/image/buttons/btnTxtBgM1.gif" style="background-position: right;" nowrap=""><span id="btnRegisterLabel" style="color:#002855" class="tbtn">Register</span></td>
+                                                <td><img id="btnBgR" width="8" height="17" border="0" src="fw/def/image/buttons/btnTxtBgR1.gif"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td class="frs"><img width="1" height="1" border="0" src="fw/def/image/spacer.gif"></td>
+        </tr>
+    </tbody>
+</table>

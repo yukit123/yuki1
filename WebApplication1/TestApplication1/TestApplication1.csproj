@@ -432,6 +432,7 @@
     <Content Include="cursor_progress.html" />
     <Content Include="datepicker.html" />
     <Content Include="DivtoTable.html" />
+    <Content Include="download-csv.html" />
     <Content Include="dropzone.html" />
     <Content Include="favicon.ico" />
     <Content Include="Fixdiv.html" />
