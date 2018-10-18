@@ -29,6 +29,18 @@ namespace TestApplication1.Models
 
         public DbSet<Tool> Tools { get; set; }
         public DbSet<StudentAccount> StudentAccounts { get; set; }
+        #region  Fluent API WillCascadeOnDelete OnDelete（看note）
+        //https://forums.asp.net/t/2147990.aspx
+        //https://stackoverflow.com/questions/34768976/specifying-on-delete-no-action-in-entity-framework-7
+        // https://stackoverflow.com/questions/17127351/introducing-foreign-key-constraint-may-cause-cycles-or-multiple-cascade-paths
+        //https://forums.asp.net/t/2148073.aspx
+        //    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //    {
+        //        modelBuilder.Entity<book2>().HasRequired(c => c.Id.ToString())
+        //.WithMany()
+        //.WillCascadeOnDelete(false);
+        //    }
+        #endregion
 
 
 

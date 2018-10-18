@@ -1,0 +1,23 @@
+﻿
+
+<div id="App2" ng-app="namesList" ng-controller="NamesController">
+    <h1>List of Names</h1>
+    <div ng-repeat="_name in names">
+        <p>{{_name.username}}</p>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>*@
+<script>
+    var namesModule = angular.module("namesList", [])
+    namesModule.controller("NamesController",
+        function ($scope) {
+            $scope.names = [
+                { username: "Nitin" },
+                { username: "Mukesh" }
+            ];
+        }
+    );
+   //angular.bootstrap(document.getElementById("App1"), ['namesList']);
+
+</script>

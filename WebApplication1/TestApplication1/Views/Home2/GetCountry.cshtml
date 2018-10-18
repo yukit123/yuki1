@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TestApplication1.Controllers.Home2Controller.Country>
+@{
+    ViewBag.Title = "GetCountry";
+}
+
+<h2>GetCountry</h2>
+
+@foreach (var item in Model)
+{
+    <p>@item.CountryName</p>
+}

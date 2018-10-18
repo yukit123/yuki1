@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NBA App</title>
+</head>
+<body>
+
+    <div>
+        <h2>All Players</h2>
+        <ul id="players" />
+    </div>
+    <div>
+        <h2>Search by ID</h2>
+        <input type="text" id="prodId" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="player" />
+    </div>
+    <input type="button" value="NotFound" onclick="NotFound();" />
+
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        var uri = 'api/Players/GetPlayer';
+
+        //$(document).ready(function () {
+        //    // Send an AJAX request
+        //    $.getJSON(uri)
+        //        .done(function (data) {
+        //            // On success, 'data' contains a list of players.
+        //            $.each(data, function (key, item) {
+        //                // Add a list item for the player.
+        //                $('<li>', { text: formatItem(item) }).appendTo($('#players'));
+        //            });
+        //        });
+        //});
+
+        function formatItem(item) {
+            return item.Id + ": " + item.Name + "(" + item.No + ')' + " - " + item.Team + "(" + item.Position + ")";
+        }
+
+        function find() {
+            var id = $('#prodId').val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    $('#player').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#player').text('Error: ' + err);
+                });
+        }
+
+        function NotFound() {
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:50638/api/Players/GetNotFoundResult',
+                data: { id: "cccc" },
+                success: function (data, status) {
+                    alert(data);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

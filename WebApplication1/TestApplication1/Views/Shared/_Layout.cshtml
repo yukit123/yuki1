@@ -5,13 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/Content/dropzonescss")
     @Scripts.Render("~/bundles/modernizr")
-
-
+    @*@Html.Partial("_Angular_Header")*@
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -38,7 +39,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    @RenderSection("criteriaSecetion", required: false)
+    @*@RenderSection("criteriaSecetion", required: false)*@
 
 
 
@@ -49,3 +50,8 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    angular.bootstrap(document.getElementById("App1"), ['shoppingCart']);
+</script>
+

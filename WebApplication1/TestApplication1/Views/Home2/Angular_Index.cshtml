@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Angular_Index";
+}
+
+<h2>Angular_Index</h2>
+
+<div id="App1" ng-app="shoppingCart" ng-controller="ShoppingCartController">
+    <h1>Your order</h1>
+    <div ng-repeat="item in items">
+        <span>{{item.product_name}}</span>
+        <span>{{item.price | currency}}</span>
+        <button ng-click="remove($index);">Remove</button>
+    </div>
+</div>
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>*@
+<script>
+    var shoppingCartModule = angular.module("shoppingCart", [])
+    shoppingCartModule.controller("ShoppingCartController",
+        function ($scope) {
+            $scope.items = [
+                { product_name: "Product 1", price: 50 },
+                { product_name: "Product 2", price: 20 },
+                { product_name: "Product 3", price: 180 }
+            ];
+            $scope.remove = function (index) {
+                $scope.items.splice(index, 1);
+            }
+        }
+    );
+
+
+    //angular.bootstrap(document.getElementById("App2"), ['namesList']);
+</script>

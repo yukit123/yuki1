@@ -470,7 +470,7 @@ namespace WebApplication1.Controllers
             //ViewBag.Message = "Your application description page.";
             Blog bl = new Blog();
 
-            bl.DateDocument = Convert.ToDateTime("2018.12.14");
+            bl.DateDocument = Convert.ToDateTime("2018/12/14");
             return View(bl);
         }
 

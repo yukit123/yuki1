@@ -2,6 +2,10 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -273,9 +277,37 @@ namespace TestApplication1.Controllers
 
         public ActionResult SideBar_Index()
         {
+            #region Check if the value not key exists in app.config file
+            var flag = 1;
+            var MyKey = "TN";
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("PageSize"))
+            {
+                flag = 1;
+            }          
+            if (ConfigurationManager.AppSettings.AllKeys.Any(key => key == MyKey))
+            {
+                // Key exists
+            }
 
+            var MyReader = new System.Configuration.AppSettingsReader();
+            string keyvalue = MyReader.GetValue("PageSize", typeof(string)).ToString();
+
+            string[] repositoryUrls = ConfigurationManager.AppSettings.AllKeys
+                             .Where(key => key.StartsWith("TS"))
+                             .Select(key => ConfigurationManager.AppSettings[key])
+                             .ToArray();
+
+            foreach (var item in ConfigurationManager.AppSettings.AllKeys.ToList())//https://forums.asp.net/p/2147937/6233866.aspx?p=True&t=636751562067955347
+            {
+                if (ConfigurationManager.AppSettings[item] == "TS")
+                {
+
+                }
+            }
+            #endregion
             return View();
         }
+
         public ActionResult SideBar()
         {
             List<ApplicationMenuDO> crresult = new List<ApplicationMenuDO>();
@@ -352,25 +384,43 @@ namespace TestApplication1.Controllers
 
         public ActionResult RawSQL()
         {
-            #region Sum nested values with Linq https://forums.asp.net/t/2147726.aspx
+
+            #region CultureInfo.InvariantCulture https://forums.asp.net/p/2148118/6234395.aspx?p=True&t=636754152515878371
+            //https://www.cnblogs.com/GreenLeaves/p/6757917.html
+            //https://blog.csdn.net/gangzhucoll/article/details/52174023 主要
+            string[] arr = { "Ab", "aB", "AB", "ab", "Abccccccc", "aBccccc", "Abd" };
+            string[] arr2 = { "1/2/2018", "2/1/2018" };//mm/dd/yyyy "1/2/2018"<"2/1/2018"  "1/2/2018" >"2/1/2018"
+
+            string[] arr3 = { "01/2/2018", "1/2/2018" }; //"01/2/2018">"1/2/2018"
+
+            string[] arr4 = { "1/2/2018", "2/1/2018" };//dd/mm/yyyy "1/2/2018">"2/1/2018"  "1/2/2018" >"2/1/2018"
+            Array.Sort<string>(arr, StringComparer.Ordinal);
+            Debugger.Log(0, null, String.Join("\n", arr3));
+
+            Array.Sort<string>(arr, StringComparer.InvariantCulture);
+            Debugger.Log(0, null, "\n#################\n");
+            Debugger.Log(0, null, String.Join("\n", arr3));
+
+            #endregion
+            #region Sum nested values with Linq （SelectMany）https://forums.asp.net/t/2147726.aspx
             var total = (from user in db.author2s
                          from order in user.book2
                          select (int?)order.Id).Sum() ?? 0;
             var total2 = db.author2s.SelectMany(user => user.book2).Sum(product => (int?)product.Id) ?? 0;
             #endregion
-            #region Combine two columns into one column in linq https://forums.asp.net/t/2147635.aspx
+            #region Combine two columns into one column in linq（SelectMany） https://forums.asp.net/t/2147635.aspx
             var l = (from s in db.CountrySizes
                      where s.size.StartsWith("b") || s.country.StartsWith("F")
                      select new { Name = s.size }).Distinct().OrderBy(s => s.Name).ToList();
             var ls = (from s in db.CountrySizes
-                     where s.size.StartsWith("b") || s.country.StartsWith("F")
-                     select new { s.Id,s.country,s.size,s.value }).ToList();
+                      where s.size.StartsWith("b") || s.country.StartsWith("F")
+                      select new { s.Id, s.country, s.size, s.value }).ToList();
             //var lss = (from s in db.CountrySizes
             //          where s.size.StartsWith("b") || s.country.StartsWith("F")
             //          select new {  Name=s.size.Union(s.country)}).ToList();
             var allItems = db.CountrySizes
-                .Where(s=>s.size.StartsWith("b") || s.country.StartsWith("F"))
-                .Select(t => new[] { t.size,t.country })
+                .Where(s => s.size.StartsWith("b") || s.country.StartsWith("F"))
+                .Select(t => new[] { t.size, t.country })
                 .SelectMany(i => i).Distinct().OrderBy(i => i)
                 .ToList();
 
@@ -382,10 +432,10 @@ namespace TestApplication1.Controllers
 
             //显示explicitly添加主键https://forums.asp.net/p/2147073/6230529.aspx?p=True&t=636730908382274261 //SET IDENTITY_INSERT StudentAccounts ON;  
             db.Database.ExecuteSqlCommand("insert into StudentAccounts values('Conditioner', 'expense4');");
-                var query = db.StudentAccounts.SqlQuery("select * from StudentAccounts").ToList<StudentAccount>();
-                var query2 = db.Database.SqlQuery<StudentAccount>("select * from StudentAccounts").ToList<StudentAccount>();
+            var query = db.StudentAccounts.SqlQuery("select * from StudentAccounts").ToList<StudentAccount>();
+            var query2 = db.Database.SqlQuery<StudentAccount>("select * from StudentAccounts").ToList<StudentAccount>();
             var query4 = db.Database.SqlQuery<tablevm2>("select Userid as uid,Username as uname,Password as pwd from StudentAccounts").ToList<tablevm2>();
-                var query3 = db.Database.SqlQuery<tablevm>("select t1.Username, t1.Password, SUM(t1.Userid) as price from StudentAccounts as t1 group by t1.Password,t1.Username").ToList<tablevm>();
+            var query3 = db.Database.SqlQuery<tablevm>("select t1.Username, t1.Password, SUM(t1.Userid) as price from StudentAccounts as t1 group by t1.Password,t1.Username").ToList<tablevm>();
 
 
             ViewBag.Provlist = new SelectList(query2, "Userid", "Username");
@@ -646,6 +696,58 @@ namespace TestApplication1.Controllers
 
             return PartialView("DropAppliPopup");
         }
+        #endregion
+        public class CountryModel
+        {
+            public List<Country> CountryList { get; set; }
+            public string SelectedCountryId { get; set; }
+        }
+        public class Country
+        {
+            public string CountryName { get; set; }
+        }
+        public ActionResult GetCountry_Index()
+        {
+            CountryModel objcountrymodel = new CountryModel();
+            objcountrymodel.CountryList = CountryDate();
+            objcountrymodel.SelectedCountryId ="2";
+            return View(objcountrymodel);
+        }
+
+        public List<Country> CountryDate()
+        {
+            List<Country> objcountry = new List<Country>();
+            objcountry.Add(new Country { CountryName = "America" });
+            objcountry.Add(new Country { CountryName = "Canada" });
+            objcountry.Add(new Country { CountryName = "France" });
+            objcountry.Add(new Country { CountryName = "China" });
+            objcountry.Add(new Country { CountryName = "India" });
+            return objcountry;
+        }
+        
+    [System.Web.Mvc.HttpPost]
+        public ActionResult GetCountry(List<String> SelectedCountryId, CountryModel model2)
+        {
+
+            List<Country> model = CountryDate();
+ 
+            foreach (var item in SelectedCountryId)
+            {
+                model.Add(new Country { CountryName = item });
+            }
+
+
+            return View(model);
+        }
+
+        #region Angular Js: two apps, controller
+
+        public ActionResult Angular_Index()//https://forums.asp.net/p/2148004/6234048.aspx?p=True&t=636752434424073500  多控制器要用angular.bootstrap，注意加载顺序
+        {
+            
+            return View();
+        }
+
         #endregion
     }
 }
