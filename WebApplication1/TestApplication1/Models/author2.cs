@@ -45,9 +45,7 @@ namespace TestApplication1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public Guid Author_id { get; set; }
         public string Name { get; set; }
-        public List<book2> book2 { get; set; }
-
-
+        public virtual List<book2> book2 { get; set; }//virtual为后加不需要迁移，加了之后可以懒加载
         //private string _Compare1;
         [CantbothExistValidator]
         public string Compare1 { get; set; }

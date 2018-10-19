@@ -17,7 +17,7 @@ namespace TestApplication1.Controllers
         // GET: book2
         public ActionResult Index()
         {
-            //var book2s = db.book2s.Include(b => b.author2);
+           // var book2s = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
             return View(db.book2s.ToList());
         }
 
@@ -55,6 +55,8 @@ namespace TestApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.Author_id = new SelectList(db.author2s, "Author_id", "Name");
+ 
+            //ViewBag.catList2 = new SelectList(db.author2s, "Author_id", "Name", new Guid("fb7a3719-6568-e811-b856-8cec4b594df1"));
             return View();
         }
 
@@ -122,6 +124,7 @@ namespace TestApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Publisher,Author_id")] book2 book2)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(book2).State = EntityState.Modified;

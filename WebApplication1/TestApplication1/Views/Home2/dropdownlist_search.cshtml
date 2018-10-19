@@ -1,0 +1,62 @@
+﻿@*@model List<TestApplication1.Controllers.Home2Controller.TpStudentSchoolSubject>
+    @{
+        ViewBag.Title = "dropdownlist_search";
+    }
+
+    <h2>dropdownlist_search</h2>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SubjectID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SubjectList., new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SubjectID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SubjectID, new SelectList(Model.SubjectList, "Subject","SubjectID" ), "Select")
+            @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @section scripts{
+    <script>
+
+
+    </script>
+        }*@
+
+@*遍历 反射
+@model List<TestApplication1.Models.CountrySize>
+@if (Model.Any())
+{
+    var propArr = Model[0].GetType().GetProperties();
+    foreach (var ev in Model)
+    {
+        var p = ev.GetType().GetProperties();
+        foreach (var propertyInfo in propArr)
+        {
+            <h4>@propertyInfo.Name</h4>
+            var val = propertyInfo.GetValue(ev, null);
+            if (val != null)
+            {
+                <p>@val</p>
+            }
+        }
+    }
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+@foreach (var task in Model)
+{
+    <tr>
+        @foreach (var property in typeof(TestApplication1.Models.CountrySize).GetProperties())
+        {
+            <th>@(property.GetValue(task, null))</th>
+        }
+    </tr>
+}
+遍历 反射*@

@@ -94,6 +94,7 @@ namespace TestApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] AuthorModel authorModel)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Entry(authorModel).State = EntityState.Modified;

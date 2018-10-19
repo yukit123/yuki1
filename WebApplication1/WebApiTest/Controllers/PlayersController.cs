@@ -10,7 +10,7 @@ namespace WebApiTest.Controllers
 {
     public class PlayersController : ApiController
     {
-
+        //http://localhost:50638/Help  所有API地址
         public class ORDER
         {
             public string ID { get; set; }
@@ -89,5 +89,32 @@ namespace WebApiTest.Controllers
 
         //导出 Excel HttpResponseMessage
         //webapi route 路由 自定义路由 https://www.cnblogs.com/landeanfen/p/5501490.html
+
+        #region RoutePrefix Route 同一个控制器的所有的action的所有特性路由标识一个相同的前缀
+        //[RoutePrefix("api/order")]
+        //public class OrderController : ApiController
+        //{
+        //    [Route("")]
+        //    [HttpGet]
+        //    public IHttpActionResult GetAll()
+        //    {
+        //        return Ok<string>("Success");
+        //    }
+
+        //    [Route("{id:int}")]
+        //    [HttpGet]
+        //    public IHttpActionResult GetById(int id)
+        //    {
+        //        return Ok<string>("Success" + id);
+        //    }
+
+        //    [Route("postdata")]
+        //    [HttpPost]
+        //    public HttpResponseMessage PostData(int id)
+        //    {
+        //        return Request.CreateResponse();
+        //    }
+        //}
+        #endregion
     }
 }

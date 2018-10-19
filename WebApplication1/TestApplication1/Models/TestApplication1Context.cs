@@ -16,6 +16,7 @@ namespace TestApplication1.Models
 
         public DbSet<author2> author2s { get; set; }
         public DbSet<book2> book2s { get; set; }
+
         public DbSet<SampleViewModel> SampleViewModels { get; set; }
         public DbSet<OpsModel> OpsModels { get; set; }
         public DbSet<RMA_History> RMA_Histories { get; set; }
@@ -41,23 +42,6 @@ namespace TestApplication1.Models
         //.WillCascadeOnDelete(false);
         //    }
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
     }
 }

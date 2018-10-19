@@ -1476,6 +1476,7 @@
     <Content Include="Views\Home2\GetCountry_Index.cshtml" />
     <Content Include="Views\Home2\Angular_Index.cshtml" />
     <Content Include="Views\Home2\_Angular_Header.cshtml" />
+    <Content Include="Views\Home2\dropdownlist_search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

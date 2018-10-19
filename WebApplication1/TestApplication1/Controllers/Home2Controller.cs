@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,6 +17,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using TestApplication1.Models;
+//using System.Data.Entity;
 
 namespace TestApplication1.Controllers
 {
@@ -748,6 +751,68 @@ namespace TestApplication1.Controllers
             return View();
         }
 
+        #endregion
+        #region dropdownlist to search
+        public class TpSchoolSubject
+        {
+            [Key]
+            public int SubjectID { get; set; }
+            public string Subject { get; set; }
+            public Int64 Userid { get; set; }
+        }
+        public class TpStudentSchoolSubject
+        {
+            [Key]
+            public Int64 Id { get; set; }
+            public Int64 AllocationID { get; set; }
+            public int SubjectID { get; set; }
+            public int StudentID { get; set; }
+           // public string Subject { get; set; }//-Field not in TpStudentSchoolSubject. 
+            public Int64 Userid { get; set; }
+            [NotMapped]
+            public List<TpSchoolSubject> SubjectList { get; set; }
+        }
+
+        public ActionResult dropdownlist_search()
+        {
+
+            //var list = db.author2s.Find("fa7a3719-6568-e811-b856-8cec4b594df1");
+            //var book2s2 = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
+
+            //var book2s = db.author2s.ToList();
+            //var list2 = db.author2s.Where(x=>x.Author_id==new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")).ToList();
+            //var nameCol = db.author2s­.First().GetTy­pe().GetProper­ties().Select(n => n.Name);反射
+ 
+            var list = db.CountrySizes.ToList();
+            //List<TpStudentSchoolSubject> vm = new List<TpStudentSchoolSubject>();
+            //vm.Add(new TpStudentSchoolSubject
+            //{
+            //    Id = 1,
+            //    AllocationID = 1,
+            //    SubjectID = 2,
+            //    StudentID = 1,
+            //    Userid = 1,
+            //    SubjectList = new List<TpSchoolSubject>() {
+            //    new TpSchoolSubject(){ SubjectID= 2, Subject = "Maths",   Userid=3}
+            //}
+
+            //});
+
+            //vm.Add(new TpStudentSchoolSubject
+            //{
+            //    Id = 2,
+            //    AllocationID = 2,
+            //    SubjectID = 3,
+            //    StudentID = 2,
+            //    Userid = 2,
+            //    SubjectList = new List<TpSchoolSubject>() {
+            //    new TpSchoolSubject(){ SubjectID= 3, Subject = "English",   Userid=3}
+            //}
+
+            //});
+            //return View(vm);
+            return View(list);
+        }
         #endregion
     }
 }
