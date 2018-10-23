@@ -498,7 +498,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult validate2()//此例需要提交后验证 直接验证参考：https://forums.asp.net/p/2147782/6233257.aspx?p=True&t=636747254515733755
+        public ActionResult validate2(List<string> ProdottiIds)//此例需要提交后验证 直接验证参考：https://forums.asp.net/p/2147782/6233257.aspx?p=True&t=636747254515733755
         {
             var list = db.Label.ToList().FirstOrDefault();
             List<string> IDs = db.Label.Select(x => x.LabelName.ToString()).ToList();
@@ -771,9 +771,38 @@ namespace WebApplication1.Controllers
         {
             public IList<SelectListItem> Carrier { get; set; }
             public int[] SelectedCarrierId { get; set; }
+            public SelectList SampleViewModel { get; set; }
         }
 
+        public class SampleViewModel
+        {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+        }
         public ActionResult Modalpopup2()
+        {
+            var model = new OpsViewModel();
+            model.Carrier = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Apple1", Value = "Apple"},
+                    new SelectListItem {Text = "Pear1", Value = "Pear"},
+                    new SelectListItem {Text = "Banana1", Value = "Banana",Selected=true},
+                    new SelectListItem {Text = "Orange1", Value = "Orange",Selected=true},
+                };
+            var sampleViewModelList = new List<SampleViewModel>() {
+                    new SampleViewModel() {Id=1, Name="AAAA"},
+                    new SampleViewModel() {Id=2, Name="BBBB"},
+                    new SampleViewModel() {Id=3, Name="CCCC"}
+                };
+            model.SampleViewModel = new SelectList(sampleViewModelList, "Id", "Name", sampleViewModelList.First(x => x.Id == 2).Id);
+
+            ViewBag.Message = "Your contact page.";
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Modalpopup22(List<string> SelIndex)
         {
             var model = new OpsViewModel();
             model.Carrier = new List<SelectListItem>
@@ -788,6 +817,7 @@ namespace WebApplication1.Controllers
 
             return View(model);
         }
+
         public ActionResult jsonfile()
         {
             ViewBag.Message = "Your contact page.";

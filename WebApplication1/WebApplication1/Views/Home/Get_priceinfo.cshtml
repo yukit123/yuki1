@@ -79,7 +79,61 @@
                 }
             })
         }
+  //#region ajax{string}=>[FromUri]+ model
+        function Dochange2() {
+   
+            var postdata = { ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" };
+            $.ajax({
+                type: "get",
+                url: "http://localhost:27221/api/Players/GetAllChargingData",
+                data: postdata,
+                success: function (data, status) { }
+            });
+        }
+   //JSON.stringify  <=>  ajax{string}=>[FromUri]
+        function Dochange3() {
+       
+            $.ajax({
+                type: "get",
+                url: "http://localhost:27221/api/Players/GetByModel",
+                contentType: "application/json",
+                data: { strQuery: JSON.stringify({ ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" }) },
+                success: function (data, status) {
+                    if (status == "success") {
+                        $("#div_test").html(data);
+                    }
+                }
+            });
+        }
+  //#region ajax{ string }=> [FromUri] + model
 
+
+// #region dynamic的方便之处，为了避免[FromBody]这个累赘和{"":"value"}这种"无厘头"的写法
+        function Dochange3() {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:27221/api/Charging/SaveData",
+                contentType: 'application/json',//必须JSON.stringify
+                data: JSON.stringify({ NAME: "Jim", DES: "备注" }),//JSON.stringify：string转对象
+                success: function (data, status) { }
+            });
+        }
+// #region dynamic的方便之处，为了避免[FromBody]这个累赘和{"":"value"}这种"无厘头"的写法
+
+//#region  实体集合
+        var arr = [
+            { ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" },
+            { ID: "2", NAME: "Lilei", CREATETIME: "1990-12-11" },
+            { ID: "3", NAME: "Lucy", CREATETIME: "1986-01-10" }
+        ];
+        $.ajax({
+            type: "post",
+            url: "http://localhost:27221/api/Charging/SaveData",
+            contentType: 'application/json',//必须JSON.stringify
+            data: JSON.stringify(arr),
+            success: function (data, status) { }
+        });
+//#region  实体集合
     </script>
 
     }

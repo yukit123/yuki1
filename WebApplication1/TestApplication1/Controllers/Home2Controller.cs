@@ -774,16 +774,15 @@ namespace TestApplication1.Controllers
         }
 
         public ActionResult dropdownlist_search()
-        {
+        {           
+                //var list = db.author2s.Find("fa7a3719-6568-e811-b856-8cec4b594df1");
+                //var book2s2 = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
 
-            //var list = db.author2s.Find("fa7a3719-6568-e811-b856-8cec4b594df1");
-            //var book2s2 = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
+                //var book2s = db.author2s.ToList();
+                //var list2 = db.author2s.Where(x=>x.Author_id==new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")).ToList();
+                //var nameCol = db.author2s­.First().GetTy­pe().GetProper­ties().Select(n => n.Name);反射
 
-            //var book2s = db.author2s.ToList();
-            //var list2 = db.author2s.Where(x=>x.Author_id==new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")).ToList();
-            //var nameCol = db.author2s­.First().GetTy­pe().GetProper­ties().Select(n => n.Name);反射
- 
-            var list = db.CountrySizes.ToList();
+                var list = db.CountrySizes.ToList();
             //List<TpStudentSchoolSubject> vm = new List<TpStudentSchoolSubject>();
             //vm.Add(new TpStudentSchoolSubject
             //{
@@ -812,6 +811,14 @@ namespace TestApplication1.Controllers
             //});
             //return View(vm);
             return View(list);
+        }
+        #endregion
+
+        #region row autocomplete
+        public ActionResult autocomplete_Index()
+        {
+
+            return View();
         }
         #endregion
     }

@@ -1,0 +1,102 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "autocomplete_Index";
+}
+
+<h2>autocomplete_Index</h2>
+
+<datalist id="get_customer_or_supplier"><option></option></datalist>
+<datalist id="get_type">
+    <option>Customer</option>
+    <option>Supplier</option>
+    <option>Warehouse</option>
+
+</datalist>
+<table id="Reference_tb" class="table table-striped table-bordered table-hover authors-list1 table_header_style" style="width:898px">
+    <thead style="background-color: #eff3f9">
+        <tr>
+            <th><input type="checkbox" id="check_Table_Rows" /></th>
+
+            <th>Link DocType</th>
+            <th>Link Name</th>
+            <th>Link Title</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td><input type="checkbox" id="check_Table_Rows" /></td>
+
+            <td>1111</td>
+            <td>222</td>
+            <td>333</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts{
+<script>
+    $("#Reference_tb").on("click", "td", function () {
+        var cell_Index = $(this).index();
+        var Row_Index = $(this).parent().index() + 1;
+        if (cell_Index == 1) {
+
+            if ($("#Reference_tb").find("tr:eq('" + Row_Index + "')").find("td:eq(1)").find("input").val() == "Customer") {//alert("customer")
+                $("#get_customer_or_supplier").empty();
+                var append = '';
+                $.ajax({
+                    type: "POST",
+                    url: "/AutoComplete/Get_Customer_Name",
+                    data: [],
+                    success: function (response) {
+                        data = $.map(response, function (item, a) {
+                            append += "<option value='" + item.customer_name + "'></option>";
+                        });
+                        $("#get_customer_or_supplier").append(append);
+                    }
+                });
+            }
+
+
+            if ($("#Reference_tb").find("tr:eq('" + Row_Index + "')").find("td:eq(1)").find("input").val() == "Supplier") {
+                //alert("Supplier")
+                $("#get_customer_or_supplier").empty();
+                var append = '';
+                $.ajax({
+                    type: "POST",
+                    url: "/AutoComplete/Get_Supplier_Name",
+                    data: [],
+                    success: function (response) {
+                        data = $.map(response, function (item, a) {
+                            append += "<option value='" + item.supplier_name + "'></option>";
+                        });
+                        $("#get_customer_or_supplier").append(append);
+                    }
+                });
+            }
+
+
+            if ($("#Reference_tb").find("tr:eq('" + Row_Index + "')").find("td:eq(1)").find("input").val() == "Warehouse") {
+                //alert("Supplier")
+                $("#get_customer_or_supplier").empty();
+                var append = '';
+                $.ajax({
+                    type: "POST",
+                    url: "/AutoComplete/Get_Warehouse",
+                    data: [],
+                    success: function (response) {
+                        data = $.map(response, function (item, a) {
+                            append += "<option value='" + item.warehouse_name + "'></option>";
+                        });
+                        $("#get_customer_or_supplier").append(append);
+                    }
+                });
+            }
+
+        }
+    });
+
+</script>
+}

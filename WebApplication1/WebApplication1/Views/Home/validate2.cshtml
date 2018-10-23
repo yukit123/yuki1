@@ -10,14 +10,14 @@
     @Html.AntiForgeryToken()
     //与ListBoxFor相冲突
     @*@Html.EditorFor(model => model.LabelId, new { htmlAttributes = new { @Class = "AAA" } })
-    @Html.ValidationMessageFor(model => model.LabelId)
-    @Html.EditorFor(model => model.LabelName)
-    @Html.ValidationMessageFor(model => model.LabelName)
+        @Html.ValidationMessageFor(model => model.LabelId)
+        @Html.EditorFor(model => model.LabelName)
+        @Html.ValidationMessageFor(model => model.LabelName)
 
 
 
-    @Html.TextAreaFor(model => model.LabelId, new { htmlAttributes = new { @class = "form-control", @name = "Name" } })
-    @Html.ValidationMessageFor(model => model.LabelId)*@
+        @Html.TextAreaFor(model => model.LabelId, new { htmlAttributes = new { @class = "form-control", @name = "Name" } })
+        @Html.ValidationMessageFor(model => model.LabelId)*@
     //与ListBoxFor相冲突
     <br />
     <input type="submit" value="Save" id="btnSave">
