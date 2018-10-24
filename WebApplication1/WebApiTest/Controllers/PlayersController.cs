@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using WebApiTest.App_Start;
 using WebApiTest.Models;
 
 namespace WebApiTest.Controllers
@@ -212,6 +213,15 @@ namespace WebApiTest.Controllers
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();//读取所有
             Console.WriteLine(responseFromServer);
+        }
+        #endregion
+
+        #region 使用异常筛选器捕获所有异常
+        [WebApiExceptionFilter]
+        [HttpGet]
+        public string GetAllChargingData2([FromUri]TB_CHARGING obj)
+        {
+            throw new NotImplementedException("方法不被支持");
         }
         #endregion
     }

@@ -18,6 +18,7 @@ namespace WebApiTest
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //1.GlobalConfiguration.Configuration.Filters.Add(new WebApiExceptionFilterAttribute());//需要对整个应用程序都启用异常过滤(2.在WebApiConfig.cs文件的Register方法里面添加)
         }
     }
 }

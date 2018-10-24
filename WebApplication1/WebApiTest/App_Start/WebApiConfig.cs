@@ -19,6 +19,8 @@ namespace WebApiTest
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // 2.config.Filters.Add(new WebApiExceptionFilterAttribute());//需要对整个应用程序都启用异常过滤(1.在Global.asax全局配置里面添加)
         }
     }
 }

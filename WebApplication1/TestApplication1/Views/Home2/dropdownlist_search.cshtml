@@ -1,33 +1,34 @@
-﻿@*@model List<TestApplication1.Controllers.Home2Controller.TpStudentSchoolSubject>
+﻿@model List<TestApplication1.Controllers.Home2Controller.TpStudentSchoolSubject>
     @{
         ViewBag.Title = "dropdownlist_search";
+        var subid = Model.Select(_ => _.SubjectID).ToList();
+        var ddlSelectList = Model.Select(_ => _.SubjectList).ToList().SelectMany(i=>i).ToList();
     }
 
     <h2>dropdownlist_search</h2>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.SubjectID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SubjectList., new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+            @Html.Editor("edtxt", new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.SubjectID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SubjectID, new SelectList(Model.SubjectList, "Subject","SubjectID" ), "Select")
-            @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => subid, new SelectList(ddlSelectList, "Subject", "SubjectID"), "Select", new { @onchange = "CallChangefunc(this.value)" })
+            @*@Html.DropDownList("xxx", subid.Select(y => new SelectListItem { Value = (ddlSelectList.Where(p => p.SubjectID == y).FirstOrDefault().Subject), Text = y.ToString() }).ToList(), "Select an organization ")*@
         </div>
     </div>
 
     @section scripts{
     <script>
-
+        function CallChangefunc(obj){
+            $("#edtxt").val(obj);
+        }
 
     </script>
-        }*@
+        }
 
 @*遍历 反射
 @model List<TestApplication1.Models.CountrySize>

@@ -24,21 +24,13 @@
             <th>Link Title</th>
             <th></th>
         </tr>
-        <tr>
-            <td><input type="checkbox" id="check_Table_Rows" /></td>
-
-            <td>1111</td>
-            <td>222</td>
-            <td>333</td>
-            <td></td>
-        </tr>
     </thead>
     <tbody></tbody>
 </table>
 
 @section scripts{
 <script>
-    $("#Reference_tb").on("click", "td", function () {
+    $("#Reference_tb").off("change", "td").on("change", "td", function () {
         var cell_Index = $(this).index();
         var Row_Index = $(this).parent().index() + 1;
         if (cell_Index == 1) {
