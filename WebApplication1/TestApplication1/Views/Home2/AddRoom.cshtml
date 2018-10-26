@@ -1,0 +1,48 @@
+﻿
+@*@model ChamberWebApp.Models.TblRooms*@
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+    <h4 class="modal-title">إضافة قاعة</h4>
+
+</div>
+<div class="modal-body">
+    <form asp-action="AddRoom" id="mainForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="RoomName" class="control-label"></label>
+            <select asp-for="RoomName" class="form-control">
+                <option value="">اختر القاعة</option>
+                <optgroup label="A" />
+                <option value="a">a</option>
+                <optgroup label="B" />
+                <option value="b">b</option>
+            </select>
+            <span asp-validation-for="RoomName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="control-label">تاريخ البداية</label>
+            <input asp-for="StartDate" class="form-control" type="date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartTime" class="control-label">بداية الوقت</label>
+            <input asp-for="StartTime" class="form-control" type="time" />
+            <span asp-validation-for="StartTime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndDate" class="control-label">تاريخ النهاية</label>
+            <input asp-for="EndDate" class="form-control" type="date" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndTime" class="control-label">نهاية الوقت</label>
+            <input asp-for="EndTime" class="form-control" type="time" />
+            <span asp-validation-for="EndTime" class="text-danger"></span>
+        </div>
+        <div class="form-group" align="center">
+            <input type="submit" value="Create" class="btn btn-info" id="sb" />
+        </div>
+    </form>
+</div>

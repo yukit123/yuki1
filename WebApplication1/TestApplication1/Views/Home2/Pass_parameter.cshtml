@@ -1,0 +1,51 @@
+﻿@model TestApplication1.Controllers.Home2Controller.GetirCalisanOzetYanitViewModel
+@{
+    ViewBag.Title = "Pass_parameter";
+    var list = @Html.Raw(Json.Encode(Model.List1));
+}
+    @*hidden dropdown*@
+    @Html.DropDownList("aa", Model.List1, new { @style = "display:none", @id = "list1" })
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal center">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" style="text-align:center">
+                <div class="col-md-10">
+                    @Html.Editor("SorguSozcesi", new { htmlAttributes = new { @class = "form-control" } })
+                    @*dropdown to be populated*@
+                    <select id="drpDownSorgu">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <div class="dropdown-container">
+                        <!--Container wrapped around-->
+                        <button data-toggle="dropdown" class="btn btn-success dropdown-toggle btn-xs" type="button" aria-expanded="true">
+                            Add Criterion <span class="caret"></span>
+                        </button>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a onclick="ulAddQueryPosition()">Position </a></li>
+
+                        </ul>
+                    </div><!--Container closed-->
+
+                </div>
+            </div>
+        </div>
+    }
+
+<script type="text/javascript">
+
+    var list2 = "";
+
+    function ulAddQueryPosition() {
+        list2 = @Html.Raw(Json.Encode(Model.List1));
+    }
+
+</script>

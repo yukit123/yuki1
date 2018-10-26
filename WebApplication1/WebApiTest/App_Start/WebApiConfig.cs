@@ -9,6 +9,9 @@ namespace WebApiTest
     {
         public static void Register(HttpConfiguration config)
         {
+            ////跨域配置
+            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));//http://www.cnblogs.com/landeanfen/p/5177176.html
+
             // Web API configuration and services   
 
             // Web API routes
@@ -16,7 +19,8 @@ namespace WebApiTest
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+              //  routeTemplate: "api/{controller}/{id}",
+                     routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

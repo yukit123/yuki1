@@ -2337,14 +2337,14 @@ namespace WebApplication1.Controllers
             byte[] imagebyte = null;
             if (file != null)
             {
-                file.SaveAs(Server.MapPath("/images/" + file.FileName));
+                file.SaveAs(Server.MapPath("~/images/" + file.FileName));
                 BinaryReader reader = new BinaryReader(file.InputStream);
                 imagebyte = reader.ReadBytes(file.ContentLength);
                 Label img = new Label();
                 //img.ImageTitle = file.FileName;
                 //img.ImageByte = imagebyte;
                 //img.ImagePath = "/UploadImage/" + file.FileName;
-                img.LabelName = "/images/" + file.FileName;
+                img.LabelName = "~/images/" + file.FileName;
                 //db.Label.Add(img);
                 //db.SaveChanges();
                 imgId = img.LabelId;
@@ -2580,6 +2580,8 @@ namespace WebApplication1.Controllers
             //    new selectmodelVM{Text="2",Value="2"},
             //    new selectmodelVM{Text="3",Value="3"}
             //};
+   //         string ImageName = System.IO.Path.GetFileName(file2.FileName);//获取文件名
+
             if (file2 != null && file2.ContentLength > 0)
             {
 

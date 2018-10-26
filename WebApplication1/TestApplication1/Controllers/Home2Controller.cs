@@ -17,7 +17,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using TestApplication1.Models;
-//using System.Data.Entity;
+using System.Data.Entity;
 
 namespace TestApplication1.Controllers
 {
@@ -819,6 +819,170 @@ namespace TestApplication1.Controllers
         {
 
             return View();
+        }
+        #endregion
+
+        #region Core data-target
+        public ActionResult Index_AddRoom()
+        {
+            string zFileu = Server.MapPath(@"~/images/") + "test.pdf";
+            var path= System.IO.Directory.CreateDirectory(@"~\images\odoiproject\");
+            return View();
+
+        }
+        public ActionResult AddRoom()
+        {
+
+            return PartialView();
+
+        }
+
+        #endregion
+
+        #region Passing a parameter to javascript function in MVC https://forums.asp.net/t/2148408.aspx
+        //public class GetirCalisanOzetYanitViewModel
+        //{
+        //    public List<SelectListItem> List1 { get; set; }
+
+        //    public List<OtherItem> List2 { get; set; }
+
+        //    public GetirCalisanOzetYanitViewModel() : base()
+        //    {
+        //        this.List1 = new List<SelectListItem>();
+        //        this.List2 = new List<OtherItem>();
+        //    }
+        //}
+        //public class OtherItem
+        //{
+        //    public int QueryString { get; set; }
+        //    public string OtherItemStr { get; set; }
+        //}
+
+        //public class Assignments
+        //{
+        //    public int QueryString { get; set; }
+        //    public string OtherItemStr { get; set; }
+        //}
+        //public ActionResult Pass_parameter()
+        //{
+
+        //    var assignments = db.book2s.Include(b => b.author2);
+        //    IQueryable<Assignments> assignments = from s in db.Assignments
+        //                                          where Assignment.AssignmentContact != Contact.ContactDesignator1String
+        //                                          || Assignment.AssignmentRoute != Route.RouteDesignatorString
+        //                                          || Assignment.AssignmentVehicle != Resource.ResourceDesignatorString
+        //                                          select s;
+        //    assignments.Include(a => a.Calendar)
+        //    .Include(a => a.Charter)
+        //    .Include(a => a.Contact)
+        //    .Include(a => a.HistoryEmployee)
+        //    .Include(a => a.HistoryResource)
+        //    .Include(a => a.Resource)
+        //    .Include(a => a.ResourceDirection)
+        //    .Include(a => a.ResourceDocument)
+        //    .Include(a => a.ResourceOffice)
+        //    .Include(a => a.Route);
+
+        //    GetirCalisanOzetYanitViewModel vm = new GetirCalisanOzetYanitViewModel();
+        //    vm.List1 = new List<SelectListItem>() {
+        //        new SelectListItem(){Text="11",Value="11" },
+        //        new SelectListItem(){Text="22",Value="22" }
+
+        //    };
+        //    vm.List2 = new List<OtherItem>() {
+        //        new OtherItem(){QueryString=1,OtherItemStr="111" },
+        //        new OtherItem(){QueryString=2,OtherItemStr="222" }
+
+        //    };
+
+        //    return View(vm);
+
+        //}
+        #endregion
+
+        #region tree node string json
+        class Node
+        {
+            public Node()
+            {
+                Children = new List<Node>();
+            }
+
+            public string Name { get; set; }
+            public List<Node> Children { get; set; }
+        }
+
+        class NodeConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return (objectType == typeof(Node));
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                Node node = (Node)value;
+                JObject jo = new JObject();
+                jo.Add("name", node.Name);
+                if (node.Children.Count == 0)
+                {
+                    jo.Add("leaf", true);
+                }
+                else
+                {
+                    jo.Add("children", JArray.FromObject(node.Children, serializer));
+                }
+                jo.WriteTo(writer);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+        }
+        public void Dictionary_Node()
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("Kitchen supplies", "Shopping / Housewares");
+            dict.Add("Groceries", "Shopping / Housewares");
+            dict.Add("Cleaning supplies", "Shopping / Housewares");
+            dict.Add("Office supplies", "Shopping / Housewares");
+            dict.Add("Retile kitchen", "Shopping / Remodeling");
+            dict.Add("Ceiling", "Shopping / Remodeling / Paint bedroom");
+            dict.Add("Walls", "Shopping / Remodeling / Paint bedroom");
+            dict.Add("Misc", null);
+            dict.Add("Other", "Shopping / Remodeling");
+
+            Node root = new Node();
+            foreach (KeyValuePair<string, string> kvp in dict)
+            {
+                Node parent = root;
+                if (!string.IsNullOrEmpty(kvp.Value))
+                {
+                    Node child = null;
+                    foreach (string part in kvp.Value.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        string name = part.Trim();
+                        child = parent.Children.Find(n => n.Name == name);
+                        if (child == null)
+                        {
+                            child = new Node { Name = name };
+                            parent.Children.Add(child);
+                        }
+                        parent = child;
+                    }
+                }
+                parent.Children.Add(new Node { Name = kvp.Key });
+            }
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter> { new NodeConverter() },
+                Formatting = Formatting.Indented
+            };
+
+            string json = JsonConvert.SerializeObject(root, settings);
+
         }
         #endregion
     }

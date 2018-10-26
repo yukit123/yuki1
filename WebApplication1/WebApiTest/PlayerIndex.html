@@ -17,6 +17,9 @@
     </div>
     <input type="button" value="NotFound" onclick="NotFound();" />
 
+    <input type="button" value="GetEmployeeByMultipleParams" onclick="GetEmployeeByMultipleParams();" />
+
+
     <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script>
@@ -58,6 +61,28 @@
                     alert(data);
                 }
             });
+        }
+
+        function GetEmployeeByMultipleParams() {
+            var url = "http://localhost:50638/api/Players/GetEmployeeByMultipleParams";
+            $.ajax({
+                url: url,
+                data: getData(),
+                type: 'POST',
+                contentType: 'application/json',
+                success: function (data) {
+                    alert(data);
+                }
+            });
+
+            function getData() {
+
+                var Bookinfo = new Object();
+                Bookinfo.fname = "Yoh";
+                Bookinfo.lname = "yyy";
+                Bookinfo.age = "23";
+                return JSON.stringify(Bookinfo);
+            }
         }
     </script>
 </body>

@@ -224,5 +224,21 @@ namespace WebApiTest.Controllers
             throw new NotImplementedException("方法不被支持");
         }
         #endregion
+
+        #region 参数名不一样，但字段一样
+
+        public class Demclass
+        {
+            public string fname { get; set; }
+            public string lname { get; set; }
+            public int age { get; set; }
+        }
+        [HttpGet]
+        [HttpPost]
+        public IHttpActionResult GetEmployeeByMultipleParams(Demclass demclass)
+        {
+            return Ok("fname: " + demclass.fname + "; lname: " + demclass.lname + ", age: " + demclass.age.ToString());
+        }
+        #endregion
     }
 }
