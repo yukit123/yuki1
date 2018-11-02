@@ -11,7 +11,8 @@ using TestApplication1.Models;
 namespace TestApplication1.Controllers
 {
     public class author2Controller : Controller
-    {
+    {//https://www.codeproject.com/Tips/766214/List-Model-Binding-in-MVC
+        //https://forums.asp.net/p/2148051/6234195.aspx?Re+How+to+Bind+SQL+foreign+key+column+to+dropdown+in+MVC+
         private TestApplication1Context db = new TestApplication1Context();
 
         // GET: author2

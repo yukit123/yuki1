@@ -1,0 +1,41 @@
+﻿
+<style>
+    .unselectable {
+        background-color: #ddd;
+        cursor: not-allowed;
+    }
+</style>
+<body>
+    <table border='1'>
+        <tr>
+            <th class='weekday'>Mon</th>
+            <th class='weekday'>Tue</th>
+            <th class='weekday'>Wed</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td class='unselectable'>3</td>
+            <td>3</td>
+            <td>3</td>
+        </tr>
+    </table>
+
+</body>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+
+
+    $('.unselectable').prop('disabled', true);
+    $('.unselectable2').prop('disabled', false);
+});
+</script>-->

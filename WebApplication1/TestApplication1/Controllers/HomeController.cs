@@ -36,6 +36,20 @@ namespace TestApplication1.Controllers
 
         public ActionResult About()
         {
+
+            //var xx = 2;
+            //var partialResult4 = (from countr in db.CountrySizes
+            //                      join auth in db.AuthorModels
+            //                      on countr.Id equals auth.Id
+
+            //                      select new
+            //                      {
+            //                          q = auth.Id,
+            //                          q1 = countr.size,
+            //                          a2 = countr.value / xx
+
+            //                      }).ToList();
+            //var list = db.CountrySizes.Select(a => new { q = a.Id, q1 = a.size, a2 = a.value / xx }).ToList();
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -58,7 +72,8 @@ namespace TestApplication1.Controllers
             public string Name { get; set; }
             public Person Owner { get; set; }
         }
-    
+
+
         public ActionResult Test()
         {
             #region 日期 今天 比较
@@ -72,6 +87,7 @@ namespace TestApplication1.Controllers
             //string subject2 = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
             //var results2 = Regex.Match(subject2, @"^[ -~]+$");
             ////var list = db.Charters.ToList().FirstOrDefault();
+
             //var qq = "au1";
             //var opportunities = (from c in db.author2s
             //                     join d in db.book2s on c.Author_id equals d.Author_id
@@ -168,14 +184,16 @@ namespace TestApplication1.Controllers
 
 
             //partialResult4 内连接
+            //var xx = 2;
             //var partialResult4 = (from countr in db.CountrySizes
             //                      join auth in db.AuthorModels
-            //                      on countr.Id equals auth.Id 
+            //                      on countr.Id equals auth.Id
 
             //                      select new
             //                      {
-            //                          auth.Id,
-            //                          countr.size                                  
+            //                          q=auth.Id,
+            //                          q1=countr.size,
+            //                          a2=countr.value/ xx
 
             //                      }).ToList();
 
@@ -313,6 +331,7 @@ namespace TestApplication1.Controllers
             //other things
 
         }
+        
         public class SelectableProduct : Product
         {
             public bool IsSelected { get; set; }
@@ -968,7 +987,7 @@ namespace TestApplication1.Controllers
 
             ViewBag.ID = model.Id;
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid)//model的属性如果不加验证相关的特性，ModelState.IsValid会永远为true；如果加了验证相关的特性，不满足验证规则时，ModelState.IsValid为false.
             {
                 if (ViewBag.ID == 0)
                 {
@@ -984,7 +1003,7 @@ namespace TestApplication1.Controllers
 
 
             }
-            else  //(!ModelState.IsValid) //
+            else  //(!ModelState.IsValid) //https://www.cnblogs.com/basterdaidai/p/6679849.html
             {
                 var msg = string.Empty;
                 foreach (var value in ModelState.Values)
@@ -998,6 +1017,9 @@ namespace TestApplication1.Controllers
                     }
                 }
             }
+            var errors = ModelState.Select(x => x.Value.Errors)
+                          .Where(y => y.Count > 0)
+                          .ToList();
 
             //return Json(new { success=0,model }, JsonRequestBehavior.AllowGet);
 

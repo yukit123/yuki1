@@ -440,6 +440,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="convertNumber.html" />
+    <Content Include="css-disable.html" />
     <Content Include="cursor_progress.html" />
     <Content Include="datepicker.html" />
     <Content Include="DivtoTable.html" />
@@ -1481,6 +1482,9 @@
     <Content Include="Views\Home2\Index_AddRoom.cshtml" />
     <Content Include="Views\Home2\AddRoom.cshtml" />
     <Content Include="Views\Home2\Pass_parameter.cshtml" />
+    <Content Include="Views\Home2\GetEvents_Index.cshtml" />
+    <Content Include="Views\Home2\FullCalendar_Index.cshtml" />
+    <Content Include="Views\Home2\SendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

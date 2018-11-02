@@ -18,6 +18,9 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using TestApplication1.Models;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 
 namespace TestApplication1.Controllers
 {
@@ -286,7 +289,7 @@ namespace TestApplication1.Controllers
             if (ConfigurationManager.AppSettings.AllKeys.Contains("PageSize"))
             {
                 flag = 1;
-            }          
+            }
             if (ConfigurationManager.AppSettings.AllKeys.Any(key => key == MyKey))
             {
                 // Key exists
@@ -346,7 +349,7 @@ namespace TestApplication1.Controllers
 
         public StudentAccount StudentLogin(string uname, string passwd)
         {
-            StudentAccount dbEntry = db.StudentAccounts.Where(x=>x.Username== uname &&x.Password== passwd).SingleOrDefault();
+            StudentAccount dbEntry = db.StudentAccounts.Where(x => x.Username == uname && x.Password == passwd).SingleOrDefault();
             if (dbEntry != null)
             {
 
@@ -354,7 +357,7 @@ namespace TestApplication1.Controllers
             return dbEntry;
         }
 
-      
+
         public ViewResult Login_Index(string username, string password)
         {
             StudentAccount studentAccount = new StudentAccount();
@@ -503,7 +506,7 @@ namespace TestApplication1.Controllers
         #region loading icon
         public ActionResult LoadingIcon()//https://forums.asp.net/p/2147203/6230964.aspx?p=True&t=636734159695481938
         {
-            
+
             return View();
         }
 
@@ -513,7 +516,7 @@ namespace TestApplication1.Controllers
             //return "Hello " + name + Environment.NewLine + "The Current Time is: "
             //    + DateTime.Now.ToString();
             var list = db.CountrySizes.ToList();
-            return Json(new { flag = 1,list }, JsonRequestBehavior.AllowGet);
+            return Json(new { flag = 1, list }, JsonRequestBehavior.AllowGet);
 
 
         }
@@ -625,7 +628,7 @@ namespace TestApplication1.Controllers
                 GradesList.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() }); ;
             }
 
-         //   ViewBag.GradesList1 = new SelectList(GradesList);
+            //   ViewBag.GradesList1 = new SelectList(GradesList);
 
             StudentCourse_VM vm = new StudentCourse_VM();
             vm.Student = new Student() { StuID = 1001, StuName = "AA", Age = 22 };
@@ -641,9 +644,9 @@ namespace TestApplication1.Controllers
 
         #endregion
         #region bootstrap tab
-        public ActionResult bootstrapTab() 
+        public ActionResult bootstrapTab()
         {
-            
+
             return View();
         }
         #endregion
@@ -672,19 +675,19 @@ namespace TestApplication1.Controllers
 
 
 
-                if (qry == null)
-                {
-                    return HttpNotFound();
-                }
-                // return PartialView("_PartialDialog", qry);
-                return PartialView(qry);
+            if (qry == null)
+            {
+                return HttpNotFound();
+            }
+            // return PartialView("_PartialDialog", qry);
+            return PartialView(qry);
 
         }
         #endregion
         #region
         public ActionResult DropAppliPopup_Index()
         {
-            
+
             return View();
         }
         public ActionResult DropAppliPopup(string Objid, string Petname, string Petaddress, string opname, string opmotor)
@@ -713,7 +716,7 @@ namespace TestApplication1.Controllers
         {
             CountryModel objcountrymodel = new CountryModel();
             objcountrymodel.CountryList = CountryDate();
-            objcountrymodel.SelectedCountryId ="2";
+            objcountrymodel.SelectedCountryId = "2";
             return View(objcountrymodel);
         }
 
@@ -727,13 +730,13 @@ namespace TestApplication1.Controllers
             objcountry.Add(new Country { CountryName = "India" });
             return objcountry;
         }
-        
-    [System.Web.Mvc.HttpPost]
+
+        [System.Web.Mvc.HttpPost]
         public ActionResult GetCountry(List<String> SelectedCountryId, CountryModel model2)
         {
 
             List<Country> model = CountryDate();
- 
+
             foreach (var item in SelectedCountryId)
             {
                 model.Add(new Country { CountryName = item });
@@ -747,7 +750,7 @@ namespace TestApplication1.Controllers
 
         public ActionResult Angular_Index()//https://forums.asp.net/p/2148004/6234048.aspx?p=True&t=636752434424073500  多控制器要用angular.bootstrap，注意加载顺序
         {
-            
+
             return View();
         }
 
@@ -767,22 +770,22 @@ namespace TestApplication1.Controllers
             public Int64 AllocationID { get; set; }
             public int SubjectID { get; set; }
             public int StudentID { get; set; }
-           // public string Subject { get; set; }//-Field not in TpStudentSchoolSubject. 
+            // public string Subject { get; set; }//-Field not in TpStudentSchoolSubject. 
             public Int64 Userid { get; set; }
             [NotMapped]
             public virtual List<TpSchoolSubject> SubjectList { get; set; }
         }
 
         public ActionResult dropdownlist_search()
-        {           
-                //var list = db.author2s.Find("fa7a3719-6568-e811-b856-8cec4b594df1");
-                //var book2s2 = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
+        {
+            //var list = db.author2s.Find("fa7a3719-6568-e811-b856-8cec4b594df1");
+            //var book2s2 = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
 
-                //var book2s = db.author2s.ToList();
-                //var list2 = db.author2s.Where(x=>x.Author_id==new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")).ToList();
-                //var nameCol = db.author2s­.First().GetTy­pe().GetProper­ties().Select(n => n.Name);反射
+            //var book2s = db.author2s.ToList();
+            //var list2 = db.author2s.Where(x=>x.Author_id==new Guid("fa7a3719-6568-e811-b856-8cec4b594df1")).ToList();
+            //var nameCol = db.author2s­.First().GetTy­pe().GetProper­ties().Select(n => n.Name);反射
 
-                //var list = db.CountrySizes.ToList();
+            //var list = db.CountrySizes.ToList();
             List<TpStudentSchoolSubject> vm = new List<TpStudentSchoolSubject>();
             vm.Add(new TpStudentSchoolSubject
             {
@@ -810,7 +813,7 @@ namespace TestApplication1.Controllers
 
             });
             return View(vm);
-           // return View(list);
+            // return View(list);
         }
         #endregion
 
@@ -826,7 +829,7 @@ namespace TestApplication1.Controllers
         public ActionResult Index_AddRoom()
         {
             string zFileu = Server.MapPath(@"~/images/") + "test.pdf";
-            var path= System.IO.Directory.CreateDirectory(@"~\images\odoiproject\");
+            var path = System.IO.Directory.CreateDirectory(@"~\images\odoiproject\");
             return View();
 
         }
@@ -982,6 +985,651 @@ namespace TestApplication1.Controllers
             };
 
             string json = JsonConvert.SerializeObject(root, settings);
+
+        }
+        #endregion
+
+        #region
+        public class Assignment
+        {
+            public int AssignmentID { get; set; }
+            public string AssignmentDesignatorString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? AssignmentDate { get; set; }
+            public string AssignmentDateString { get; set; }
+            public bool? AssignmentShift { get; set; }
+            public string AssignmentShiftString { get; set; }
+            public bool? AssignmentType { get; set; }
+            public string AssignmentTypeString { get; set; }
+            public int? CalendarID { get; set; }
+            public int? CharterID { get; set; }
+            public int? ContactID { get; set; }
+            public int? HistoryContactID { get; set; }
+            public int? HistoryResourceID { get; set; }
+            public int? ResourceID { get; set; }
+            public int? ResourceDirectionID { get; set; }
+            public int? ResourceDocumentID { get; set; }
+            public int? ResourceOfficeID { get; set; }
+            public int? RouteID { get; set; }
+            public virtual Charter Charter { get; set; }
+            public virtual Contact Contact { get; set; }
+            public virtual Resource Resource { get; set; }
+            public virtual Route Route { get; set; }
+            public string AssignmentContact { get; set; } // <-
+            public string AssignmentResource { get; set; } // <-
+            public string AssignmentRoute { get; set; } // <-
+            public int? AssignmentTheta { get; set; }
+            public string AssignmentCategory1 { get; set; }
+            public string AssignmentSubCategory1 { get; set; }
+            public string AssignmentCategory2 { get; set; }
+            public string AssignmentSubCategory2 { get; set; }
+            public string AssignmentSubject { get; set; }
+            public string AssignmentTitle { get; set; }
+            public string AssignmentText { get; set; }
+            public string AssignmentNote { get; set; }
+            public string AssignmentAccess1 { get; set; }
+            public string AssignmentAccess2 { get; set; }
+            public string AssignmentTag { get; set; }
+            public bool? AssignmentInactive { get; set; }
+            public string AssignmentInactiveString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? AssignmentDateCreate { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? AssignmentDateUpdate { get; set; }
+        }
+        public class Contact
+        {
+            public int ContactID { get; set; }
+            public string ContactDesignator1String { get; set; } // <-
+            public string ContactDesignator2String { get; set; }
+            public int? ContactDesignator1 { get; set; }
+            public int? ContactDesignator2 { get; set; }
+            public string ContactLocationName { get; set; }
+            public string ContactAddressStreet1 { get; set; }
+            public string ContactAddressStreet2 { get; set; }
+            public string ContactAddressApartment { get; set; }
+            public string ContactAddressCityTown { get; set; }
+            public string ContactAddressZipCode { get; set; }
+            public string ContactAddressMapAccess1 { get; set; }
+            public string ContactAddressMapAccess2 { get; set; }
+            public string ContactAddressMapAreaAccess1 { get; set; }
+            public string ContactAddressMapAreaAccess2 { get; set; }
+            public string ContactBOCES { get; set; }
+            public string ContactPhone1 { get; set; }
+            public string ContactPhone1Label { get; set; }
+            public string ContactPhone2 { get; set; }
+            public string ContactPhone2Label { get; set; }
+            public string ContactPhone3 { get; set; }
+            public string ContactPhone3Label { get; set; }
+            public string ContactPhone4 { get; set; }
+            public string ContactPhone4Label { get; set; }
+            public string ContactNameFirst { get; set; }
+            public string ContactNameLast { get; set; }
+            public string ContactContact1 { get; set; }
+            public string ContactContact1Carrier { get; set; }
+            public bool? ContactResourceType { get; set; }
+            public string ContactResourceTypeString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [Display(Name = "Seniority")]
+            public DateTime? ContactSeniority { get; set; }
+            public string ContactSeniorityString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm:ss}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactHireDate { get; set; }
+            public string ContactHireDateString { get; set; }
+            [DataType(DataType.Time)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactReportAM { get; set; }
+            public string ContactReportAMString { get; set; }
+            [DataType(DataType.Time)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactReturnAM { get; set; }
+            public string ContactReturnAMString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm:ss}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactLeaveYardAM { get; set; }
+            public string ContactLeaveYardAMString { get; set; }
+            [DataType(DataType.Time)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactReportPM { get; set; }
+            public string ContactReportPMString { get; set; }
+            [DataType(DataType.Time)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactReturnPM { get; set; }
+            public string ContactReturnPMString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:HH:mm:ss}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactLeaveYardPM { get; set; }
+            public string ContactLeaveYardPMString { get; set; }
+            public int? ContactHoursGuaranteed { get; set; }
+            public int? ContactHoursGuaranteedString { get; set; }
+            public string ContactCategory1 { get; set; }
+            public string ContactSubCategory1 { get; set; }
+            public string ContactCategory2 { get; set; }
+            public string ContactSubCategory2 { get; set; }
+            public string ContactSubject { get; set; }
+            public string ContactTitle { get; set; }
+            public string ContactText { get; set; }
+            public string ContactNote { get; set; }
+            public string ContactAccess1 { get; set; }
+            public string ContactAccess2 { get; set; }
+            public string ContactTag { get; set; }
+            public bool? ContactInactive { get; set; }
+            public string ContactInactiveString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactDateCreate { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? ContactDateUpdate { get; set; }
+            public virtual ICollection<Assignment> Assignments { get; set; }
+        }
+        public class Resource
+        {
+            public int ResourceID { get; set; }
+            public string ResourceDesignatorString { get; set; } // <-
+            public int? ResourceDesignator { get; set; }
+            public string ResourceTypeString { get; set; }
+            public string ResourceLocation { get; set; }
+            public string ResourceTransport { get; set; }
+            public string ResourceBookString { get; set; }
+            public string ResourceNoteRepair { get; set; }
+            public string ResourceNoteDrivers { get; set; }
+            public string ResourceVideoMN { get; set; }
+            public string ResourceVideoSN { get; set; }
+            public string ResourceRadioMN { get; set; }
+            public string ResourceRadioSN { get; set; }
+            public string ResourceMake { get; set; }
+            public string ResourceModel { get; set; }
+            public string ResourceYearString { get; set; }
+            public string ResourceVIN { get; set; }
+            public string ResourceLicensePlate { get; set; }
+            public string ResourceCapacity1String { get; set; }
+            public string ResourceCapacity2String { get; set; }
+            public string ResourceDVRString { get; set; }
+            public string ResourceGPSString { get; set; }
+            public string ResourceRadioString { get; set; }
+            // Filters
+            public bool? ResourceBoard { get; set; }
+            public bool? ResourceBook { get; set; }
+            public bool? ResourceReturn { get; set; }
+            public bool? ResourceType { get; set; }
+            public bool? ResourceRadio { get; set; }
+            public bool? ResourceGPS { get; set; }
+            public bool? ResourceVideo { get; set; }
+            public bool? ResourceFlag { get; set; }
+            public bool? ResourceDVR { get; set; }
+            public bool? ResourceDVRPending { get; set; }
+            public bool? ResourceOOS { get; set; }
+            public bool? ResourceExclude { get; set; }
+            public bool? ResourceDOT { get; set; }
+            public bool? ResourceVideoHD { get; set; }
+            public bool? ResourceKeySpare { get; set; }
+            public bool? ResourceKeyFuel { get; set; }
+            public int? ResourceVideoCameras { get; set; }
+            public int? ResourceWheelChair { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [Display(Name = "DOT Date")]
+            public DateTime? ResourceDOTDate { get; set; }
+            public string ResourceDOTDateString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? ResourceOOSDate { get; set; }
+            public string ResourceOOSDateString { get; set; }
+            public string ResourceCategory1 { get; set; }
+            public string ResourceSubCategory1 { get; set; }
+            public string ResourceCategory2 { get; set; }
+            public string ResourceSubCategory2 { get; set; }
+            public string ResourceSubject { get; set; }
+            public string ResourceTitle { get; set; }
+            public string ResourceText { get; set; }
+            public string ResourceNote { get; set; }
+            public string ResourceAccess1 { get; set; }
+            public string ResourceAccess2 { get; set; }
+            public string ResourceTag { get; set; }
+            public bool? ResourceInactive { get; set; }
+            public string ResourceInactiveString { get; set; }
+            [DataType(DataType.Date)]
+            [Column(TypeName = "DateTime2")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime? ResourceDateCreate { get; set; }
+        }
+        public class Route
+        {
+            public int RouteID { get; set; }
+            public string RouteDesignatorString { get; set; } // <-
+            public string RouteDesignatorAltString { get; set; }
+            public bool? RouteResourceType { get; set; }
+            public string RouteResourceTypeString { get; set; }
+            public string RouteElementarySchool { get; set; }
+            public string RouteSchool { get; set; }
+            public string RouteAMArriveString { get; set; }
+            public string RoutePMArriveString { get; set; }
+            public string RouteReportAMString { get; set; }
+            public string RouteReportPMString { get; set; }
+            public string RouteArriveAMString { get; set; }
+            public string RouteArrivePMString { get; set; }
+            public string RouteCodesHardware { get; set; }
+            public string RouteCodesSupervision { get; set; }
+            public string RouteRunAM1School { get; set; }
+            public string RouteRunAM1Designator { get; set; }
+            public string RouteRunAM1CountString { get; set; }
+            public string RouteRunAM1ArriveString { get; set; }
+            public string RouteRunAM1CodesHardware { get; set; }
+            public string RouteRunAM1CodesSupervision { get; set; }
+            public string RouteRunAM2School { get; set; }
+            public string RouteRunAM2Designator { get; set; }
+            public string RouteRunAM2CountString { get; set; }
+            public string RouteRunAM2ArriveString { get; set; }
+            public string RouteRunAM2CodesHardware { get; set; }
+            public string RouteRunAM2CodesSupervision { get; set; }
+            public string RouteRunAM3School { get; set; }
+            public string RouteRunAM3Designator { get; set; }
+            public string RouteRunAM3CountString { get; set; }
+            public string RouteRunAM3ArriveString { get; set; }
+            public string RouteRunAM3CodesHardware { get; set; }
+            public string RouteRunAM3CodesSupervision { get; set; }
+            public string RouteRunPM1School { get; set; }
+            public string RouteRunPM1Designator { get; set; }
+            public string RouteRunPM1CountString { get; set; }
+            public string RouteRunPM1ArriveString { get; set; }
+            public string RouteRunPM1CodesHardware { get; set; }
+            public string RouteRunPM1CodesSupervision { get; set; }
+            public string RouteRunPM2School { get; set; }
+            public string RouteRunPM2Designator { get; set; }
+            public string RouteRunPM2CountString { get; set; }
+            public string RouteRunPM2ArriveString { get; set; }
+            public string RouteRunPM2CodesHardware { get; set; }
+            public string RouteRunPM2CodesSupervision { get; set; }
+            public string RouteRunPM3School { get; set; }
+            public string RouteRunPM3Designator { get; set; }
+            public string RouteRunPM3CountString { get; set; }
+            public string RouteRunPM3ArriveString { get; set; }
+            public string RouteRunPM3CodesHardware { get; set; }
+            public string RouteRunPM3CodesSupervision { get; set; }
+            public string RouteRunAM1aSchool { get; set; }
+            public string RouteRunAM1aDesignator { get; set; }
+            public int RouteRunAM1aCount { get; set; }
+            public string RouteRunAM1aArriveString { get; set; }
+            public string RouteRunAM1aCodesHardware { get; set; }
+            public string RouteRunAM1aCodesSupervision { get; set; }
+            public string RouteRunAM2aSchool { get; set; }
+            public string RouteRunAM2aDesignator { get; set; }
+            public int RouteRunAM2aCount { get; set; }
+            public string RouteRunAM2aArriveString { get; set; }
+            public string RouteRunAM2aCodesHardware { get; set; }
+            public string RouteRunAM2aCodesSupervision { get; set; }
+            public string RouteRunAM3aSchool { get; set; }
+            public string RouteRunAM3aDesignator { get; set; }
+            public int RouteRunAM3aCount { get; set; }
+            public string RouteRunAM3aArriveString { get; set; }
+            public string RouteRunAM3aCodesHardware { get; set; }
+            public string RouteRunAM3aCodesSupervision { get; set; }
+            public string RouteRunAM4aSchool { get; set; }
+            public string RouteRunAM4aDesignator { get; set; }
+            public int RouteRunAM4aCount { get; set; }
+            public string RouteRunAM4aArriveString { get; set; }
+            public string RouteRunAM4aCodesHardware { get; set; }
+            public string RouteRunAM4aCodesSupervision { get; set; }
+            public string RouteRunPM1aSchool { get; set; }
+            public string RouteRunPM1aDesignator { get; set; }
+            public int RouteRunPM1aCount { get; set; }
+            public string RouteRunPM1aArriveString { get; set; }
+            public string RouteRunPM1aCodesHardware { get; set; }
+            public string RouteRunPM1aCodesSupervision { get; set; }
+            public string RouteRunPM2aSchool { get; set; }
+            public string RouteRunPM2aDesignator { get; set; }
+            public int RouteRunPM2aCount { get; set; }
+            public string RouteRunPM2aArriveString { get; set; }
+            public string RouteRunPM2aCodesHardware { get; set; }
+            public string RouteRunPM2aCodesSupervision { get; set; }
+            public string RouteRunPM3aSchool { get; set; }
+            public string RouteRunPM3aDesignator { get; set; }
+            public int RouteRunPM3aCount { get; set; }
+            public string RouteRunPM3aArriveString { get; set; }
+            public string RouteRunPM3aCodesHardware { get; set; }
+            public string RouteRunPM3aCodesSupervision { get; set; }
+            public string RouteRunPM4aSchool { get; set; }
+            public string RouteRunPM4aDesignator { get; set; }
+            public int RouteRunPM4aCount { get; set; }
+            public string RouteRunPM4aArriveString { get; set; }
+            public string RouteRunPM4aCodesHardware { get; set; }
+            public string RouteRunPM4aCodesSupervision { get; set; }
+            public string RouteRunAM1bSchool { get; set; }
+            public string RouteRunAM1bDesignator { get; set; }
+            public int RouteRunAM1bCount { get; set; }
+            public string RouteRunAM1bArriveString { get; set; }
+            public string RouteRunAM1bCodesHardware { get; set; }
+            public string RouteRunAM1bCodesSupervision { get; set; }
+            public string RouteRunAM2bSchool { get; set; }
+        }
+
+        //// GET: /Assignment/
+        //public ViewResult IndexTheta(string sortOrder, string searchString)
+        //{
+        //    ViewBag.AssignmentSort = String.IsNullOrEmpty(sortOrder) ? "assignment_desc" : "";
+        //    IQueryable<Assignment> assignments = from s in db.Assignments
+        //                                          where Assignment.AssignmentContact != Contact.ContactDesignator1String
+        //                                          || Assignment.AssignmentRoute != Route.RouteDesignatorString
+        //                                          || Assignment.AssignmentVehicle != Resource.ResourceDesignatorString
+        //                                          select s;
+        //    assignments.Include(a => a.Calendar)
+        //    .Include(a => a.Charter)
+        //    .Include(a => a.Contact)
+        //    .Include(a => a.HistoryEmployee)
+        //    .Include(a => a.HistoryResource)
+        //    .Include(a => a.Resource)
+        //    .Include(a => a.ResourceDirection)
+        //    .Include(a => a.ResourceDocument)
+        //    .Include(a => a.ResourceOffice)
+        //    .Include(a => a.Route);
+        //    try
+        //    {
+        //        if (!String.IsNullOrEmpty(searchString))
+        //        {
+        //            assignments = assignments.Where(s => s.Resource.ResourceDesignatorString.Contains(searchString)
+        //            || s.Route.RouteDesignatorString.Contains(searchString)
+        //           || s.Route.RouteRunAM1Designator.Contains(searchString)
+        //           || s.Route.RouteRunAM2Designator.Contains(searchString)
+        //           || s.Route.RouteRunAM3Designator.Contains(searchString)
+        //           || s.Route.RouteRunPM1Designator.Contains(searchString)
+        //           || s.Route.RouteRunPM2Designator.Contains(searchString)
+        //           || s.Route.RouteRunPM3Designator.Contains(searchString)
+        //           || s.Route.RouteRunAM1School.Contains(searchString)
+        //           || s.Route.RouteRunAM2School.Contains(searchString)
+        //           || s.Route.RouteRunAM3School.Contains(searchString)
+        //           || s.Route.RouteRunPM1School.Contains(searchString)
+        //           || s.Route.RouteRunPM2School.Contains(searchString)
+        //           || s.Route.RouteRunPM3School.Contains(searchString));
+        //        }
+        //        switch (sortOrder)
+        //        {
+        //            default:
+        //                assignments = assignments.OrderBy(s => s.Route.RouteResourceTypeString).ThenBy(s => s.Route.RouteDesignatorString);
+        //                break;
+        //            case "contact_desc":
+        //                assignments = assignments.OrderByDescending(s => s.Route.RouteDesignatorString);
+        //                break;
+        //            case "route":
+        //                assignments = assignments.OrderBy(s => s.Contact.ContactDesignator1String);
+        //                break;
+        //            case "route_desc":
+        //                assignments = assignments.OrderByDescending(s => s.Contact.ContactDesignator1String);
+        //                break;
+        //        }
+        //    }
+        //    catch (DataException /* dex */)
+        //    {
+        //        //Log the error (uncomment dex variable name and add a line here to write a log.
+        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+        //    }
+        //    return View(assignments);
+        //}
+        #endregion
+
+
+        #region FullCalendar1
+
+        public ActionResult GetEvents_Index()
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetEvents()
+        {
+
+            var events = await db.CountrySizes.ToListAsync();
+            //return Json(events, JsonRequestBehavior.AllowGet);
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        #endregion
+
+        #region FullCalendar2
+        public class PublicHoliday
+        {
+            public int Sr { get; set; }
+            public string Title { get; set; }
+            public string Desc { get; set; }
+            public string Start_Date { get; set; }
+            public string End_Date { get; set; }
+        }
+
+        public ActionResult FullCalendar_Index() //https://www.c-sharpcorner.com/article/asp-net-mvc5-full-calendar-jquery-plugin/
+        {
+            // Info.  
+            return this.View();
+        }
+
+        public ActionResult GetCalendarData()
+        {
+            // Initialization.  
+            JsonResult result = new JsonResult();
+
+            //try
+            //{
+            //    // Loading.  
+            //    List<PublicHoliday> data = this.LoadData();
+
+            //    // Processing.  
+            //    result = this.Json(data, JsonRequestBehavior.AllowGet);
+
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Info  
+            //    Console.Write(ex);
+            //}
+
+            // Return info.  
+            //  return result;
+            //List<PublicHoliday> data = this.LoadData();
+            //return result = this.Json(data, JsonRequestBehavior.AllowGet);
+            return new JsonResult { Data = this.LoadData(), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        private List<PublicHoliday> LoadData()
+        {
+            // Initialization.  
+            List<PublicHoliday> lst = new List<PublicHoliday>();
+            lst.Add(new PublicHoliday { Sr = 1, Title = "America", Desc = "Desc", Start_Date = "2018-10-01", End_Date = "2018-10-02" });
+            lst.Add(new PublicHoliday { Sr = 2, Title = "Canada", Desc = "Desc", Start_Date = "2018-10-01", End_Date = "2018-10-02" });
+            lst.Add(new PublicHoliday { Sr = 3, Title = "France", Desc = "Desc", Start_Date = "2018-10-01", End_Date = "2018-10-02" });
+            lst.Add(new PublicHoliday { Sr = 4, Title = "China", Desc = "Desc", Start_Date = "2018-10-01", End_Date = "2018-10-02" });
+            lst.Add(new PublicHoliday { Sr = 5, Title = "India", Desc = "Desc", Start_Date = "2018-10-01", End_Date = "2018-10-02" });
+            //try
+            //{
+            //    // Initialization.  
+            //    string line = string.Empty;
+            //    string srcFilePath = "Content/files/PublicHoliday.txt";
+            //    var rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            //    var fullPath = Path.Combine(rootPath, srcFilePath);
+            //    string filePath = new Uri(fullPath).LocalPath;
+            //    StreamReader sr = new StreamReader(new FileStream(filePath, FileMode.Open, FileAccess.Read));
+
+            //    // Read file.  
+            //    while ((line = sr.ReadLine()) != null)
+            //    {
+            //        // Initialization.  
+            //        PublicHoliday infoObj = new PublicHoliday();
+            //        string[] info = line.Split(',');
+
+            //        // Setting.  
+            //        infoObj.Sr = Convert.ToInt32(info[0].ToString());
+            //        infoObj.Title = info[1].ToString();
+            //        infoObj.Desc = info[2].ToString();
+            //        infoObj.Start_Date = info[3].ToString();
+            //        infoObj.End_Date = info[4].ToString();
+
+            //        // Adding.  
+            //        lst.Add(infoObj);
+            //    }
+
+            //    // Closing.  
+            //    sr.Dispose();
+            //    sr.Close();
+            //}
+            //catch (Exception ex)
+            //{
+            //    // info.  
+            //    Console.Write(ex);
+            //}
+
+            // info.  
+            return lst;
+        }
+
+        #endregion
+
+        #region static可以累计 https://forums.asp.net/t/2148585.aspx
+
+        private static int mCount { get; set; }
+
+        public void mMethod(int number) //xx://home2/mMethod?number=2
+        {
+            mCount = number;
+        }
+
+        public void method2()
+        {
+            var a = mCount;
+            //Trying to access mCount from here always gives me 0
+
+        }
+        #endregion
+        #region /"=>" quote
+        // https://forums.asp.net/t/2148630.aspx
+        //   https://stackoverflow.com/questions/9714759/put-quotes-around-a-variable-string-in-javascript
+        #endregion
+
+        #region
+        public ActionResult SendEmail()
+        {
+            //try
+            //{
+
+            //    SmtpClient client = new SmtpClient("server host", 25);
+            //    client.UseDefaultCredentials = false;
+            //    client.EnableSsl = true;
+            //    client.Credentials = new NetworkCredential("Server UserName", "Password");
+
+
+            //    MailMessage mail = new MailMessage();
+
+            //    mail.From = new MailAddress("925752959@qq.com");
+            //    mail.To.Add("yukit123@outlook.com");
+
+            //    mail.Subject = "subject";
+            //    mail.Body = "body";
+            //    mail.IsBodyHtml = true;
+
+
+
+            //    client.Send(mail);
+
+            //    ViewBag.Status = "success!";
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    ViewBag.Status = "false!";
+            //}
+
+
+
+            return View();
+
+        }
+
+
+        public void bindStep3()//https://www.jb51.net/article/83803.htm
+        {
+            MailAddress MessageFrom = new MailAddress("925752959@qq.com"); //发件人邮箱地址 
+            string MessageTo ="v-yuktao@microsoft.com"; //收件人邮箱地址 
+            string MessageSubject = "激活验证"; //邮件主题 
+            string MessageBody = "请进行邮箱验证来完成您注册的最后一步,点击下面的链接激活您的帐号：<br><a target='_blank' rel='nofollow' style='color: #0041D3; text-decoration: underline' href=''>激活</a>"; //邮件内容 （一般是一个网址链接，生成随机数加验证id参数，点击去网站验证。）
+
+            if (SendMail(MessageFrom, MessageTo, MessageSubject, MessageBody))
+            {
+                Response.Write("<script type='text/javascript'>alert('发送邮件cg');</script>");
+            }
+            else
+            {
+                Response.Write("<script type='text/javascript'>alert('发送邮件失败');</script>");
+            }
+          //  TempData["CompanyBind3"] = company;
+           // return View("bindStep3");
+        }
+
+        public bool SendMail(MailAddress MessageFrom, string MessageTo, string MessageSubject, string MessageBody)  //发送验证邮件
+        {
+            MailMessage message = new MailMessage();
+
+            //message.To.Add(MessageTo);
+            //message.From = MessageFrom;
+            //message.Subject = MessageSubject;
+            //message.SubjectEncoding = System.Text.Encoding.UTF8;
+            //message.Body = MessageBody;
+            //message.BodyEncoding = System.Text.Encoding.UTF8;
+            //message.IsBodyHtml = true; //是否为html格式 
+            //message.Priority = MailPriority.High; //发送邮件的优先等级 
+
+
+            message.To.Add(MessageTo);
+            message.From = new MailAddress(MessageFrom.ToString()); ;
+            message.Subject = "subject";
+            message.Body = "body";
+            message.IsBodyHtml = true;
+
+
+            //SmtpClient sc = new SmtpClient();
+            //sc.EnableSsl = true;//是否SSL加密
+            //sc.Host = "smtp.qq.com"; //指定发送邮件的服务器地址或IP 
+            //sc.Port = 587; //指定发送邮件端口 
+            //sc.Credentials = new System.Net.NetworkCredential("925752959@qq.com", "mzxmmnoxxsjxbfbf"); //指定登录服务器的用户名和密码(注意：这里的密码是开通上面的pop3/smtp服务提供给你的授权密码，不是你的qq密码)
+
+            SmtpClient sc = new SmtpClient();
+            sc.EnableSsl = true;//??SSL??
+            sc.Host = "smtp.qq.com"; //?????????????IP 
+            //sc.Port = 587; //???????? 
+            sc.UseDefaultCredentials = false;
+            //sc.EnableSsl = true;
+            sc.Credentials = new NetworkCredential("925752959@qq.com", "mzxmmnoxxsjxbfbf");//https://service.mail.qq.com/cgi-bin/help?subtype=1&&no=1001256&&id=28
+
+
+            try
+            {
+                sc.Send(message); //发送邮件 
+            }
+            catch (Exception e)
+            {
+                Response.Write(e.Message);
+                return false;
+            }
+            return true;
 
         }
         #endregion

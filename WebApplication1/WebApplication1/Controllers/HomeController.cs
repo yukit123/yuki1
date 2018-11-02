@@ -903,7 +903,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public JsonResult datatableajax(string array)
+        public JsonResult datatableajax(string array)//public JsonResult datatableajax(List<model> model)
         {
             //JSON转实体类模型对象
             JavaScriptSerializer js = new JavaScriptSerializer();
@@ -1895,7 +1895,7 @@ namespace WebApplication1.Controllers
         {
             var db = new BlogContext();
 
-            //string EmailID = Session["Email"].ToString();  Request.Form["Email"]
+            //string EmailID = Session["Email"].ToString();  Request.Form["Email"]//https://forums.asp.net/t/2148517.aspx Request.QueryString("json")
 
             string EmailID2 = Request["Email"];
             //var SalesOrdre = (from cbr in db.cbr
@@ -2913,7 +2913,8 @@ namespace WebApplication1.Controllers
                                       GroupPropertyName = gp.Name,
                                       GroupPropertyDescription = gp.Description
 
-                                  }).ToList();
+                                  }
+                                  ).ToList();
 
             return View();
 

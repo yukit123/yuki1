@@ -171,7 +171,7 @@ namespace WebApiTest.Controllers
 
         #region  实体集合
         [HttpPost]
-        public bool SaveData(List<TB_CHARGING> lstCharging)
+        public bool SaveData(List<TB_CHARGING> lstCharging)//arr数组
         {
             return true;
         }

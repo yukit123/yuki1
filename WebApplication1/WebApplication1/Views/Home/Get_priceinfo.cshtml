@@ -129,7 +129,7 @@
         $.ajax({
             type: "post",
             url: "http://localhost:27221/api/Charging/SaveData",
-            contentType: 'application/json',//必须JSON.stringify
+            contentType: 'application/json',//必须JSON.stringify https://forums.asp.net/t/2148662.aspx
             data: JSON.stringify(arr),
             success: function (data, status) { }
         });

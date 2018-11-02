@@ -55,6 +55,12 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
 @section scripts{
     <script>
      $(document).ready(function () {
@@ -62,7 +68,7 @@
          $('.switch-label').click(function () {
 
              var Id = $('.switch-label').attr('data-id');
-            var checkStatus = this.checked ? 'ON' : 'OFF';
+            var checkStatus = this.checked ? 'ON' : 'OFF    
 
 
             $.ajax({
@@ -93,6 +99,21 @@
 
         });
 
+
+
+
+         jQuery.validator.addMethod('CantbothExistValidator', function (value, element, params) {
+             var currentDate = new Date();
+             if (Date.parse(value) > currentDate) {
+                 return false;
+             }
+             return true;
+         }, '');
+
+         jQuery.validator.unobtrusive.adapters.add('CantbothExistValidator', function (options) {
+             options.rules['CantbothExistValidator'] = {};
+             options.messages['CantbothExistValidator'] = options.message;
+         });
 
     });
     </script>

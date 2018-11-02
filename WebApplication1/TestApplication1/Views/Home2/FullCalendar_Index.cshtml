@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "FullCalendar_Index";
+}
+
+<h2>FullCalendar_Index</h2>
+
+@{
+    ViewBag.Title = "ASP.NET MVC5 - Full Calendar JQuery Plugin";
+}
+
+<div class="row">
+    <div class="panel-heading">
+        <div class="col-md-8  custom-heading3">
+            <h3>
+                <i class="fa fa-calendar"></i>
+                <span>ASP.NET MVC5 - Full Calendar JQuery Plugin</span>
+            </h3>
+        </div>
+    </div>
+</div>
+
+@*<div class="row">
+        <section class="col-md-12 col-md-push-0">
+            @Html.Partial("_CalendarPartial")
+            <div class="row">
+                <div class="col-xs-9 col-xs-push-2">
+                    <div class="box box-primary">
+                        <div class="box-body no-padding">
+                            <!-- THE CALENDAR -->
+                            <div id="calender"></div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /. box -->
+                </div><!-- /.col -->
+            </div>
+        </section>
+    </div>*@
+
+<div id="calender"></div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <!-- Full Calendar -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.print.css" media="print" />
+    <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+    <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+    <script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+    <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //    $('#calender').fullCalendar({
+        //        header:
+        //            {
+        //                left: 'prev,next today',
+        //                center: 'title',
+        //                right: 'month,agendaWeek,agendaDay'
+        //            },
+        //        buttonText: {
+        //            today: 'today',
+        //            month: 'month',
+        //            week: 'week',
+        //            day: 'day'
+        //        },
+
+        //        events: function (start, end, timezone, callback) {
+        //            $.ajax({
+        //                url: '/Home2/GetCalendarData',
+        //                type: "GET",
+        //                dataType: "JSON",
+
+        //                success: function (result) {
+        //                    var events = [];
+
+        //                    $.each(result, function (i, data) {
+        //                        events.push(
+        //                            {
+        //                                title: data.Title,
+        //                                description: data.Desc,
+        //                                start: moment(data.Start_Date).format('YYYY-MM-DD'),
+        //                                end: moment(data.End_Date).format('YYYY-MM-DD'),
+        //                                backgroundColor: "red",
+        //                                borderColor: "red"
+        //                            });
+        //                    });
+
+        //                    callback(events);
+        //                }
+        //            });
+        //        }
+
+        //        //eventRender: function (event, element) {
+        //        //    element.qtip(
+        //        //        {
+        //        //            content: event.description
+        //        //        });
+        //        //},
+
+        //        //editable: false
+        //    });
+        //});
+
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Home2/GetCalendarData/",
+                success: function (Data) {
+                    $.each(Data, function (i, v) {
+                        events.push({
+                            //title: v.MeetingName,
+                            //description: v.RequestedBy,
+                            //start: moment(v.StartDate),
+                            //end: v.EndDate != null ? moment(v.End) : null,
+                            //color: v.ThemeColor,
+                            //allDay: v.IsFullDay
+
+                                        title: v.Title,
+                                        description: v.Desc,
+                                        start: moment(v.Start_Date).format('YYYY-MM-DD'),
+                                        end: moment(v.End_Date).format('YYYY-MM-DD'),
+                                        backgroundColor: "red",
+                                        borderColor: "red"
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            });
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378000',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    }
+                })
+            }
+        });
+    </script>
+
+}
