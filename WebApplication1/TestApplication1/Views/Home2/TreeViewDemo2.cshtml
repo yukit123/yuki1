@@ -1,0 +1,40 @@
+﻿@model List<TestApplication1.Controllers.Home2Controller.TreeViewModel>
+@{
+    ViewBag.Title = "TreeViewDemo2";
+    var list = Model.ToList();
+}
+
+<h2>TreeViewDemo2</h2>
+
+@Html.Raw(ViewBag.Tree)
+
+@*@foreach (var item in Model)
+{
+
+<ul id="browser" class="filetree treeview-famfamfam">
+    <li>
+        <span class="folder"></span>
+        <ul>
+            <li>
+                <span class="folder">@item.Name</span>
+                <ul>
+                    <li>
+                        @foreach (var subitem in item.Childs)
+                        {
+                            if (subitem != null)
+                            {
+                                <span class="folder">@subitem.Name</span>
+                                @*<ul id="folder21">
+                                    <li><span class="file">@item</span></li>
+                                </ul>*@
+                            }
+                        }
+
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+}*@

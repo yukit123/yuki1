@@ -6,10 +6,12 @@
 <h2>SideBar_Index</h2>
 
 @{Html.RenderAction("SideBar", "Home2"); }
-@*_____________________________________________________
+@*@{Html.RenderPartial("_SideBar");}*@
 
-@{Html.Action("SideBar", "Home2"); }
-_____________________________
-@{Html.RenderPartial("_SideBar", "Home2"); }
-_____________________________________
-@{Html.Partial("_SideBar", "Home2"); }*@
+_____________________________________________________
+
+@*@{Html.Action("SideBar", "Home2"); }*@
+    _____________________________
+@*@{Html.RenderPartial("SideBar", "Home2"); }*@
+    _____________________________________
+@*@{Html.Partial("_SideBar", "Home2"); }*@

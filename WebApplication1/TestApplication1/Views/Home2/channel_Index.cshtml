@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TestApplication1.Controllers.Home2Controller.ChannelModel>
+@{
+    ViewBag.Title = "channel_Index";
+}
+
+<h2>channel_Index</h2>
+
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            Channel
+        </th>
+        <th>
+            Program
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Time
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Channel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Program)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+        </tr>
+    }
+</table>

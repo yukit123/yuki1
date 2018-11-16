@@ -21,6 +21,8 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Data.Entity.Infrastructure;
 
 namespace TestApplication1.Controllers
 {
@@ -283,6 +285,7 @@ namespace TestApplication1.Controllers
 
         public ActionResult SideBar_Index()
         {
+
             #region Check if the value not key exists in app.config file
             var flag = 1;
             var MyKey = "TN";
@@ -989,404 +992,6 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
-        #region
-        public class Assignment
-        {
-            public int AssignmentID { get; set; }
-            public string AssignmentDesignatorString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? AssignmentDate { get; set; }
-            public string AssignmentDateString { get; set; }
-            public bool? AssignmentShift { get; set; }
-            public string AssignmentShiftString { get; set; }
-            public bool? AssignmentType { get; set; }
-            public string AssignmentTypeString { get; set; }
-            public int? CalendarID { get; set; }
-            public int? CharterID { get; set; }
-            public int? ContactID { get; set; }
-            public int? HistoryContactID { get; set; }
-            public int? HistoryResourceID { get; set; }
-            public int? ResourceID { get; set; }
-            public int? ResourceDirectionID { get; set; }
-            public int? ResourceDocumentID { get; set; }
-            public int? ResourceOfficeID { get; set; }
-            public int? RouteID { get; set; }
-            public virtual Charter Charter { get; set; }
-            public virtual Contact Contact { get; set; }
-            public virtual Resource Resource { get; set; }
-            public virtual Route Route { get; set; }
-            public string AssignmentContact { get; set; } // <-
-            public string AssignmentResource { get; set; } // <-
-            public string AssignmentRoute { get; set; } // <-
-            public int? AssignmentTheta { get; set; }
-            public string AssignmentCategory1 { get; set; }
-            public string AssignmentSubCategory1 { get; set; }
-            public string AssignmentCategory2 { get; set; }
-            public string AssignmentSubCategory2 { get; set; }
-            public string AssignmentSubject { get; set; }
-            public string AssignmentTitle { get; set; }
-            public string AssignmentText { get; set; }
-            public string AssignmentNote { get; set; }
-            public string AssignmentAccess1 { get; set; }
-            public string AssignmentAccess2 { get; set; }
-            public string AssignmentTag { get; set; }
-            public bool? AssignmentInactive { get; set; }
-            public string AssignmentInactiveString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? AssignmentDateCreate { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? AssignmentDateUpdate { get; set; }
-        }
-        public class Contact
-        {
-            public int ContactID { get; set; }
-            public string ContactDesignator1String { get; set; } // <-
-            public string ContactDesignator2String { get; set; }
-            public int? ContactDesignator1 { get; set; }
-            public int? ContactDesignator2 { get; set; }
-            public string ContactLocationName { get; set; }
-            public string ContactAddressStreet1 { get; set; }
-            public string ContactAddressStreet2 { get; set; }
-            public string ContactAddressApartment { get; set; }
-            public string ContactAddressCityTown { get; set; }
-            public string ContactAddressZipCode { get; set; }
-            public string ContactAddressMapAccess1 { get; set; }
-            public string ContactAddressMapAccess2 { get; set; }
-            public string ContactAddressMapAreaAccess1 { get; set; }
-            public string ContactAddressMapAreaAccess2 { get; set; }
-            public string ContactBOCES { get; set; }
-            public string ContactPhone1 { get; set; }
-            public string ContactPhone1Label { get; set; }
-            public string ContactPhone2 { get; set; }
-            public string ContactPhone2Label { get; set; }
-            public string ContactPhone3 { get; set; }
-            public string ContactPhone3Label { get; set; }
-            public string ContactPhone4 { get; set; }
-            public string ContactPhone4Label { get; set; }
-            public string ContactNameFirst { get; set; }
-            public string ContactNameLast { get; set; }
-            public string ContactContact1 { get; set; }
-            public string ContactContact1Carrier { get; set; }
-            public bool? ContactResourceType { get; set; }
-            public string ContactResourceTypeString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            [Display(Name = "Seniority")]
-            public DateTime? ContactSeniority { get; set; }
-            public string ContactSeniorityString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm:ss}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactHireDate { get; set; }
-            public string ContactHireDateString { get; set; }
-            [DataType(DataType.Time)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactReportAM { get; set; }
-            public string ContactReportAMString { get; set; }
-            [DataType(DataType.Time)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactReturnAM { get; set; }
-            public string ContactReturnAMString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm:ss}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactLeaveYardAM { get; set; }
-            public string ContactLeaveYardAMString { get; set; }
-            [DataType(DataType.Time)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactReportPM { get; set; }
-            public string ContactReportPMString { get; set; }
-            [DataType(DataType.Time)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactReturnPM { get; set; }
-            public string ContactReturnPMString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:HH:mm:ss}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactLeaveYardPM { get; set; }
-            public string ContactLeaveYardPMString { get; set; }
-            public int? ContactHoursGuaranteed { get; set; }
-            public int? ContactHoursGuaranteedString { get; set; }
-            public string ContactCategory1 { get; set; }
-            public string ContactSubCategory1 { get; set; }
-            public string ContactCategory2 { get; set; }
-            public string ContactSubCategory2 { get; set; }
-            public string ContactSubject { get; set; }
-            public string ContactTitle { get; set; }
-            public string ContactText { get; set; }
-            public string ContactNote { get; set; }
-            public string ContactAccess1 { get; set; }
-            public string ContactAccess2 { get; set; }
-            public string ContactTag { get; set; }
-            public bool? ContactInactive { get; set; }
-            public string ContactInactiveString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactDateCreate { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? ContactDateUpdate { get; set; }
-            public virtual ICollection<Assignment> Assignments { get; set; }
-        }
-        public class Resource
-        {
-            public int ResourceID { get; set; }
-            public string ResourceDesignatorString { get; set; } // <-
-            public int? ResourceDesignator { get; set; }
-            public string ResourceTypeString { get; set; }
-            public string ResourceLocation { get; set; }
-            public string ResourceTransport { get; set; }
-            public string ResourceBookString { get; set; }
-            public string ResourceNoteRepair { get; set; }
-            public string ResourceNoteDrivers { get; set; }
-            public string ResourceVideoMN { get; set; }
-            public string ResourceVideoSN { get; set; }
-            public string ResourceRadioMN { get; set; }
-            public string ResourceRadioSN { get; set; }
-            public string ResourceMake { get; set; }
-            public string ResourceModel { get; set; }
-            public string ResourceYearString { get; set; }
-            public string ResourceVIN { get; set; }
-            public string ResourceLicensePlate { get; set; }
-            public string ResourceCapacity1String { get; set; }
-            public string ResourceCapacity2String { get; set; }
-            public string ResourceDVRString { get; set; }
-            public string ResourceGPSString { get; set; }
-            public string ResourceRadioString { get; set; }
-            // Filters
-            public bool? ResourceBoard { get; set; }
-            public bool? ResourceBook { get; set; }
-            public bool? ResourceReturn { get; set; }
-            public bool? ResourceType { get; set; }
-            public bool? ResourceRadio { get; set; }
-            public bool? ResourceGPS { get; set; }
-            public bool? ResourceVideo { get; set; }
-            public bool? ResourceFlag { get; set; }
-            public bool? ResourceDVR { get; set; }
-            public bool? ResourceDVRPending { get; set; }
-            public bool? ResourceOOS { get; set; }
-            public bool? ResourceExclude { get; set; }
-            public bool? ResourceDOT { get; set; }
-            public bool? ResourceVideoHD { get; set; }
-            public bool? ResourceKeySpare { get; set; }
-            public bool? ResourceKeyFuel { get; set; }
-            public int? ResourceVideoCameras { get; set; }
-            public int? ResourceWheelChair { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            [Display(Name = "DOT Date")]
-            public DateTime? ResourceDOTDate { get; set; }
-            public string ResourceDOTDateString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? ResourceOOSDate { get; set; }
-            public string ResourceOOSDateString { get; set; }
-            public string ResourceCategory1 { get; set; }
-            public string ResourceSubCategory1 { get; set; }
-            public string ResourceCategory2 { get; set; }
-            public string ResourceSubCategory2 { get; set; }
-            public string ResourceSubject { get; set; }
-            public string ResourceTitle { get; set; }
-            public string ResourceText { get; set; }
-            public string ResourceNote { get; set; }
-            public string ResourceAccess1 { get; set; }
-            public string ResourceAccess2 { get; set; }
-            public string ResourceTag { get; set; }
-            public bool? ResourceInactive { get; set; }
-            public string ResourceInactiveString { get; set; }
-            [DataType(DataType.Date)]
-            [Column(TypeName = "DateTime2")]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime? ResourceDateCreate { get; set; }
-        }
-        public class Route
-        {
-            public int RouteID { get; set; }
-            public string RouteDesignatorString { get; set; } // <-
-            public string RouteDesignatorAltString { get; set; }
-            public bool? RouteResourceType { get; set; }
-            public string RouteResourceTypeString { get; set; }
-            public string RouteElementarySchool { get; set; }
-            public string RouteSchool { get; set; }
-            public string RouteAMArriveString { get; set; }
-            public string RoutePMArriveString { get; set; }
-            public string RouteReportAMString { get; set; }
-            public string RouteReportPMString { get; set; }
-            public string RouteArriveAMString { get; set; }
-            public string RouteArrivePMString { get; set; }
-            public string RouteCodesHardware { get; set; }
-            public string RouteCodesSupervision { get; set; }
-            public string RouteRunAM1School { get; set; }
-            public string RouteRunAM1Designator { get; set; }
-            public string RouteRunAM1CountString { get; set; }
-            public string RouteRunAM1ArriveString { get; set; }
-            public string RouteRunAM1CodesHardware { get; set; }
-            public string RouteRunAM1CodesSupervision { get; set; }
-            public string RouteRunAM2School { get; set; }
-            public string RouteRunAM2Designator { get; set; }
-            public string RouteRunAM2CountString { get; set; }
-            public string RouteRunAM2ArriveString { get; set; }
-            public string RouteRunAM2CodesHardware { get; set; }
-            public string RouteRunAM2CodesSupervision { get; set; }
-            public string RouteRunAM3School { get; set; }
-            public string RouteRunAM3Designator { get; set; }
-            public string RouteRunAM3CountString { get; set; }
-            public string RouteRunAM3ArriveString { get; set; }
-            public string RouteRunAM3CodesHardware { get; set; }
-            public string RouteRunAM3CodesSupervision { get; set; }
-            public string RouteRunPM1School { get; set; }
-            public string RouteRunPM1Designator { get; set; }
-            public string RouteRunPM1CountString { get; set; }
-            public string RouteRunPM1ArriveString { get; set; }
-            public string RouteRunPM1CodesHardware { get; set; }
-            public string RouteRunPM1CodesSupervision { get; set; }
-            public string RouteRunPM2School { get; set; }
-            public string RouteRunPM2Designator { get; set; }
-            public string RouteRunPM2CountString { get; set; }
-            public string RouteRunPM2ArriveString { get; set; }
-            public string RouteRunPM2CodesHardware { get; set; }
-            public string RouteRunPM2CodesSupervision { get; set; }
-            public string RouteRunPM3School { get; set; }
-            public string RouteRunPM3Designator { get; set; }
-            public string RouteRunPM3CountString { get; set; }
-            public string RouteRunPM3ArriveString { get; set; }
-            public string RouteRunPM3CodesHardware { get; set; }
-            public string RouteRunPM3CodesSupervision { get; set; }
-            public string RouteRunAM1aSchool { get; set; }
-            public string RouteRunAM1aDesignator { get; set; }
-            public int RouteRunAM1aCount { get; set; }
-            public string RouteRunAM1aArriveString { get; set; }
-            public string RouteRunAM1aCodesHardware { get; set; }
-            public string RouteRunAM1aCodesSupervision { get; set; }
-            public string RouteRunAM2aSchool { get; set; }
-            public string RouteRunAM2aDesignator { get; set; }
-            public int RouteRunAM2aCount { get; set; }
-            public string RouteRunAM2aArriveString { get; set; }
-            public string RouteRunAM2aCodesHardware { get; set; }
-            public string RouteRunAM2aCodesSupervision { get; set; }
-            public string RouteRunAM3aSchool { get; set; }
-            public string RouteRunAM3aDesignator { get; set; }
-            public int RouteRunAM3aCount { get; set; }
-            public string RouteRunAM3aArriveString { get; set; }
-            public string RouteRunAM3aCodesHardware { get; set; }
-            public string RouteRunAM3aCodesSupervision { get; set; }
-            public string RouteRunAM4aSchool { get; set; }
-            public string RouteRunAM4aDesignator { get; set; }
-            public int RouteRunAM4aCount { get; set; }
-            public string RouteRunAM4aArriveString { get; set; }
-            public string RouteRunAM4aCodesHardware { get; set; }
-            public string RouteRunAM4aCodesSupervision { get; set; }
-            public string RouteRunPM1aSchool { get; set; }
-            public string RouteRunPM1aDesignator { get; set; }
-            public int RouteRunPM1aCount { get; set; }
-            public string RouteRunPM1aArriveString { get; set; }
-            public string RouteRunPM1aCodesHardware { get; set; }
-            public string RouteRunPM1aCodesSupervision { get; set; }
-            public string RouteRunPM2aSchool { get; set; }
-            public string RouteRunPM2aDesignator { get; set; }
-            public int RouteRunPM2aCount { get; set; }
-            public string RouteRunPM2aArriveString { get; set; }
-            public string RouteRunPM2aCodesHardware { get; set; }
-            public string RouteRunPM2aCodesSupervision { get; set; }
-            public string RouteRunPM3aSchool { get; set; }
-            public string RouteRunPM3aDesignator { get; set; }
-            public int RouteRunPM3aCount { get; set; }
-            public string RouteRunPM3aArriveString { get; set; }
-            public string RouteRunPM3aCodesHardware { get; set; }
-            public string RouteRunPM3aCodesSupervision { get; set; }
-            public string RouteRunPM4aSchool { get; set; }
-            public string RouteRunPM4aDesignator { get; set; }
-            public int RouteRunPM4aCount { get; set; }
-            public string RouteRunPM4aArriveString { get; set; }
-            public string RouteRunPM4aCodesHardware { get; set; }
-            public string RouteRunPM4aCodesSupervision { get; set; }
-            public string RouteRunAM1bSchool { get; set; }
-            public string RouteRunAM1bDesignator { get; set; }
-            public int RouteRunAM1bCount { get; set; }
-            public string RouteRunAM1bArriveString { get; set; }
-            public string RouteRunAM1bCodesHardware { get; set; }
-            public string RouteRunAM1bCodesSupervision { get; set; }
-            public string RouteRunAM2bSchool { get; set; }
-        }
-
-        //// GET: /Assignment/
-        //public ViewResult IndexTheta(string sortOrder, string searchString)
-        //{
-        //    ViewBag.AssignmentSort = String.IsNullOrEmpty(sortOrder) ? "assignment_desc" : "";
-        //    IQueryable<Assignment> assignments = from s in db.Assignments
-        //                                          where Assignment.AssignmentContact != Contact.ContactDesignator1String
-        //                                          || Assignment.AssignmentRoute != Route.RouteDesignatorString
-        //                                          || Assignment.AssignmentVehicle != Resource.ResourceDesignatorString
-        //                                          select s;
-        //    assignments.Include(a => a.Calendar)
-        //    .Include(a => a.Charter)
-        //    .Include(a => a.Contact)
-        //    .Include(a => a.HistoryEmployee)
-        //    .Include(a => a.HistoryResource)
-        //    .Include(a => a.Resource)
-        //    .Include(a => a.ResourceDirection)
-        //    .Include(a => a.ResourceDocument)
-        //    .Include(a => a.ResourceOffice)
-        //    .Include(a => a.Route);
-        //    try
-        //    {
-        //        if (!String.IsNullOrEmpty(searchString))
-        //        {
-        //            assignments = assignments.Where(s => s.Resource.ResourceDesignatorString.Contains(searchString)
-        //            || s.Route.RouteDesignatorString.Contains(searchString)
-        //           || s.Route.RouteRunAM1Designator.Contains(searchString)
-        //           || s.Route.RouteRunAM2Designator.Contains(searchString)
-        //           || s.Route.RouteRunAM3Designator.Contains(searchString)
-        //           || s.Route.RouteRunPM1Designator.Contains(searchString)
-        //           || s.Route.RouteRunPM2Designator.Contains(searchString)
-        //           || s.Route.RouteRunPM3Designator.Contains(searchString)
-        //           || s.Route.RouteRunAM1School.Contains(searchString)
-        //           || s.Route.RouteRunAM2School.Contains(searchString)
-        //           || s.Route.RouteRunAM3School.Contains(searchString)
-        //           || s.Route.RouteRunPM1School.Contains(searchString)
-        //           || s.Route.RouteRunPM2School.Contains(searchString)
-        //           || s.Route.RouteRunPM3School.Contains(searchString));
-        //        }
-        //        switch (sortOrder)
-        //        {
-        //            default:
-        //                assignments = assignments.OrderBy(s => s.Route.RouteResourceTypeString).ThenBy(s => s.Route.RouteDesignatorString);
-        //                break;
-        //            case "contact_desc":
-        //                assignments = assignments.OrderByDescending(s => s.Route.RouteDesignatorString);
-        //                break;
-        //            case "route":
-        //                assignments = assignments.OrderBy(s => s.Contact.ContactDesignator1String);
-        //                break;
-        //            case "route_desc":
-        //                assignments = assignments.OrderByDescending(s => s.Contact.ContactDesignator1String);
-        //                break;
-        //        }
-        //    }
-        //    catch (DataException /* dex */)
-        //    {
-        //        //Log the error (uncomment dex variable name and add a line here to write a log.
-        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-        //    }
-        //    return View(assignments);
-        //}
-        #endregion
-
 
         #region FullCalendar1
 
@@ -1507,6 +1112,7 @@ namespace TestApplication1.Controllers
         #region static可以累计 https://forums.asp.net/t/2148585.aspx
 
         private static int mCount { get; set; }
+        private static bool forced = false;
 
         public void mMethod(int number) //xx://home2/mMethod?number=2
         {
@@ -1515,6 +1121,7 @@ namespace TestApplication1.Controllers
 
         public void method2()
         {
+            forced = true;
             var a = mCount;
             //Trying to access mCount from here always gives me 0
 
@@ -1525,50 +1132,11 @@ namespace TestApplication1.Controllers
         //   https://stackoverflow.com/questions/9714759/put-quotes-around-a-variable-string-in-javascript
         #endregion
 
-        #region
-        public ActionResult SendEmail()
-        {
-            //try
-            //{
-
-            //    SmtpClient client = new SmtpClient("server host", 25);
-            //    client.UseDefaultCredentials = false;
-            //    client.EnableSsl = true;
-            //    client.Credentials = new NetworkCredential("Server UserName", "Password");
-
-
-            //    MailMessage mail = new MailMessage();
-
-            //    mail.From = new MailAddress("925752959@qq.com");
-            //    mail.To.Add("yukit123@outlook.com");
-
-            //    mail.Subject = "subject";
-            //    mail.Body = "body";
-            //    mail.IsBodyHtml = true;
-
-
-
-            //    client.Send(mail);
-
-            //    ViewBag.Status = "success!";
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    ViewBag.Status = "false!";
-            //}
-
-
-
-            return View();
-
-        }
-
-
+        #region send email
         public void bindStep3()//https://www.jb51.net/article/83803.htm
         {
             MailAddress MessageFrom = new MailAddress("925752959@qq.com"); //发件人邮箱地址 
-            string MessageTo ="v-yuktao@microsoft.com"; //收件人邮箱地址 
+            string MessageTo = "v-yuktao@microsoft.com"; //收件人邮箱地址 
             string MessageSubject = "激活验证"; //邮件主题 
             string MessageBody = "请进行邮箱验证来完成您注册的最后一步,点击下面的链接激活您的帐号：<br><a target='_blank' rel='nofollow' style='color: #0041D3; text-decoration: underline' href=''>激活</a>"; //邮件内容 （一般是一个网址链接，生成随机数加验证id参数，点击去网站验证。）
 
@@ -1580,8 +1148,8 @@ namespace TestApplication1.Controllers
             {
                 Response.Write("<script type='text/javascript'>alert('发送邮件失败');</script>");
             }
-          //  TempData["CompanyBind3"] = company;
-           // return View("bindStep3");
+            //  TempData["CompanyBind3"] = company;
+            // return View("bindStep3");
         }
 
         public bool SendMail(MailAddress MessageFrom, string MessageTo, string MessageSubject, string MessageBody)  //发送验证邮件
@@ -1632,6 +1200,425 @@ namespace TestApplication1.Controllers
             return true;
 
         }
+        #endregion
+
+        #region Google maps polygon 多边形
+        public class polygon
+        {
+            public int ID { get; set; }
+            public string lat { get; set; }
+            public string lng { get; set; }
+
+        }
+        public ActionResult GoogleMaps()//https://forums.asp.net/p/2148921/6237180.aspx?p=True&t=636773130468130348
+        {
+            
+            List<polygon> model = new List<polygon>();
+            model.Add(new polygon { ID = 1, lat = "25.774", lng = "-80.190" });
+            model.Add(new polygon { ID = 2, lat = "18.466", lng = "-66.118" });
+            model.Add(new polygon { ID = 3, lat = "32.321", lng = "-64.757" });
+
+            return View(model);
+        }
+        #endregion
+
+        #region 上传多个文件
+        public class ProductImage
+        {
+            public int ID { get; set; }
+            [Display(Name = "File")]
+            [StringLength(100)]
+            [Index(IsUnique = true)]
+            public string FileName { get; set; }
+        }
+
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(HttpPostedFileBase[] files)
+        {
+            bool allValid = true;
+            string inValidFiles = "";
+            //check the user has entered a file
+            if (files[0] != null)
+            {
+                //if the user has entered less than ten files
+                if (files.Length <= 10)
+                {
+                    //check they are all valid
+                    foreach (var file in files)
+                    {
+                        if (!ValidateFile(file))
+                        {
+                            allValid = false;
+                            inValidFiles += ", " + file.FileName;
+                        }
+
+                    }
+                    //if they are all valid then try to save them to disk
+                    if (allValid)
+                    {
+                        foreach (var file in files)
+                        {
+                            try
+                            {
+                                SaveFileToDisk(file);
+                            }
+                            catch (Exception e)
+                            {
+                                ModelState.AddModelError("FileName", "Sorry ,and error has occured saving the file to disk,please try again.");
+                            }
+
+                        }
+                    }
+                    //else add an error listing out the invalid files
+                    else
+                    {
+                        ModelState.AddModelError("FileName", "All files must be gif,png,jpeg or jpg and less than 2mb in size.The following files" + inValidFiles + "are not valid");
+                    }
+
+                }
+                //the user has entered more than 10 files
+                else
+                {
+                    ModelState.AddModelError("FileName", "Please only upload up to ten files at a time");
+                }
+
+            }
+            //if the user has not entered a file return an error message
+            else
+            {
+                ModelState.AddModelError("FileName", "Please choose a file");
+            }
+
+            if (ModelState.IsValid)
+            {
+                bool duplicates = false;
+                bool otheDbError = false;
+                string dublicatesFiles = "";
+                foreach (var file in files)
+                {
+                    //try and save each file
+                    var productToAdd = new ProductImage { FileName = file.FileName };
+                    try
+                    {
+                        //db.ProductImages.Add(productToAdd);
+                        db.SaveChanges();
+                    }
+                    //if there is an exception check if it is caused by a duplicate file
+                    catch (DbUpdateException ex)
+                    {
+                        SqlException innException = ex.InnerException.InnerException as SqlException;
+                        if (innException != null && innException.Number == 2601)
+                        {
+                            dublicatesFiles += ", " + file.FileName;
+                            duplicates = true;
+                        }
+                        else
+                        {
+                            otheDbError = true;
+                        }
+                    }
+                }
+                //add a list of duplicate files to the error message
+                if (duplicates)
+                {
+
+                    ModelState.AddModelError("FileName", "All files uploaded except the files" + dublicatesFiles + "which already exist in the system." + "please delete them and try again if you wish to re-add them");
+                    return View();
+                }
+                else if (otheDbError)
+                {
+                    ModelState.AddModelError("FileName", "Sorry an error has occurred saving to the database ,please try again ");
+                    return View();
+                }
+
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        private bool ValidateFile(HttpPostedFileBase file)
+        {
+            string fileExtension = System.IO.Path.GetExtension(file.FileName).ToLower();//获取文件后缀
+            string[] allowedFileTypes = { ".gif", ".png", ".jpeg", ".jpg" };
+            if ((file.ContentLength > 0 && file.ContentLength < 2097152) && allowedFileTypes.Contains(fileExtension))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void SaveFileToDisk(HttpPostedFileBase file)
+        {
+            WebImage img = new WebImage(file.InputStream);
+            if (img.Width > 190)
+            {
+                img.Resize(190, img.Height);
+            }
+            img.Save(@"D:\image\" + Path.GetFileName(file.FileName));
+            if (img.Width > 100)
+            {
+                img.Resize(100, img.Height);
+            }
+           img.Save(@"D:\image\" + Path.GetFileName(file.FileName));
+        }
+        #endregion
+
+        #region upload img from db and display  //case：https://forums.asp.net/t/2149144.aspx
+        public class Inbox
+        {
+            [Key]
+            public int Id { get; set; }
+            public IEnumerable<HttpPostedFileBase> Files { get; set; }
+            public object UserId { get; internal set; }
+        }
+
+        public class AllFiles
+        {
+            public int Id { get; set; }
+            public string ContentType { get; set; }
+            public byte[] Imagebytes { get; set; }
+            public string FileName { get; set; }
+
+        }
+
+        public ActionResult Create_img()
+        {
+            //List<Inbox> Inbox = new List<Inbox>();
+            //Inbox.Add(new Inbox { Id=1, });
+            //Inbox.Add(new Inbox { Id=0, });
+
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create_img(Inbox model)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                foreach (var item in model.Files)
+                {
+                    saveFileDetails(item);
+
+                }
+
+                var max = new Inbox();
+
+                //db.Inboxs.Add(model);
+                //db.SaveChanges();
+                string url = Url.Action("List");
+                return Json(new { success = true, url = url });
+            }
+            return View(model);
+        }
+
+        // GET: AllFiles
+        public void saveFileDetails(HttpPostedFileBase file)
+        {
+
+
+            AllFiles newfile = new AllFiles();
+            newfile.ContentType = file.ContentType;
+            newfile.Imagebytes = ConvertToBytes(file);
+
+            var fileName = Path.GetFileName(file.FileName);
+            newfile.FileName = "~/images/" + fileName;
+            var path = Path.Combine(Server.MapPath("/images/"), fileName);
+
+            file.SaveAs(path);
+
+
+            //db.AllFiless.Add(newfile);//         img.LabelName = "~/images/" + file.FileName;
+            //db.author2s.Add(newfile);
+            //db.SaveChanges();
+
+        }
+        public byte[] ConvertToBytes(HttpPostedFileBase file)
+        {
+            byte[] imagebytes = null;
+            BinaryReader reader = new BinaryReader(file.InputStream);
+            imagebytes = reader.ReadBytes((int)file.ContentLength);
+            return imagebytes;
+        }
+
+        #endregion
+        #region Blob to Image  https://forums.asp.net/t/2148946.aspx
+        public ActionResult UploadIm_Index()
+        {
+            
+            return View();
+        }
+
+        public JsonResult UploadIm()
+        {
+
+            try
+            {
+                string Pic_Path = System.Web.HttpContext.Current.Server.MapPath("~/Images/t.jpg");
+
+                HttpPostedFileBase file = Request.Files[0]; //Uploaded file
+                                                            //Use the following properties to get file's name, size and MIMEType
+                //System.IO.Stream fileContent = file.InputStream;
+                file.SaveAs(Pic_Path); //File will be saved in application root
+
+                return this.Json(1);
+            }
+            catch (Exception ex)
+            {
+                //ErrorSignal.FromCurrentContext().Raise(ex);
+                throw;
+            }
+        }
+        #endregion
+
+        #region checkbox
+        public class ChannelModel
+        {
+            public int ID { get; set; }
+            public string Channel { get; set; }
+            public string Program { get; set; }
+            public DateTime Date { get; set; }
+            public string Time { get; set; }
+
+        }
+        public ActionResult channel_Index()
+        {
+            List<ChannelModel> model = new List<ChannelModel>();
+            model.Add(new ChannelModel { ID =1,Channel="One",  Program="News",     Date=DateTime.Now ,Time="18:00"});
+            model.Add(new ChannelModel { ID =2,Channel="One",  Program="Sport",    Date=DateTime.Now ,Time="20:00"});
+            model.Add(new ChannelModel { ID =3,Channel="Two",  Program="Inception",Date=DateTime.Now ,Time="09:50"});
+            model.Add(new ChannelModel { ID =4,Channel="Three",Program="Seinfeldt",Date=DateTime.Now ,Time="11:00"});
+            model.Add(new ChannelModel { ID =5,Channel="Four", Program="Alf",      Date=DateTime.Now ,Time="15:30"});
+            model.Add(new ChannelModel { ID =6,Channel= "Four",Program="News ",    Date=DateTime.Now ,Time="19:00"});
+
+            return View(model);
+        }
+        #endregion
+
+        #region Tree Node Recursive Except https://forums.asp.net/p/2149194/6238089.aspx?p=True&t=636779276787443946
+        public class TreeViewModel
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public int Level { get; set; }
+
+            //represnts Parent ID and it's nullable  
+            public int Pid { get; set; }
+            public virtual TreeViewModel Parent { get; set; }
+            public virtual ICollection<TreeViewModel> Childs { get; set; }
+        }
+        private static List<TreeViewModel> FillRecursive(List<TreeViewModel> flatObjects, int? parentId = null)
+        {
+            return flatObjects.Where(x => x.Pid.Equals(parentId)).Select(item => new TreeViewModel
+            {
+                Name = item.Name,
+                ID = item.ID,
+                Level = item.Level,
+                Pid = item.Pid,
+                Childs = FillRecursive(flatObjects, item.ID)
+            }).ToList();
+        }
+
+        public ActionResult TreeViewDemo2()
+        {
+            #region tree model
+            List<TreeViewModel> list = GetAllCategoriesForTree();
+            //list.SelectMany(x => x);
+            //return View(list);
+            #endregion
+
+            #region tree model
+            List<TreeViewModel> model = new List<TreeViewModel>();
+            model.Add(new TreeViewModel { ID = 1, Name = "6", Level = 1 });
+            model.Add(new TreeViewModel { ID = 2, Name = "60", Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 3, Name = "601", Level = 3, Pid = 2 });
+            model.Add(new TreeViewModel { ID = 4, Name = "602", Level = 3, Pid = 2 });
+            model.Add(new TreeViewModel { ID = 5, Name = "61", Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 6, Name = "610", Level = 3, Pid = 5 });
+            model.Add(new TreeViewModel { ID = 7, Name = "6100", Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 8, Name = "6101", Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 9, Name = "7", Level = 1 });
+
+
+            var difflist = model.Select(x => x.ID).ToList().Except(model.Select(x => x.Pid).ToList()).ToList();
+
+            List <TreeViewModel> list2 = ChildrenOf(model[1]);
+        
+            return View(list2);
+            #endregion
+        }
+        #region tree model
+        public List<TreeViewModel> GetAllCategoriesForTree()
+        {
+            List<TreeViewModel> model = new List<TreeViewModel>();
+            model.Add(new TreeViewModel { ID = 1, Name = "6",   Level = 1});
+            model.Add(new TreeViewModel { ID = 2, Name = "60",  Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 3, Name = "601", Level = 3, Pid = 2 });
+            model.Add(new TreeViewModel { ID = 4, Name = "602", Level = 3, Pid = 2 });
+            model.Add(new TreeViewModel { ID = 5, Name = "61",  Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 6, Name = "610", Level = 3, Pid = 5 });
+            model.Add(new TreeViewModel { ID = 7, Name = "6100",Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 8, Name = "6101",Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 9, Name = "7",   Level = 1 });
+
+            List<TreeViewModel> headerTree = FillRecursive(model, null);
+
+
+
+            
+                return headerTree.ToList();
+        }
+        #endregion
+
+
+        #region tree Children
+        public List<TreeViewModel> ChildrenOf(TreeViewModel startingTree)
+        {
+            List<TreeViewModel> result = new List<TreeViewModel>();
+            AddChildren(startingTree, result);
+            return result;
+        }
+
+        private void AddChildren(TreeViewModel tree, List<TreeViewModel> list)
+        {
+
+            List<TreeViewModel> model = new List<TreeViewModel>();
+            model.Add(new TreeViewModel { ID = 1, Name = "6", Level = 1 });
+            model.Add(new TreeViewModel { ID = 2, Name = "60", Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 3, Name = "601", Level = 3, Pid = 2 });
+            model.Add(new TreeViewModel { ID = 4, Name = "602", Level = 3, Pid = 2 });
+            model.Add(new TreeViewModel { ID = 5, Name = "61", Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 6, Name = "610", Level = 3, Pid = 5 });
+            model.Add(new TreeViewModel { ID = 7, Name = "6100", Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 8, Name = "6101", Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 9, Name = "7", Level = 1 });
+
+            foreach (var myTree in model)
+            {
+                if (myTree.Pid == tree.ID)
+                {
+                    list.Add(myTree);
+                    AddChildren(myTree, list);
+                }
+                continue;
+                //else
+                //{
+
+                //    AddChildren(myTree, list);
+                //}
+            }
+
+        }
+        #endregion
         #endregion
     }
 }

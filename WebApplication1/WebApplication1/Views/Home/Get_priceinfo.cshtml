@@ -97,7 +97,7 @@
                 type: "get",
                 url: "http://localhost:27221/api/Players/GetByModel",
                 contentType: "application/json",
-                data: { strQuery: JSON.stringify({ ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" }) },
+                data: { strQuery: JSON.stringify({ ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" }) },// [ValidateAntiForgeryToken]不可用JSON.stringify
                 success: function (data, status) {
                     if (status == "success") {
                         $("#div_test").html(data);
@@ -114,7 +114,7 @@
                 type: "post",
                 url: "http://localhost:27221/api/Charging/SaveData",
                 contentType: 'application/json',//必须JSON.stringify
-                data: JSON.stringify({ NAME: "Jim", DES: "备注" }),//JSON.stringify：string转对象
+                data: JSON.stringify({ NAME: "Jim", DES: "备注" }),//JSON.stringify：string转对象 // [ValidateAntiForgeryToken]不可用JSON.stringify
                 success: function (data, status) { }
             });
         }

@@ -37,6 +37,7 @@ namespace TestApplication1.Controllers
         public ActionResult About()
         {
 
+          //  return Redirect("https://www.baidu.com/");
             //var xx = 2;
             //var partialResult4 = (from countr in db.CountrySizes
             //                      join auth in db.AuthorModels

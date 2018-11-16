@@ -287,6 +287,7 @@ namespace WebApplication1.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
+        #region 批量插入
         public ActionResult BatchInsert_Index()
         {
             return View();
@@ -309,5 +310,16 @@ namespace WebApplication1.Controllers
             return View();
 
         }
+        #endregion
+        #region 批量插入2
+        //public class OrderOrderItemsListViewModel
+        //{
+        //    public int MyProperty { get; set; }
+        //}
+        //public ActionResult BatchInsert_Index2()
+        //{
+        //    return View();
+        //}
+        #endregion
     }
 }

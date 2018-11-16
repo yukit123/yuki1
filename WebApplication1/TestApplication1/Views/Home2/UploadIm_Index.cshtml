@@ -1,0 +1,121 @@
+﻿@{
+        Layout = null;
+        ViewBag.Title = "UploadIm";
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+
+        <script src="http://localhost:51095/Scripts/jquery-1.10.2.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <input type="file" name="browseImage" id="browseImage" onchange="picToBlob()" />
+            <canvas id='canvas'></canvas>
+            <img id="imgPhoto" />
+        </div>
+
+        <script>
+
+              var canvas = document.getElementById('canvas');
+            var input = document.getElementById('browseImage');
+         var preview = document.getElementById('imgPhoto');
+
+            function picToBlob() {
+
+            canvas.renderImage(input.files[0]);
+
+        }
+
+            HTMLCanvasElement.prototype.renderImage = function (blob) {
+             var ctx = this.getContext('2d');
+            var img = new Image();
+             var width = 200;
+            var height = 160;
+            img.onload = function () {
+                 //ctx.drawImage(img, 0, 0)
+                 ctx.drawImage(img, 0, 0, width, height);
+            }
+
+            img.src = URL.createObjectURL(blob);
+            preview.setAttribute('src', URL.createObjectURL(blob));
+
+
+
+            //Saving
+                var formdata = new FormData(); //FormData object
+                //add form data
+                formdata.append(blob.name, blob);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UploadIm", "Home2")',
+                data: formdata,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                 success: function (msg) {
+                    alert("Done, Picture Uploaded.");
+                }
+            });
+            };
+
+        </script>
+
+    </body>
+    </html>
+
+@*<div>
+    <input type="file" name="browseImage" id="browseImage" onchange="picToBlob()" multiple/>
+    <canvas id='canvas'></canvas>
+    <img id="imgPhoto" />
+</div>
+<script src="http://localhost:51095/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    var canvas = document.getElementById('canvas');
+    var input = document.getElementById('browseImage');
+    var preview = document.getElementById('imgPhoto');
+
+    function picToBlob() {
+        canvas.renderImage(input.files[0]);
+    }
+
+    HTMLCanvasElement.prototype.renderImage = function (blob) {
+
+        var ctx = this.getContext('2d');
+        var img = new Image();
+        var width = 200;
+        var height = 160;
+        img.onload = function () {
+            //ctx.drawImage(img, 0, 0)
+            ctx.drawImage(img, 0, 0, width, height);
+        }
+
+        img.src = URL.createObjectURL(blob);
+        preview.setAttribute('src', URL.createObjectURL(blob));
+
+
+
+        //Saving
+        var Pic = document.getElementById("canvas").toDataURL("image/jpg");
+        Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "");
+
+
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadIm", "Home2")',
+            data: '{ "imageData" : "' + Pic + '" }',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                alert("Done, Picture Uploaded.");
+            }
+        });
+    };
+
+    input.addEventListener('change', picToBlob, false);
+</script>*@

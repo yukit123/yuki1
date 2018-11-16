@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -9,6 +10,15 @@ using TestApplication2.Models;
 
 namespace TestApplication2
 {
+    //public class MyCookieAuthenticationEvents
+    //{
+    //    public override Task RedirectToLogin(HttpContext context)
+    //    {
+    //        context.RedirectUri = "http://baidu.com";
+    //        return base.RedirectToLogin(context);
+    //    }
+    //}
+
     public partial class Startup
     {
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864

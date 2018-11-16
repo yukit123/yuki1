@@ -769,7 +769,6 @@
     <Content Include="Views\Home\Webgrid2.cshtml" />
     <Content Include="Views\Home\Table_Index.cshtml" />
     <Content Include="Views\Home\edit_journal_entry.cshtml" />
-    <Content Include="window.print" />
     <Content Include="Views\Home\kendo_treeview.cshtml" />
     <Content Include="Views\Home\EmployeeList.cshtml" />
     <Content Include="Views\_ViewEmployee.cshtml" />
@@ -778,6 +777,7 @@
     <Content Include="Views\Home\Bootstrapmodal_Index.cshtml" />
     <Content Include="Views\Home\Webgrid3.cshtml" />
     <Content Include="Views\Home\webgrid4.cshtml" />
+    <Content Include="Views\Authors\BatchInsert_Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

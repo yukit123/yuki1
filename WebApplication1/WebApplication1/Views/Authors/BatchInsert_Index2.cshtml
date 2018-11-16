@@ -1,0 +1,216 @@
+﻿@model WebApplication1.Controllers.HomeController.OrderOrderItemsListViewModel
+@{
+    /**/
+
+    ViewBag.Title = "BatchInsert_Index2";
+}
+
+
+<h2>Create</h2>
+<h4>Order</h4>
+<h4>Here, you can add a new order.</h4>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="container">
+        <div class="form-horizontal">
+            <div class="panel-body">
+                <!-- FIRST COLUMN -->
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.OrderDate, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.Order.OrderDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "OrderDateId", @Value = System.DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.Order.OrderDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.RegionId, "Region", htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.DropDownList("RegionId", null, htmlAttributes: new { @class = "form-control", @id = "RegionIdId" })
+                            @Html.ValidationMessageFor(model => model.Order.RegionId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.DistrictId, "District", htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.DropDownList("DistrictId", null, htmlAttributes: new { @class = "form-control", @id = "DistrictIdId" })
+                            @Html.ValidationMessageFor(model => model.Order.DistrictId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.SupplierId, "Supplier", htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.DropDownList("SupplierId", null, htmlAttributes: new { @class = "form-control", @id = "SupplierIdId" })
+                            @Html.ValidationMessageFor(model => model.Order.SupplierId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SECOND COLUMN -->
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.FilterTypeId, "Filter Type", htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.DropDownList("FilterTypeId", null, htmlAttributes: new { @class = "form-control", @id = "FilterTypeIdId" })
+                            @Html.ValidationMessageFor(model => model.Order.FilterTypeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.FilterListId, "Filter Part Number", htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.DropDownList("FilterListId", null, htmlAttributes: new { @class = "form-control", @id = "FilterListIdId" })
+                            @Html.ValidationMessageFor(model => model.Order.FilterListId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.FilterQuan, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.Order.FilterQuan, new { htmlAttributes = new { @class = "form-control", @id = "FilterQuanId" } })
+                            @Html.ValidationMessageFor(model => model.Order.FilterQuan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Order.Note, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.Order.Note, new { @class = "form-control", @id = "NoteId", @Value = "No Notes" })
+                            @Html.ValidationMessageFor(model => model.Order.Note, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="Add New Row" class="btn btn-success" onclick="AddNew()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table id="tbl" class="table table-hover">
+        <thead>
+            <tr>
+
+                <th>SN</th>
+                <th>Order Date</th>
+                <th>Region</th>
+                <th>District</th>
+                <th>FilterType</th>
+                <th>FilterPartNumber</th>
+                <th>Quantity</th>
+                <th>Supplier</th>
+                <th>Note</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" id="btnInsert" />
+                @Html.ActionLink("Cancel or back to list", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/JqueryDataTables")
+
+    <script src="~/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script>
+        // Set the row number of the table
+        function RowNum($t) {
+            var c = 0;
+            $t.find("tr").each(function (ind, el) {
+                $(el).find("td:eq(0)").html(c++);
+
+            });
+        }
+
+        $(document).ready(function () {
+
+            $("#tbl td input.rdelete").live("click", function () {
+                var srow = $(this).parent().parent();
+                srow.remove();
+                RowNum($("#tbl"));
+            });
+        });
+
+        // Add new row to the table
+        function AddNew() {
+
+            var SN = SN;
+            var OrderDate = $("#OrderDateId").val();
+            var Region = $("#RegionIdId option:selected").text();
+            var District = $("#DistrictIdId option:selected").text();
+            var FilterType = $("#FilterTypeIdId option:selected").text();
+            var FilterList = $("#FilterListIdId option:selected").text();
+            var FilterQuan = $("#FilterQuanId").val();
+            var Supplier = $("#SupplierIdId option:selected").text();
+            var Note = $("#NoteId").val();
+            var BtnDelete = "<input type=\"button\" value = \"Delete\" class=\"rdelete\"/>"
+            var markup = "<tr><td>" + "</td><td>" + OrderDate + "</td><td>" + Region + "</td><td>" + District + "</td><td>" + FilterType + "</td><td>" + FilterList + "</td><td>" + FilterQuan + "</td><td>" + Supplier + "</td><td>" + Note + "</td><td>" + BtnDelete + "</td></tr>";
+            $("#tbl tr:last").after(markup);
+            RowNum($("#tbl"));
+
+        }
+
+        //Get all records from the table
+        $(function () {
+            $("#btnInsert").click(function () {
+                var itemlist = [];
+
+                //get cell values, instead of the header text.
+                $("tbl tr:not(:first)").each(function () {
+                    var tdlist = $(this).find("tr");
+                    var Item = {
+                        FilterType: $(tdlist[4]).html(),
+                        FilterPartNumber: $(tdlist[5]).html(),
+                        Quantity: $(tdlist[6]).html(),
+                        OrderId: 1
+                    };
+                    itemlist.push(Item);
+                })
+
+                $.ajax({
+                    url: '@Url.Action("Create", "Orders")', //
+                    dataType: "json",
+                    data: JSON.stringify({ itemlist: itemlist }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        alert("success");
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+        });
+    </script>
+}

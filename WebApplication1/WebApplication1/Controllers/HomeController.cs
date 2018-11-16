@@ -168,7 +168,7 @@ namespace WebApplication1.Controllers
             foreach (var item in Number)
             {
                 command.CommandType = CommandType.Text;
-                command.CommandText = "INSERT INTO Table (Labels) VALUES (@Labels);";
+                command.CommandText = "INSERT INTO Table (Labels) VALUES (@Labels);";//https://forums.asp.net/t/2148799.aspx OleDbCommand 
                 command.Parameters.AddWithValue("@Labels", item.ToString());
                 conn.ConnectionString = strConn;
 
@@ -2337,9 +2337,14 @@ namespace WebApplication1.Controllers
             byte[] imagebyte = null;
             if (file != null)
             {
-                file.SaveAs(Server.MapPath("~/images/" + file.FileName));
+                var fileName = Path.GetFileName(file.FileName);
+
+                var path = Path.Combine(Server.MapPath("/images/"), fileName);
+
+                file.SaveAs(path);
                 BinaryReader reader = new BinaryReader(file.InputStream);
                 imagebyte = reader.ReadBytes(file.ContentLength);
+
                 Label img = new Label();
                 //img.ImageTitle = file.FileName;
                 //img.ImageByte = imagebyte;
@@ -2376,12 +2381,12 @@ namespace WebApplication1.Controllers
             var img = db.Label.SingleOrDefault(x => x.LabelId == id);
             return Json(img.LabelName, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Pic_Edit(int? ImageId = 1)
+        public ActionResult Pic_Edit(/*int? ImageId = 1*/)
         {
-            if (ImageId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (ImageId == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
 
             Label jobs = db.Label.Find(1);
 
@@ -3181,7 +3186,15 @@ namespace WebApplication1.Controllers
             return PartialView(vm);
         }
         #endregion
+        #region How to generate and validate url token automatically
+        [EncryptedActionParameter]
+        public ActionResult Encrypt(string name, string age)//https://forums.asp.net/t/2124372.aspx?How+to+generate+and+validate+url+token+automatically
+            //https://forums.asp.net/t/2128579.aspx?how+to+encrypt+URL+parameter+value+only
+        {
+            return View();
+        }
 
+        #endregion
     }
 
 }

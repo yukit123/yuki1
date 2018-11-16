@@ -53,7 +53,7 @@
             @{
                 Model.Books.Add(new Book());
             }
-
+            //https://www.codeproject.com/Tips/766214/List-Model-Binding-in-MVC complex modelbind
             var index = $("#tbBooks").children("tr").length;
 
             var indexCell = "<td style='display:none'><input name='Books.Index' type='hidden' value='" + index + "' /></td>";
