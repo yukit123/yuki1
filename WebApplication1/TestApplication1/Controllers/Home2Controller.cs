@@ -23,6 +23,10 @@ using System.Net.Mail;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Data.Entity.Infrastructure;
+using System.Xml.Schema;
+using System.Xml.Linq;
+using System.Reflection;
+using System.Data.Entity.Core.Objects;
 
 namespace TestApplication1.Controllers
 {
@@ -1212,7 +1216,7 @@ namespace TestApplication1.Controllers
         }
         public ActionResult GoogleMaps()//https://forums.asp.net/p/2148921/6237180.aspx?p=True&t=636773130468130348
         {
-            
+
             List<polygon> model = new List<polygon>();
             model.Add(new polygon { ID = 1, lat = "25.774", lng = "-80.190" });
             model.Add(new polygon { ID = 2, lat = "18.466", lng = "-66.118" });
@@ -1365,7 +1369,7 @@ namespace TestApplication1.Controllers
             {
                 img.Resize(100, img.Height);
             }
-           img.Save(@"D:\image\" + Path.GetFileName(file.FileName));
+            img.Save(@"D:\image\" + Path.GetFileName(file.FileName));
         }
         #endregion
 
@@ -1454,7 +1458,7 @@ namespace TestApplication1.Controllers
         #region Blob to Image  https://forums.asp.net/t/2148946.aspx
         public ActionResult UploadIm_Index()
         {
-            
+
             return View();
         }
 
@@ -1467,7 +1471,7 @@ namespace TestApplication1.Controllers
 
                 HttpPostedFileBase file = Request.Files[0]; //Uploaded file
                                                             //Use the following properties to get file's name, size and MIMEType
-                //System.IO.Stream fileContent = file.InputStream;
+                                                            //System.IO.Stream fileContent = file.InputStream;
                 file.SaveAs(Pic_Path); //File will be saved in application root
 
                 return this.Json(1);
@@ -1480,7 +1484,7 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
-        #region checkbox
+        #region checkbox JQselector Bootstrap Accordion  //https://forums.asp.net/t/2149202.aspx
         public class ChannelModel
         {
             public int ID { get; set; }
@@ -1493,12 +1497,12 @@ namespace TestApplication1.Controllers
         public ActionResult channel_Index()
         {
             List<ChannelModel> model = new List<ChannelModel>();
-            model.Add(new ChannelModel { ID =1,Channel="One",  Program="News",     Date=DateTime.Now ,Time="18:00"});
-            model.Add(new ChannelModel { ID =2,Channel="One",  Program="Sport",    Date=DateTime.Now ,Time="20:00"});
-            model.Add(new ChannelModel { ID =3,Channel="Two",  Program="Inception",Date=DateTime.Now ,Time="09:50"});
-            model.Add(new ChannelModel { ID =4,Channel="Three",Program="Seinfeldt",Date=DateTime.Now ,Time="11:00"});
-            model.Add(new ChannelModel { ID =5,Channel="Four", Program="Alf",      Date=DateTime.Now ,Time="15:30"});
-            model.Add(new ChannelModel { ID =6,Channel= "Four",Program="News ",    Date=DateTime.Now ,Time="19:00"});
+            model.Add(new ChannelModel { ID = 1, Channel = "One", Program = "News", Date = DateTime.Now, Time = "18:00" });
+            model.Add(new ChannelModel { ID = 2, Channel = "One", Program = "Sport", Date = DateTime.Now, Time = "20:00" });
+            model.Add(new ChannelModel { ID = 3, Channel = "Two", Program = "Inception", Date = DateTime.Now, Time = "09:50" });
+            model.Add(new ChannelModel { ID = 4, Channel = "Three", Program = "Seinfeldt", Date = DateTime.Now, Time = "11:00" });
+            model.Add(new ChannelModel { ID = 5, Channel = "Four", Program = "Alf", Date = DateTime.Now, Time = "15:30" });
+            model.Add(new ChannelModel { ID = 6, Channel = "Four", Program = "News ", Date = DateTime.Now, Time = "19:00" });
 
             return View(model);
         }
@@ -1551,8 +1555,8 @@ namespace TestApplication1.Controllers
 
             var difflist = model.Select(x => x.ID).ToList().Except(model.Select(x => x.Pid).ToList()).ToList();
 
-            List <TreeViewModel> list2 = ChildrenOf(model[1]);
-        
+            List<TreeViewModel> list2 = ChildrenOf(model[1]);
+
             return View(list2);
             #endregion
         }
@@ -1560,22 +1564,22 @@ namespace TestApplication1.Controllers
         public List<TreeViewModel> GetAllCategoriesForTree()
         {
             List<TreeViewModel> model = new List<TreeViewModel>();
-            model.Add(new TreeViewModel { ID = 1, Name = "6",   Level = 1});
-            model.Add(new TreeViewModel { ID = 2, Name = "60",  Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 1, Name = "6", Level = 1 });
+            model.Add(new TreeViewModel { ID = 2, Name = "60", Level = 2, Pid = 1 });
             model.Add(new TreeViewModel { ID = 3, Name = "601", Level = 3, Pid = 2 });
             model.Add(new TreeViewModel { ID = 4, Name = "602", Level = 3, Pid = 2 });
-            model.Add(new TreeViewModel { ID = 5, Name = "61",  Level = 2, Pid = 1 });
+            model.Add(new TreeViewModel { ID = 5, Name = "61", Level = 2, Pid = 1 });
             model.Add(new TreeViewModel { ID = 6, Name = "610", Level = 3, Pid = 5 });
-            model.Add(new TreeViewModel { ID = 7, Name = "6100",Level = 4, Pid = 6 });
-            model.Add(new TreeViewModel { ID = 8, Name = "6101",Level = 4, Pid = 6 });
-            model.Add(new TreeViewModel { ID = 9, Name = "7",   Level = 1 });
+            model.Add(new TreeViewModel { ID = 7, Name = "6100", Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 8, Name = "6101", Level = 4, Pid = 6 });
+            model.Add(new TreeViewModel { ID = 9, Name = "7", Level = 1 });
 
             List<TreeViewModel> headerTree = FillRecursive(model, null);
 
 
 
-            
-                return headerTree.ToList();
+
+            return headerTree.ToList();
         }
         #endregion
 
@@ -1620,5 +1624,159 @@ namespace TestApplication1.Controllers
         }
         #endregion
         #endregion
+
+        #region BeginRouteForm AjaxOptions OnSuccess
+        public ActionResult BeginRouteForm_Index()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult BeginRouteForm_Index(string aa)
+        {
+
+            //return Json("1111", JsonRequestBehavior.AllowGet);
+            return View();
+        }
+
+        #endregion
+
+        #region LINQ to XML //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/how-to-join-two-collections-linq-to-xml
+
+        public void LINQtoXML() //https://forums.asp.net/p/2149320/6238428.aspx?p=True&t=636781894580854435
+        {//https://www.c-sharpcorner.com/blogs/joins-using-linqtoxml1
+            //https://forums.asp.net/t/2149484.aspx
+
+            //https://stackoverflow.com/questions/39893076/how-to-read-data-with-pagination-from-large-xml-file-using-c-sharp//How to read data with pagination from large xml file using c# 流
+            var path1 = Server.MapPath("~/CustomersOrders.xsd");
+
+            XmlSchemaSet schemas = new XmlSchemaSet();
+            schemas.Add("", path1);
+
+            var path2 = Server.MapPath("~/CustomersOrders.xml");
+
+
+            Console.Write("Attempting to validate, ");
+            XDocument custOrdDoc = XDocument.Load(path2);
+
+            bool errors = false;
+            custOrdDoc.Validate(schemas, (o, e) =>
+            {
+                Console.WriteLine("{0}", e.Message);
+                errors = true;
+            });
+            Console.WriteLine("custOrdDoc {0}", errors ? "did not validate" : "validated");
+
+            if (!errors)
+            {
+                // Join customers and orders, and create a new XML document with  
+                // a different shape.  
+
+                // The new document contains orders only for customers with a  
+                // CustomerID > 'K'  
+                XElement custOrd = custOrdDoc.Element("Root");
+                XElement newCustOrd = new XElement("Root",
+                    from c in custOrd.Element("Customers").Elements("Customer")
+                    join o in custOrd.Element("Orders").Elements("Order")
+                               on (string)c.Attribute("CustomerID") equals
+                                  (string)o.Element("CustomerID")
+                    where ((string)c.Attribute("CustomerID")).CompareTo("K") > 0
+                    select new XElement("Order",
+                        new XElement("CustomerID", (string)c.Attribute("CustomerID")),
+                        new XElement("CompanyName", (string)c.Element("CompanyName")),
+                        new XElement("ContactName", (string)c.Element("ContactName")),
+                        new XElement("EmployeeID", (string)o.Element("EmployeeID")),
+                        new XElement("OrderDate", (DateTime)o.Element("OrderDate"))
+                    )
+                );
+                Console.WriteLine(newCustOrd);
+            }
+        }
+
+        #endregion
+        #region checkbox list 见note
+
+        public class response
+
+        {
+            public int resid { get; set; }
+            public string resname { get; set; }
+            public bool resval { get; set; }
+
+        }
+
+        private ObjectSet<response> _Employees;
+
+        public class viewmodel
+               {
+                   public List<response> Reslist { get; set; }
+               }
+
+        public ActionResult checkbox_Index()
+        {
+
+            viewmodel vm = new viewmodel();
+            vm.Reslist = new List<response>()
+            {
+                new response() { resid=1 , resname="1001",resval=false},
+                new response() { resid=2 , resname="1002",resval=true },
+                new response() { resid=3 , resname="1003",resval=false },
+                new response() { resid=4 , resname="1004",resval=false},
+                new response() { resid=5 ,  resname="1005",resval=false},
+            };
+
+
+            return View(vm);
+        }
+       
+        [HttpPost]
+        public ActionResult checkbox_Index(viewmodel vm)
+        {
+            return View();
+        }
+        #endregion
+
+        #region
+        public class MatriceViewModel
+        {
+            public string DateDebForm { get; set; }
+            public long ID_PNT { get; set; }
+            public string NomPn { get; set; }
+            public string TypeForm { get; set; }
+
+            public string DateFinForm { get; set; }
+        }
+        public ActionResult Matrice()
+        {
+            //List<MatriceViewModel> mylist = new List<MatriceViewModel>();
+
+            //ViewBag.forma = (from s in db.CountrySizes.ToList() select s.country).Distinct().ToList();
+          //  ViewBag.forma = (from s in db.GetListAllStatDT().ToList() select s.TypeQuestionExam).Distinct();
+
+            //mylist = db.GetListAllStatDT().Select(c => new MatriceViewModel
+            //{
+            //    DateDebForm = c.DateDebutExam,
+            //    ID_PNT = c.ID_PNT ?? 0,
+            //    NomPn = c.Nom,
+            //    TypeForm = c.TypeQuestionExam,
+            //    DateFinForm = c.DateExpirer
+            //}).ToList();
+
+            List<MatriceViewModel> mylist = new List<MatriceViewModel>();
+            mylist.Add(new MatriceViewModel { ID_PNT = 1, DateDebForm = "1", NomPn = "11",DateFinForm = "18:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 2, DateDebForm = "2", NomPn = "22",DateFinForm = "20:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 3, DateDebForm = "3", NomPn = "22",DateFinForm = "09:50" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 4, DateDebForm = "4", NomPn = "44",DateFinForm = "11:00" });
+            ViewBag.forma = mylist.Select(_ => _.NomPn).ToList().Distinct();
+
+            List<System.Linq.IGrouping<string, MatriceViewModel>> model = (from a in mylist group a by a.NomPn into g select g).ToList();
+
+            return View(model);
+        }
+        #endregion
+
+
     }
 }
+

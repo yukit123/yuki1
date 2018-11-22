@@ -12,7 +12,7 @@
 <body>
     <div class="col-sm-12  well" id="criteria2">
 
-        @using (Ajax.BeginForm("MyMap", "Homes",new AjaxOptions { HttpMethod = "GET", OnFailure = "failureValidation" },new { @method = "get" }))
+        @using (Ajax.BeginForm("MyMap", "Homes", new AjaxOptions { HttpMethod = "GET", OnFailure = "failureValidation" }, new { @method = "get" }))
         {
             <div id="divInterestDetails2" class="form-horizontal mini" style="margin-bottom: 0px;">
                 <fieldset>
@@ -20,11 +20,11 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Location</label>
                         <div class="col-sm-9">
-                            <input type="text" id="txtPlaces" class="form-control mytxtPlaces" placeholder="Where do you want to live?" value="11" />
+                            <input type="text" id="txtPlaces" name="txtPlaces" class="form-control mytxtPlaces" placeholder="Where do you want to live?" value="11" />
                             @*<input type="text" class="form-control" placeholder="Where do you want to live?">*@
                             @*@Html.Hidden("frmDesiredPlace", value: @Model.frmDesiredPlace)
-                                @Html.Hidden("frmPlacesLng", value: @Model.frmPlacesLng)
-                                @Html.Hidden("frmPlacesLat", value: @Model.frmPlacesLat)*@
+                            @Html.Hidden("frmPlacesLng", value: @Model.frmPlacesLng)
+                            @Html.Hidden("frmPlacesLat", value: @Model.frmPlacesLat)*@
                             1111111
                         </div>
                     </div>
@@ -44,7 +44,12 @@
 </body>
 </html>
 <script>
-    function failureValidation() { alert(111);}
+    function failureValidation() { alert("failure"); }
+
+    function DoSuccess() {
+        alert("Successful operation");
+    }
+
 </script>
 
 

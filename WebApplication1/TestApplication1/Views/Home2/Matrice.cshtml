@@ -1,0 +1,43 @@
+﻿@model  IEnumerable<System.Linq.IGrouping<string, TestApplication1.Controllers.Home2Controller.MatriceViewModel>>
+@{
+    ViewBag.Title = "Matrice";
+}
+
+<h2>Matrice</h2>
+
+<table align="center">
+    @{ IEnumerable<string> bList = ViewBag.forma; }
+    <tr>
+        <td>Nom/Formation</td>
+        @for (int i = 0; i < bList.Count(); i++)
+        {
+            <td></td>
+            <td class="alert-info" style="text-align:center">@bList.ElementAt(i)</td>
+        }
+
+    </tr>
+    @foreach (var a in Model)
+    {
+
+    <tr>
+
+        <td class="alert-info" style="text-align:center">@a.Key</td>
+
+        @for (int i = 0; i < bList.Count(); i++)
+        {
+
+            @*<td>@a.FirstOrDefault(b => b.NomPn == bList.ElementAt(i)).DateDebForm</td>*@
+            <td>@a.FirstOrDefault(b => b.NomPn == bList.ElementAt(i))?.DateDebForm</td>
+
+
+        }
+        }
+
+
+
+
+
+    </tr>
+    }
+</table>
+

@@ -4,74 +4,92 @@
 
 }
 
-<h2>Timer</h2>
+@*<h2>Timer</h2>*@
 <div class="timeLeft">
-<text id="timeLeft" ></text>
-    </div>
+    <text id="timeLeft"></text>
+</div>
+
+@*<span id="spanmess"></span>*@
 @section scripts{
 
-<script>
-    $(function () {
-        $.ajax({
-            url: '/Home/Timerajax',
-            type: 'GET',
-            success: function (data) {
-                if (data.list.length > 0) {
-                    for (var p = 1; p < data.list.length; p++) {
-                var html = '<text id="timeLeft' + p + '"></text>';
-                $(".timeLeft").append(html);
-            }
-        }
+    <script>
+        $(function () {
+            $.ajax({
+                url: '/Home/Timerajax',
+                type: 'GET',
+                success: function (data) {
+                        if (data.list.length > 0) {
+                            for (var p = 1; p < data.list.length; p++) {
+                        var html = '<text id="timeLeft' + p + '"></text>';
+                        $(".timeLeft").append(html);
+                    }
+                }
                 $.each(data.list, function (i, v) {
                     countdown(new Date(v.EndDate.match(/\d+/)[0] * 1).getFullYear(), new Date(v.EndDate.match(/\d+/)[0] * 1).getMonth() + 1, new Date(v.EndDate.match(/\d+/)[0] * 1).getDate(), new Date(v.EndDate.match(/\d+/)[0] * 1).getHours(),i);
 
                 });
-            }
+                }
+
+                //success: function (run) {
+                //    var mess = $("#spanmess");
+                //    if (run) {
+                //        mess.html(run);
+                //        mess.css("color", "Green");
+                //    }
+                //    else {
+                //        mess.html("Email Already exists");
+                //        mess.css("color", "red");
+                //    }
+                //    console.log('Ok');
+                //},
+                //error: function () {
+                //    console.log('something went wrong - debug it!');
+                //}
+            })
+
+
         })
+    </script>
 
-   
-    })
-</script>
+    <script>
+        function countdown(endYear, endMonth, endDay, endHours, count) {
 
-<script>
-        function countdown(endYear, endMonth, endDay, endHours,count) {
-      
-                window.setInterval(function () {
+            window.setInterval(function () {
 
-            var now = new Date();
-            var endDate = new Date(endYear, endMonth - 1, endDay, endHours);
+                var now = new Date();
+                var endDate = new Date(endYear, endMonth - 1, endDay, endHours);
 
-            var leftTime = endDate.getTime() - now.getTime();
+                var leftTime = endDate.getTime() - now.getTime();
 
-            var leftSecond = parseInt(leftTime / 1000);
+                var leftSecond = parseInt(leftTime / 1000);
 
-            var day = Math.floor(leftSecond / (60 * 60 * 24));
+                var day = Math.floor(leftSecond / (60 * 60 * 24));
 
-            var hour = Math.floor((leftSecond - day * 24 * 60 * 60) / 3600);
+                var hour = Math.floor((leftSecond - day * 24 * 60 * 60) / 3600);
 
-            var minute = Math.floor((leftSecond - day * 24 * 60 * 60 - hour * 3600) / 60);
+                var minute = Math.floor((leftSecond - day * 24 * 60 * 60 - hour * 3600) / 60);
 
-            var second = Math.floor(leftSecond - day * 24 * 60 * 60 - hour * 3600 - minute * 60);
+                var second = Math.floor(leftSecond - day * 24 * 60 * 60 - hour * 3600 - minute * 60);
 
-            if (count == 0) {
-                document.getElementById("timeLeft").innerHTML = day + "d " + hour + "h "
-                    + minute + "m " + second + "s ";
-            }
-            else {
-                document.getElementById("timeLeft"+count).innerHTML = day + "d " + hour + "h "
-                    + minute + "m " + second + "s ";
-            }
+                if (count == 0) {
+                    document.getElementById("timeLeft").innerHTML = day + "d " + hour + "h "
+                        + minute + "m " + second + "s ";
+                }
+                else {
+                    document.getElementById("timeLeft" + count).innerHTML = day + "d " + hour + "h "
+                        + minute + "m " + second + "s ";
+                }
 
 
-                }, 1000);
-          
+            }, 1000);
+
         }
-    
-</script>
-   
 
-@*}*@
+    </script>
 
 
+    @*}*@
 
-    }
+
+
+}

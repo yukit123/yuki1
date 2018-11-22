@@ -1,0 +1,25 @@
+﻿
+@{
+
+    ViewBag.Title = "BeginRouteForm_Index";
+}
+
+<h2>BeginRouteForm_Index</h2>
+
+
+@using (Ajax.BeginRouteForm("Default", new { controller = "Home2", action = "BeginRouteForm_Index" }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "DoSuccess" }))
+
+    {
+        @Html.TextBox("aa", "aaaa")
+        <button class="btn btn-default btn-sm" type="submit">Get data</button>
+    }
+
+@*<script src="~/Scripts/jquery-ui-1.10.0.min.js"></script>  不起效*@
+<script src="http://localhost:51095/Scripts/jquery-1.10.2.min.js"></script>
+<script src="http://localhost:51095/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+
+    function DoSuccess() {
+        alert("Successful operation");
+    }
+</script>

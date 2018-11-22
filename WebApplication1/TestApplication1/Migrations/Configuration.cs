@@ -13,7 +13,7 @@ namespace TestApplication1.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(TestApplication1.Models.TestApplication1Context context)
+        protected override void Seed(TestApplication1.Models.TestApplication1Context context)//https://forums.asp.net/t/2146113.aspx
         {
             //  This method will be called after migrating to the latest version.
 

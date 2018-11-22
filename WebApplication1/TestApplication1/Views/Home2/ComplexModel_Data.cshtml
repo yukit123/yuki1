@@ -25,7 +25,9 @@
     }*@
 
 
-@*https://forums.asp.net/t/2147638.aspx DropDownListFor inline*@
+@*https://forums.asp.net/t/2147638.aspx
+    https://forums.asp.net/t/2148112.aspx
+    DropDownListFor inline 复杂模型 model binding*@
 @Html.DropDownListFor(m => m.CourseList[0].CourseID, Model.GradeItems.Select(y => new SelectListItem { Value = y.Value, Text = y.Text, Selected = (y.Value == Model.CourseList[0].CourseID.ToString()) }).ToList(), "Select an organization ")
 @Html.DropDownListFor(m => m.CourseList[1].CourseID, Model.GradeItems, "- - select Provider - -")
 

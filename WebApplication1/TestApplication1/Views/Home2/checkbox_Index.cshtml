@@ -1,0 +1,74 @@
+﻿@model TestApplication1.Controllers.Home2Controller.viewmodel
+@{
+    ViewBag.Title = "checkbox_Index";
+}
+
+@*@Html.RadioButton("rbGrp", "Yes", new { id = "rbGrpYes" })
+    @Html.Label("YES")
+    @Html.RadioButton("rbGrp", "No", new { id = "rbGrpNo" })
+    @Html.Label("NO")
+
+
+    @Html.RadioButtonFor(Model => Model.Reslist[1].resval, new { @id = "Statusradio0", name = "Status" })正常
+    @Html.RadioButtonFor(Model => Model.Reslist[1].resval, Model.Reslist[1].resval, new { @id = "Statusradio1", name = "Status" })冻结
+    @Html.RadioButtonFor(Model => Model.Reslist[1].resval, new { @id = "Statusradio2", name = "Status" })隐藏*@
+
+
+<h2>checkbox_Index</h2>
+@using (Html.BeginForm("checkbox_Index", "Home2"))
+{
+    for (int i = 0; i < Model.Reslist.Count; i++)
+    {
+        <div class="row">
+            <div class="col-md-12">
+
+                @Html.CheckBoxFor(m => Model.Reslist[i].resval)
+                @Html.EditorFor(m => Model.Reslist[i].resname)
+                <label class="control-label ">@Model.Reslist[i].resname </label>
+
+
+
+
+            </div>
+        </div>
+
+    }
+    @*<input type="submit" value="submit" />*@
+    <button type="submit" id="submit" style="display: none">Search</button>
+
+}
+@section scripts{
+    <script>
+        //if ($("input[name='rbGrp']:checked").val() == "Yes")
+        //{
+        //    //do something...
+        //}
+        //else
+        //{
+        //    //do something...
+        //}
+
+        //$(document).ready(function () {
+        //    $("button[type='submit']").on('click', function () {
+        //        //execute some code
+        //        alert(111);
+        //    });
+        //});
+
+        //$(function () {
+        //    $('button[type=submit]')[0].click();
+        //});
+
+        //window.onload = function () {
+        //   document.getElementById('submit').click();
+        //};
+
+        //window.onload = function () {
+        //    var userImage = document.getElementById('imageOtherUser');
+        //    var hangoutButton = document.getElementById("hangoutButtonId");
+        //    userImage.onclick = function () {
+        //        hangoutButton.click(); // this will trigger the click event
+        //    };
+        //};
+    </script>
+}

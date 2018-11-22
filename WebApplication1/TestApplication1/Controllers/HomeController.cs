@@ -1634,12 +1634,13 @@ namespace TestApplication1.Controllers
         }
         public JsonResult Timerajax()
         {
-            List<Timervm> list = new List<Timervm>() {
-            new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
-            new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
-            new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
-            };
-            return Json(new {  list }, JsonRequestBehavior.AllowGet);
+            //List<Timervm> list = new List<Timervm>() {
+            //new Timervm { EndDate=Convert.ToDateTime("2018-01-01")},
+            //new Timervm { EndDate=Convert.ToDateTime("2018-02-02") },
+            //new Timervm { EndDate=Convert.ToDateTime("2018-03-03") }
+            //};
+           // return Json(new {  list }, JsonRequestBehavior.AllowGet);
+            return Json("Email already exists", JsonRequestBehavior.AllowGet);
             //return View(list);
         }
 

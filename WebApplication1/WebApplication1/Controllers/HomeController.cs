@@ -2314,6 +2314,12 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Unobtrusive(string txtPlaces)
+        {
+
+            return View();
+        }
         #endregion
 
         #region MVC Edit view with Picture

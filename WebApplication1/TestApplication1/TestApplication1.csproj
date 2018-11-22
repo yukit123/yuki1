@@ -370,6 +370,11 @@
     <Compile Include="Migrations\201809270233386_StudentAccounts2.Designer.cs">
       <DependentUpon>201809270233386_StudentAccounts2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811220733400_2018\11\22.cs" />
+    <Compile Include="Migrations\201811220734461_new1122.cs" />
+    <Compile Include="Migrations\201811220734461_new1122.Designer.cs">
+      <DependentUpon>201811220734461_new1122.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -482,6 +487,7 @@
     <Content Include="convertNumber.html" />
     <Content Include="css-disable.html" />
     <Content Include="cursor_progress.html" />
+    <EmbeddedResource Include="CustomersOrders.xml" />
     <Content Include="datepicker.html" />
     <Content Include="DivtoTable.html" />
     <Content Include="download-csv.html" />
@@ -575,6 +581,12 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EmbeddedResource Include="CustomersOrders.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811220734461_new1122.resx">
+      <DependentUpon>201811220734461_new1122.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -1531,6 +1543,9 @@
     <Content Include="Views\Home2\UploadIm_Index.cshtml" />
     <Content Include="Views\Home2\channel_Index.cshtml" />
     <Content Include="Views\Home2\TreeViewDemo2.cshtml" />
+    <Content Include="Views\Home2\BeginRouteForm_Index.cshtml" />
+    <Content Include="Views\Home2\checkbox_Index.cshtml" />
+    <Content Include="Views\Home2\Matrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
