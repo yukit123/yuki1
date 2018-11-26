@@ -375,6 +375,10 @@
     <Compile Include="Migrations\201811220734461_new1122.Designer.cs">
       <DependentUpon>201811220734461_new1122.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811260845054_Student121.cs" />
+    <Compile Include="Migrations\201811260845054_Student121.Designer.cs">
+      <DependentUpon>201811260845054_Student121.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -397,9 +401,11 @@
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RMA_History.cs" />
     <Compile Include="Models\SampleViewModel.cs" />
+    <Compile Include="Models\Student121.cs" />
     <Compile Include="Models\StudentAccount.cs" />
     <Compile Include="Models\TestApplication1Context.cs" />
     <Compile Include="Models\Tool.cs" />
+    <Compile Include="Models\ViewModelAttendanceClients.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +592,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811220734461_new1122.resx">
       <DependentUpon>201811220734461_new1122.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260845054_Student121.resx">
+      <DependentUpon>201811260845054_Student121.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />

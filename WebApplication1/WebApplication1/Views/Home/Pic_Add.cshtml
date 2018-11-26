@@ -1,0 +1,44 @@
+﻿@model List<WebApplication1.Models.Label>
+@{
+    ViewBag.Title = "Pic_Add";
+}
+
+<h2>Pic_Add</h2>
+@*@foreach (var item in Model)
+{
+    <img src="@Url.Content(item.url)" height="140" />
+}*@
+@*@if (Model.url != null)
+{
+    <img src="@Url.Content(Model.url)" height="140" />
+}*@
+@*<img src="@Url.Content("~/images/Arrow.PNG")" height="140" />*@
+
+@*<img src="@Html.ValueFor(x=>x.FilePath)" /> https://forums.asp.net/t/2146960.aspx*@
+
+
+<br /><br />
+
+@*@using (Html.BeginForm("Pic_Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <div class="container">
+        <div class="col-md-4">
+            <input type="file" name="url" /><br />
+        </div>
+
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Tools Needed")
+        </dt>
+        <dd>
+            @Html.EditorFor(model => model.LabelName)
+        </dd>
+
+    </dl>
+
+    <input type="submit" value="Save Changes" />
+
+    }*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>

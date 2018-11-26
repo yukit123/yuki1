@@ -5,6 +5,10 @@
 
     }
 <style type="text/css">
+    .selectRow {
+        background: black;
+        color: white;
+    }
     tbody {
         font-family: Arial;
         font-size: 10pt;
@@ -39,7 +43,7 @@
                                                                       
     </div>
     @{
-        var grid = new WebGrid(source: ViewBag.list, canPage: true, rowsPerPage: 1);
+        var grid = new WebGrid(source: ViewBag.list, canPage: true, rowsPerPage: 3);
         grid.Pager(WebGridPagerModes.NextPrevious);
         @MvcHtmlString.Create(
     @grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
@@ -77,3 +81,10 @@ columns: grid.Columns(
 
     @*@grid.GetHtml()*@
 </div>
+@section scripts{
+<script>
+     $(document).ready(function () {
+         $('#gridT tbody tr').first().addClass('selectRow')
+})
+</script>
+    }

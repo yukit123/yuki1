@@ -556,6 +556,10 @@
     <Compile Include="Migrations\201809120829442_SName1.Designer.cs">
       <DependentUpon>201809120829442_SName1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811260247364_LabelUrl.cs" />
+    <Compile Include="Migrations\201811260247364_LabelUrl.Designer.cs">
+      <DependentUpon>201811260247364_LabelUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -778,6 +782,7 @@
     <Content Include="Views\Home\Webgrid3.cshtml" />
     <Content Include="Views\Home\webgrid4.cshtml" />
     <Content Include="Views\Authors\BatchInsert_Index2.cshtml" />
+    <Content Include="Views\Home\Pic_Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -861,6 +866,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809120829442_SName1.resx">
       <DependentUpon>201809120829442_SName1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260247364_LabelUrl.resx">
+      <DependentUpon>201811260247364_LabelUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

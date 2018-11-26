@@ -30,6 +30,45 @@ namespace TestApplication1.Models
 
         public DbSet<Tool> Tools { get; set; }
         public DbSet<StudentAccount> StudentAccounts { get; set; }
+
+        
+        public DbSet<Student121> Student121s { get; set; }
+        public DbSet<StudentAddress121> StudentAddress121s { get; set; }
+
+        //public DbSet<ViewModelAttendanceClients2> ViewModelAttendanceClients2s { get; set; }
+        //public DbSet<TimeManagerSetsMdl2> TimeManagerSetsMdl2s { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    //modelBuilder.Entity<ViewModelAttendanceClients2>()
+        //    //    .HasKey(c => new { c.Id });
+
+        //    //modelBuilder.Entity<ViewModelAttendanceClients2>()
+        //    //    //.HasMany(c => c.ShowTimeManagerSet)
+        //    //    //.WithRequired()
+        //    //    //.HasForeignKey(c => c.Id);
+        //    //    .HasRequired(x => x.TmeMngrSetsMdlObj)
+        //    //    .WithMany(x => x.ShowTimeManagerSet)
+        //    //    .HasForeignKey(x => x.Id);
+
+
+
+        //    //modelBuilder.Entity<TimeManagerSetsMdl2>()
+        //    //    .HasMany(c => c.ShowCategory)
+        //    //    .WithRequired()
+        //    //    .HasForeignKey(c => c.Id);
+
+        //    modelBuilder.Entity<ViewModelAttendanceClients2>()
+        //          .HasRequired(i => i.TmeMngrSetsMdlObj)
+        //          .WithRequiredDependent()
+        //          .WillCascadeOnDelete(false);
+
+        //    modelBuilder.Entity<ViewModelAttendanceClients2>()
+        //          .HasRequired<TimeManagerSetsMdl2>(i => i.TmeMngrSetsMdlObj)
+        //          .WithMany(e => e.ShowTimeManagerSet)
+        //          .HasForeignKey(i => i.TmeMngrSetsMdlObj);
+        //}
+
         #region  Fluent API WillCascadeOnDelete OnDelete（看note）
         //https://forums.asp.net/t/2147990.aspx
         //https://stackoverflow.com/questions/34768976/specifying-on-delete-no-action-in-entity-framework-7
@@ -42,6 +81,6 @@ namespace TestApplication1.Models
         //.WillCascadeOnDelete(false);
         //    }
         #endregion
-        
+
     }
 }

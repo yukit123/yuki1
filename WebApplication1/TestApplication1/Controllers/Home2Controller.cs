@@ -43,6 +43,8 @@ namespace TestApplication1.Controllers
         // GET: Home/Create
         public ActionResult Create()
         {
+            var list = db.Student121s.Include(_ => _.Address).ToList();
+            var list2 = db.StudentAddress121s.Include(_ => _.Student).ToList();
 
             return View();
         }

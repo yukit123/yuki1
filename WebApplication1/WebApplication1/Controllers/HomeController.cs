@@ -2356,9 +2356,9 @@ namespace WebApplication1.Controllers
                 //img.ImageByte = imagebyte;
                 //img.ImagePath = "/UploadImage/" + file.FileName;
                 img.LabelName = "~/images/" + file.FileName;
-                //db.Label.Add(img);
-                //db.SaveChanges();
-                imgId = img.LabelId;
+                db.Label.Add(img);
+                db.SaveChanges();
+                //imgId = img.LabelId;
             }
             return Json("3", JsonRequestBehavior.AllowGet);
 
@@ -2414,6 +2414,38 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             return View(jobs);
+        }
+        #endregion
+        #region
+        public ActionResult Pic_Add()//https://forums.asp.net/p/2149559/6239440.aspx?p=True&t=636787763825006483
+        {
+
+           // Label jobs = new Label();
+            Label jobs = db.Label.Find(6);
+
+            List<Label> mm = db.Label.ToList();
+            return View(mm);
+         }
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Pic_Add(Label model, HttpPostedFileBase url)
+        {
+            var file = Request.Files[0];
+            if (ModelState.IsValid)
+            {
+
+                var fileName = Path.GetFileName(file.FileName);
+
+                var path = Path.Combine(Server.MapPath("/images/"), fileName);
+
+                file.SaveAs(path);
+
+                model.url = "~/images/" + file.FileName;
+                db.Label.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("Pic_Add");
+            }
+            return View(model);
         }
         #endregion
         #region ClosedXML download xml Merge cells insert pic

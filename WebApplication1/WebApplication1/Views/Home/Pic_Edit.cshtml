@@ -1,7 +1,7 @@
 ﻿@*@model WebApplication1.Controllers.HomeController.FileColl*@
 @model WebApplication1.Models.Label
 
-@*<img src="@Url.Content(Model.FilePath)" height="140" />*@
+<img src="@Url.Content(Model.LabelName)" height="140" />
 <img src="@Url.Content("~/images/Arrow.PNG")" height="140" />
 
 @*<img src="@Html.ValueFor(x=>x.FilePath)" /> https://forums.asp.net/t/2146960.aspx*@
@@ -9,13 +9,14 @@
 
 <br /><br />
 <h3>Upload the Jobs image:</h3>
-<form id="Form" name="Form" action="@Url.Action("ImageUpload", "Home" )" enctype="multipart/form-data" method="post">
+<form id="Form" name="Form" action="@Url.Action("Pic_Edit", "Home" )" enctype="multipart/form-data" method="post">
     @*<form id="Form" name="Form" action="@Url.Action("Index2", "Home" ,new { area = "admin" })" enctype="multipart/form-data" method="post">*@
 
     @Html.AntiForgeryToken()
     <div class="container">
         <div class="col-md-4">
-            <input type="file" id="SelectImage" name="Filedata" /><br />
+            @*<input type="file" id="SelectImage" name="Filedata" /><br />*@
+            <input type="file" id="url" name="url" /><br />
             <a href="#" class="btn btn-sm btn-danger" onclick="UploadImage() ">Upload</a>
         </div>
 
