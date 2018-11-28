@@ -1555,6 +1555,8 @@
     <Content Include="Views\Home2\BeginRouteForm_Index.cshtml" />
     <Content Include="Views\Home2\checkbox_Index.cshtml" />
     <Content Include="Views\Home2\Matrice.cshtml" />
+    <Content Include="Views\Home2\OutputCache1.cshtml" />
+    <Content Include="Views\Home2\OutputCache2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

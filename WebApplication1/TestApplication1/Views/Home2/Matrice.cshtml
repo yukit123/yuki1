@@ -27,8 +27,8 @@
         {
 
             @*<td>@a.FirstOrDefault(b => b.NomPn == bList.ElementAt(i)).DateDebForm</td>*@
-            <td>@a.FirstOrDefault(b => b.NomPn == bList.ElementAt(i))?.DateDebForm</td>
-
+            @*<td>@a.FirstOrDefault(b => b.NomPn == bList.ElementAt(i))?.DateDebForm</td>*@
+        <td>@(@a.FirstOrDefault().DateDebForm==null?"null":@a.FirstOrDefault().DateDebForm)</td>
 
         }
         }

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "OutputCache1";
+
+    var tempDataUserPersist = TempData["User"];
+    TempData.Keep("User");
+}
+<h2>OutputCache1</h2>
+@ViewBag.CurrentTime
+<span id="aa"></span>
+@section scripts{
+<script>
+
+    $(function () {
+        var row = $("<a title=Edit href='@Url.Action("OutputCache2", "Home2", new { id ="33" })'>Edit</a>");
+        $("#aa").append(row);
+
+
+    })
+</script>
+    }

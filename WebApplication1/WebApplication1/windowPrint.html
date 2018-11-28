@@ -38,8 +38,7 @@
     </form>
 </body>
 </html>-->
-
-<style type="text/css" media="print">
+<!--<style type="text/css" media="print">
     /*media="print"只在打印的时候起效*/ /*https://forums.asp.net/t/2148934.aspx*/
     @media print { /*@media print打印样式*/
         #divReports {
@@ -65,4 +64,63 @@
         window.print(content);
         return true;
     }
+</script>-->
+
+<style type="text/css" media="print">
+    /*@page { 无效
+        size: landscape;
+    }*/
+
+    body {
+        writing-mode: tb-rl; 
+    }
+    /*writing-mode 属性定义了文本在水平或垂直方向上如何排布。*/
+</style>
+<body>
+
+
+    <table id="meme">
+        <thead>
+            <tr>
+                <th> Header1 </th>
+                <th> Header2 </th>
+                <th> Header3 </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> Value 1,1 </td>
+                <td> Value 2,1 </td>
+                <td> Value 3,1 </td>
+            </tr>
+            <tr>
+                <td> Value 1,2 </td>
+                <td> Value 2,2 </td>
+                <td> Value 3,2 </td>
+            </tr>
+            <tr>
+                <td> Value 1,3 </td>
+                <td> Value 2,3 </td>
+                <td> Value 3,3 </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+<script type="text/javascript">
+    var css = '@page { size: landscape; }', //无效
+        head = document.head || document.getElementsByTagName('head')[0],
+        style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.media = 'print'; /*生成<style type="text/css" media="print"> 无效*/
+
+    if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+    } else {
+        style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+    window.print();
 </script>

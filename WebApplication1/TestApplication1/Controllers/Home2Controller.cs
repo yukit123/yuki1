@@ -1766,15 +1766,41 @@ namespace TestApplication1.Controllers
             //}).ToList();
 
             List<MatriceViewModel> mylist = new List<MatriceViewModel>();
-            mylist.Add(new MatriceViewModel { ID_PNT = 1, DateDebForm = "1", NomPn = "11",DateFinForm = "18:00" });
-            mylist.Add(new MatriceViewModel { ID_PNT = 2, DateDebForm = "2", NomPn = "22",DateFinForm = "20:00" });
-            mylist.Add(new MatriceViewModel { ID_PNT = 3, DateDebForm = "3", NomPn = "22",DateFinForm = "09:50" });
-            mylist.Add(new MatriceViewModel { ID_PNT = 4, DateDebForm = "4", NomPn = "44",DateFinForm = "11:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 1, DateDebForm = "1", NomPn = "A",DateFinForm = "18:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 2, NomPn = "B",DateFinForm = "20:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 3, DateDebForm = "3", NomPn = "B",DateFinForm = "09:50" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 4, DateDebForm = "4", NomPn = "C",DateFinForm = "11:00" });
             ViewBag.forma = mylist.Select(_ => _.NomPn).ToList().Distinct();
 
             List<System.Linq.IGrouping<string, MatriceViewModel>> model = (from a in mylist group a by a.NomPn into g select g).ToList();
 
             return View(model);
+        }
+        #endregion
+
+        #region
+        [OutputCache(Duration = 10)]
+        public ActionResult OutputCache1()
+        {
+
+            var UserList = "11" + System.DateTime.Now; ;
+            TempData["User"] = UserList;
+            TempData.Keep("User");
+
+            ViewBag.CurrentTime = System.DateTime.Now;
+            return View();
+            #region redirect to another controller in void action in mvc //https://forums.asp.net/p/2149674/6239881.aspx?p=True&t=636789578413290299
+
+            // Response.Redirect(Url.Action("Index", "Home", new { id = 33}));
+            #endregion
+
+        }
+
+        public ActionResult OutputCache2(int? id)
+        {
+            var aa = TempData["User"];
+            ViewBag.CurrentTime = System.DateTime.Now;
+            return View();
         }
         #endregion
 
