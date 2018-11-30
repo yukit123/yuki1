@@ -8,14 +8,29 @@
 <h2>OutputCache1</h2>
 @ViewBag.CurrentTime
 <span id="aa"></span>
-@section scripts{
-<script>
 
-    $(function () {
+<span id="Knob1"></span>
+<span id="Knob2"></span>
+<span id="Knob3"></span>
+
+
+@section scripts{
+    <script>
+
+    @*$(function () {
         var row = $("<a title=Edit href='@Url.Action("OutputCache2", "Home2", new { id ="33" })'>Edit</a>");
         $("#aa").append(row);
 
 
-    })
-</script>
-    }
+    })*@
+
+        @*setInterval(function () {  //https://forums.asp.net/t/2149730.aspx
+        var x =  @TestApplication1.Controllers.Home2Controller.Globals.Variable1
+        var y = @TestApplication1.Controllers.Home2Controller.Globals.Variable2;
+        var z = @TestApplication1.Controllers.Home2Controller.Globals.Variable3;
+        $("#Knob1").append(y);
+        $("#Knob2").append(z);
+        $("#Knob3").append(x);
+    },5000);*@
+    </script>
+}

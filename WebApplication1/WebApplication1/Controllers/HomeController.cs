@@ -952,6 +952,7 @@ namespace WebApplication1.Controllers
             osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
             ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
+            ViewBag.ddl = new SelectList(options, "LabelId", "LabelName", options[1].LabelId);
 
             return View(todo);
 
@@ -2485,7 +2486,7 @@ namespace WebApplication1.Controllers
                 dt.Rows.Add(customer.id, customer.AuthorName);
             }
 
-            using (XLWorkbook wb = new XLWorkbook())
+            using (XLWorkbook wb = new XLWorkbook()) //https://forums.asp.net/t/2149367.aspx XLWorkbook  ClosedXml 
             {
                 wb.Worksheets.Add(dt);
                 // var workbook = new XLWorkbook();

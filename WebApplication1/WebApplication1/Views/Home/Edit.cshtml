@@ -41,6 +41,7 @@
         }
     </div>*@
 @Html.DropDownList("OSRddl", null, "--------------------------Select-------------------------"@*, new { @class = "form-control", multiple = "mutliple" }*@)
+@Html.DropDownList("ddl", null, "----Select----", new { @class = "form-control"})
 
 
 @*@Html.DropDownList("ExpiryMonth", Enumerable.Range(1, 12).Select(x => new SelectListItem { Text = x.ToString() }),*@ @*12个月*@
@@ -89,10 +90,10 @@
     </body>*@
 
 @section scripts{
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
-<script>
-    $(document).ready(function () { $("#OSRddl").select2({ multiple: true }); }); //下拉框自带搜索除了select2还有kendo
-</script>
+    <script>
+        $(document).ready(function () { $("#OSRddl").select2({ multiple: true }); }); //下拉框自带搜索除了select2还有kendo
+    </script>
 }

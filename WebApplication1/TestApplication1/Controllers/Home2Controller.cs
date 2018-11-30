@@ -27,6 +27,11 @@ using System.Xml.Schema;
 using System.Xml.Linq;
 using System.Reflection;
 using System.Data.Entity.Core.Objects;
+using PdfSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System.Text;
 
 namespace TestApplication1.Controllers
 {
@@ -467,7 +472,9 @@ namespace TestApplication1.Controllers
 
         #endregion
 
-        #region Saving data to the json file(Newtonsoft,Json.NET)
+        #region Saving data to the json file(Newtonsoft,Json.NET) 
+        //deserializes JSON into a collection(List<string>) by NewtonSoft https://www.newtonsoft.com/json/help/html/DeserializeCollection.htm
+        //or by HttpClient extension methods https://stackoverflow.com/questions/24131067/deserialize-json-to-array-or-list-with-httpclient-readasasync-using-net-4-0-ta //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
         public class Model
         {
             public int Id { get; set; }
@@ -1779,15 +1786,31 @@ namespace TestApplication1.Controllers
         #endregion
 
         #region
+        public static class Globals
+        {
+            public static double Variable1 { get; set; }
+            public static double Variable2 { get; set; }
+            public static double Variable3 { get; set; }
+        }
+
         [OutputCache(Duration = 10)]
         public ActionResult OutputCache1()
         {
 
-            var UserList = "11" + System.DateTime.Now; ;
-            TempData["User"] = UserList;
-            TempData.Keep("User");
+            try
+            {
+                Random rnd = new Random();
+                Globals.Variable1 = rnd.Next(1, 100); ;
+                Globals.Variable2 = rnd.Next(1, 200); ;
+                Globals.Variable3 = rnd.Next(1, 300); ;
+            }
+            catch (Exception ex) { string errormsg = ex.ToString(); }
 
-            ViewBag.CurrentTime = System.DateTime.Now;
+            //var UserList = "11" + System.DateTime.Now; ;
+            //TempData["User"] = UserList;
+            //TempData.Keep("User");
+
+            //ViewBag.CurrentTime = System.DateTime.Now;
             return View();
             #region redirect to another controller in void action in mvc //https://forums.asp.net/p/2149674/6239881.aspx?p=True&t=636789578413290299
 
@@ -1803,8 +1826,47 @@ namespace TestApplication1.Controllers
             return View();
         }
         #endregion
+        #region create pdf from predefined word template //https://csharp.hotexamples.com/examples/iTextSharp.text/Document/SetPageSize/php-document-setpagesize-method-examples.html
+        public ActionResult WordToPdf()
+        {
+            string Body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/images/yuki_link.docx")))
+            {
+                Body = reader.ReadToEnd();
+            }
+            //Body = Body.Replace("[PackageCost]", model.TotalAmmount);
+            //Body = Body.Replace("[Name]", model.FName);
+            //Body = Body.Replace("[Address]", model.Address);
+            //Body = Body.Replace("[Phoneno]", model.PhoneNumber);
+            //Body = Body.Replace("[Email]", model.Email);
+            //Body = Body.Replace("[HoursOfWork]", " ");
+            //Body = Body.Replace("[CategoryOfWork]", model.categoryname);
+            //Body = Body.Replace("[ScopeOfWork]", model.expertisename);
+            //Body = Body.Replace("[IssueDate]", model.Email1);
+            ////
+            //Body = Body.Replace("[Time]", Time);
 
+            //
 
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(Body);
+                Document pdfDoc = new Document(iTextSharp.text.PageSize.A4, 10f, 10f, 10f, 10f);//itextsharp
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                pdfDoc.Add(new Paragraph("Hello World"));
+                pdfDoc.NewPage();
+                // XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);//itextsharp.xmlworker
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Certificate.pdf");
+            }
+        }
+        //return View();
+
+        #endregion
     }
+
 }
+
 

@@ -78,8 +78,11 @@ namespace TestApplication1.Controllers
         public ActionResult Test()
         {
             #region 日期 今天 比较
-            //(db.Charters.FirstOrDefault().CharterDate).ToString().Substring(0,10).Trim()==DateTime.Now.ToString("d")
+            DateTime dtToday = Convert.ToDateTime(DateTime.Now.AddDays(-10).ToShortDateString());
+            //(db.Charters.FirstOrDefault().CharterDate).ToString().Substring(0, 10).Trim() == DateTime.Now.ToString("d");
+           // var list = db.Charters.Where(_ => (_.CharterDate) <= dtToday).ToList();
             //var list = db.Charters.Where(_ => (_.CharterDate).ToString().Substring(0, 10).Trim() == DateTime.Now.ToString().Substring(0, 10).Trim()).Take(10).ToList();
+
             #endregion
             // var q = db.Charters.Where(x => DateTime.Compare(x.CharterDate, DateTime.Now.Date) == 0).ToList();
             //string subject = @"Allowed characters for item description: space, numbers, English letters and following special characters: ! "" # $ % & ' ( ) * + , - . / : ; < = > ? @ ` [ \ ~ ] ^ _ {{ | }}";
