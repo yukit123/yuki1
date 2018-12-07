@@ -30,17 +30,17 @@ namespace TestApplication1.Models
         {
             var model = (Models.author2)validationContext.ObjectInstance;
             // DateTime EndDate = Convert.ToDateTime(model.Compare2);
-            DateTime StartDate = Convert.ToDateTime(value);
+           // DateTime StartDate = Convert.ToDateTime(value);
 
-            if (model.Compare2 != null)
-            {
+            //if (model.Compare2 != null)
+            //{
                 return new ValidationResult
                     ("You can only enter either Production Number or Production Name, you can not enter both");
-            }
-            else
-            {
-                return ValidationResult.Success;
-            }
+            //}
+            //else
+            //{
+            //    return ValidationResult.Success;
+            //}
         }
     }
 
@@ -72,7 +72,7 @@ namespace TestApplication1.Models
         }   
     }
 
-    public class author2
+    public partial class author2
     {
         public author2()
         {
@@ -81,11 +81,12 @@ namespace TestApplication1.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public Guid Author_id { get; set; }
+        //[CantbothExistValidator]
         public string Name { get; set; }
         public virtual List<book2> book2 { get; set; }//virtual为后加不需要迁移，加了之后可以懒加载
         //private string _Compare1;
         //[CantbothExistValidator]
-        [DateLessThan(50, ErrorMessage = "Not valid")]
+        //[DateLessThan(50, ErrorMessage = "Not valid")]
         public string Compare1 { get; set; }
         //{
         // get { return _Compare1; }
@@ -98,7 +99,7 @@ namespace TestApplication1.Models
         //     }
         //        _Compare1 = value; 
         // }
-        [CantbothExistValidator]
+        //[CantbothExistValidator]
         public string Compare2 { get; set; }
     }
 

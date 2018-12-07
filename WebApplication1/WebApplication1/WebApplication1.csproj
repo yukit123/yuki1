@@ -580,6 +580,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AllSelect.html" />
     <Content Include="AutoComplete.html" />
     <Content Include="close.html" />
     <Content Include="Content\bootstrap-multiselect.css" />

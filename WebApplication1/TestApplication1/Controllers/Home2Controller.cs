@@ -41,6 +41,49 @@ namespace TestApplication1.Controllers
         // GET: Home2
         public ActionResult Index()
         {
+            var assignments = from s in db.book2s.Include(b => b.author2)
+                              where s.Title == "t1"
+                              select s;
+
+            #region https://forums.asp.net/t/2149906.aspx
+            //string nowdate = DateTime.Now.ToString("M/d/yyyy HH:mm:ss");
+            //DateTime nowdate2 = Convert.ToDateTime(nowdate);
+            DateTime dt = Convert.ToDateTime("12/4/2018 13:00:00");
+            //DateTime dat = new DateTime(2015, 1, 6);
+            // dat.AddMonths(1).ToString("d");
+            DateTime oneMonthAgo = DateTime.Now.AddMonths(1);
+            //        int days = DateTime.DaysInMonth(oneMonthAgo.Year, oneMonthAgo.Month);
+            //        var list=Enumerable.Range(1, DateTime.DaysInMonth(oneMonthAgo.Year, oneMonthAgo.Month)).Select(day =>
+            //new DateTime(oneMonthAgo.Year, oneMonthAgo.Month, day)).ToList();
+
+            var selectedDates = new List<DateTime>();
+            var selectedmins = new List<DateTime>();
+
+            //for (var date = nowdate2; date <= oneMonthAgo; date = date.AddDays(1))
+            //{
+            //    selectedDates.Add(date);
+            //}
+
+            for (var date = dt; date <= oneMonthAgo; date = date.AddMinutes(15))
+            {
+                if ((date.DayOfWeek == DayOfWeek.Monday && date.Hour >= 10 && date.Hour < 12) || (date.DayOfWeek == DayOfWeek.Tuesday && date.Hour >= 12 && date.Hour < 14) || (date.DayOfWeek == DayOfWeek.Thursday && date.Hour >= 10 && date.Hour < 14))
+                {
+                    selectedmins.Add(date);
+                }
+                else
+                {
+                    continue;
+
+                }
+            }
+
+            //var listb = selectedDates.Where(_ => _.DayOfWeek == DayOfWeek.Monday || _.DayOfWeek == DayOfWeek.Tuesday || _.DayOfWeek == DayOfWeek.Thursday).ToList();
+
+            //TimeSpan timeSpan = Convert.ToDateTime("10:00") - Convert.ToDateTime("12:00");
+            //TimeSpan ts = oneMonthAgo.Subtract(nowdate2).Duration();
+
+            #endregion
+
             return View();
         }
 
@@ -85,7 +128,6 @@ namespace TestApplication1.Controllers
 
         //}
         public ActionResult Confirmation()
-
         {
             ViewData["Message"] = "Thank you for submitting the information form!";
             return View();
@@ -1704,13 +1746,30 @@ namespace TestApplication1.Controllers
         }
 
         #endregion
-        #region checkbox list 见note
+        #region checkbox list 见note  验证https://forums.asp.net/t/2150061.aspx
+        public class IsVaild : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                var model = (TestApplication1.Controllers.Home2Controller.response)validationContext.ObjectInstance;
+                // DateTime EndDate = Convert.ToDateTime(model.Compare2);
+                // DateTime StartDate = Convert.ToDateTime(value);
+
+                if (model.resval== false)
+                {
+                    return new ValidationResult
+                    ("You can only enter either Production Number or Production Name, you can not enter both");
+                }
+                return ValidationResult.Success;
+            }
+        }
 
         public class response
 
         {
             public int resid { get; set; }
             public string resname { get; set; }
+            [IsVaild]
             public bool resval { get; set; }
 
         }
@@ -1718,9 +1777,9 @@ namespace TestApplication1.Controllers
         private ObjectSet<response> _Employees;
 
         public class viewmodel
-               {
-                   public List<response> Reslist { get; set; }
-               }
+        {
+            public List<response> Reslist { get; set; }
+        }
 
         public ActionResult checkbox_Index()
         {
@@ -1738,11 +1797,12 @@ namespace TestApplication1.Controllers
 
             return View(vm);
         }
-       
+
         [HttpPost]
         public ActionResult checkbox_Index(viewmodel vm)
         {
-            return View();
+
+            return View(vm);
         }
         #endregion
 
@@ -1761,7 +1821,7 @@ namespace TestApplication1.Controllers
             //List<MatriceViewModel> mylist = new List<MatriceViewModel>();
 
             //ViewBag.forma = (from s in db.CountrySizes.ToList() select s.country).Distinct().ToList();
-          //  ViewBag.forma = (from s in db.GetListAllStatDT().ToList() select s.TypeQuestionExam).Distinct();
+            //  ViewBag.forma = (from s in db.GetListAllStatDT().ToList() select s.TypeQuestionExam).Distinct();
 
             //mylist = db.GetListAllStatDT().Select(c => new MatriceViewModel
             //{
@@ -1773,10 +1833,10 @@ namespace TestApplication1.Controllers
             //}).ToList();
 
             List<MatriceViewModel> mylist = new List<MatriceViewModel>();
-            mylist.Add(new MatriceViewModel { ID_PNT = 1, DateDebForm = "1", NomPn = "A",DateFinForm = "18:00" });
-            mylist.Add(new MatriceViewModel { ID_PNT = 2, NomPn = "B",DateFinForm = "20:00" });
-            mylist.Add(new MatriceViewModel { ID_PNT = 3, DateDebForm = "3", NomPn = "B",DateFinForm = "09:50" });
-            mylist.Add(new MatriceViewModel { ID_PNT = 4, DateDebForm = "4", NomPn = "C",DateFinForm = "11:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 1, DateDebForm = "1", NomPn = "A", DateFinForm = "18:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 2, NomPn = "B", DateFinForm = "20:00" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 3, DateDebForm = "3", NomPn = "B", DateFinForm = "09:50" });
+            mylist.Add(new MatriceViewModel { ID_PNT = 4, DateDebForm = "4", NomPn = "C", DateFinForm = "11:00" });
             ViewBag.forma = mylist.Select(_ => _.NomPn).ToList().Distinct();
 
             List<System.Linq.IGrouping<string, MatriceViewModel>> model = (from a in mylist group a by a.NomPn into g select g).ToList();
@@ -1864,6 +1924,69 @@ namespace TestApplication1.Controllers
         }
         //return View();
 
+        #endregion
+        #region https://forums.asp.net/t/2150050.aspx
+
+        public class DepotUserLink
+        {
+            public List<int> DepotsID { get; set; }
+            [NotMapped]
+            public bool checkboxDepotLink { get; set; }
+            public bool checkboxDefaultDepot { get; set; }
+
+        }
+
+        public ActionResult checkbox_string()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult checkbox_string(string[] DepotLink)
+        {
+            return View();
+        }
+
+        public async Task Like(string postId)
+        {
+            //var post = await postRepository.GetAsync(postId);
+
+            ////if(post == null)
+            ////    return HttpNotFound();
+
+            //var user = await GetLoggedInUser();
+
+            //var model = new Voting();
+
+            //model.UserId = user.Id;
+            //model.PostId = post.Id;
+
+            await LikedAsync(/*model*/);
+
+            //return RedirectToAction("Post","HomeBlog",new { postId=postId});
+        }
+
+
+
+        public async Task LikedAsync(/*Voting model*/)
+        {
+            //var vote = await UserHasVoted(model.PostId, model.UserId);
+
+            //if (vote != null)
+            //{
+            //    vote.LikeCount = !vote.LikeCount;
+            //    model.PostedOn = DateTime.Now;
+            //}
+            //if (vote == null)
+            //{
+            //    model.LikeCount = true;
+            //    model.PostedOn = DateTime.Now;
+            //    this.db.Voting.Add(model);
+            //}
+
+            await this.db.SaveChangesAsync();
+
+        }
         #endregion
     }
 

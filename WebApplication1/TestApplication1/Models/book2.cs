@@ -6,7 +6,7 @@ using System.Web;
 
 namespace TestApplication1.Models
 {
-    public class book2
+    public partial class book2
     {
         public int Id { get; set; }
         public string Title { get; set; }

@@ -7,7 +7,7 @@
 
 
 
-@using (Html.BeginForm("Create", "Home2", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@*@using (Html.BeginForm("Create", "Home2", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -49,6 +49,10 @@
             </div>
         </div>
     </div>
-}
+}*@
+
+<li><a href="@Url.Action("Index", "Home2", new { @id = 1 })"><span class="next">School</span></a></li>
+
+<li><a href="/Home2?id =1"><span class="next">School</span></a></li>
 @*<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@

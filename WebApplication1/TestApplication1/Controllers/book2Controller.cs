@@ -17,8 +17,9 @@ namespace TestApplication1.Controllers
         // GET: book2
         public ActionResult Index()
         {
-           //var book2s = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
-            return View(db.book2s.ToList());
+            //var book2s = db.book2s.Include(b => b.author2).ToList();//using System.Data.Entity;
+            List<book2> employeelist = db.book2s.ToList();
+            return View(employeelist);
         }
 
         public class bookvm

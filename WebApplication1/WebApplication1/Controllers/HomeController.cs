@@ -202,6 +202,17 @@ namespace WebApplication1.Controllers
          };
             DataTable dt = new DataTable();
             dt.Columns.Add(" ");
+            //var distinct = list.GroupBy(x => x.StudentID, (key, group) => group.First());
+            //List<StudentGrade> distinticBy = list.Select(car => car.StudentID).Distinct().Select(code => list.First(car => car.Course == "A")).ToList();
+            //var listt =(from a in list
+            //           select new StudentGrade
+            //           {
+            //               ID=a.ID,
+            //               StudentID=a.StudentID,
+            //               Course = a.Course,
+            //               Grade = a.Grade
+            //           }).ToList();
+
             var columns = list.Select(x => x.StudentID).Distinct().ToList();// 1 2 3 4
             foreach (var item in columns)
             {

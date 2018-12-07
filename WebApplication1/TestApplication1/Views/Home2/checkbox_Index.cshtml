@@ -23,6 +23,8 @@
             <div class="col-md-12">
 
                 @Html.CheckBoxFor(m => Model.Reslist[i].resval)
+                @Html.ValidationMessageFor(model => Model.Reslist[i].resval, "", new { @class = "text-danger" }) https://forums.asp.net/t/2150061.aspx
+
                 @Html.EditorFor(m => Model.Reslist[i].resname)
                 <label class="control-label ">@Model.Reslist[i].resname </label>
 
@@ -34,7 +36,7 @@
 
     }
     @*<input type="submit" value="submit" />*@
-    <button type="submit" id="submit" style="display: none">Search</button>
+    <button type="submit" id="submit" @*style="display: none"*@>Search</button>
 
 }
 @section scripts{

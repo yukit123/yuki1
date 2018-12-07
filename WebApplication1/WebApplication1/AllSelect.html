@@ -1,0 +1,64 @@
+﻿<div class="col-md-6">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Depot
+                </th>
+                <th>
+
+                    <input type="checkbox" id="DepotCheck" value="SelectAll" />
+                    <label>SelectAll</label>
+                </th>
+                <th>
+
+                    <input type="checkbox" id="Defaultcheck" value="SelectAll" />
+                    <label>SelectAll</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>
+
+                    111
+
+                </td>
+
+                <td>
+                    <input type="checkbox" asp-for="checkboxDepotLink" />
+                </td>
+                <td>
+                    <input type="checkbox" asp-for="checkboxDefaultDepot" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    222
+
+                </td>
+
+                <td>
+                    <input type="checkbox" asp-for="checkboxDepotLink" />
+                </td>
+                <td>
+                    <input type="checkbox" asp-for="checkboxDefaultDepot" />
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+</div>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#DepotCheck").click(function () {
+        //$('input:checkbox').not(this).prop('checked', this.checked);
+        $("input[asp-for='checkboxDepotLink']").prop('checked', this.checked);
+    });
+</script>

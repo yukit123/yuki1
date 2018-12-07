@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "checkbox_string";
+}
+
+<h2>checkbox_string</h2>
+@using (Html.BeginForm("checkbox_string", "Home2"))
+{
+    <div class="col-md-6">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Depot
+                    </th>
+                    <th>
+
+                        <input type="checkbox" id="DepotCheck" value="SelectAll" />
+                        <label>SelectAll</label>
+                    </th>
+                    <th>
+
+                        <input type="checkbox" id="Defaultcheck" value="SelectAll" />
+                        <label>SelectAll</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+
+                        111
+
+                    </td>
+
+                    <td>
+                        <input type="checkbox" name="DepotLink" value="1" asp-for="checkboxDepotLink" />
+                    </td>
+                    <td>
+                        <input type="checkbox" asp-for="checkboxDefaultDepot" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        222
+
+                    </td>
+
+                    <td>
+                        <input type="checkbox" name="DepotLink" value="2" asp-for="checkboxDepotLink" />
+                    </td>
+                    <td>
+                        <input type="checkbox" asp-for="checkboxDefaultDepot" />
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+        <div class="center-block  col-sm-6">
+            <button type="submit" class="btn btn-primary form-control">Save</button>
+        </div>
+
+    </div>
+}
+
+
+<a class="fa fa-thumbs-up" onclick="return AreYouSureFunction(this)"
+   href="@Url.Action("Like",new { controller = "Home2" })">
+    111
+</a>
+
+
+
+        @section scripts{
+            <script>
+                $("#DepotCheck").click(function () {
+                    //$('input:checkbox').not(this).prop('checked', this.checked);
+                    $("input[asp-for='checkboxDepotLink']").prop('checked', this.checked);
+                });
+
+                function AreYouSureFunction(source) {
+
+                    //Prompt for confirmation
+                    //Your AJAX call that corresponds with the href attribute of your link
+                    $.ajax({
+                        url: source.href,
+                    }).done(function () {
+                       // alert(11);
+                        //document.location.reload();
+                        console.log(111);
+
+
+                    });
+                    //This prevents the default behavior of the actual link (it will hit your controller action)
+                    return false;
+                }
+            </script>
+        }
