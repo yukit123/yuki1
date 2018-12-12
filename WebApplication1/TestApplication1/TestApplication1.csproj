@@ -433,6 +433,7 @@
     <Content Include="Content\jquery.jqGrid\ellipsis-xbl.xml" />
     <Content Include="Content\jquery.jqGrid\ui.jqgrid.css" />
     <Content Include="Content\mov_bbb.mp4" />
+    <Content Include="Content\multi-select.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Student.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -519,6 +520,8 @@
     <Content Include="images\WallImages\imagepath\BBQ1.gif" />
     <Content Include="Jsonparse.html" />
     <Content Include="Modal Popup.aspx" />
+    <Content Include="MoveToAnotherListBox.html" />
+    <Content Include="MoveToAnthor.html" />
     <Content Include="nodejs.js" />
     <Content Include="picture.html" />
     <Content Include="Scripts\angular-animate.js" />
@@ -1399,6 +1402,7 @@
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\jquery.jqGrid.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\jquery.multi-select.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1566,6 +1570,8 @@
     <Content Include="Views\Home2\OutputCache1.cshtml" />
     <Content Include="Views\Home2\OutputCache2.cshtml" />
     <Content Include="Views\Home2\checkbox_string.cshtml" />
+    <Content Include="Views\Home2\ConfirmEditStdQualif.cshtml" />
+    <Content Include="Views\Home2\UploadFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

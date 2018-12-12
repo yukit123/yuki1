@@ -120,12 +120,30 @@ namespace TestApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Author_id,Name")] author2 author2)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(author2).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
+            
+                if (ModelState.IsValid)
+                {
+                    db.Entry(author2).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            
+                else {
+                var msg = string.Empty;
+                foreach (var value in ModelState.Values)
+                {
+                    if (value.Errors.Count > 0)
+                    {
+                        foreach (var error in value.Errors)
+                        {
+                            msg = msg + error.ErrorMessage;
+                        }
+                    }
+                }
+                ModelState.AddModelError(string.Empty, msg);//@Html.ValidationSummary
+
+            }
+
             return View(author2);
         }
 

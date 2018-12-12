@@ -784,6 +784,7 @@
     <Content Include="Views\Home\webgrid4.cshtml" />
     <Content Include="Views\Authors\BatchInsert_Index2.cshtml" />
     <Content Include="Views\Home\Pic_Add.cshtml" />
+    <Content Include="Views\Home\Download_Redirect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -358,13 +358,13 @@ namespace TestApplication1.Controllers
         [HttpPost]
         public ActionResult check_List(IEnumerable<SelectableProduct> item)
         {
-            var userSelectedProducts = item.Where(m => m.IsSelected);
-            if (userSelectedProducts != null && userSelectedProducts.Any())
-            {
-                //return another view
-            }
-
+                var userSelectedProducts = item.Where(m => m.IsSelected);
+                if (userSelectedProducts != null && userSelectedProducts.Any())
+                {
+                    //return another view
+                }
             return View(item);
+
         }
 
         #endregion

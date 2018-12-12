@@ -32,6 +32,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using System.Text;
+using System.Globalization;
 
 namespace TestApplication1.Controllers
 {
@@ -88,9 +89,54 @@ namespace TestApplication1.Controllers
         }
 
         #region  checkbox 
+        public class Like
+        {
+            public int Id { get; set; }
+            public string Info { get; set; }
+            public DateTime PostedOn { get; set; }
+        }
+        public class Comment
+        {
+            public int Id { get; set; }
+            public string Info { get; set; }
+            public DateTime PostedOn { get; set; }
+        }
+
+
         // GET: Home/Create
         public ActionResult Create()
         {
+            #region Union
+            //DateTime xx= DateTime.ParseExact("14/11/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //DateTime date = DateTime.ParseExact("14/11/2018", "dd/MM/yyyy", null);
+            //List<Like> Likes = new List<Like>()
+            // {
+            //     new Like(){Id=1,Info="A", PostedOn=DateTime.ParseExact("14/11/2018", "dd/MM/yyyy", null) },
+            //     new Like(){Id=2,Info="B", PostedOn=DateTime.ParseExact("17/11/2018", "dd/MM/yyyy", null) },
+            //     new Like(){Id=1,Info="C", PostedOn=DateTime.ParseExact("18/11/2018", "dd/MM/yyyy", null) },
+            // };
+
+            //List<Comment> Comments = new List<Comment>()
+            // {
+            //     new Comment(){Id=1,Info="D", PostedOn=DateTime.ParseExact("15/11/2018", "dd/MM/yyyy", null) },
+            //     new Comment(){Id=2,Info="E", PostedOn=DateTime.ParseExact("16/11/2018", "dd/MM/yyyy", null) },
+            //     new Comment(){Id=1,Info="F", PostedOn=DateTime.ParseExact("19/11/2018", "dd/MM/yyyy", null) },
+            // };
+            //var  unionlist = ((from like in Likes
+            //                       select new Like
+            //                       {
+            //                           Id = like.Id,
+            //                           Info = like.Info,
+            //                           PostedOn = like.PostedOn
+            //                       })
+            //                           .Union(from comment in Comments
+            //                                  select new Like
+            //                                  {
+            //                                      Id = comment.Id,
+            //                                      Info = comment.Info,
+            //                                      PostedOn = comment.PostedOn
+            //                                  })).OrderBy(_=>_.PostedOn).ToList();
+            #endregion https://forums.asp.net/t/2150269.aspx
             var list = db.Student121s.Include(_ => _.Address).ToList();
             var list2 = db.StudentAddress121s.Include(_ => _.Student).ToList();
 
@@ -1755,10 +1801,10 @@ namespace TestApplication1.Controllers
                 // DateTime EndDate = Convert.ToDateTime(model.Compare2);
                 // DateTime StartDate = Convert.ToDateTime(value);
 
-                if (model.resval== false)
+                if (model.resval == false)
                 {
                     return new ValidationResult
-                    ("You can only enter either Production Number or Production Name, you can not enter both");
+                    ("it must be selected;");
                 }
                 return ValidationResult.Success;
             }
@@ -1794,15 +1840,32 @@ namespace TestApplication1.Controllers
                 new response() { resid=5 ,  resname="1005",resval=false},
             };
 
-
             return View(vm);
         }
 
         [HttpPost]
         public ActionResult checkbox_Index(viewmodel vm)
         {
+            if (ModelState.IsValid)
+            {
 
-            return View(vm);
+                return View(vm);
+            }
+            else {
+                var msg = string.Empty;
+                foreach (var value in ModelState.Values)
+                {
+                    if (value.Errors.Count > 0)
+                    {
+                        foreach (var error in value.Errors)
+                        {
+                            msg = msg + error.ErrorMessage;
+                        }
+                    }
+                }
+                ModelState.AddModelError(string.Empty, msg);//@Html.ValidationSummary//https://forums.asp.net/t/2150061.aspx
+                return View(vm);
+            }
         }
         #endregion
 
@@ -1947,7 +2010,7 @@ namespace TestApplication1.Controllers
             return View();
         }
 
-        public async Task Like(string postId)
+        public async Task Like2(string postId)
         {
             //var post = await postRepository.GetAsync(postId);
 
@@ -1988,6 +2051,94 @@ namespace TestApplication1.Controllers
 
         }
         #endregion
+        #region
+        public class StdAcademicQualifModel
+        {
+            public string ProgramName { get; set; }
+            public int ID { get; set; }
+            public int Std_ref_id { get; set; }
+            public int Program_ref_id { get; set; }
+            public string Subject { get; set; }
+            public string YOP { get; set; }
+            public Nullable<decimal> Mark { get; set; }
+        }
+        public ActionResult ConfirmEditStdQualif()
+        {
+            List<StdAcademicQualifModel> model = new List<StdAcademicQualifModel>();
+            model.Add(new StdAcademicQualifModel() { ID = 1, ProgramName = "AA", Std_ref_id = 1, Subject = "AA", YOP = "AA" });
+            model.Add(new StdAcademicQualifModel() { ID = 2, ProgramName = "BB", Std_ref_id = 1, Subject = "BB", YOP = "BB" });
+            model.Add(new StdAcademicQualifModel() { ID = 3, ProgramName = "CC", Std_ref_id = 1, Subject = "CC", YOP = "CC" });
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ConfirmEditStdQualif(StdAcademicQualifModel model)
+        {
+            //Service_Std service_ = new Service_Std();
+            //TempData["Page"] = 3;
+            //TempData["StdId"] = model.Std_ref_id;
+            //if (ModelState.IsValid && model.Std_ref_id > 0)
+            //{
+            //    service_.UpdateStdAcademicQualif(model);
+            //}
+            return RedirectToAction("Student", "Student");
+        }
+        #endregion
+        #region upload and save file https://www.c-sharpcorner.com/UploadFile/manas1/upload-files-through-jquery-ajax-in-Asp-Net-mvc/
+        [HttpGet]
+        public ActionResult UploadFiles()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadFiles(string username)
+        {
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/images/"), fname);
+                        file.SaveAs(fname);
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+        #endregion
+
     }
 
 }

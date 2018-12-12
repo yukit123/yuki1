@@ -72,7 +72,7 @@ namespace TestApplication1.Models
         }   
     }
 
-    public partial class author2
+    public class author2
     {
         public author2()
         {
@@ -81,7 +81,7 @@ namespace TestApplication1.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public Guid Author_id { get; set; }
-        //[CantbothExistValidator]
+        [CantbothExistValidator]
         public string Name { get; set; }
         public virtual List<book2> book2 { get; set; }//virtual为后加不需要迁移，加了之后可以懒加载
         //private string _Compare1;

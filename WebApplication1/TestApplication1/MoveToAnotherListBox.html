@@ -1,0 +1,21 @@
+﻿<select id="lstLeft" name="lst1" multiple>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+</select>
+<button type="button" id="btnMoveRight">></button>
+<button type="button" id="btnMoveLeft"><</button>
+<select id="lstRight" name="lst1" multiple></select>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+$(function() {
+  $('#btnMoveLeft').click(function(){
+      $('#lstRight option:selected').appendTo('#lstLeft')
+  });
+  $('#btnMoveRight').click(function(){
+      $('#lstLeft option:selected').appendTo('#lstRight')
+  });
+});
+</script>

@@ -49,11 +49,11 @@
                 //https://stackoverflow.com/questions/47315763/validate-username-and-password-without-postback-in-login-form-asp-net-mvc
                 $.post($(this).attr("action"), $(this).serialize())
                     .done(function (response) {
-                        if (response.status === true) {
-                            alert("Login successful.Do something else now");
-                        } else {
-                            alert("Login failed");
-                        }
+                        window.open($(this).attr("href"));
+
+                        //redirect current page to success page
+                        window.location = "https://www.baidu.com/";
+                        window.focus();
                     });
             });
         });

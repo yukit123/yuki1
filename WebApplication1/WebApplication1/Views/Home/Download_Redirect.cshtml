@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Download_Redirect";
+}
+
+<h2>Download_Redirect</h2>
+
+@using (Html.BeginForm("Download_Redirect", "Home", FormMethod.Post, new { id = "loginForm" }))
+{
+    @*<input type="text" name="usename" />
+        <input type="text" name="usename2" />*@
+
+    <input type="submit" id="dm" value="Export" />
+}
+
+@section scripts{
+<script>
+
+    @*//$(function () {
+        $("#dm").click(function (e) {
+
+        //$("#loginForm").submit(function (e) {
+            //e.preventDefault();
+            
+            //$.post($(this).attr("action"), $(this).serialize())
+            //    .done(function (response) {
+
+            //        //open download link in new page
+            //        //window.open($(this).attr("href"));
+
+            //        ////redirect current page to success page
+            //        //window.location = "https://www.baidu.com/";
+            //        //window.focus();
+            //        alert(111);
+            //    });
+
+            //var formdata = new FormData(); //FormData object
+            ////add form data
+            //formdata.append(blob.name, blob);
+
+             $.ajax({
+                    type: "Post",
+                    url: '@Url.Action("Download_Redirect", "Home")', //call your controller and action
+                    //contentType: "application/json; charset=utf-8",
+                 //dataType: "json",
+                 async: true
+                   
+            }).done(function (data) {
+                alert("create and delete document successly");
+            })
+        //});
+        });
+    //});*@
+</script>
+    }

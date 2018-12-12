@@ -1,14 +1,15 @@
 ﻿@*@model List<WebApplication1.Controllers.HomeController.ListStrViewModel>*@
-    @{ 
-        
-        var g = new WebGrid(source: ViewBag.addresses);
+@{
 
-    }
+//var g = new WebGrid(source: ViewBag.addresses);
+
+}
 <style type="text/css">
-    .selectRow {
+    /*.selectRow {
         background: black;
         color: white;
-    }
+    }*/
+
     tbody {
         font-family: Arial;
         font-size: 10pt;
@@ -40,51 +41,52 @@
         {
             <input type="text" name="searchString" id="searchString" /><input type="submit" value="Search" />
         }
-                                                                      
+
     </div>
     @{
-        var grid = new WebGrid(source: ViewBag.list, canPage: true, rowsPerPage: 3);
+        var grid = new WebGrid(source: ViewBag.list, canPage: true, canSort: true, rowsPerPage: 3);
         grid.Pager(WebGridPagerModes.NextPrevious);
         @MvcHtmlString.Create(
     @grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
 columns: grid.Columns(
-
-  grid.Column("field1", "field1xxx", canSort: false),
-  grid.Column("field2", "field2xx", canSort: false),
+  grid.Column(columnName :"Id", header: "Id", canSort: true),
+  grid.Column("field1", "field1xxx", canSort: false)
+  @*grid.Column("field2", "field2xx", canSort: false),
   grid.Column("field3", "field3xx", canSort: false),
   grid.Column(columnName: "Images", header: "Images",
              format:@<text>@Html.Raw("<img src=\"/images/Arrow.png\" />")</text>),
   grid.Column(columnName: "Images2", header: "Images2",
-        format:@<img src="~/images/Arrow.PNG" />),
+                    format:@<img src="~/images/Arrow.PNG" />),
   grid.Column("dropdownlist", "Select", canSort: false,
-                      format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>),
-     grid.Column(header: "Actions", format: (item) =>
-                     new HtmlString(
+                                                 format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>),
+  grid.Column(header: "Actions", format: (item) =>
+                                                           new HtmlString(
 
-                         Html.ActionLink("Edit", "Edit", new { id = item.ID }).ToString() + " | " +
+                                                               Html.ActionLink("Edit", "Edit", new { id = item.ID }).ToString() + " | " +
 
-                           Html.ActionLink("create", "Create", new { id = item.ID }).ToString() + " | " +
-                            Html.ActionLink("Invoice", "Invoice", new { id = item.ID }).ToString() + " | " +
-                         Html.ActionLink("Delete", "Delete", new { id = item.ID }).ToString()
+                                                                 Html.ActionLink("create", "Create", new { id = item.ID }).ToString() + " | " +
+                                                                  Html.ActionLink("Invoice", "Invoice", new { id = item.ID }).ToString() + " | " +
+                                                               Html.ActionLink("Delete", "Delete", new { id = item.ID }).ToString()
 
-                         ), style: "Action"
+                                                               ), style: "Action"
 
-         )
-          )
+                                               )*@
+                                                )
 
-                                     //);
-                                     ).ToHtmlString()
+                                                                           //);
+                                                                           ).ToHtmlString()
 
-                                 )
-        
+                                                                       )
+
     }
+    @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, txtFilterAIGGMT = ViewBag.FtxtFilterAIGGMT, CoordAuthDirectorateId = ViewBag.FCoordAuthDirectorateId, txtFilterAIGCAPC = ViewBag.FtxtFilterAIGCAPC, CognAuthDirectorateId = ViewBag.FCognAuthDirectorateId, txtFilterAIGCGAPC = ViewBag.FtxtFilterAIGCGAPC, txtFilterAIGEPurpose = ViewBag.FtxtFilterAIGEPurpose, AigType = ViewBag.FAigType, txtFilterAIGContactName = ViewBag.FtxtFilterAIGContactName, chkFilterAIGMailingList = ViewBag.FchkFilterAIGMailingList, txtFilterAIGSIC = ViewBag.FtxtFilterAIGSIC, AigStatus = ViewBag.FAigStatus, txtNumberOfDaysUntilExpiry = ViewBag.FtxtNumberOfDaysUntilExpiry, txtFilterAIGNotes = ViewBag.FtxtFilterAIGNotes }))*@
 
     @*@grid.GetHtml()*@
 </div>
 @section scripts{
-<script>
-     $(document).ready(function () {
-         $('#gridT tbody tr').first().addClass('selectRow')
-})
-</script>
-    }
+    @*<script>
+        $(document).ready(function () {
+            $('#gridT tbody tr').first().addClass('selectRow')
+        })
+    </script>*@
+}

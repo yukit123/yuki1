@@ -1744,38 +1744,38 @@ namespace WebApplication1.Controllers
         public ActionResult Webgrid2(/*int page = 1*/)//https://forums.asp.net/t/2132883.aspx
         {
 
-            ViewBag.Message = "Your contact page.";
-            //var list = db.Label.ToList();
+            //ViewBag.Message = "Your contact page.";
+            ////var list = db.Label.ToList();
 
-            var selectlist = new List<SelectListItem>// https://forums.asp.net/t/2081566.aspx?How+to+show+dropdown+with+selected+value+in+webgrid      
-            {
-                  //https://stackoverflow.com/questions/12846572/dropdownlist-in-webgrid-mvc4
-                new SelectListItem{Text="Apple",Value="1"},
-                new SelectListItem{Text="Banana",Value="2"},
-                new SelectListItem{Text="Orange",Value="3"}
-            };
-            ViewBag.selectlist = selectlist;
+            //var selectlist = new List<SelectListItem>// https://forums.asp.net/t/2081566.aspx?How+to+show+dropdown+with+selected+value+in+webgrid      
+            //{
+            //      //https://stackoverflow.com/questions/12846572/dropdownlist-in-webgrid-mvc4
+            //    new SelectListItem{Text="Apple",Value="1"},
+            //    new SelectListItem{Text="Banana",Value="2"},
+            //    new SelectListItem{Text="Orange",Value="3"}
+            //};
+            //ViewBag.selectlist = selectlist;
 
             List<ListStrViewModel> list2 = new List<ListStrViewModel>();
             list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
-            list2.Add(new ListStrViewModel() { Id = 2, field1 = "bb2", field2 = "bb", field3 = "bb" });
-            list2.Add(new ListStrViewModel() { Id = 3, field1 = "cc3", field2 = "cc", field3 = "cc" });
-
-            list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
             list2.Add(new ListStrViewModel() { Id = 5, field1 = "bb5", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "cc3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "bb2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
+           
             list2.Add(new ListStrViewModel() { Id = 6, field1 = "cc6", field2 = "cc", field3 = "cc" });
 
 
 
-            List<String[]> addresses = new List<String[]>();
-            String[] addressesArr = new String[3];
-            addressesArr[0] = "zero";
-            addressesArr[1] = "one";
-            addressesArr[2] = "two";
+            //List<String[]> addresses = new List<String[]>();
+            //String[] addressesArr = new String[3];
+            //addressesArr[0] = "zero";
+            //addressesArr[1] = "one";
+            //addressesArr[2] = "two";
 
-            addresses.Add(addressesArr);
-            addresses.Add(addressesArr);
-            addresses.Add(addressesArr);
+            //addresses.Add(addressesArr);
+            //addresses.Add(addressesArr);
+            //addresses.Add(addressesArr);
 
             //List<String> addresses = new List<String>();
 
@@ -1791,7 +1791,7 @@ namespace WebApplication1.Controllers
             #endregion
 
             ViewBag.list = list2;
-            ViewBag.addresses = addresses.ToList();
+            //ViewBag.addresses = addresses.ToList();
 
             return View();
         }
@@ -2468,7 +2468,8 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public FileResult ClosedXML_Export(string usename,string usename2)
+       // public FileResult ClosedXML_Export(string usename,string usename2)
+        public FileResult ClosedXML_Export(string usename, string usename2)
         {
             #region 劫持返回验证信息 表单 AJAX ActionResult
             //if (!string.IsNullOrEmpty(usename))
@@ -2485,6 +2486,7 @@ namespace WebApplication1.Controllers
 
             //return Json(new { status = true}, JsonRequestBehavior.AllowGet);
             #endregion
+            #region
             DataTable dt = new DataTable("Grid");
             dt.Columns.AddRange(new DataColumn[2] { new DataColumn("CustomerId"),
                                             new DataColumn("ContactName") });
@@ -2548,6 +2550,8 @@ namespace WebApplication1.Controllers
                     return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Grid.xlsx");
                 }
             }
+            #endregion
+
         }
         #endregion
         # region use datatable as parameter in stored procedure   执行后 User表会自动填充，执行前先清空
@@ -3244,6 +3248,76 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        #endregion
+
+        #region 下载然后跳转 Redirect after Download csv file https://forums.asp.net/t/2150280.aspx
+
+        public class UnitModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+        }
+
+        public ActionResult Download_Redirect()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Download_Redirect(string name)
+        {
+            DataTable dtRecords = new DataTable("Grid");
+            dtRecords.Columns.AddRange(new DataColumn[2] { new DataColumn("CustomerId"),
+                                            new DataColumn("ContactName") });
+
+            var customers = from customer in db.Author.Take(10)
+                            select customer;
+
+            foreach (var customer in customers)
+            {
+                dtRecords.Rows.Add(customer.id, customer.AuthorName);
+            }
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+
+                wb.Worksheets.Add(dtRecords);
+                // wb.SaveAs("Sample.xlsx");
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=Unit.xls");
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+
+
+                    Response.Flush();
+                    Response.Clear();
+                    Response.End();
+
+
+                }
+
+            }
+
+            Response.Clear();
+           
+            Response.Flush();
+
+            if (!Response.IsRequestBeingRedirected)
+            {
+               
+                return RedirectToAction("https://www.baidu.com/");
+            }
+            else
+            {
+                return View();
+            }
+        }
         #endregion
     }
 
