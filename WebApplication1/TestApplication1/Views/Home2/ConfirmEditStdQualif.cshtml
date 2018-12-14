@@ -70,7 +70,7 @@
             "ID": Id,
             "Program_ref_id": Program_ref_id,
             "Subject": Subject,
-            //"UniversityBoard": "",
+            "UniversityBoard": "",
             "YOP": YOP,
             "Marks": Marks,
         };
@@ -97,10 +97,11 @@
                 $save.hide();
                 $delete.show();
             },
-            error: function () {
+            error: function (data) {
                 //alert("No Record Found");
                 console.log("Error", data);
             }
-        });
+            });
+    });
     </script>
 }

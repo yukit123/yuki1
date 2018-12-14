@@ -13,10 +13,19 @@ namespace TestApplication1
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            
+
+            //routes.MapRoute( //https://forums.asp.net/t/2150332.aspx
+            //     name: "route_site",
+            //     url: "site/{action}/{id}",
+            //     defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //     namespaces: new string[] { "TestApplication1.Controllers" }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "About", id = UrlParameter.Optional },
+                defaults: new { controller = "Home", action = "MysqlIndex", id = UrlParameter.Optional },
                 namespaces: new string[] { "TestApplication1.Controllers" }
             );
         }

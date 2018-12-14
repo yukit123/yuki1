@@ -33,6 +33,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using System.Text;
 using System.Globalization;
+using MySql.Data.MySqlClient;
 
 namespace TestApplication1.Controllers
 {
@@ -107,7 +108,7 @@ namespace TestApplication1.Controllers
         public ActionResult Create()
         {
             #region Union
-            //DateTime xx= DateTime.ParseExact("14/11/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //DateTime xx = DateTime.ParseExact("14/11/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture);
             //DateTime date = DateTime.ParseExact("14/11/2018", "dd/MM/yyyy", null);
             //List<Like> Likes = new List<Like>()
             // {
@@ -122,20 +123,15 @@ namespace TestApplication1.Controllers
             //     new Comment(){Id=2,Info="E", PostedOn=DateTime.ParseExact("16/11/2018", "dd/MM/yyyy", null) },
             //     new Comment(){Id=1,Info="F", PostedOn=DateTime.ParseExact("19/11/2018", "dd/MM/yyyy", null) },
             // };
-            //var  unionlist = ((from like in Likes
-            //                       select new Like
-            //                       {
-            //                           Id = like.Id,
-            //                           Info = like.Info,
-            //                           PostedOn = like.PostedOn
-            //                       })
+            //var unionlist = ((from like in Likes
+            //                  select new Comment
+            //                  {
+            //                      Id = like.Id,
+            //                      Info = like.Info,
+            //                      PostedOn = like.PostedOn
+            //                  })
             //                           .Union(from comment in Comments
-            //                                  select new Like
-            //                                  {
-            //                                      Id = comment.Id,
-            //                                      Info = comment.Info,
-            //                                      PostedOn = comment.PostedOn
-            //                                  })).OrderBy(_=>_.PostedOn).ToList();
+            //                                  select comment)).OrderBy(_ => _.PostedOn).ToList();
             #endregion https://forums.asp.net/t/2150269.aspx
             var list = db.Student121s.Include(_ => _.Address).ToList();
             var list2 = db.StudentAddress121s.Include(_ => _.Student).ToList();
@@ -2081,14 +2077,14 @@ namespace TestApplication1.Controllers
             //{
             //    service_.UpdateStdAcademicQualif(model);
             //}
-            return RedirectToAction("Student", "Student");
+            return RedirectToAction("UploadFiles", "Home2");
         }
         #endregion
         #region upload and save file https://www.c-sharpcorner.com/UploadFile/manas1/upload-files-through-jquery-ajax-in-Asp-Net-mvc/
         [HttpGet]
         public ActionResult UploadFiles()
         {
-            return View();
+             return View();
         }
 
         [HttpPost]
@@ -2139,6 +2135,143 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
+
+        #region
+        public class Studentmodel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+        }
+        public void MysqlIndex()
+        {
+
+            #region sql
+            //DataSet ds = new DataSet();
+            ////string connectionString =
+            ////@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+            //string connectionString = ConfigurationManager.ConnectionStrings["sql_textConnectionString"].ConnectionString;
+            ////string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+
+            //SqlConnection con = new SqlConnection(connectionString);
+            //con.Open();
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.Connection = con;
+            //cmd.CommandText = "select * from Student";
+            //// cmd.Connection = con;
+            //SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //da.Fill(ds);
+            //var stulist = new List<Studentmodel>();
+
+            //// var re = from a in stulist select a;
+
+            //foreach (DataRow row in ds.Tables[0].Rows)
+            //{
+            //    stulist.Add(new Studentmodel
+            //    {
+            //        Id = Convert.ToInt32(row["Id"]),
+            //        Name = row["Name"].ToString()
+            //    });
+            //}
+
+            //ViewData["Message"] = stulist;
+            #endregion
+            #region mysql  
+            #region Read() SELECT
+            //List<Studentmodel> customers = new List<Studentmodel>();
+            //string constr = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+            //using (MySqlConnection con = new MySqlConnection(constr))
+            //{
+            //    string query = "SELECT * FROM mysqlstudent";
+            //    using (MySqlCommand cmd = new MySqlCommand(query))
+            //    {
+            //        cmd.Connection = con;
+            //        con.Open();
+            //        using (MySqlDataReader sdr = cmd.ExecuteReader())
+            //        {
+            //            while (sdr.Read())
+            //            {
+            //                customers.Add(new Studentmodel
+            //                {
+            //                    Id = Convert.ToInt32(sdr["Id"]),
+            //                    Name = sdr["Name"].ToString()
+            //                });
+            //            }
+            //        }
+            //        con.Close();
+            //    }
+            //}
+            //ViewData["Message"] = customers;
+
+            #endregion
+
+            #region DataSet() select and insert
+            DataSet ds = new DataSet();
+            string connectionString =ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+
+
+            MySqlConnection con = new MySqlConnection(connectionString);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "select * from mysqlstudent";
+            // cmd.Connection = con;
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(ds);
+
+            //List<Studentmodel> treelist = new List<Studentmodel>();
+            //for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            //{
+            //    Studentmodel tre = new Studentmodel();
+            //    tre.Id = Convert.ToInt32(ds.Tables[0].Rows[i]["Id"].ToString());
+            //    tre.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+
+            //    treelist.Add(tre);
+            //}
+            //ViewData["Message"] = treelist;
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+
+                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                {
+                    string max1 = "Select Name From mysqlstudent";
+                    MySqlDataAdapter da1 = new MySqlDataAdapter(max1, con);
+                    DataTable dt1 = new DataTable();
+                    da1.Fill(dt1);
+                    var id1 = dt1.Rows[0]["Name"].ToString();
+                    if (id1 != "")
+                    {
+                        //int ids = Convert.ToInt32(id1) + 1;
+
+
+                        string query1 = "Insert into mysqlstudent(Name) Values ('" + ds.Tables[0].Rows[i][j] + "')";
+
+                        //con.Open();
+                        MySqlCommand cmd2 = new MySqlCommand(query1, con);
+                        cmd2.ExecuteNonQuery();
+                        
+                    }
+                    else
+                    {
+
+                        string query1 = "Insert into mysqlstudent('Name') Values ('" + ds.Tables[0].Rows[i][j] + "')";
+
+                        con.Open();
+                        MySqlCommand cmd2 = new MySqlCommand(query1, con);
+                        cmd2.ExecuteNonQuery();
+                       // con.Close();
+
+                    }
+                   
+                }
+             
+            }
+            con.Close();
+            #endregion
+            #endregion
+        }
+        #endregion
     }
 
 }

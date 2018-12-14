@@ -29,12 +29,18 @@ namespace TestApplication1.Controllers
         //How to render an ASP.NET MVC view as a string?
         //https://stackoverflow.com/questions/483091/how-to-render-an-asp-net-mvc-view-as-a-string
         private TestApplication1Context db = new TestApplication1Context();
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+        public ActionResult Index(/*string actions*/)
         {
+            //string test = "111;
+
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult About(/*int xid*/)
         {
 
           //  return Redirect("https://www.baidu.com/");
