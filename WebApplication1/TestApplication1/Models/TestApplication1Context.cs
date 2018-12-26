@@ -35,6 +35,10 @@ namespace TestApplication1.Models
         public DbSet<Student121> Student121s { get; set; }
         public DbSet<StudentAddress121> StudentAddress121s { get; set; }
 
+        public DbSet<Type_Service> Type_Services { get; set; }
+        public DbSet<Pation> Pations { get; set; }
+
+
         //public DbSet<ViewModelAttendanceClients2> ViewModelAttendanceClients2s { get; set; }
         //public DbSet<TimeManagerSetsMdl2> TimeManagerSetsMdl2s { get; set; }
 

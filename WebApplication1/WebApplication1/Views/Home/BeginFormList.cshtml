@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApplication1.Controllers.HomeController.UpdateTargetIdmodel
 @{
     ViewBag.Title = "BeginFormList";
 }
@@ -10,15 +10,16 @@
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>  @*用Ajax.BeginForm必须引用这个*@
 </head>
 <body>
     <div>
         @using (Ajax.BeginForm("BeginFormList", "Home", null,
                 new AjaxOptions
                 {
+
                     HttpMethod = "GET",
-                    UpdateTargetId = "content",
+                    UpdateTargetId = "content", //https://www.c-sharpcorner.com/UploadFile/4fcb5a/update-a-div-and-partial-view-using-ajax-beginform-on-form-s/
                     Confirm = "Confirm AJAX-request?",
                     InsertionMode = InsertionMode.Replace
                 }))
@@ -26,11 +27,19 @@
 
             @*@Html.DropDownListFor(x => x.SelectedValue,
 
-                          new SelectList(Model.Fields, "Value", "Text", Model.SelectedValue), "-- Select Product--")*@
+                new SelectList(Model.Fields, "Value", "Text", Model.SelectedValue), "-- Select Product--")*@
+            @Html.EditorFor(model => model.UpdateTargetIdValue, new { htmlAttributes = new { @class = "form-control", @style = "max-width: 15%" } })
 
             <input type="submit" value="Display" />
 
         }
+    </div>
+
+    @*<div id="content"></div>*@
+
+    <div id="content">
+        @*@Html.RenderPartial("_UserStoryList", Model);*@
+        @*@Html.Partial("~/Views/_UserStoryList.cshtml")*@
     </div>
 </body>
 </html>

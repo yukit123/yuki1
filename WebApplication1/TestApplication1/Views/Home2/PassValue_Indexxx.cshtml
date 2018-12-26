@@ -1,0 +1,28 @@
+﻿@model TestApplication1.Controllers.Home2Controller.afishstudio
+@{
+    ViewBag.Title = "PassValue_Indexxx";
+}
+
+<h2>index2</h2>
+
+
+
+<head>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @*@Html.TextBoxFor(Model => Model.id, new { @class = "flat" })
+            @Html.TextBoxFor(Model => Model.name, new { @class = "flat" })
+            @Html.TextBoxFor(Model => Model.family, new { @class = "flat" })*@
+
+        <h5> مدیرکل: @Html.RadioButton("modiran_semat", "modirkol") </h5>
+        <h5> قایم مقام: @Html.RadioButton("modiran_semat", "ghaemmagham") </h5>
+        <input type="submit" value="تایید" />
+    }
+
+</body>

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var str = Url.RequestContext.RouteData.Values["action"].ToString();//获取action的方法//Url.RequestContext.RouteData.Values["controller"].ToString()
     var strurl = Request.Url.PathAndQuery;//https://forums.asp.net/t/2132660.aspx
-    
+
 }
 
 
@@ -46,7 +46,7 @@
         var now = new Date();
         var now2 = new Date();
 
- 
+
         //$(document).ready(function () {
         //    //fruit(Method1)
         //    $('#fruit').multiselect();
@@ -67,7 +67,7 @@
 
         $(document).ready(function () {
 
-        
+
 
             $("input[name='Dateofbirth']").datepicker({
                 dateFormat: "dd/mm/yy",
@@ -76,36 +76,34 @@
                 //yearRange: "-60:+0"
             });
 
-           
-            
+
+
         });
 
-     
+
         $('#EnumType').change(function () {
-            if ($("#EnumType").val() == 1)
-            {
+            if ($("#EnumType").val() == 1) {
                 //$("#datepicker").datepicker("refresh");
                 //$('input[type=datetime]').datepicker({ minDate: 0, maxDate: "+1M +10D" });
                 //$("#datepicker").datepicker({ minDate: -5, maxDate: "+1M +10D" });
-              //  var minDate = $("#datepicker").datepicker("option", "minDate");
+                //  var minDate = $("#datepicker").datepicker("option", "minDate");
 
                 //now2.setDate(now2.getFullYear() + "-" + now.getMonth() + "-" + now.getDay());
                 now2.setFullYear(now.getFullYear() - 1);
                 now2.setMonth(now.getMonth());
-                now2.setDate(now.getDate()); 
+                now2.setDate(now.getDate());
                 //$("#datepicker").datepicker('option', 'minDate', new Date(2018, 5 - 1, 5));
                 $("input[name='Dateofbirth']").datepicker('option', 'minDate', new Date(now2));
-                
+
             }
-            else
-            {
-            //now2.setDate(now.getDate() -1); 
+            else {
+                //now2.setDate(now.getDate() -1);
                 //$("#datepicker").datepicker('option', 'minDate', new Date($("input[name='Dateofbirth']").val()));
-                now2.setFullYear(now.getFullYear() +1);
+                now2.setFullYear(now.getFullYear() + 1);
                 now2.setMonth(now.getMonth());
-                now2.setDate(now.getDate()); 
-                $("input[name='Dateofbirth']").datepicker('option', 'minDate', new Date(now2));               
-                
+                now2.setDate(now.getDate());
+                $("input[name='Dateofbirth']").datepicker('option', 'minDate', new Date(now2));
+
             }
         });
     </script>

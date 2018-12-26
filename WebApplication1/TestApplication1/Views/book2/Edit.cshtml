@@ -3,13 +3,17 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+<style>
+ select[readonly] option, select[readonly] optgroup {
+        display: none;
+    }
+</style>
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>book2</h4>
     <hr />
@@ -35,8 +39,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Author_id, "Author_id", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Author_id", null, htmlAttributes: new { @class = "form-control" })
-            @Html.DropDownListFor(model => model.author2.Author_id, (SelectList)ViewBag.Author_id, new { @class = "form-control" })
+            @Html.DropDownList("Author_id", null, htmlAttributes: new { @class = "form-control"  })
+            @Html.DropDownListFor(model => model.author2.Author_id, (SelectList)ViewBag.Author_id, new { @class = "form-control", @readonly = "true" })
             @Html.DropDownListFor(n => n.author2.Author_id, (SelectList)ViewBag.Author_id, "Please select")
 
 

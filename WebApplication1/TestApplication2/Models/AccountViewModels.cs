@@ -7,6 +7,7 @@ namespace TestApplication2.Models
     {
         [Required]
         [Display(Name = "Email")]
+        //[DataType(DataType.EmailAddress)] email超链接 https://docs.microsoft.com/zh-cn/aspnet/core/security/authorization/secure-data?view=aspnetcore-2.2
         public string Email { get; set; }
     }
 

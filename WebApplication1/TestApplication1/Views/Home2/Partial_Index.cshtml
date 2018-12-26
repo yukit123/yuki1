@@ -1,16 +1,17 @@
 ﻿@model List<TestApplication1.Controllers.Home2Controller.MessagesVM>
 @{
     ViewBag.Title = "Partial_Index";
+
 }
 
 
+@Html.Raw(File.ReadAllText(Server.MapPath("~/images/111.txt")))@*读取文本*@
 
 
 <a class="btnChangestu">11111</a>
 <input type="hidden" name="ChangeStu" id="ChangeStu" value="læst besked" />
 @section scripts{
-<script>
-
+    <script>
     $(document).ready(function () {
 
         //$('.btnChangestu').click(function () {
@@ -49,7 +50,7 @@
 
 
     });
-</script>
-    }
+    </script>
+}
 
 

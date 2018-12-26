@@ -1145,9 +1145,9 @@ namespace WebApplication1.Controllers
 
         public FileResult GetDocument()
         {
-           // System.Diagnostics.Debug.WriteLine("111");
+            // System.Diagnostics.Debug.WriteLine("111");
 
-            Debugger.Log(1,"11","Home DisplayPDF() invoked");
+            Debugger.Log(1, "11", "Home DisplayPDF() invoked");
             string zFileu = Server.MapPath(@"~/images/") + "test.pdf";
             return File(zFileu, "application/pdf");
 
@@ -1762,7 +1762,7 @@ namespace WebApplication1.Controllers
             list2.Add(new ListStrViewModel() { Id = 3, field1 = "cc3", field2 = "cc", field3 = "cc" });
             list2.Add(new ListStrViewModel() { Id = 2, field1 = "bb2", field2 = "bb", field3 = "bb" });
             list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
-           
+
             list2.Add(new ListStrViewModel() { Id = 6, field1 = "cc6", field2 = "cc", field3 = "cc" });
 
 
@@ -1851,20 +1851,20 @@ namespace WebApplication1.Controllers
             return View(list);
         }
         #region webgrid webapi
-       
+
 
         [HttpGet]
-        public ActionResult webgrid4(string ResourceID="")
+        public ActionResult webgrid4(string ResourceID = "")
         {
             try
             {
                 ViewBag.ResourceList = ToSelectList();
                 ViewBag.Title = "Order Recognition";
-              
-                    ResourceController api = new ResourceController();
-                    return View(api.GetResources(ResourceID));//error:The type 'ApiController' is defined in an assembly that is not referenced. You must add a reference to assembly 'System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'.
-                                                              //solution:Install-Package Microsoft.AspNet.WebApi.Core -version 5.2.3,it will be OK.
-               
+
+                ResourceController api = new ResourceController();
+                return View(api.GetResources(ResourceID));//error:The type 'ApiController' is defined in an assembly that is not referenced. You must add a reference to assembly 'System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'.
+                                                          //solution:Install-Package Microsoft.AspNet.WebApi.Core -version 5.2.3,it will be OK.
+
             }
             catch (Exception ex)
             {
@@ -2020,33 +2020,48 @@ namespace WebApplication1.Controllers
             public int SelectedValue { get; set; }
             public List<SelectListItem> Fields { get; set; }
         }
-        public ViewResult BeginFormList(string category, string price, string SelectedValue, int page = 1)
+
+        public class UpdateTargetIdmodel
+        {
+            public string UpdateTargetIdValue { get; set; }
+        }
+
+        public ActionResult BeginFormList(/*string category, string price, string SelectedValue, int page = 1*/)
         {
 
-            ListViewModel model = new ListViewModel
-            {
+            //ListViewModel model = new ListViewModel
+            //{
 
-                Fields = new List<SelectListItem>
+            //    Fields = new List<SelectListItem>
 
-                {
+            //    {
 
-                   new SelectListItem { Text = "Order By Descending", Value = "OrderByDescending" },
+            //       new SelectListItem { Text = "Order By Descending", Value = "OrderByDescending" },
 
-                   new SelectListItem { Text = "Pune", Value = "2" },
+            //       new SelectListItem { Text = "Pune", Value = "2" },
 
-                   new SelectListItem { Text = "Mumbai", Value = "3" },
+            //       new SelectListItem { Text = "Mumbai", Value = "3" },
 
-                   new SelectListItem { Text = "Delhi", Value = "4" }
+            //       new SelectListItem { Text = "Delhi", Value = "4" }
 
-                }
+            //    }
 
-            };
+            //};
+
+            UpdateTargetIdmodel model = new UpdateTargetIdmodel();
+            model.UpdateTargetIdValue = "111";
 
             return View(model);
         }
-        #endregion
+        [HttpPost]
+        public ActionResult BeginFormList(UpdateTargetIdmodel model)
+        {
+            //return View(model);
+            return View(model);
+        }
+            #endregion
 
-        public ActionResult MultipleSelect()
+            public ActionResult MultipleSelect()
         {
 
             var options = new List<TEnum>();

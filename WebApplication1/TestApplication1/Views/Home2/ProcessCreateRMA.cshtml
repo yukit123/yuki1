@@ -1,0 +1,98 @@
+﻿@model List<TestApplication1.Controllers.Home2Controller.CreateRMAVM>
+@{
+    ViewBag.Title = "ProcessCreateRMA";
+}
+
+<h2>ProcessCreateRMA</h2>
+
+@*<form name="add_rma" id="add_rma">*@
+@using (Html.BeginForm("ProcessCreateRMA", "Home2", FormMethod.Post,new {@id= "add_rma" }))
+{
+    <table id='tbhold' class="table">
+        <thead>
+            <tr>
+                <th>Varenummer</th>
+                <th>Serienummer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="col-md-8">
+                        <input type="text" name="CreateRMAVM[0].Varenummer" id="Varenummer" class="form-control" />
+
+                    </div>
+                </td>
+                <td>
+                    <div class="col-md-8">
+                        <input type="text" name="CreateRMAVM[0].Serienummer" id="Serienummer" class="form-control" />
+                    </div>
+                </td>
+                <td>
+                    <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+                </td>
+        </tbody>
+    </table>
+    <input type="button" name="submit" id="submit" value="Submit" />
+    @*</form>*@
+}
+    @section scripts{
+        <script>
+         $(document).ready(function () {
+        //Add input field
+        var i = 0;
+        $("#add").click(function (e) {
+            i++;
+            e.preventDefault();
+            $("#tbhold").append('<tr id="row' + i + '"><td><div class="col-md-8"><input type="text" name="CreateRMAVM[' + i + '].Varenummer"  class="form-control" /></div></td><td><div class="col-md-8"><input type="text" name="CreateRMAVM[' + i + '].Serienummer"  class="form-control" /></div></td><td><button type="button" class="btn btn-danger btn_remove"  name="remove">X</button></td></tr>');
+
+        });
+
+        //Remove input field
+        $(document).on('click', '.btn_remove', function () {
+            var button_id = $(this).attr("id");
+            $("#row" + button_id + '').remove();
+        });
+
+    //Save to db by click
+    $("#submit").click(function (e) {
+        e.preventDefault();
+
+
+        ////var data = $("#add_rma").serializeArray();
+        //var formData = {};
+        //var list = [];
+        ////for (var i = 0; i < data.length; i++) {
+        ////    formData[data[i].Varenummer] = data[i].Serienummer;
+        ////}
+        //var data = decodeURIComponent($('#add_rma').serialize(), true);
+        //data.split('&').forEach(function (param) {
+        //    param = param.split('=');
+        //    var name = param[0],
+        //        val = param[1];
+        //    formData.CreateRMAVM[0].Varenummer = val;
+        //   // $('#fs [name=' + name + ']').val(val);
+        //    list.push(formData);
+        //})
+
+        $.ajax({
+          type: 'POST',
+          url: '@Url.Action("ProcessCreateRMA", "Home2")',
+            dataType: 'json',
+             contentType: 'application/json',
+            data: decodeURIComponent($('#add_rma').serialize(), true),
+            //data: data,
+           
+            success: function (CreateRMA) {
+                console.log(CreateRMA);
+            },
+            error: function () {
+            console.log('something went wrong - debug it!');
+            }
+        });
+     });
+
+
+ });
+        </script>
+    }

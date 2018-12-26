@@ -100,6 +100,7 @@ namespace TestApplication1.Controllers
                 db.Entry(authorModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                //return PartialView("~/Views/Home2/_SideBar.cshtml");
             }
             return View(authorModel);
         }

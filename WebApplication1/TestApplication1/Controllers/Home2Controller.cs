@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,10 @@ using iTextSharp.tool.xml;
 using System.Text;
 using System.Globalization;
 using MySql.Data.MySqlClient;
+using Rotativa;
+using LINQtoCSV;
+using Microsoft.Security.Application;
+using Aspose.Words;
 
 namespace TestApplication1.Controllers
 {
@@ -188,7 +193,20 @@ namespace TestApplication1.Controllers
 
         public ActionResult Partial_Index()
         {
+            #region XSS AntiXSS 从html中删除所有脚本和非标准元素，从而使用户键入的html安全。https://forums.asp.net/t/2150613.aspx
+            //ViewBag.query = "<a href='#' id='site' class='btn' data-content='{&quot;RowId&quot;:714886,&quot;SequenceNumber&quot;:1,&quot;Order&quot;:0}' data-assettypeid='1' onclick='ECL.RequestButton(this); return false;'>Sample</a>";
+            //ViewBag.query2 = "<a href='#' id='site' class='btn' data-content='111' data-assettypeid='1' onclick='ECL.RequestButton(this); return false;'>Sample</a>";
+            //var url = "<a href=\"http://search.msn.com/results.aspx?q=[Untrusted-input]\">Click Here!</a>";
+            //string safeHtml = Microsoft.Security.Application.Sanitizer.GetSafeHtml(ViewBag.query2);
+
+            //var html = "<a href=\"#\" onclick=\"alert();\" data-content='111'>aaaaaaaaa</a>javascript<P><IMG SRC=javascript:alert('XSS')><javascript>alert('a')</javascript><IMG src=\"abc.jpg\"><IMG><P>Test</P>";
+
+            //string safeHtml2 = Microsoft.Security.Application.Sanitizer.GetSafeHtml(html);
+            //string Name = AntiXss.HtmlEncode(url);
+            #endregion
             ViewData["Message"] = "Thank you for submitting the information form!";
+            //Session["anoterText"] = "Going to abandon";//与Session_End有关，如果注释掉不能进入Session_End
+            //Session.Abandon();
             return View();
         }
 
@@ -209,7 +227,7 @@ namespace TestApplication1.Controllers
 
                                       }).ToList();
 
-            return PartialView("GetMessages", query);
+            return PartialView("_GetMessages", query);
         }
         public JsonResult UpdateMSGStatus(int IDMSG, string ChangeStu)
         {
@@ -307,6 +325,25 @@ namespace TestApplication1.Controllers
                             )
                             .GetBytes("png");
             return File(chart, "image/bytes");
+        }
+
+        public ActionResult ElecMechLogs(string aa)
+        {
+            //Create bar chart
+            var chart = new Chart(width: 1000, height: 700)
+
+
+                        .AddTitle("Maintenance Graphs")
+
+                           .AddSeries(
+                            chartType: "Bar",
+                           xValue: new[] { "15 ", "34", "58 ", "78" }, xField: "Readings",
+                           yValues: new[] { "50", "70", "90", "110" }, yFields: "Datestaken")
+                           .Write();
+            chart.Save("~/Content/chart.bmp");
+            var filepath = "~/Content/chart.bmp";
+            return File(filepath, "image/bmp");
+
         }
 
         public ActionResult Chart_Index() //https://www.codeproject.com/Tips/801587/Microsoft-Chart-in-MVC-Application
@@ -1821,6 +1858,7 @@ namespace TestApplication1.Controllers
         public class viewmodel
         {
             public List<response> Reslist { get; set; }
+            //public string rbGrp { get; set; }
         }
 
         public ActionResult checkbox_Index()
@@ -1970,10 +2008,10 @@ namespace TestApplication1.Controllers
             using (MemoryStream stream = new System.IO.MemoryStream())
             {
                 StringReader sr = new StringReader(Body);
-                Document pdfDoc = new Document(iTextSharp.text.PageSize.A4, 10f, 10f, 10f, 10f);//itextsharp
+                iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10f, 10f, 10f, 10f);//itextsharp
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                 pdfDoc.Open();
-                pdfDoc.Add(new Paragraph("Hello World"));
+                pdfDoc.Add(new iTextSharp.text.Paragraph("Hello World"));
                 pdfDoc.NewPage();
                 // XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);//itextsharp.xmlworker
                 XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
@@ -2084,7 +2122,7 @@ namespace TestApplication1.Controllers
         [HttpGet]
         public ActionResult UploadFiles()
         {
-             return View();
+            return View();
         }
 
         [HttpPost]
@@ -2136,7 +2174,7 @@ namespace TestApplication1.Controllers
         #endregion
 
 
-        #region
+        #region Mysql
         public class Studentmodel
         {
             public int Id { get; set; }
@@ -2207,7 +2245,7 @@ namespace TestApplication1.Controllers
 
             #region DataSet() select and insert
             DataSet ds = new DataSet();
-            string connectionString =ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
 
 
             MySqlConnection con = new MySqlConnection(connectionString);
@@ -2250,7 +2288,7 @@ namespace TestApplication1.Controllers
                         //con.Open();
                         MySqlCommand cmd2 = new MySqlCommand(query1, con);
                         cmd2.ExecuteNonQuery();
-                        
+
                     }
                     else
                     {
@@ -2260,16 +2298,367 @@ namespace TestApplication1.Controllers
                         con.Open();
                         MySqlCommand cmd2 = new MySqlCommand(query1, con);
                         cmd2.ExecuteNonQuery();
-                       // con.Close();
+                        // con.Close();
 
                     }
-                   
+
                 }
-             
+
             }
             con.Close();
             #endregion
             #endregion
+        }
+        #endregion
+        #region DataTable 填充 DataSet 动态插入//https://forums.asp.net/p/2150364/6242229.aspx?p=True&t=636807793294045056
+        public void insert_dynamic()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new DataColumn[3] { new DataColumn("Id", typeof(int)),
+                    new DataColumn("Name", typeof(string)),
+                    new DataColumn("Country",typeof(string)) });
+            dt.Rows.Add(101, "AA", "US");
+            dt.Rows.Add(102, "BB", "UA");
+            dt.Rows.Add(103, "CC", "US");
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+
+            //to store the columns.
+            List<string> strlist = new List<string>();
+
+            //loop through the columns
+            for (int j = 0; j < ds.Tables[0].Columns.Count; j++)
+            {
+                strlist.Add(ds.Tables[0].Columns[j].ToString());
+            }
+            string template = string.Join(",", strlist);//list转 string （逗号隔开）
+
+            //used to store the insert command
+            List<string> ouput = new List<string>();
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                //used to store the values.
+                List<string> valuelist = new List<string>();
+                //get each cell value.
+                for (int j = 0; j < ds.Tables[0].Columns.Count; j++)
+                {
+                    valuelist.Add("'" + ds.Tables[0].Rows[i][j].ToString() + "'");// 双引号 单引号 '101' 'AA'
+                }
+
+                ouput.Add(string.Format("Insert into tbl_sample({0}) values({1})", template, string.Join(",", valuelist)));
+                //using these command to insert data into database.
+            }
+        }
+
+        #endregion
+
+        #region 动态添加 删除 List model bind
+        public class CreateRMAVM
+        {
+            public string Varenummer { get; set; }
+            public string Serienummer { get; set; }
+        }
+
+        public ActionResult ProcessCreateRMA()
+        {
+            List<CreateRMAVM> vm = new List<CreateRMAVM>();
+            vm.Add(new CreateRMAVM { Varenummer = "11", Serienummer = "11" });
+            vm.Add(new CreateRMAVM { Varenummer = "22", Serienummer = "22" });
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public JsonResult ProcessCreateRMA(List<CreateRMAVM> vm)
+        {
+            //List<CreateRMAVM> vm = new List<CreateRMAVM>();
+            //RMA_History model = new RMA_History();
+            //foreach (var item in vm)
+            //{
+            //    vm.Varenummer = item.Varenummer;
+            //    model.Serienummer = item.Serienummer;
+            //    db.RMA_History.Add(model);
+            //    db.SaveChanges();
+            //}
+
+            return Json(111, JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
+        #region Rotativa： html to pdf 分页
+        public ActionResult Rotativa_Index()//html to pdf 分页
+        {
+            return View();
+        }
+
+        public ActionResult ExportPDF()//https://forums.asp.net/t/2150497.aspx //https://www.codeproject.com/Tips/818197/Generate-PDF-in-ASP-NET-MVC-Using-Rotativa
+        {
+            return new ActionAsPdf("Rotativa_Index")
+            {
+                FileName = Server.MapPath("~/Content/Relato.pdf"),
+                //PageOrientation = Rotativa.Options.Orientation.Landscape,
+                //PageSize = Rotativa.Options.Size.A4
+            };
+        }
+        #endregion
+
+        #region linqToCsv 将数据导出文件
+        class Product
+        {
+            [CsvColumn(Name = "Product Name", FieldIndex = 1)]
+            public string Name { get; set; }
+            [CsvColumn(FieldIndex = 2, OutputFormat = "dd MMM HH:mm:ss")]
+            public DateTime LaunchDate { get; set; }
+            [CsvColumn(FieldIndex = 3, CanBeNull = false, OutputFormat = "C")]
+            public decimal Price { get; set; }
+            [CsvColumn(FieldIndex = 4)]
+            public string Country { get; set; }
+            [CsvColumn(FieldIndex = 5)]
+            public string Description { get; set; }
+        }
+        public void linqToCsv()//library https://www.codeproject.com/Articles/25133/LINQ-to-CSV-library
+        {
+            //github https://github.com/mperdeck/LINQtoCSV
+            //case https://forums.asp.net/t/2148655.aspx
+            List<Product> products2 = new List<Product>()
+            {
+                new Product(){ Name="product A", Country="US"},
+                new Product(){ Name="product A", Country="US"},
+                new Product(){ Name="product A", Country="US"},
+            };
+
+            CsvFileDescription outputFileDescription = new CsvFileDescription
+            {
+                SeparatorChar = '\t', // tab delimited
+                FirstLineHasColumnNames = true, // no column names in first record
+                FileCultureName = "nl-NL" // use formats used in The Netherlands
+            };
+            var path = Server.MapPath(@"~/images/products2.csv");//您需要使用HttpServerUtility.MapPath它将~/路径的一部分转换到它在硬盘驱动器上弹回的实际位置。
+
+            CsvContext cc = new CsvContext();
+            cc.Write(
+                products2,
+                      path,
+                  outputFileDescription);
+
+
+        }
+        #endregion
+        #region
+        public class afishstudio
+       {
+            //public int id { get; set; }
+            //public string name { get; set; }
+            //public string family { get; set; }
+
+            public string modiran_semat { get; set; }
+
+
+        }
+        //public ActionResult PassValue_Index()
+        //{
+        //    // resualt="id"+id,"name:"+name,"family:"+family,"date:"+date,"time:"+time;
+        //    afishstudio model = new afishstudio();
+        //    //model.id = 2;
+        //    //model.name = "Ben";
+        //    //model.family = "Ben's family";
+
+        //    return View(model);
+
+        //}
+        public ActionResult PassValue_Indexxx()
+        {
+
+            afishstudio model = new afishstudio();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult PassValue_Indexxx(string modiran_semat, afishstudio modiran)
+        {
+            TryUpdateModel(modiran, modiran_semat);
+
+
+            return RedirectToAction("PassValue_Index");
+        }
+
+        //[HttpPost]
+        public ActionResult PassValue_Index(FormCollection collection,string modiran_semat)
+        {
+            // resualt="id"+id,"name:"+name,"family:"+family,"date:"+date,"time:"+time;
+            var model = new afishstudio();
+            TryUpdateModel(model, collection);
+                
+
+            TempData["id"] = model.modiran_semat;
+
+            return RedirectToAction("PassValue_Index2", "Home2");
+        }
+
+        public ActionResult PassValue_Index2()
+        {
+            // resualt="id"+id,"name:"+name,"family:"+family,"date:"+date,"time:"+time;
+            ViewBag.id = TempData["id"];
+
+            return View();
+
+        }
+        #endregion
+        #region Aspose.Words 查找指定文件夹中所有PDF，并复制到一个新的doc中
+        public void GetFile()//https://forums.asp.net/t/2150255.aspx 
+        {
+            var path2 = Server.MapPath(@"~/images/");
+            string[] filePathes = Directory.GetFiles(path2, "*.pdf");//get all the .pdf file in the directory
+            string str = "";
+            foreach (string path in filePathes)//get all the content
+            {
+                str += ReadPdfContent(path);
+            }
+            //string target = "";
+            //MatchCollection col = Regex.Matches(str, @"\d+"); //use regular expresssion to get all the numbers
+            //foreach (Match item in col)
+            //{
+            //    target += item.Value;  //connect all the numbers
+            //}
+            Aspose.Words.Document doc = new Aspose.Words.Document();  //write the cotent to a doc
+            DocumentBuilder builder = new DocumentBuilder(doc); //install Aspose.Words in NuGet
+            builder.Write(str);
+            doc.Save(@"C:\Users\yukit\Desktop\test.doc");
+            //doc.Save(path2);
+
+        }
+
+        public static string ReadPdfContent(string filepath)
+        {
+            try
+            {
+                string pdffilename = filepath;
+                PdfReader pdfReader = new PdfReader(pdffilename);
+                int numberOfPages = pdfReader.NumberOfPages;
+                StringBuilder text = new StringBuilder();
+                for (int i = 1; i <= numberOfPages; ++i)
+                {
+                    text.Append(iTextSharp.text.pdf.parser.PdfTextExtractor.GetTextFromPage(pdfReader, i));
+                }
+                pdfReader.Close();
+                return text.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "cause：" + ex.ToString();
+            }
+        }
+
+
+        #endregion
+
+        #region Export table to Excel file using Angularjs in asp.net MVC
+        public partial class ExportExcel_Employee
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public Nullable<int> Phone { get; set; }
+            public Nullable<int> Salary { get; set; }
+            public string Department { get; set; }
+            public string ImagePath { get; set; }
+            public string EmailId { get; set; }
+        }
+
+        public ActionResult ExportExcel()//https://forums.asp.net/p/2150721/6243437.aspx?p=True&t=636812897802421564
+        {
+            return View();
+        }
+
+        public JsonResult GetEmployee()
+        {
+            //var emp = db.Employees.ToList();
+            List<ExportExcel_Employee> model = new List<ExportExcel_Employee>();
+            model.Add(new ExportExcel_Employee { Id=1,Name="aa",Phone=123123,Salary=100,Department="de1"});
+            model.Add(new ExportExcel_Employee { Id = 1, Name = "bb", Phone = 123124, Salary = 200, Department = "de2" });
+            model.Add(new ExportExcel_Employee { Id = 1, Name = "cc", Phone = 123125, Salary = 300, Department = "de3" });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region  Include加载不了viewmodel的数据，只能建库测试数据 https://forums.asp.net/t/2150733.aspx
+        //public class Type_Service
+        //{
+        //    public Type_Service()
+        //    {
+        //        Pations = new List<Pation>();
+        //    }
+
+        //    [Key]
+        //    public int Type_ServiceId { get; set; }
+        //    public string NameService { get; set; }
+        //    public virtual ICollection<Pation> Pations { get; set; }
+
+        //}
+
+        //public class Pation
+        //{
+        //    [Key]
+        //    public int Id { get; set; }
+        //    public string PationName { get; set; }
+        //    public int Age { get; set; }
+        //    public int Sex { get; set; }
+        //   // public DateTime DateWared { get; set; } = DateTime.UtcNow.AddHours(3);
+        //    public int Type_ServiceId { get; set; }
+        //    [ForeignKey("Type_ServiceId")]
+        //    public virtual Type_Service Type_Services { get; set; }
+        //    //public ApplicationUser User { get; set; }
+
+        //}
+
+        public class UserRange
+        {
+            public string AgeRange { get; set; }
+            public int Count { get; set; }
+            public string Gender { get; internal set; }
+            public string grilsTotal { get; internal set; }
+            public string boysTotal { get; internal set; }
+            public string Type_S { get; internal set; }
+            
+        }
+
+
+        public void Mster()
+        {
+            //List<Pation> pa = new List<Pation>();
+            //pa.Add(new Pation { Id=1,PationName="pan",Age=1,Sex= 0 });
+            //pa.Add(new Pation { Id = 1, PationName = "pan", Age = 3,  Sex = 1,Type_ServiceId=1});
+            //pa.Add(new Pation { Id = 2, PationName = "pan", Age = 10, Sex = 0,Type_ServiceId=2});
+            //pa.Add(new Pation { Id = 3, PationName = "pan", Age = 16, Sex = 0,Type_ServiceId=2});
+            //pa.Add(new Pation { Id = 4, PationName = "pan", Age = 26, Sex = 1,Type_ServiceId=2});
+
+            //List<Type_Service> ts = new List<Type_Service>();
+            //ts.Add(new Type_Service { Type_ServiceId = 1, NameService = "NameService1"});
+            //ts.Add(new Type_Service { Type_ServiceId = 2, NameService = "NameService2"});
+
+            //var list = pa.AsQueryable().Include(b=>b.Type_Services).ToList();
+            var query = (from t in db.Pations.Include(b=>b.Type_Services).ToList()
+                         let Agerange =
+                         (
+                         t.Age >= 0 && t.Age < 1 ? "Age Under 1 year" :
+                         t.Age >= 1 && t.Age < 5 ? "Age from 1 to 4" :
+                         t.Age >= 5 && t.Age < 15 ? "Age from 5 to 14" :
+                         t.Age >= 15 && t.Age < 25 ? "Age from 15 to 24" :
+                         t.Age >= 25 && t.Age < 45 ? "Age from 25 to 46" :
+                         "age over 47+"
+                         )
+                         let Sex = (t.Sex == 0 ? "boys" : "girls")
+                         let Type_S=t.Type_Services.NameService
+                         group t by new { Agerange, Sex, Type_S } into g
+                         select new UserRange { AgeRange = g.Key.Agerange, Gender = g.Key.Sex, Type_S = g.Key.Type_S, Count = g.Count() }).ToList();
+            var boysTotal = new UserRange() { Gender = "boys", AgeRange = "boys sum", Count = query.Where(c => c.Gender == "boys").Sum(c => c.Count) };
+            var grilsTotal = new UserRange() { Gender = "girls", AgeRange = "girls sum", Count = query.Where(c => c.Gender == "girls").Sum(c => c.Count) };
+            query.Add(boysTotal);
+            query.Add(grilsTotal);
+            //return View(query);
         }
         #endregion
     }

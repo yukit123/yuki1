@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script>
+function displayResult()
+{
+var x;
+if(window.event) // IE8 以及更早版本
+	{
+	x=event.keyCode;
+	}
+else if(event.which) // IE9/Firefox/Chrome/Opera/Safari
+	{
+	x=event.which;
+    }
+    if (x != 8) {
+        var keychar = String.fromCharCode(x);
+        alert("The key '" + keychar + "' was pressed");
+    }
+}
+    </script>
+</head>
+<body>
+
+    <p>The function is triggered when the user presses a button in the input field. This function prompts the user that the button has been pressed.</p>
+
+    <input type="text" onkeydown="displayResult()">
+
+</body>
+</html>
