@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Mster";
+}
+
+<h2>Mster</h2>
+
+<table border="1" class="table table-responsive table-bordered table-hover table-striped " style="height: 145px;text-align: center; border: solid 1px;border-radius: 13px;">
+
+    @foreach (var item in ViewBag.UserData)
+    {
+        @item.Type_S
+    }
+
+    <tr style="height: 60px; background-color: #d2d2d2;">
+        @foreach (var item in ViewBag.UserData)
+        {
+            <th>@item.AgeRange </th>
+        }
+
+    </tr>
+
+    <tr>
+
+        @foreach (var item in ViewBag.UserData)
+        {
+            <th>@item.Gender </th>
+        }
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.UserData)
+        {
+            <td>@item.Count </td>
+        }
+    </tr>
+
+</table>

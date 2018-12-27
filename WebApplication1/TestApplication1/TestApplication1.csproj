@@ -1655,6 +1655,7 @@
     <Content Include="Views\Home2\PassValue_Index2.cshtml" />
     <Content Include="Views\Home2\ExportExcel.cshtml" />
     <Content Include="Views\Home2\PassValue_Indexxx.cshtml" />
+    <Content Include="Views\Home2\Mster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,7 +33,7 @@ namespace TestApplication1.Models
         public string CharterResourceTypeString { get; set; }
 
         //[DataType(DataType.DateTime)]
-        ////[Column(TypeName = "DateTime2")]
+        ////[Column(TypeName = "DateTime2")]  DateTime2:http://www.entityframeworktutorial.net/code-first/column-dataannotations-attribute-in-code-first.aspx
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Charter Date")]
         public DateTime? CharterDate { get; set; }

@@ -2626,7 +2626,7 @@ namespace TestApplication1.Controllers
         }
 
 
-        public void Mster()
+        public ActionResult Mster()
         {
             //List<Pation> pa = new List<Pation>();
             //pa.Add(new Pation { Id=1,PationName="pan",Age=1,Sex= 0 });
@@ -2654,11 +2654,16 @@ namespace TestApplication1.Controllers
                          let Type_S=t.Type_Services.NameService
                          group t by new { Agerange, Sex, Type_S } into g
                          select new UserRange { AgeRange = g.Key.Agerange, Gender = g.Key.Sex, Type_S = g.Key.Type_S, Count = g.Count() }).ToList();
-            var boysTotal = new UserRange() { Gender = "boys", AgeRange = "boys sum", Count = query.Where(c => c.Gender == "boys").Sum(c => c.Count) };
-            var grilsTotal = new UserRange() { Gender = "girls", AgeRange = "girls sum", Count = query.Where(c => c.Gender == "girls").Sum(c => c.Count) };
-            query.Add(boysTotal);
-            query.Add(grilsTotal);
-            //return View(query);
+            //var boysTotal = new UserRange() { Gender = "boys", AgeRange = "boys sum", Count = query.Where(c => c.Gender == "boys").Sum(c => c.Count) };
+            //var grilsTotal = new UserRange() { Gender = "girls", AgeRange = "girls sum", Count = query.Where(c => c.Gender == "girls").Sum(c => c.Count) };
+            //query.Add(boysTotal);
+            //query.Add(grilsTotal);
+            var boysTotal = query.GroupBy(_ => _.Type_S, (key, group) => new { TypeServiceName = key, Count = group.Where(_ => _.Gender == "boys").Sum(_ => _.Count) }).ToList();
+            var grilsTotal = query.GroupBy(_ => _.Type_S, (key, group) => new { TypeServiceName = key, Count = group.Where(_ => _.Gender == "girls").Sum(_ => _.Count) }).ToList();
+            //group 嵌套 group
+            var list = query.GroupBy(s => s.Type_S, (key, group) => new { TypeSviceName = key, Group = group.ToList().GroupBy(b => b.AgeRange).ToList() });
+            ViewBag.UserData = list;
+            return View();
         }
         #endregion
     }
