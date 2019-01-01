@@ -40,6 +40,7 @@ using LINQtoCSV;
 using Microsoft.Security.Application;
 using Aspose.Words;
 
+
 namespace TestApplication1.Controllers
 {
     public class Home2Controller : Controller
@@ -419,32 +420,32 @@ namespace TestApplication1.Controllers
         {
 
             #region Check if the value not key exists in app.config file
-            var flag = 1;
-            var MyKey = "TN";
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("PageSize"))
-            {
-                flag = 1;
-            }
-            if (ConfigurationManager.AppSettings.AllKeys.Any(key => key == MyKey))
-            {
-                // Key exists
-            }
+            //var flag = 1;
+            //var MyKey = "TN";
+            //if (ConfigurationManager.AppSettings.AllKeys.Contains("PageSize"))
+            //{
+            //    flag = 1;
+            //}
+            //if (ConfigurationManager.AppSettings.AllKeys.Any(key => key == MyKey))
+            //{
+            //    // Key exists
+            //}
 
-            var MyReader = new System.Configuration.AppSettingsReader();
-            string keyvalue = MyReader.GetValue("PageSize", typeof(string)).ToString();
+            //var MyReader = new System.Configuration.AppSettingsReader();
+            //string keyvalue = MyReader.GetValue("PageSize", typeof(string)).ToString();
 
-            string[] repositoryUrls = ConfigurationManager.AppSettings.AllKeys
-                             .Where(key => key.StartsWith("TS"))
-                             .Select(key => ConfigurationManager.AppSettings[key])
-                             .ToArray();
+            //string[] repositoryUrls = ConfigurationManager.AppSettings.AllKeys
+            //                 .Where(key => key.StartsWith("TS"))
+            //                 .Select(key => ConfigurationManager.AppSettings[key])
+            //                 .ToArray();
 
-            foreach (var item in ConfigurationManager.AppSettings.AllKeys.ToList())//https://forums.asp.net/p/2147937/6233866.aspx?p=True&t=636751562067955347
-            {
-                if (ConfigurationManager.AppSettings[item] == "TS")
-                {
+            //foreach (var item in ConfigurationManager.AppSettings.AllKeys.ToList())//https://forums.asp.net/p/2147937/6233866.aspx?p=True&t=636751562067955347
+            //{
+            //    if (ConfigurationManager.AppSettings[item] == "TS")
+            //    {
 
-                }
-            }
+            //    }
+            //}
             #endregion
             return View();
         }
@@ -837,7 +838,7 @@ namespace TestApplication1.Controllers
             //ViewBag.OName = opname;
             //ViewBag.OMotor = opmotor;
 
-            return PartialView("DropAppliPopup");
+            return PartialView();
         }
         #endregion
         public class CountryModel
@@ -966,7 +967,7 @@ namespace TestApplication1.Controllers
         public ActionResult Index_AddRoom()
         {
             string zFileu = Server.MapPath(@"~/images/") + "test.pdf";
-            var path = System.IO.Directory.CreateDirectory(@"~\images\odoiproject\");
+           // var path = System.IO.Directory.CreateDirectory(@"~\images\odoiproject\");
             return View();
 
         }
@@ -1554,6 +1555,7 @@ namespace TestApplication1.Controllers
             }
             return View(model);
         }
+
 
         // GET: AllFiles
         public void saveFileDetails(HttpPostedFileBase file)
@@ -2468,7 +2470,7 @@ namespace TestApplication1.Controllers
 
         //}
         public ActionResult PassValue_Indexxx()
-        {
+            {
 
             afishstudio model = new afishstudio();
 
@@ -2481,15 +2483,15 @@ namespace TestApplication1.Controllers
             TryUpdateModel(modiran, modiran_semat);
 
 
-            return RedirectToAction("PassValue_Index");
+            return RedirectToAction("PassValue_Index","Home2");
         }
 
         //[HttpPost]
-        public ActionResult PassValue_Index(FormCollection collection,string modiran_semat)
+        public ActionResult PassValue_Index(/*FormCollection collection,*/string modiran_semat)
         {
             // resualt="id"+id,"name:"+name,"family:"+family,"date:"+date,"time:"+time;
             var model = new afishstudio();
-            TryUpdateModel(model, collection);
+            //TryUpdateModel(model, collection);
                 
 
             TempData["id"] = model.modiran_semat;

@@ -2414,7 +2414,7 @@ namespace WebApplication1.Controllers
             var img = db.Label.SingleOrDefault(x => x.LabelId == id);
             return Json(img.LabelName, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Pic_Edit(/*int? ImageId = 1*/)
+        public ActionResult Pic_Edit(/*int? ImageId = 1*/) //upload save display preview image:https://forums.asp.net/p/2150843/6243966.aspx?p=True&t=636818062728514553
         {
             //if (ImageId == null)
             //{
@@ -2436,9 +2436,11 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                var file= Request.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
                 db.Entry(jobs).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
             return View(jobs);
         }

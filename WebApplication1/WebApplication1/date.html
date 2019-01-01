@@ -36,7 +36,6 @@
 
 </head>
 <body>
-
     <!----------------------------------------------------------------------------->
 
     <div class="form-group" style="display:none">
@@ -311,12 +310,12 @@
 
                             if ($("#t_disable").val() == "True") {
                                 $('#ch_disable').prop('checked', true);
-                                                                 }
+                            }
 
 
                             if ($("#t_disable").val() == "False") {
                                 $('#ch_disable').prop('checked', false);
-                                                                  }
+                            }
 
 
                         });
@@ -329,29 +328,29 @@
 
     <!------------------------------------------------------------------------------------------------------>
     <script>
-                    $(function () {
+        $(function () {
 
-                        $(window).on("load", function () {
+            $(window).on("load", function () {
 
-                            $.get("/Fiscal_year/Fiscal_Year_Detail_Fiscal_Year_Company", {
+                $.get("/Fiscal_year/Fiscal_Year_Detail_Fiscal_Year_Company", {
 
-                                series: $("#series").val(),
+                    series: $("#series").val(),
 
-                            }, function (data) {
+                }, function (data) {
 
-                                var row;
-                                $.each(data, function (i, v) {
-                                    row += "<tr><td style='width:20px'><input type='checkbox'></td><td><input value='" + v.company_names + "'  class='form-control' list='get_company' style='background-color:transparent; border:none;width:100%' name='Company01' type='text' /></td>  <td style='display:none'><input type='text' value='" + $("#series").val() + "' name='Series'></td>  <td style='width:20px'><img src='@Url.Content("~/images/Arrow.png")' style='width:8px;height:8px;cursor:pointer' /></td></tr>";
-                                   // row+ = ('<tr><td style="width:20px"><input type="checkbox" /></td><td><input style="background-color:transparent;border:none;width:100%" class="form-control" list="get_company" type="text" name="Company01"></td><td style="width:20px"> <img src="@Url.Content("~/images/Arrow.png")" style="width:8px;height:8px;cursor:pointer" /></td></tr>');
+                    var row;
+                    $.each(data, function (i, v) {
+                        row += "<tr><td style='width:20px'><input type='checkbox'></td><td><input value='" + v.company_names + "'  class='form-control' list='get_company' style='background-color:transparent; border:none;width:100%' name='Company01' type='text' /></td>  <td style='display:none'><input type='text' value='" + $("#series").val() + "' name='Series'></td>  <td style='width:20px'><img src='@Url.Content("~/images/Arrow.png")' style='width:8px;height:8px;cursor:pointer' /></td></tr>";
+                        // row+ = ('<tr><td style="width:20px"><input type="checkbox" /></td><td><input style="background-color:transparent;border:none;width:100%" class="form-control" list="get_company" type="text" name="Company01"></td><td style="width:20px"> <img src="@Url.Content("~/images/Arrow.png")" style="width:8px;height:8px;cursor:pointer" /></td></tr>');
 
 
-                                });
-
-                                $("#address_table").append(row);
-
-                            });
-                        });
                     });
+
+                    $("#address_table").append(row);
+
+                });
+            });
+        });
     </script>
 
 
@@ -528,10 +527,10 @@
 
     <script>
 
-    $("#account_span").on("click", function () {
-        window.location.href = '@Url.Action("AccountItem", "AccountItem")';
+        $("#account_span").on("click", function () {
+            window.location.href = '@Url.Action("AccountItem", "AccountItem")';
 
-    });
+        });
 
 
         $("#new_span").on("click", function () {

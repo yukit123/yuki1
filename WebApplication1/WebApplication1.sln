@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebAppli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication2", "TestApplication2\TestApplication2.csproj", "{A547DDE6-BF98-4925-BBBD-C9D66C805AE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat", "SignalRChat\SignalRChat.csproj", "{45D84D88-4C0C-4EE2-B079-ED1F456B9116}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A547DDE6-BF98-4925-BBBD-C9D66C805AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A547DDE6-BF98-4925-BBBD-C9D66C805AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A547DDE6-BF98-4925-BBBD-C9D66C805AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45D84D88-4C0C-4EE2-B079-ED1F456B9116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D84D88-4C0C-4EE2-B079-ED1F456B9116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D84D88-4C0C-4EE2-B079-ED1F456B9116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D84D88-4C0C-4EE2-B079-ED1F456B9116}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

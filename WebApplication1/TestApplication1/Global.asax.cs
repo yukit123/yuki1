@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Timers;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -12,12 +13,72 @@ namespace TestApplication1
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static Timer timer;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+
+            //HttpContext context = HttpContext.Current;
+            //if (context != null)
+            //{
+            //    // 能运行到这里，就肯定是在处理ASP.NET请求，我们可以放心地访问Request的所有数据
+            //    //sb.AppendLine("Url:" + context.Request.RawUrl);
+
+            //    // 还有记录什么数据，您自己来实现吧。
+            //}
+
+
+
+            //timer = new System.Timers.Timer();
+            //timer.Enabled = true;
+            //timer.Interval = 60000;
+            //timer.Start();
+            //timer.Elapsed += HandleTimerElapsed;
+        }
+
+        public static void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+
+            //System.Web.Mvc.UrlHelper helper = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+            //string link = helper.Action("Partial_Index", "Home2");
+
+
+            //UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            //return url.Action("ViewAction", "MyModelController");
+
+            Debug.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
+
+
+        }
+
+       
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+           
+
+        }
+
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+            System.Web.Mvc.UrlHelper helper = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+            string link = helper.Action("Partial_Index", "Home2");
+
+            if (HttpContext.Current.Request.Url.AbsolutePath.EndsWith(".jpg") && HttpContext.Current.Request.UrlReferrer.Host != "localhost")
+            {
+                HttpContext.Current.Response.WriteFile(HttpContext.Current.Server.MapPath("~/imgs/forbid.png"));
+                HttpContext.Current.Response.End();
+            }
+
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+
         }
 
         //void Session_Start(object sender, EventArgs e)
@@ -40,7 +101,7 @@ namespace TestApplication1
         //}
 
 
-       
+
         void Session_End(object sender, EventArgs e)//见note,如果注释掉Partial_Index的session,也不会被执行
         {
             //// 在会话结束时运行的代码。
