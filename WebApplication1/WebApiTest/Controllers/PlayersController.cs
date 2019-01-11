@@ -95,7 +95,7 @@ namespace WebApiTest.Controllers
         //webapi route 路由 自定义路由 https://www.cnblogs.com/landeanfen/p/5501490.html
 
         #region RoutePrefix Route 同一个控制器的所有的action的所有特性路由标识一个相同的前缀
-        //[RoutePrefix("api/order")]//那么这个这个控制器的action的时候，都需要/api/order开头，后面接上action特性路由的规则。
+        //[RoutePrefix("api/order")]//那么这个控制器的action的时候，都需要/api/order开头，后面接上action特性路由的规则。
         //public class OrderController : ApiController
         //{
         //    [Route("")]
@@ -145,16 +145,16 @@ namespace WebApiTest.Controllers
             public DateTime CREATETIME { get; set; }
         }
         [HttpGet]
-        public string GetAllChargingData([FromUri]TB_CHARGING obj)
+        public string GetAllChargingData([FromUri]TB_CHARGING obj)//success //ajax那边传的是string 要用[FromUri] 才能接收，否则为NULL
         {
             return "ChargingData" + obj.ID;
         }
 
         //JSON.stringify  <=>  ajax{string}=>[FromUri]
         [HttpGet]
-        public string GetByModel(string strQuery)
+        public string GetByModel(string strQuery)//fail
         {
-            TB_CHARGING oData = Newtonsoft.Json.JsonConvert.DeserializeObject<TB_CHARGING>(strQuery);
+            TB_CHARGING oData = Newtonsoft.Json.JsonConvert.DeserializeObject<TB_CHARGING>(strQuery);//先前台序列化，再在后台 反序列 的方式
             return "ChargingData" + oData.ID;
         }
         #endregion

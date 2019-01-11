@@ -6,7 +6,7 @@
 <h2>ProcessCreateRMA</h2>
 
 @*<form name="add_rma" id="add_rma">*@
-@using (Html.BeginForm("ProcessCreateRMA", "Home2", FormMethod.Post,new {@id= "add_rma" }))
+@using (Html.BeginForm("ProcessCreateRMA", "Home2", FormMethod.Post, new { @id = "add_rma" }))
 {
     <table id='tbhold' class="table">
         <thead>
@@ -36,8 +36,11 @@
     <input type="button" name="submit" id="submit" value="Submit" />
     @*</form>*@
 }
-    @section scripts{
-        <script>
+@section scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script>
+       
          $(document).ready(function () {
         //Add input field
         var i = 0;
@@ -79,10 +82,10 @@
           type: 'POST',
           url: '@Url.Action("ProcessCreateRMA", "Home2")',
             dataType: 'json',
-             contentType: 'application/json',
+            //contentType: 'application/json',
             data: decodeURIComponent($('#add_rma').serialize(), true),
             //data: data,
-           
+
             success: function (CreateRMA) {
                 console.log(CreateRMA);
             },
@@ -94,5 +97,5 @@
 
 
  });
-        </script>
-    }
+    </script>
+}

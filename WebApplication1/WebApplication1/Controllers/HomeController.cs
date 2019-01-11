@@ -70,6 +70,18 @@ namespace WebApplication1.Controllers
         public ActionResult About()
         {
 
+            #region 展平 ArrayList
+            ArrayList arrayList = new ArrayList() { 1, "abc", 33.5M }; //arrayList 是3行数据 Count=3 展平 ArrayList
+            StringBuilder a = new StringBuilder();  //StringBuilder 字符串生成器 比string+"xxx"效率高
+            foreach (object obj in arrayList)
+                     a.Append(obj);           //展平ArrayList
+            string str = a.ToString();   
+
+
+            //var list = arrayList.ToArray().Select(_ => _).ToList();
+            var ll = String.Join("", arrayList.ToArray()); //展平 ArrayList
+                                                           //var list = arrayList.ToArray().SelectMany(i=>i)
+            #endregion
             return View();
         }
 
@@ -2485,7 +2497,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-       // public FileResult ClosedXML_Export(string usename,string usename2)
         public FileResult ClosedXML_Export(string usename, string usename2)
         {
             #region 劫持返回验证信息 表单 AJAX ActionResult
@@ -2648,7 +2659,7 @@ namespace WebApplication1.Controllers
 
         //}
 
-        public ActionResult UploadOutSubmit(HttpPostedFileBase file2/*, string selectvalue*/)
+        public ActionResult UploadOutSubmit(HttpPostedFileBase file2,/*, string selectvalue*/FormCollection formCollection)
         {
             //var list = new List<selectmodelVM>
             //{
@@ -2667,7 +2678,12 @@ namespace WebApplication1.Controllers
 
                 file2.SaveAs(path);
             }
+            #region ModelState.AddModelError ValidationSummary
 
+            //ModelState.AddModelError(string.Empty, "1111111122222222");//@Html.ValidationSummary 见Note
+            //return View("About");//要在About页面写@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            https://forums.asp.net/p/2151103/6244944.aspx?p=True&t=636824996668680355
+            #endregion
             return View(/*list*/);
         }
         [HttpPost]

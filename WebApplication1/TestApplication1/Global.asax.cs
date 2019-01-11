@@ -103,7 +103,7 @@ namespace TestApplication1
 
 
         void Session_End(object sender, EventArgs e)//见note,如果注释掉Partial_Index的session,也不会被执行
-        {
+       {
             //// 在会话结束时运行的代码。
             //// 注意: 只有在 Web.config 文件中的 sessionstate 模式设置为
             //// InProc 时，才会引发 Session_End 事件。如果会话模式设置为 StateServer

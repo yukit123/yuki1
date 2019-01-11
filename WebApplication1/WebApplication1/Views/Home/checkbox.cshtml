@@ -14,6 +14,7 @@
     <label class="control-label">Availability</label>
     @Html.DropDownListFor(model => model.LabelId, new SelectList(list, "LabelId", "LabelName"), new { @class = "form-control" })
     @Html.DropDownListFor(model => model.LabelId, (IEnumerable<SelectListItem>)ViewBag.OSRddl, "-- Wybierz --", new { @class = "form-control" })
+
     @Html.ValidationMessageFor(model => model.LabelId, "", new { @class = "text-danger" })
 </td>
     <td class="hidden trailer-qual">

@@ -93,6 +93,8 @@ namespace TestApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            //ViewBag.P1 = new SelectList(db.Popus.OrderBy(x => x.fluid), "fluid", "fluid");
+
             ViewBag.Author_id = new SelectList(db.author2s, "Author_id", "Name", book2.Author_id);
 
             ViewBag.DDU = new SelectList(db.author2s,

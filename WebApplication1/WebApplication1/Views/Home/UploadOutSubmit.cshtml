@@ -8,9 +8,9 @@
 <input id="avatar" type="file" name="avatar" />
 <button id="upload" value="Upload">Upload</button>
 _______________________________________________________________
-
 @using (Html.BeginForm("UploadOutSubmit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
     @*<select name="selectvalue" class="ddl-FullWidth" onchange="this.form.submit();">
             @foreach (var item in Model)
             {
@@ -20,7 +20,7 @@ _______________________________________________________________
         </select>
 
             <button type="submit" class="btn btn-default" value="Submit;0;0" style="width:100%;">Submit</button>*@
-    <input type="file" name="file2" onchange="this.form.submit()"/>
+    <input type="file" name="file2" onchange="this.form.submit()" />
     @*<input type="submit" value="submit"/>*@
 
 }

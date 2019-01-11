@@ -49,46 +49,47 @@ namespace TestApplication1.Controllers
         // GET: Home2
         public ActionResult Index()
         {
-            var assignments = from s in db.book2s.Include(b => b.author2)
-                              where s.Title == "t1"
-                              select s;
+
+            //var assignments = from s in db.book2s.Include(b => b.author2)
+            //                  where s.Title == "t1"
+            //                  select s;
 
             #region https://forums.asp.net/t/2149906.aspx
-            //string nowdate = DateTime.Now.ToString("M/d/yyyy HH:mm:ss");
-            //DateTime nowdate2 = Convert.ToDateTime(nowdate);
-            DateTime dt = Convert.ToDateTime("12/4/2018 13:00:00");
-            //DateTime dat = new DateTime(2015, 1, 6);
-            // dat.AddMonths(1).ToString("d");
-            DateTime oneMonthAgo = DateTime.Now.AddMonths(1);
-            //        int days = DateTime.DaysInMonth(oneMonthAgo.Year, oneMonthAgo.Month);
-            //        var list=Enumerable.Range(1, DateTime.DaysInMonth(oneMonthAgo.Year, oneMonthAgo.Month)).Select(day =>
-            //new DateTime(oneMonthAgo.Year, oneMonthAgo.Month, day)).ToList();
+            ////string nowdate = DateTime.Now.ToString("M/d/yyyy HH:mm:ss");
+            ////DateTime nowdate2 = Convert.ToDateTime(nowdate);
+            //DateTime dt = Convert.ToDateTime("12/4/2018 13:00:00");
+            ////DateTime dat = new DateTime(2015, 1, 6);
+            //// dat.AddMonths(1).ToString("d");
+            //DateTime oneMonthAgo = DateTime.Now.AddMonths(1);
+            ////        int days = DateTime.DaysInMonth(oneMonthAgo.Year, oneMonthAgo.Month);
+            ////        var list=Enumerable.Range(1, DateTime.DaysInMonth(oneMonthAgo.Year, oneMonthAgo.Month)).Select(day =>
+            ////new DateTime(oneMonthAgo.Year, oneMonthAgo.Month, day)).ToList();
 
-            var selectedDates = new List<DateTime>();
-            var selectedmins = new List<DateTime>();
+            //var selectedDates = new List<DateTime>();
+            //var selectedmins = new List<DateTime>();
 
-            //for (var date = nowdate2; date <= oneMonthAgo; date = date.AddDays(1))
+            ////for (var date = nowdate2; date <= oneMonthAgo; date = date.AddDays(1))
+            ////{
+            ////    selectedDates.Add(date);
+            ////}
+
+            //for (var date = dt; date <= oneMonthAgo; date = date.AddMinutes(15))
             //{
-            //    selectedDates.Add(date);
+            //    if ((date.DayOfWeek == DayOfWeek.Monday && date.Hour >= 10 && date.Hour < 12) || (date.DayOfWeek == DayOfWeek.Tuesday && date.Hour >= 12 && date.Hour < 14) || (date.DayOfWeek == DayOfWeek.Thursday && date.Hour >= 10 && date.Hour < 14))
+            //    {
+            //        selectedmins.Add(date);
+            //    }
+            //    else
+            //    {
+            //        continue;
+
+            //    }
             //}
 
-            for (var date = dt; date <= oneMonthAgo; date = date.AddMinutes(15))
-            {
-                if ((date.DayOfWeek == DayOfWeek.Monday && date.Hour >= 10 && date.Hour < 12) || (date.DayOfWeek == DayOfWeek.Tuesday && date.Hour >= 12 && date.Hour < 14) || (date.DayOfWeek == DayOfWeek.Thursday && date.Hour >= 10 && date.Hour < 14))
-                {
-                    selectedmins.Add(date);
-                }
-                else
-                {
-                    continue;
+            ////var listb = selectedDates.Where(_ => _.DayOfWeek == DayOfWeek.Monday || _.DayOfWeek == DayOfWeek.Tuesday || _.DayOfWeek == DayOfWeek.Thursday).ToList();
 
-                }
-            }
-
-            //var listb = selectedDates.Where(_ => _.DayOfWeek == DayOfWeek.Monday || _.DayOfWeek == DayOfWeek.Tuesday || _.DayOfWeek == DayOfWeek.Thursday).ToList();
-
-            //TimeSpan timeSpan = Convert.ToDateTime("10:00") - Convert.ToDateTime("12:00");
-            //TimeSpan ts = oneMonthAgo.Subtract(nowdate2).Duration();
+            ////TimeSpan timeSpan = Convert.ToDateTime("10:00") - Convert.ToDateTime("12:00");
+            ////TimeSpan ts = oneMonthAgo.Subtract(nowdate2).Duration();
 
             #endregion
 
@@ -628,10 +629,10 @@ namespace TestApplication1.Controllers
 
             #region This sample deserializes JSON retrieved from a file.
             // read file into a string and deserialize JSON to a type
-            Model model2 = JsonConvert.DeserializeObject<Model>(System.IO.File.ReadAllText(@"D:\model.json"));
+            Model model2 = JsonConvert.DeserializeObject<Model>(System.IO.File.ReadAllText(@"D:\model3.json"));
 
             // deserialize JSON directly from a file
-            //using (StreamReader file = System.IO.File.OpenText(@"D:\model.json"))
+            //using (StreamReader file = System.IO.File.OpenText(@"D:\model3.json"))
             //{
             //    JsonSerializer serializer = new JsonSerializer();
             //    Model model3 = (Model)serializer.Deserialize(file, typeof(Model));
@@ -2182,19 +2183,21 @@ namespace TestApplication1.Controllers
             public int Id { get; set; }
             public string Name { get; set; }
 
-        }
+        }    
         public void MysqlIndex()
         {
-
             #region sql
-            //DataSet ds = new DataSet();
-            ////string connectionString =
-            ////@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
-            //string connectionString = ConfigurationManager.ConnectionStrings["sql_textConnectionString"].ConnectionString;
-            ////string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+            DataSet ds = new DataSet();
+            //string connectionString =
+            //@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["sql_textConnectionString"].ConnectionString;
+            //string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+            SqlDependency.Start(connectionString);//传入连接字符串,启动基于数据库的监听
+            Update();
 
             //SqlConnection con = new SqlConnection(connectionString);
             //con.Open();
+            #region sql select
             //SqlCommand cmd = new SqlCommand();
             //cmd.Connection = con;
             //cmd.CommandText = "select * from Student";
@@ -2205,7 +2208,7 @@ namespace TestApplication1.Controllers
 
             //// var re = from a in stulist select a;
 
-            //foreach (DataRow row in ds.Tables[0].Rows)
+            //foreach (System.Data.DataRow row in ds.Tables[0].Rows)
             //{
             //    stulist.Add(new Studentmodel
             //    {
@@ -2215,6 +2218,24 @@ namespace TestApplication1.Controllers
             //}
 
             //ViewData["Message"] = stulist;
+            #endregion
+
+
+            //{
+            //    con.Open();
+
+            //    using (var cnd2 = new SqlCommand(@"select Id,Name from [dbo].[Student]", con))
+            //    {
+            //        cnd2.ExecuteNonQuery();
+            //    }
+            //    cmd.Notification = null;
+            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //    SqlDependency dependency = new SqlDependency(cmd);
+            //    //dependency.AddCommandDependency(cmd);
+            //    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
+
+            //}
+
             #endregion
             #region mysql  
             #region Read() SELECT
@@ -2246,70 +2267,103 @@ namespace TestApplication1.Controllers
             #endregion
 
             #region DataSet() select and insert
-            DataSet ds = new DataSet();
-            string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
+            //DataSet ds = new DataSet();
+            //string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
 
 
-            MySqlConnection con = new MySqlConnection(connectionString);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = "select * from mysqlstudent";
-            // cmd.Connection = con;
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            da.Fill(ds);
+            //MySqlConnection con = new MySqlConnection(connectionString);
+            //con.Open();
+            //MySqlCommand cmd = new MySqlCommand();
+            //cmd.Connection = con;
+            //cmd.CommandText = "select * from mysqlstudent";
+            //// cmd.Connection = con;
+            //MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            //da.Fill(ds);
 
-            //List<Studentmodel> treelist = new List<Studentmodel>();
+            ////List<Studentmodel> treelist = new List<Studentmodel>();
+            ////for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            ////{
+            ////    Studentmodel tre = new Studentmodel();
+            ////    tre.Id = Convert.ToInt32(ds.Tables[0].Rows[i]["Id"].ToString());
+            ////    tre.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+
+            ////    treelist.Add(tre);
+            ////}
+            ////ViewData["Message"] = treelist;
+
             //for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             //{
-            //    Studentmodel tre = new Studentmodel();
-            //    tre.Id = Convert.ToInt32(ds.Tables[0].Rows[i]["Id"].ToString());
-            //    tre.Name = ds.Tables[0].Rows[i]["Name"].ToString();
 
-            //    treelist.Add(tre);
+            //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+            //    {
+            //        string max1 = "Select Name From mysqlstudent";
+            //        MySqlDataAdapter da1 = new MySqlDataAdapter(max1, con);
+            //        DataTable dt1 = new DataTable();
+            //        da1.Fill(dt1);
+            //        var id1 = dt1.Rows[0]["Name"].ToString();
+            //        if (id1 != "")
+            //        {
+            //            //int ids = Convert.ToInt32(id1) + 1;
+
+
+            //            string query1 = "Insert into mysqlstudent(Name) Values ('" + ds.Tables[0].Rows[i][j] + "')";
+
+            //            //con.Open();
+            //            MySqlCommand cmd2 = new MySqlCommand(query1, con);
+            //            cmd2.ExecuteNonQuery();
+
+            //        }
+            //        else
+            //        {
+
+            //            string query1 = "Insert into mysqlstudent('Name') Values ('" + ds.Tables[0].Rows[i][j] + "')";
+
+            //            con.Open();
+            //            MySqlCommand cmd2 = new MySqlCommand(query1, con);
+            //            cmd2.ExecuteNonQuery();
+            //            // con.Close();
+
+            //        }
+
+            //    }
+
             //}
-            //ViewData["Message"] = treelist;
+            //con.Close();
+            #endregion
+            #endregion
+        }
 
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+        private static void Update()
+        {
+            using (
+                   SqlConnection con =
+                       new SqlConnection(ConfigurationManager.ConnectionStrings["sql_textConnectionString"].ConnectionString))
             {
 
-                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                string sql = "select Id,Name from [dbo].[Student]";
+
+                using (SqlCommand command = new SqlCommand(sql, con))
                 {
-                    string max1 = "Select Name From mysqlstudent";
-                    MySqlDataAdapter da1 = new MySqlDataAdapter(max1, con);
-                    DataTable dt1 = new DataTable();
-                    da1.Fill(dt1);
-                    var id1 = dt1.Rows[0]["Name"].ToString();
-                    if (id1 != "")
-                    {
-                        //int ids = Convert.ToInt32(id1) + 1;
-
-
-                        string query1 = "Insert into mysqlstudent(Name) Values ('" + ds.Tables[0].Rows[i][j] + "')";
-
-                        //con.Open();
-                        MySqlCommand cmd2 = new MySqlCommand(query1, con);
-                        cmd2.ExecuteNonQuery();
-
-                    }
-                    else
-                    {
-
-                        string query1 = "Insert into mysqlstudent('Name') Values ('" + ds.Tables[0].Rows[i][j] + "')";
-
-                        con.Open();
-                        MySqlCommand cmd2 = new MySqlCommand(query1, con);
-                        cmd2.ExecuteNonQuery();
-                        // con.Close();
-
-                    }
-
+                    con.Open();
+                    command.CommandType = CommandType.Text;
+                    SqlDependency dependency = new SqlDependency(command);
+                    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
+                    //必须要执行一下command
+                    //command.ExecuteNonQuery();        
+                   var re =  command.ExecuteReader();
+                    Debug.WriteLine(dependency.HasChanges);
                 }
-
             }
-            con.Close();
-            #endregion
-            #endregion
+        }
+
+
+
+        private static void dependency_OnChange(object sender, SqlNotificationEventArgs e)
+        {
+            //Debug.WriteLine("onchange方法中：" + dependency.HasChanges);
+            Debug.WriteLine("数据库数据发生变化" + DateTime.Now);
+            //这里要再次调用
+            Update();
         }
         #endregion
         #region DataTable 填充 DataSet 动态插入//https://forums.asp.net/p/2150364/6242229.aspx?p=True&t=636807793294045056
@@ -2354,7 +2408,7 @@ namespace TestApplication1.Controllers
 
         #endregion
 
-        #region 动态添加 删除 List model bind
+        #region 动态添加 删除 List model bind [form].serialize() :针对 input等填入式tag, 对tr无效, 获取表单中的 name值 //submit form with model bind(也是):针对 input等填入式tag, 对tr无效
         public class CreateRMAVM
         {
             public string Varenummer { get; set; }
@@ -2371,7 +2425,7 @@ namespace TestApplication1.Controllers
         }
 
         [HttpPost]
-        public JsonResult ProcessCreateRMA(List<CreateRMAVM> vm)
+        public JsonResult ProcessCreateRMA(List<CreateRMAVM> vm) //如果没值，可能换单模型（非List<model>）试试,或者把CreateRMAVM[0].Varenummer 换model[0].Varenummer
         {
             //List<CreateRMAVM> vm = new List<CreateRMAVM>();
             //RMA_History model = new RMA_History();

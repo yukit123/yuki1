@@ -12,14 +12,18 @@ namespace TestApplication1.Models
         public RelationshipType relationshipType { get; set; }
     }
 
-    public enum RelationshipType : int
+    public enum RelationshipType
     {
-        Spouse = 1,
-        Child = 2,
-        Parent = 3,
-        Sibling = 4,
-        Guardian = 5,
-        Other = 6,
-        Self = 7
+        //Spouse = 1,
+        //Child = 2,
+        //Parent = 3,
+        //Sibling = 4,
+        //Guardian = 5,
+        //Other = 6,
+        //Self = 7
+
+        Pen = 1,
+        Pencil = 2,
+        Paper = 3
     }
 }

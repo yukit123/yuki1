@@ -34,6 +34,8 @@
 
     </tbody>
 </table>
+
+<input type="button" onclick="GetAllChargingData()"/>
 @section scripts{
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -80,22 +82,22 @@
             })
         }
   //#region ajax{string}=>[FromUri]+ model
-        function Dochange2() {
+        function GetAllChargingData() {
    
             var postdata = { ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" };
             $.ajax({
                 type: "get",
-                url: "http://localhost:27221/api/Players/GetAllChargingData",
+                url: "http://localhost:50638/api/Players/GetAllChargingData",
                 data: postdata,
                 success: function (data, status) { }
             });
         }
    //JSON.stringify  <=>  ajax{string}=>[FromUri]
-        function Dochange3() {
+        function GetByModel() {
        
             $.ajax({
                 type: "get",
-                url: "http://localhost:27221/api/Players/GetByModel",
+                url: "http://localhost:50638/api/Players/GetByModel",
                 contentType: "application/json",
                 data: { strQuery: JSON.stringify({ ID: "1", NAME: "Jim", CREATETIME: "1988-09-11" }) },// [ValidateAntiForgeryToken]不可用JSON.stringify
                 success: function (data, status) {

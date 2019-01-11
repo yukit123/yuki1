@@ -1,5 +1,7 @@
 ﻿@model List<WebApplication1.Models.Author>
 
+    
+
 @{
     ViewBag.Title = "ClosedXML_Index";
 }
@@ -14,26 +16,25 @@
 <body>
     <h4>Customers</h4>
     <hr />
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th>CustomerID</th>
-            <th>Contact Name</th>
-        </tr>
-        @foreach (var customer in Model)
-        {
+    @*<table cellpadding="0" cellspacing="0">
             <tr>
-                <td>@customer.id</td>
-                <td>@customer.AuthorName.ToString()</td>
+                <th>CustomerID</th>
+                <th>Contact Name</th>
             </tr>
-        }
-    </table>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.id</td>
+                    <td>@customer.AuthorName.ToString()</td>
+                </tr>
+            }
+        </table>*@
     <br />
     <br />
     @using (Html.BeginForm("ClosedXML_Export", "Home", FormMethod.Post, new { id = "loginForm" }))
     {
         @*<input type="text" name="usename" />
         <input type="text" name="usename2" />*@
-
         <input type="submit" value="Export" />
     }
 </body>

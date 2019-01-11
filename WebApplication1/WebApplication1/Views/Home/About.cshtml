@@ -5,3 +5,7 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@Html.TextBox("aaa", null, new { placeholder = "bb", @class = "form-control" })
+@Html.TextBox("term", "", new { placeholder = "What are you searching for?" })
