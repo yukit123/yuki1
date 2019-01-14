@@ -5,7 +5,7 @@
 
 }
 
-    @*https://forums.asp.net/t/2140758.aspx（https://forums.asp.net/t/2139925.aspx）*@
+@*https://forums.asp.net/t/2140758.aspx（https://forums.asp.net/t/2139925.aspx）*@
 @*（https://datatables.net/examples/plug-ins/range_filtering.html）*@
 <table border="0" cellspacing="5" cellpadding="5">
     <tbody>
@@ -160,9 +160,45 @@
 </table>
 @*<input id="submitbtn" type="button" value="submitbtn" />*@
 
+___________________________________
+<br />
+@*<table id="example3" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </tfoot>
+</table>*@
+<div>
+    <table id="demoTable">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Surname</td>
+                <td>Classroom</td>
+            </tr>
+        </thead>
+    </table>
+</div>
 
 
 @section scripts{
+
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -170,7 +206,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script>
-      
+
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var min = parseInt($('#min').val(), 10);
@@ -274,8 +310,28 @@
 
 
 
-
-
+        var filterValues = {};
+        $(document).ready(function () {
+            var refDataTable = $("#demoTable").dataTable({//https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
+                serverSide: true,
+                bFilter: false,
+                columns: [
+                    { data: "Name" },
+                    { data: "SurName" },
+                    { data: "ClassRoom" }
+                ],
+                ajax: function (data, callback, settings) {
+                    //filterValues.draw = data.draw;
+                    //filterValues.start = data.start;
+                    //filterValues.length = data.length;
+                    $.ajax({
+                        url: '/Home/Studentsdatatable',
+                        method: 'GET'
+                        //data: filterValues
+                    }).done(callback);
+                }
+            });
+        });
 
     </script>
 }

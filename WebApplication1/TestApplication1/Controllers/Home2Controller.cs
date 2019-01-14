@@ -198,10 +198,10 @@ namespace TestApplication1.Controllers
             #region XSS AntiXSS 从html中删除所有脚本和非标准元素，从而使用户键入的html安全。https://forums.asp.net/t/2150613.aspx
             //ViewBag.query = "<a href='#' id='site' class='btn' data-content='{&quot;RowId&quot;:714886,&quot;SequenceNumber&quot;:1,&quot;Order&quot;:0}' data-assettypeid='1' onclick='ECL.RequestButton(this); return false;'>Sample</a>";
             //ViewBag.query2 = "<a href='#' id='site' class='btn' data-content='111' data-assettypeid='1' onclick='ECL.RequestButton(this); return false;'>Sample</a>";
-            //var url = "<a href=\"http://search.msn.com/results.aspx?q=[Untrusted-input]\">Click Here!</a>";
+            //var url = "<a href="http://search.msn.com/results.aspx?q=[Untrusted-input]">Click Here!</a>";
             //string safeHtml = Microsoft.Security.Application.Sanitizer.GetSafeHtml(ViewBag.query2);
 
-            //var html = "<a href=\"#\" onclick=\"alert();\" data-content='111'>aaaaaaaaa</a>javascript<P><IMG SRC=javascript:alert('XSS')><javascript>alert('a')</javascript><IMG src=\"abc.jpg\"><IMG><P>Test</P>";
+            //var html = "<a href="#" onclick="alert();" data-content='111'>aaaaaaaaa</a>javascript<P><IMG SRC=javascript:alert('XSS')><javascript>alert('a')</javascript><IMG src="abc.jpg"><IMG><P>Test</P>";
 
             //string safeHtml2 = Microsoft.Security.Application.Sanitizer.GetSafeHtml(html);
             //string Name = AntiXss.HtmlEncode(url);
@@ -691,7 +691,7 @@ namespace TestApplication1.Controllers
                     if (file != null && file.ContentLength > 0)
                     {
 
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"\")));//images-WallImages
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"")));//images-WallImages
 
                         string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
 
@@ -968,7 +968,7 @@ namespace TestApplication1.Controllers
         public ActionResult Index_AddRoom()
         {
             string zFileu = Server.MapPath(@"~/images/") + "test.pdf";
-           // var path = System.IO.Directory.CreateDirectory(@"~\images\odoiproject\");
+           // var path = System.IO.Directory.CreateDirectory(@"~\images\odoiproject");
             return View();
 
         }
@@ -1496,12 +1496,12 @@ namespace TestApplication1.Controllers
             {
                 img.Resize(190, img.Height);
             }
-            img.Save(@"D:\image\" + Path.GetFileName(file.FileName));
+            img.Save(@"D:\image" + Path.GetFileName(file.FileName));
             if (img.Width > 100)
             {
                 img.Resize(100, img.Height);
             }
-            img.Save(@"D:\image\" + Path.GetFileName(file.FileName));
+            img.Save(@"D:\image" + Path.GetFileName(file.FileName));
         }
         #endregion
 

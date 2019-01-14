@@ -601,7 +601,7 @@ MessageFormatParser.prototype.ruleMessageText = function ruleMessageText() {
   this.rule = this.ruleInInterpolationOrMessageText;
 };
 
-// Note: Since "\" is used as an escape character, don't allow it to be part of the
+// Note: Since "" is used as an escape character, don't allow it to be part of the
 // startSymbol/endSymbol when I add the feature to allow them to be redefined.
 var INTERP_OR_END_MESSAGE_RE = /\\.|{{|}/g;
 var INTERP_OR_PLURALVALUE_OR_END_MESSAGE_RE = /\\.|{{|#|}/g;

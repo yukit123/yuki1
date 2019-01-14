@@ -188,7 +188,7 @@ namespace WebApiTest.Controllers
             request.Method = "post";
 
             //初始化request参数
-            string postData = "{ ID: \"1\", NAME: \"Jim\", CREATETIME: \"1988-09-11\" }";
+            string postData = "{ ID: '1', NAME: 'Jim', CREATETIME: '1988-09-11' }";
 
             //设置参数的编码格式，解决中文乱码
             byte[] byteArray = Encoding.UTF8.GetBytes(postData);

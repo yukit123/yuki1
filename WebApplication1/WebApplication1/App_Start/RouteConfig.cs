@@ -16,7 +16,7 @@ namespace WebApplication1
             //  routes.MapRoute(
             //    name: "admin123",
             //    url: "admin123/{controller}/{action}",
-            //    defaults: new { controller = "admin", action = "Index"},
+            //    defaults: new { controller = "admin", action = "Index" },
             //    namespaces: new string[] { "WebApplication1.Controllers" }
             //);
 
@@ -24,10 +24,9 @@ namespace WebApplication1
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "WebApplication1.Controllers" }           
+                namespaces: new string[] { "WebApplication1.Controllers" }
             ).DataTokens.Add("area", "Home");
-            //.DataTokens.Add("area", "Home");
-            //
+
 
         }
     }

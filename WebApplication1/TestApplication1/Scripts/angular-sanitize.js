@@ -115,15 +115,15 @@ var htmlSanitizeWriter;
 
      it('should inline raw snippet if bound to a trusted value', function() {
        expect(element(by.css('#bind-html-with-trust div')).getAttribute('innerHTML')).
-         toBe("<p style=\"color:blue\">an html\n" +
-              "<em onmouseover=\"this.textContent='PWN3D!'\">click here</em>\n" +
+         toBe("<p style="color:blue">an html\n" +
+              "<em onmouseover="this.textContent='PWN3D!'">click here</em>\n" +
               "snippet</p>");
      });
 
      it('should escape snippet without any filter', function() {
        expect(element(by.css('#bind-default div')).getAttribute('innerHTML')).
-         toBe("&lt;p style=\"color:blue\"&gt;an html\n" +
-              "&lt;em onmouseover=\"this.textContent='PWN3D!'\"&gt;click here&lt;/em&gt;\n" +
+         toBe("&lt;p style="color:blue"&gt;an html\n" +
+              "&lt;em onmouseover="this.textContent='PWN3D!'"&gt;click here&lt;/em&gt;\n" +
               "snippet&lt;/p&gt;");
      });
 
@@ -135,7 +135,7 @@ var htmlSanitizeWriter;
        expect(element(by.css('#bind-html-with-trust div')).getAttribute('innerHTML')).toBe(
          'new <b onclick="alert(1)">text</b>');
        expect(element(by.css('#bind-default div')).getAttribute('innerHTML')).toBe(
-         "new &lt;b onclick=\"alert(1)\"&gt;text&lt;/b&gt;");
+         "new &lt;b onclick="alert(1)"&gt;text&lt;/b&gt;");
      });
    </file>
    </example>

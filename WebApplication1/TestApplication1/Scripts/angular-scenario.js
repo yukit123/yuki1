@@ -19989,7 +19989,7 @@ function $SceDelegateProvider() {
  * [
  *   { "name": "Alice",
  *     "htmlComment":
- *         "<span onmouseover='this.textContent=\"PWN3D!\"'>Is <i>anyone</i> reading this?</span>"
+ *         "<span onmouseover='this.textContent="PWN3D!"'>Is <i>anyone</i> reading this?</span>"
  *   },
  *   { "name": "Bob",
  *     "htmlComment": "<i>Yes!</i>  Am I the only other one?"
@@ -22127,7 +22127,7 @@ var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+
             toMatch(/2010-10-2\d \d{2}:\d{2}:\d{2} (-|\+)?\d{4}/);
          expect(element(by.binding("'1288323623006' | date:'MM/dd/yyyy @ h:mma'")).getText()).
             toMatch(/10\/2\d\/2010 @ \d{1,2}:\d{2}(AM|PM)/);
-         expect(element(by.binding("'1288323623006' | date:\"MM/dd/yyyy 'at' h:mma\"")).getText()).
+         expect(element(by.binding("'1288323623006' | date:"MM/dd/yyyy 'at' h:mma"")).getText()).
             toMatch(/10\/2\d\/2010 at \d{1,2}:\d{2}(AM|PM)/);
        });
      </file>

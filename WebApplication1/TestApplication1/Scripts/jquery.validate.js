@@ -711,7 +711,7 @@ $.extend( $.validator, {
 			if ( type === "file" ) {
 
 				// Modern browser (chrome & safari)
-				if ( val.substr( 0, 12 ) === "C:\\fakepath\\" ) {
+				if ( val.substr( 0, 12 ) === "C:\\fakepath\" ) {
 					return val.substr( 12 );
 				}
 
@@ -723,7 +723,7 @@ $.extend( $.validator, {
 				}
 
 				// Windows-based path
-				idx = val.lastIndexOf( "\\" );
+				idx = val.lastIndexOf( "\" );
 				if ( idx >= 0 ) {
 					return val.substr( idx + 1 );
 				}

@@ -3979,7 +3979,7 @@ Sizzle.find = function( expr, context, isXML ) {
 			var left = match[1];
 			match.splice( 1, 1 );
 
-			if ( left.substr( left.length - 1 ) !== "\\" ) {
+			if ( left.substr( left.length - 1 ) !== "\" ) {
 				match[1] = (match[1] || "").replace( rBackslash, "" );
 				set = Expr.find[ type ]( match, context, isXML );
 
@@ -4018,7 +4018,7 @@ Sizzle.filter = function( expr, set, inplace, not ) {
 
 				match.splice(1,1);
 
-				if ( left.substr( left.length - 1 ) === "\\" ) {
+				if ( left.substr( left.length - 1 ) === "\" ) {
 					continue;
 				}
 
@@ -4620,7 +4620,7 @@ var Expr = Sizzle.selectors = {
 
 var origPOS = Expr.match.POS,
 	fescape = function(all, num){
-		return "\\" + (num - 0 + 1);
+		return "\" + (num - 0 + 1);
 	};
 
 for ( var type in Expr.match ) {

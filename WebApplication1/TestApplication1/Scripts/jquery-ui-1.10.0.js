@@ -9093,7 +9093,7 @@ $.extend(Datepicker.prototype, {
 	 */
 	_attachHandlers: function(inst) {
 		var stepMonths = this._get(inst, "stepMonths"),
-			id = "#" + inst.id.replace( /\\\\/g, "\\" );
+			id = "#" + inst.id.replace( /\\\\/g, "\" );
 		inst.dpDiv.find("[data-handler]").map(function () {
 			var handler = {
 				prev: function () {

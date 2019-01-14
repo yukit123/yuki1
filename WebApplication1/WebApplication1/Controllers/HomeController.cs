@@ -940,12 +940,80 @@ namespace WebApplication1.Controllers
 
             return Json(stream, JsonRequestBehavior.AllowGet);
         }
-
+        #region Get value by ajax in Jquery datatable //https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
         public ActionResult datatable2()//calendar //https://stackoverflow.com/questions/41420839/datatables-date-range-filter //jquery datepicker filter datetable.net date range //filter range between date in datetable
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        
+        public class Studentdt
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string SurName { get; set; }
+            public string ClassRoom { get; set; }
+        }
+        public class DataTable2
+        {
+            public int draw { get; set; }
+            public int recordsTotal { get; set; }
+            public int recordsFiltered { get; set; }
+            public Studentdt[] data { get; set; }
+        }
+
+        public ActionResult Studentsdatatable()//https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
+        {
+            DataTable2 dataTable = new DataTable2();
+           // dataTable.draw = int.Parse(Request.QueryString["draw"]);
+
+            List<Studentdt> students = new List<Studentdt>();
+            students.Add(new Studentdt { Id = 1, Name = "Mike", SurName = "Mikey", ClassRoom = "8A" });
+            students.Add(new Studentdt { Id = 2, Name = "John", SurName = "Salary", ClassRoom = "8B" });
+            students.Add(new Studentdt { Id = 3, Name = "Steve", SurName = "Brown", ClassRoom = "7A" });
+            //string filterName = Request.QueryString["name"];
+            //string filterSurName = Request.QueryString["surname"];
+            //string filterClassroom = Request.QueryString["classroom"];
+
+            //var result = from s in students
+            //             where (string.IsNullOrEmpty(filterName) || s.Name.Equals(filterName))
+            //             && (string.IsNullOrEmpty(filterSurName) || s.SurName.Equals(filterSurName))
+            //             && (string.IsNullOrEmpty(filterClassroom) || s.ClassRoom.Equals(filterClassroom))
+            //             select s;
+
+            //dataTable.data = students.ToArray();
+            //dataTable.recordsTotal = students.Count;
+            //dataTable.recordsFiltered = students.Count();
+
+            dataTable.data = students.ToArray();
+            dataTable.recordsTotal = students.Count;
+            dataTable.recordsFiltered = students.Count();
+            //对
+            return Json(dataTable, JsonRequestBehavior.AllowGet);
+            //错
+            //return Json(new { dataTable, draw = 1, recordsTotal = 2, recordsFiltered = 3 }, JsonRequestBehavior.AllowGet);
+
+        }
+        #endregion
+        [HttpPost]
+        public JsonResult GetClosedRMA()
+        {
+ var data = @"{""data"":[{""first_name"": ""Airi"",""last_name"": ""Satou"",""position"": ""Accountant"",""office"": ""Tokyo"",""start_date"": ""28th Nov 08"", ""salary"": ""$162,700""},{""first_name"": ""Angelica"",""last_name"": ""Ramos"",""position"": ""Chief Executive Officer (CEO)"",""office"": ""London"",""start_date"": ""9th Oct 09"",""salary"": ""$1,200,000""}]}";
+
+           // var listaa= @"{'persons':[{'branch':'CORP','phone_numbers':[{'desk':'5223422117'},{'mobile':'5022319224'},{'branch':'422-922-2291'}],'email':'twilliams@test.com','preferred_name':'Thomas','person_id':368,'department':'IT','first_name':'Thomas','title':'Programming Manager','last_name':'Williams'}]}";
+                //Paging
+              // var rmalist = @"{ 'data':[{'Kundenavn':'test 1'},{'Kundenavn':'test 2'},{'Kundenavn':'test 3'}],'draw':'1','recordsTotal':567,'recordsFiltered':567}";
+
+               // return Json(listaa, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                //draw = 1,
+                //recordsTotal = 57,
+                //recordsFiltered = 567,
+                data = data
+            }, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult Edit(/*int? id, string owner*/)
@@ -1375,7 +1443,7 @@ namespace WebApplication1.Controllers
             string fileName = "test.xlsx";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
-        #region importEcportTools
+        #region importExportTools
         //public class ImportExportTool
         //{
         //    private static ICollection<Label> _students;
@@ -1396,7 +1464,7 @@ namespace WebApplication1.Controllers
         //        ICollection<Label> students = new List<Label>();
 
         //        Random r = new Random();
-        //        students.Add(new Label { LabelId = 1, LabelName = "A"});
+        //        students.Add(new Label { LabelId = 1, LabelName = "A" });
         //        students.Add(new Label { LabelId = 2, LabelName = "B" });
         //        students.Add(new Label { LabelId = 3, LabelName = "C" });
 

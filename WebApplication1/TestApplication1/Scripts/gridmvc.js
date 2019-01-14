@@ -455,10 +455,10 @@ TextFilterWidget = (function ($) {
         var html = '<div class="form-group">\
                         <label>' + this.lang.filterTypeLabel + '</label>\
                         <select class="grid-filter-type form-control">\
-                            <option value="1" ' + (this.value.filterType == "1" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.Equals + '</option>\
-                            <option value="2" ' + (this.value.filterType == "2" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.Contains + '</option>\
-                            <option value="3" ' + (this.value.filterType == "3" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.StartsWith + '</option>\
-                            <option value="4" ' + (this.value.filterType == "4" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.EndsWith + '</option>\
+                            <option value="1" ' + (this.value.filterType == "1" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.Equals + '</option>\
+                            <option value="2" ' + (this.value.filterType == "2" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.Contains + '</option>\
+                            <option value="3" ' + (this.value.filterType == "3" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.StartsWith + '</option>\
+                            <option value="4" ' + (this.value.filterType == "4" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.EndsWith + '</option>\
                         </select>\
                     </div>\
                     <div class="form-group">\
@@ -533,9 +533,9 @@ NumberFilterWidget = (function ($) {
         var html = '<div class="form-group">\
                         <label>' + this.lang.filterTypeLabel + '</label>\
                         <select class="grid-filter-type form-control">\
-                            <option value="1" ' + (this.value.filterType == "1" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.Equals + '</option>\
-                            <option value="5" ' + (this.value.filterType == "5" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.GreaterThan + '</option>\
-                            <option value="6" ' + (this.value.filterType == "6" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.LessThan + '</option>\
+                            <option value="1" ' + (this.value.filterType == "1" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.Equals + '</option>\
+                            <option value="5" ' + (this.value.filterType == "5" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.GreaterThan + '</option>\
+                            <option value="6" ' + (this.value.filterType == "6" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.LessThan + '</option>\
                         </select>\
                     </div>\
                     <div class="form-group">\
@@ -618,9 +618,9 @@ DateTimeFilterWidget = (function ($) {
         var html = '<div class="form-group">\
                         <label>' + this.lang.filterTypeLabel + '</label>\
                         <select class="grid-filter-type form-control">\
-                            <option value="1" ' + (this.value.filterType == "1" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.Equals + '</option>\
-                            <option value="5" ' + (this.value.filterType == "5" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.GreaterThan + '</option>\
-                            <option value="6" ' + (this.value.filterType == "6" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.LessThan + '</option>\
+                            <option value="1" ' + (this.value.filterType == "1" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.Equals + '</option>\
+                            <option value="5" ' + (this.value.filterType == "5" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.GreaterThan + '</option>\
+                            <option value="6" ' + (this.value.filterType == "6" ? "selected="selected"" : "") + '>' + this.lang.filterSelectTypes.LessThan + '</option>\
                         </select>\
                     </div>' +
                         (this.datePickerIncluded ?
