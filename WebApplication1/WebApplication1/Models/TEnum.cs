@@ -25,6 +25,7 @@ namespace WebApplication1.Models
     {
         [Display(Name = "Archive Description")]
         Male = 0,
-        Female = 1
+        Female = 1,
+        None=2
     }
 }

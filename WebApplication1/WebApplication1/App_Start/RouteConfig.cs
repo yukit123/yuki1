@@ -19,7 +19,7 @@ namespace WebApplication1
             //    defaults: new { controller = "admin", action = "Index" },
             //    namespaces: new string[] { "WebApplication1.Controllers" }
             //);
-
+            routes.MapMvcAttributeRoutes();//启动属性路由 [Route("AAA/Index")] 包括Area
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

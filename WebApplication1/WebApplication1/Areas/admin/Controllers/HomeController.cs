@@ -8,8 +8,7 @@ namespace WebApplication1.Areas.admin.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: admin/Home
-        //[HttpPost]
+        [Route("AAA/Index")]
         public ActionResult Index()
         {
             //return RedirectToAction("Index2","Home",new { area="Home"});

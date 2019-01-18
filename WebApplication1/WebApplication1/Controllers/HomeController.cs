@@ -2150,7 +2150,7 @@ namespace WebApplication1.Controllers
             //options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
             options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName = "ab1", Dateofbirth = Convert.ToDateTime("2018-01-01") });
 
-            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.Female), EnumName = "ab2", Dateofbirth = Convert.ToDateTime("2017-06-01") });
+            options.Add(new TEnum() { EnumId = 1, EnumType = (WebApplication1.Models.EnumType.None), EnumName = "ab2", Dateofbirth = Convert.ToDateTime("2017-06-01") });
 
             options.Add(new TEnum() { EnumId = 2, EnumType = (WebApplication1.Models.EnumType.Male), EnumName = "ab3", Dateofbirth = Convert.ToDateTime("2018-06-02") });
 

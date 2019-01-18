@@ -1,12 +1,14 @@
 ﻿@*@model List<WebApplication1.Controllers.HomeController.selectmodelVM>*@
 @{
+    /**/
+
     ViewBag.Title = "UploadOutSubmit";
 }
 
 <h2>UploadOutSubmit</h2>
 
 <input id="avatar" type="file" name="avatar" />
-<button id="upload" value="Upload">Upload</button>
+    <button id="upload" value="Upload">Upload</button>
 _______________________________________________________________
 @using (Html.BeginForm("UploadOutSubmit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -20,12 +22,16 @@ _______________________________________________________________
         </select>
 
             <button type="submit" class="btn btn-default" value="Submit;0;0" style="width:100%;">Submit</button>*@
-    <input type="file" name="file2" onchange="this.form.submit()" />
-    @*<input type="submit" value="submit"/>*@
+    <input type="file" name="file2" id="file2" @*onchange="this.form.submit()"*@ />
+    <input type="button" id="doSubmit" value="submit" />
 
 }
 
+<textarea id="result">
+  
+</textarea>
 @section scripts{
+
     <script type="text/javascript">
         $(document).on("click", "#upload", function () {
             var file_data = $("#avatar").prop("files")[0];
@@ -51,5 +57,27 @@ _______________________________________________________________
                 },
             })
         })
+
+
+        //region read the data value of the uploaded json file 在前端显示JSON文件的内容 https://forums.asp.net/p/2151547/6246552.aspx?p=True&t=636833708192360336
+        document.getElementById('doSubmit').onclick = function () {
+            var files = document.getElementById('file2').files;
+            console.log(files);
+            if (files.length <= 0) {
+                return false;
+            }
+
+            var fr = new FileReader();
+
+            fr.onload = function (e) {
+                console.log(e);
+                var result = JSON.parse(e.target.result);
+                var formatted = JSON.stringify(result, null, 2);
+                document.getElementById('result').value = formatted;
+            }
+
+            fr.readAsText(files.item(0));
+        };
+       //endregion
     </script>
 }

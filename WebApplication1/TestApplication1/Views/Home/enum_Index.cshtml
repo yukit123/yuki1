@@ -2,6 +2,16 @@
 
     @{
         ViewBag.Title = "enum_Index";
+        #region Exclude/Remove Value in EnumDropDownListFor https://forums.asp.net/t/2151516.aspx  影响EnumDropDownListFor是MODEL 不是controller
+        var selectList = Enum.GetValues(typeof(TestApplication1.Models.RelationshipType)).Cast<TestApplication1.Models.RelationshipType>()//反射
+      .Where(e => e != TestApplication1.Models.RelationshipType.Pen)
+      .Select(e => new SelectListItem
+      {
+          Value = ((int)e).ToString(),
+          Text = e.ToString()
+      });
+        #endregion
+        var l = 1;
     }
 
     <h2>enum_Index</h2>
@@ -18,4 +28,11 @@
                                           {
                                               @class = "form-control"
                                           })
+@section scripts{
+<script>
+    //$(function () {
 
+    //})
+    //$("#relationshipType").
+</script>
+    }

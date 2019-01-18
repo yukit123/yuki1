@@ -1052,7 +1052,7 @@ namespace TestApplication1.Controllers
 
             //var enumlist = options[1];
             Relationship model = new Relationship();
-            return View(model);
+            return View(/*model*/);
         }
         #endregion
 

@@ -14,6 +14,7 @@ namespace WebApplication1.Areas.admin2
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+            //context.MapR
             context.MapRoute(
                 "admin2_default",
                 "admin2/{controller}/{action}/{id}",

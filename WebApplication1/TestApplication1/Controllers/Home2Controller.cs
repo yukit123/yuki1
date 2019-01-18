@@ -1791,7 +1791,7 @@ namespace TestApplication1.Controllers
 
 
             Console.Write("Attempting to validate, ");
-            XDocument custOrdDoc = XDocument.Load(path2);
+            XDocument custOrdDoc = XDocument.Load(path2);//Search in XML File XDocument https://forums.asp.net/p/2079647/5998494.aspx?Search+in+XML+File
 
             bool errors = false;
             custOrdDoc.Validate(schemas, (o, e) =>
