@@ -16,52 +16,60 @@
 
 </div>
 <table class="table">
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Salary</th>
-        <th>Department</th>
-        <th>Position</th>
-        <th>ViewDetails</th>
-        <th>Details</th>
-        @foreach (var item in Model)
-        {
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Salary</th>
+    <th>Department</th>
+    <th>Position</th>
+    <th>ViewDetails</th>
+    <th>Details</th>
+    @foreach (var item in Model)
+    {
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Department)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Position)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ViewDetails)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
-                        @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.Id })
-                        @Html.ActionLink("Details2", "Details", new { id = item.Id })
-                    <input type="button" value="Details2" id="Details2" onclick="doModel(@item.Id)" />
-                    <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViewDetails)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                @Html.ActionLink("DownloadFile", "DownloadFile", new { id = item.Id })
+                @Html.ActionLink("Details2", "Details", new { id = item.Id })
+                <input type="button" value="Details2" id="Details2" onclick="doModel(@item.Id)" />
+                <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
 
-                </td>
-            </tr>
-        }
+            </td>
+        </tr>
+    }
 
-    </table>
+</table>
 
 <a href="javascript:void(0);" class="anchorDetail" data-id="1">Send id=1</a>
 <a href="javascript:void(0);" class="anchorDetail" data-id="3">Send id=3</a>
+
+
+<div id='myModalContent2'></div>
+
+<div id="partial"></div>
+
+<div id="partial2"></div>
+
 
 
 @*@section scripts{
@@ -115,9 +123,16 @@
                     data: { "Id": id },
                     datatype: "json",
                     success: function (data) {
-                        $('#myModalContent').html(data);
+                        $('#myModalContent2').html(data);
                         $('#myModal').modal('show');
 
+
+                        $('#myModalContent').html(data);//Html() load() replaceWith():https://forums.asp.net/t/2151801.aspx
+
+                        var url = "@Html.Raw(Url.Action("_ViewEmployee", "Home", new { ID = "sempar" }))";
+                        $('#partial').load(url);
+                      
+                        $('#partial2').replaceWith(data);
                     },
                     error: function () {
                         alert("Dynamic content load failed.");
@@ -128,4 +143,4 @@
 
     </script>
 
-}  
+}

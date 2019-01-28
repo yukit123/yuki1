@@ -489,11 +489,12 @@ namespace WebApplication1.Controllers
         }
         public ActionResult datepicker()
         {
+            //https://forums.asp.net/p/2151779/6247294.aspx?p=True&t=636837975401866881
             //var list = db.Blogs.ToList().FirstOrDefault();
             //ViewBag.Message = "Your application description page.";
             Blog bl = new Blog();
 
-            bl.DateDocument = Convert.ToDateTime("2018/12/14");
+            //bl.DateDocument = Convert.ToDateTime("2018/12/14");
             return View(bl);
         }
 
@@ -964,7 +965,7 @@ namespace WebApplication1.Controllers
         }
 
         public ActionResult Studentsdatatable()//https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
-        {
+        {//https://forums.asp.net/p/2151279/6245859.aspx?Re+Datatables+Jquery+Server+side+No+matching+records+found case
             DataTable2 dataTable = new DataTable2();
            // dataTable.draw = int.Parse(Request.QueryString["draw"]);
 
@@ -2876,9 +2877,21 @@ namespace WebApplication1.Controllers
             //    querylist2.AddRange(querylist1);
             //}
             #region Contain Any
-            //var list11 = new string [] { "33","34" };
+            //var list11 = new string[] { "33", "34" };
+            //List<int> failStudentIds = new List<int>() { 3, 4 };
+
+            //List<ListStrViewModel> model = new List<ListStrViewModel>();
+            //model.Add(new ListStrViewModel {Id=1,field1="111" });
+            //model.Add(new ListStrViewModel { Id = 2, field1 = "222" , field2 = "222", field3 = "222"});
+            //model.Add(new ListStrViewModel { Id = 3, field1 = "333" , field2 = "333", field3 = "333"});
+            //model.Add(new ListStrViewModel { Id = 4, field1 = "444" , field2 = "444", field3 = "444"});
+            //model.Add(new ListStrViewModel { Id = 5, field1 = "555" , field2 = "555", field3 = "555" });
+
+
+            //var list = model.Where(p => failStudentIds.Any(_ => _ == p.Id)).ToList();
+
             //var products = (from s in db.Author
-            //                where s.id != 100 && list11.Any(_=>_==s.id.ToString())
+            //                where s.id != 100 && list11.Any(_ => _ == s.id.ToString())
             //                select s).ToList();
             #endregion
 
@@ -3343,8 +3356,8 @@ namespace WebApplication1.Controllers
         #endregion
         #region How to generate and validate url token automatically
         [EncryptedActionParameter]
-        public ActionResult Encrypt(string name, string age)//https://forums.asp.net/t/2124372.aspx?How+to+generate+and+validate+url+token+automatically
-            //https://forums.asp.net/t/2128579.aspx?how+to+encrypt+URL+parameter+value+only
+        public ActionResult Encrypt(string name, string age)//filterContext.ActionParameters https://forums.asp.net/t/2124372.aspx?How+to+generate+and+validate+url+token+automatically
+                                                            //https://forums.asp.net/t/2128579.aspx?how+to+encrypt+URL+parameter+value+only
         {
             return View();
         }

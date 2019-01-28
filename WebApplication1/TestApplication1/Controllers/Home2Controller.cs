@@ -39,7 +39,7 @@ using Rotativa;
 using LINQtoCSV;
 using Microsoft.Security.Application;
 using Aspose.Words;
-
+using System.Web.Caching;
 
 namespace TestApplication1.Controllers
 {
@@ -1945,7 +1945,7 @@ namespace TestApplication1.Controllers
         }
         #endregion
 
-        #region
+        #region OutputCache
         public static class Globals
         {
             public static double Variable1 { get; set; }
@@ -2180,44 +2180,46 @@ namespace TestApplication1.Controllers
         #region Mysql
         public class Studentmodel
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
+            public int SampleId { get; set; }
+            public string SampleName { get; set; }
+            public string SampleCategory { get; set; }
 
-        }    
+        }
         public void MysqlIndex()
         {
             #region sql
             DataSet ds = new DataSet();
-            //string connectionString =
-            //@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
             string connectionString = ConfigurationManager.ConnectionStrings["sql_textConnectionString"].ConnectionString;
-            //string connectionString = ConfigurationManager.ConnectionStrings["mysql_textConnectionString"].ConnectionString;
-            SqlDependency.Start(connectionString);//传入连接字符串,启动基于数据库的监听
-            Update();
+            //SqlDependency.Start(connectionString);//传入连接字符串,启动基于数据库的监听 https://forums.asp.net/t/2151084.aspx  op 说用SqlCacheDependency https://stackoverflow.com/questions/16383513/how-to-use-sqlcachedependency
+            //Update();
 
-            //SqlConnection con = new SqlConnection(connectionString);
-            //con.Open();
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
             #region sql select
-            //SqlCommand cmd = new SqlCommand();
-            //cmd.Connection = con;
-            //cmd.CommandText = "select * from Student";
-            //// cmd.Connection = con;
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //da.Fill(ds);
-            //var stulist = new List<Studentmodel>();
+            SqlCommand cmd = new SqlCommand();
+            #region 是否用 SqlDataAdapter.Parameters
+            cmd.Connection = con;
+            cmd.CommandText = "select * from SampleTable02";
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
 
-            //// var re = from a in stulist select a;
+            //SqlDataAdapter da = new SqlDataAdapter("select CONVERT(VARCHAR(10),[SampleDateTime],111) as Create_Date from [SampleTable02] where [SampleId]=@SampleId", con);
+            //da.SelectCommand.Parameters.Add("@SampleId", SqlDbType.VarChar);
+            //da.SelectCommand.Parameters["@SampleId"].Value = 1;
+            #endregion
+            da.Fill(ds);
+            var stulist = new List<Studentmodel>();
 
-            //foreach (System.Data.DataRow row in ds.Tables[0].Rows)
-            //{
-            //    stulist.Add(new Studentmodel
-            //    {
-            //        Id = Convert.ToInt32(row["Id"]),
-            //        Name = row["Name"].ToString()
-            //    });
-            //}
+            foreach (System.Data.DataRow row in ds.Tables[0].Rows)
+            {
+                stulist.Add(new Studentmodel
+                {
+                    SampleId = Convert.ToInt32(row["SampleId"]),
+                    SampleName = row["SampleName"].ToString(),
+                    SampleCategory = row["SampleCategory"].ToString()
+                });
+            }
 
-            //ViewData["Message"] = stulist;
+            ViewData["Message"] = stulist;
             #endregion
 
 

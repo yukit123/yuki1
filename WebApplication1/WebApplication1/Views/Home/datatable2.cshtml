@@ -4,7 +4,16 @@
     //var Date=table.column(4).data(); 获取单个列
 
 }
+<style>
 
+    table #example tbody tr {
+        background-color: red !important;
+    }
+
+    /*table #example tbody tr:nth-child(odd) {
+        background-color: blue !important;
+    }*/
+</style>
 @*https://forums.asp.net/t/2140758.aspx（https://forums.asp.net/t/2139925.aspx）*@
 @*（https://datatables.net/examples/plug-ins/range_filtering.html）*@
 <table border="0" cellspacing="5" cellpadding="5">
@@ -237,7 +246,13 @@ ___________________________________
               );
         //$(document).ready(function () {
             // DataTable
-            var table = $('#example').DataTable();
+        var table = $('#example').DataTable(
+            {
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {//https://forums.asp.net/p/2151820/6247554.aspx?p=True&t=636838881566492208
+                        $('td', nRow).css('background-color', 'Red');
+                }
+            }
+        );
 
             $("input[type=search]").datepicker({
                 dateFormat: 'yy/mm/dd',
@@ -311,6 +326,7 @@ ___________________________________
 
 
         var filterValues = {};
+        var i = 0;
         $(document).ready(function () {
             var refDataTable = $("#demoTable").dataTable({//https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
                 serverSide: true,
