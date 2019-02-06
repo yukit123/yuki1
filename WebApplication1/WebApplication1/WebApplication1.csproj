@@ -560,6 +560,10 @@
     <Compile Include="Migrations\201811260247364_LabelUrl.Designer.cs">
       <DependentUpon>201811260247364_LabelUrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901290652034_ProjectAndStudentModels-remote1.cs" />
+    <Compile Include="Migrations\201901290652034_ProjectAndStudentModels-remote1.Designer.cs">
+      <DependentUpon>201901290652034_ProjectAndStudentModels-remote1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -786,6 +790,7 @@
     <Content Include="Views\Home\Pic_Add.cshtml" />
     <Content Include="Views\Home\Download_Redirect.cshtml" />
     <Content Include="Views\_UserStoryList.cshtml" />
+    <Content Include="Views\Home\RemoteValidate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -872,6 +877,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811260247364_LabelUrl.resx">
       <DependentUpon>201811260247364_LabelUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901290652034_ProjectAndStudentModels-remote1.resx">
+      <DependentUpon>201901290652034_ProjectAndStudentModels-remote1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

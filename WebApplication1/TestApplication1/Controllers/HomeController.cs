@@ -12,6 +12,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -462,7 +463,7 @@ namespace TestApplication1.Controllers
             public string ItmeName { get; set; }
 
         }
-        public ActionResult BuyItem2(int Id)
+        public ActionResult BuyItem2(/*int Id*/)
         {
             BuyItem employee = new BuyItem();
             employee.ItemID = 9;

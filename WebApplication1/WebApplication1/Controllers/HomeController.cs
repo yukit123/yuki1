@@ -7,6 +7,7 @@ using PagedList;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -19,6 +20,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -74,8 +76,8 @@ namespace WebApplication1.Controllers
             ArrayList arrayList = new ArrayList() { 1, "abc", 33.5M }; //arrayList 是3行数据 Count=3 展平 ArrayList
             StringBuilder a = new StringBuilder();  //StringBuilder 字符串生成器 比string+"xxx"效率高
             foreach (object obj in arrayList)
-                     a.Append(obj);           //展平ArrayList
-            string str = a.ToString();   
+                a.Append(obj);           //展平ArrayList
+            string str = a.ToString();
 
 
             //var list = arrayList.ToArray().Select(_ => _).ToList();
@@ -497,7 +499,7 @@ namespace WebApplication1.Controllers
             //bl.DateDocument = Convert.ToDateTime("2018/12/14");
             return View(bl);
         }
-
+        #region Remote
         public ActionResult validate()
         {
             var list = db.Student.ToList();
@@ -521,7 +523,41 @@ namespace WebApplication1.Controllers
             return Json((!list.Any(x => x.Id == Id) == false ? "false" : "true"), JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+        #region Remote2
 
+        public class CreateCustomerModel
+        {
+            public int Id { get; set; }
+
+            [Required(ErrorMessage = "This field is required.")]
+            [Remote("UserNameAlreadyExistsAsync", "Home", ErrorMessage = "User with this Username already exists", HttpMethod = "post")]
+            public string Username { get; set; }
+        }
+        public ActionResult RemoteValidate()
+        {
+            //List<CreateCustomerModel> model = new List<CreateCustomerModel>();
+            //model.Add(new CreateCustomerModel() { Id=1,Username="aaa"});
+            //model.Add(new CreateCustomerModel() { Id = 1, Username = "bbb" });
+            //model.Add(new CreateCustomerModel() { Id = 1, Username = "ccc" });
+
+            CreateCustomerModel model = new CreateCustomerModel();
+            model.Id = 2;
+            model.Username = "xxx";
+
+            return View(model);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<JsonResult> UserNameAlreadyExistsAsync(string Username)//https://forums.asp.net/t/2152061.aspx case
+        {
+            //    string stop = "here";
+            //    var result =
+            //await Usermanager.FindByNameAsync(Username) ??
+            //await Usermanager.FindByEmailAsync(Username);
+            return Json(111, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
         public ActionResult validate2(List<string> ProdottiIds)//此例需要提交后验证 直接验证参考：https://forums.asp.net/p/2147782/6233257.aspx?p=True&t=636747254515733755
         {
             var list = db.Label.ToList().FirstOrDefault();
@@ -948,7 +984,7 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-        
+
         public class Studentdt
         {
             public int Id { get; set; }
@@ -964,7 +1000,7 @@ namespace WebApplication1.Controllers
             public Studentdt[] data { get; set; }
         }
 
-        public ActionResult Studentsdatatable()//https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
+        public ActionResult Studentsdatatable(string filterValues)//https://www.codeproject.com/Articles/1118603/%2FArticles%2F1118603%2FjQuery-DataTable-with-AJAX-on-ASP-NET
         {//https://forums.asp.net/p/2151279/6245859.aspx?Re+Datatables+Jquery+Server+side+No+matching+records+found case
             DataTable2 dataTable = new DataTable2();
            // dataTable.draw = int.Parse(Request.QueryString["draw"]);
@@ -973,9 +1009,9 @@ namespace WebApplication1.Controllers
             students.Add(new Studentdt { Id = 1, Name = "Mike", SurName = "Mikey", ClassRoom = "8A" });
             students.Add(new Studentdt { Id = 2, Name = "John", SurName = "Salary", ClassRoom = "8B" });
             students.Add(new Studentdt { Id = 3, Name = "Steve", SurName = "Brown", ClassRoom = "7A" });
-            //string filterName = Request.QueryString["name"];
-            //string filterSurName = Request.QueryString["surname"];
-            //string filterClassroom = Request.QueryString["classroom"];
+            string filterName = Request.QueryString["name"];
+            string filterSurName = Request.QueryString["surname"];
+            string filterClassroom = Request.QueryString["classroom"];
 
             //var result = from s in students
             //             where (string.IsNullOrEmpty(filterName) || s.Name.Equals(filterName))
@@ -2502,13 +2538,37 @@ namespace WebApplication1.Controllers
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
 
+            var path2 = Server.MapPath(@"~/images/");
+            string[] filePathes = Directory.GetFiles(path2, "*.pdf");
+
             Label jobs = db.Label.Find(1);
 
-            if (jobs == null)
-            {
-                return HttpNotFound();
-            }
+            #region 把桌面特定文件移动到指定路径中 https://forums.asp.net/t/2152092.aspx
+            //string filepath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);//桌面路径
+            //DirectoryInfo d = new DirectoryInfo(filepath);
 
+            //foreach (var file in d.GetFiles("*.txt"))
+            //{
+            //    Directory.Move(file.FullName, filepath + "\\TextFiles\\" + file.Name);
+            //}
+
+
+            ////    string[] picList = Directory.GetFiles(path2, "*.jpg");
+
+            ////    // Copy picture files.
+            ////    foreach (string f in picList)
+            ////    {
+            ////        // Remove path from the file name.
+            ////        string fName = f.Substring(path2.Length + 1);
+            ////       // System.IO.File.Copy(Path.Combine(path2, fName), Path.Combine(backupDir, fName), true);
+            ////    }
+
+            ////var todayFiles = Directory.GetFiles(path2)
+            //// .Where(x => new FileInfo(x).CreationTime.Date == DateTime.Today.Date);//查找文件夹中所有当日的文件
+
+            ////string[] files = Directory.GetFiles(path2, "*.txt", SearchOption.AllDirectories);//SearchOption.AllDirectories指定是搜索当前目录，还是搜索当前目录和所有子目录。
+
+            #endregion
             return View(jobs);
         }
         [HttpPost]
@@ -3307,7 +3367,7 @@ namespace WebApplication1.Controllers
 
 
         }
-        public ActionResult Bootstrapmodal_Index()
+        public ActionResult Bootstrapmodal_Index()//https://forums.asp.net/t/2152350.aspx
         {
             #region not in in linq
             //var exceptionList = new List<string> { "USAcity1", "USAcity1", "USAcity2" };

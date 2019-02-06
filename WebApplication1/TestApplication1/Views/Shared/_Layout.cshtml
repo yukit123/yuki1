@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/Content/dropzonescss")
+    @*@Scripts.Render("~/Content/dropzonescss")*@
     @Scripts.Render("~/bundles/modernizr")
     @*@Html.Partial("_Angular_Header")*@
 </head>
@@ -42,15 +42,15 @@
     @*@RenderSection("criteriaSecetion", required: false)*@
 
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/dropzonescripts")
+    @*@Scripts.Render("~/bundles/dropzonescripts")*@
 
     @RenderSection("scripts", required: false)
 </body>
 </html>
 
-<script>
+@*<script>
     angular.bootstrap(document.getElementById("App1"), ['shoppingCart']);
-</script>
+</script>*@
 

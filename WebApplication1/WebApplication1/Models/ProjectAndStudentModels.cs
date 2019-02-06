@@ -117,6 +117,8 @@ namespace WebApplication1.Models
         public int Id { get; set; }
 
         public string SName { get; set; }
+
+        public string Username { get; set; }
     }
     class StudentMetaData
     {
@@ -126,5 +128,19 @@ namespace WebApplication1.Models
         [Required(ErrorMessage = "Please enter student name.")]
         public string SName { get; set; }
 
+        [Required(ErrorMessage = "This field is required.")]
+        [Remote("UserNameAlreadyExistsAsync", "Home", ErrorMessage = "User with this Username already exists", HttpMethod = "post")]
+        public string Username { get; set; }
+
     }
+
+    public class CreateCustomerModel
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
+        [Remote("UserNameAlreadyExistsAsync", "Home", ErrorMessage = "User with this Username already exists", HttpMethod = "post")]
+        public string Username { get; set; }
+    }
+
 }

@@ -16,6 +16,8 @@
 </style>
 @*https://forums.asp.net/t/2140758.aspx（https://forums.asp.net/t/2139925.aspx）*@
 @*（https://datatables.net/examples/plug-ins/range_filtering.html）*@
+
+<input type="button" class="doDraw" value="111"></input>
 <table border="0" cellspacing="5" cellpadding="5">
     <tbody>
         <tr>
@@ -337,18 +339,27 @@ ___________________________________
                     { data: "ClassRoom" }
                 ],
                 ajax: function (data, callback, settings) {
-                    //filterValues.draw = data.draw;
-                    //filterValues.start = data.start;
-                    //filterValues.length = data.length;
+                    filterValues.draw = data.draw;
+                    filterValues.start = data.start;
+                    filterValues.length = data.length;
                     $.ajax({
-                        url: '/Home/Studentsdatatable',
-                        method: 'GET'
-                        //data: filterValues
+                        url: '../Home/Studentsdatatable',
+                        method: 'GET',
+                        data: filterValues
+                        
                     }).done(callback);
                 }
             });
+            $(".doDraw").click(function () {
+                filterValues.name = "111"
+                filterValues.surname = "222";
+                filterValues.classroom = "333";
+                refDataTable.fnDraw();
+            });
+           
         });
-
+   
+      
     </script>
 }
 

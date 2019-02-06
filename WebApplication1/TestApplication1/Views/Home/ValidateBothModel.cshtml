@@ -12,7 +12,11 @@
 }
 <hr />
 <div id="partialView">
-    @Html.Partial("BuyItem2")  @*Html.RenderPartial("PartialAdd");*@
-    @*@Html.Action("BuyItem2", "Home", new { Id = Model.StoreID });*@
+    @Html.Partial("BuyItem2") @*不进入action*@ @*Html.RenderPartial("PartialAdd");*@
+    @*@Html.Action("BuyItem2", "Home", new { Id = 1 });*@ @*进入action*@
 
-</div>  
+</div>
+
+@*<div id="appleController" onload="loadController(this, @Html.Raw(Url.Action("Index", "Apple", new {id = 	UrlParameter.Optional})))">
+
+    </div>*@

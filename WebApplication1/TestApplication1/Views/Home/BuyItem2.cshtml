@@ -1,5 +1,8 @@
 ﻿@model TestApplication1.Controllers.HomeController.BuyItem
-@using (Html.BeginForm("BuyItem2", "Home",FormMethod.Post))
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("BuyItem2", "Home", FormMethod.Post))
 {
     <div class="form-group">
         @Html.LabelFor(model => model.ItmeName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -9,4 +12,14 @@
         </div>
     </div>
     <input type="submit" value="AddItem" />
+}
+@if (ViewBag.aa == 1)
+{
+    <input Class="form-check-input" type="checkbox" id="" value="" />
+}
+else
+{
+    <input Class="form-check-input" type="checkbox" id="" value="" />
+    <input Class="form-check-input" type="checkbox" id="" value="" />
+    <input Class="form-check-input" type="checkbox" id="" value="" />
 }
