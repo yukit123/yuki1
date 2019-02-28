@@ -495,15 +495,13 @@ namespace TestApplication1.Controllers
             //{
             //   db.Charters.Select(_ => string.Format("{0:yyy/MM/dd}", _.CharterDate));
             //}
-            
-             //(DateTime.Today.Date.AddMonths(-1))
-            
 
+            //(DateTime.Today.Date.AddMonths(-1))
             ViewBag.CharterID = db.Charters.Select(a => new SelectListItem
             {
 
-                Value = a.CharterID.ToString(),
-                Text = SqlFunctions.DatePart("yyyy", a.CharterDate) + "/" + SqlFunctions.DatePart("MM", a.CharterDate) + "/" + SqlFunctions.DatePart("dd", a.CharterDate) + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+                Value = a.CharterID.ToString(),//SqlFunctions.DatePart可以在linq中转换日期类型
+                Text =SqlFunctions.DatePart("yyyy", a.CharterDate) + "/" + SqlFunctions.DatePart("MM", a.CharterDate) + "/" + SqlFunctions.DatePart("dd", a.CharterDate) + " "+ SqlFunctions.DatePart("dw", a.CharterDate) + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
                 //Text = a.CharterDate + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
 
             }
@@ -1053,6 +1051,13 @@ namespace TestApplication1.Controllers
 
             //var enumlist = options[1];
             Relationship model = new Relationship();
+            return View(/*model*/);
+        }
+        [HttpPost]
+        public ActionResult enum_Index(Relationship model)
+        {
+            var Fuel = (RelationshipType)Enum.Parse(typeof(RelationshipType), model.relationshipType.ToString());
+
             return View(/*model*/);
         }
         #endregion

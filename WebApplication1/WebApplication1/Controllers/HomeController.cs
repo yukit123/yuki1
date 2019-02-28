@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -172,7 +173,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         public ActionResult Index(string[] Number)
-        {
+       {
 
             string strConn = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
             // string sqlstr = "INSERT INTO Table (Number) VALUES (@Number)";
@@ -496,9 +497,18 @@ namespace WebApplication1.Controllers
             //ViewBag.Message = "Your application description page.";
             Blog bl = new Blog();
 
-            //bl.DateDocument = Convert.ToDateTime("2018/12/14");
+            bl.DateDocument = Convert.ToDateTime("2018/12/14");
             return View(bl);
         }
+
+        [AllowAnonymous]
+        public ActionResult UserVacationInDay(string vacationDate)
+        {
+           
+
+            return Json(new { Message = "111" }, JsonRequestBehavior.AllowGet);
+        }
+
         #region Remote
         public ActionResult validate()
         {
@@ -787,7 +797,94 @@ namespace WebApplication1.Controllers
             return Json(new { price = 1, discount = 2 }, JsonRequestBehavior.AllowGet);
         }
 
+        #region AutoComplete https://www.c-sharpcorner.com/UploadFile/0c1bb2/creating-autocomplete-textbox-in-Asp-Net-mvc-5/
+        //https://forums.asp.net/p/2152974/6251433.aspx?p=True&t=636861134613503020 case
+        public class Customer
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public virtual Invoice Invoice { get; set; }
 
+        }
+
+        public class Invoice
+        {
+            [ForeignKey("Customer")]
+            public int Id { get; set; }
+            public int customer { get; set; }
+            public virtual Customer Customer { get; set; }
+        }
+
+        [HttpGet]
+        public ActionResult AutoComplete_Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult AutoComplete_Index(string Prefix)
+        {
+            //Note : you can bind same list from database  
+            List<Customer> ObjList = new List<Customer>()
+            {
+
+                new Customer {Id=1,Name="Latur" },
+                new Customer {Id=2,Name="Mumbai" },
+                new Customer {Id=3,Name="Pune" },
+                new Customer {Id=4,Name="Delhi" },
+                new Customer {Id=5,Name="Dehradun" },
+                new Customer {Id=6,Name="Noida" },
+                new Customer {Id=7,Name="New Delhi" }
+
+        };
+            //Searching records from list using LINQ query  
+            var CityList = (from N in ObjList
+                            where N.Name.StartsWith(Prefix)
+                            select new { N.Name });
+            return Json(CityList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetClienti(string term)
+        {
+            List<Customer> CustomerObjList = new List<Customer>()
+            {
+
+                new Customer {Id=1,Name="Latur" },
+                new Customer {Id=2,Name="Mumbai" },
+                new Customer {Id=3,Name="Pune" },
+                new Customer {Id=4,Name="Delhi" },
+                new Customer {Id=5,Name="Dehradun" },
+                new Customer {Id=6,Name="Noida" },
+                new Customer {Id=7,Name="New Delhi" }
+
+        };
+
+            List<Invoice> InvoiceObjList = new List<Invoice>()
+            {
+
+                new Invoice {Id=1,customer=1},
+                new Invoice {Id=2,customer=2},
+                new Invoice {Id=3,customer=3},
+                new Invoice {Id=4,customer=4},
+                new Invoice {Id=5,customer=5},
+                new Invoice {Id=6,customer=6},
+                new Invoice {Id=7,customer=7 }
+
+        };
+
+            var items = InvoiceObjList
+               .Where(x => x.Customer.Name.ToLower().Contains(term.ToLower()))
+               .Select(x => new { Label = x.Customer.Name, Value = x.Customer.Name })
+               .Take(10);
+
+            //var items = InvoiceObjList
+            //    .Where(x => x.Name.ToLower().Contains(term.ToLower()))
+            //    .Select(x => new { Label = x.Name, Value = x.Name })
+            //    .Take(10);
+
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
         public ActionResult treetable2()
         {
             return View();
@@ -1767,7 +1864,8 @@ namespace WebApplication1.Controllers
             listreg.Add(new customer_pro() { customer_name = "bbb", customer_group_name = "bbcustomer", territory_name = "bbterritory", status = "NO" });
 
             listreg.Add(new customer_pro() { customer_name = "ccc", customer_group_name = "cccustomer", territory_name = "ccterritory", status = "Yes" });
-            return Json(listreg, JsonRequestBehavior.AllowGet);
+          //  return Json(listreg, JsonRequestBehavior.AllowGet);
+            return Json(new { listreg }, JsonRequestBehavior.AllowGet);
 
         }
         #endregion
@@ -2176,9 +2274,9 @@ namespace WebApplication1.Controllers
             //return View(model);
             return View(model);
         }
-            #endregion
+        #endregion
 
-            public ActionResult MultipleSelect()
+        public ActionResult MultipleSelect()
         {
 
             var options = new List<TEnum>();

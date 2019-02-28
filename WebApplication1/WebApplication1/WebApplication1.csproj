@@ -791,6 +791,7 @@
     <Content Include="Views\Home\Download_Redirect.cshtml" />
     <Content Include="Views\_UserStoryList.cshtml" />
     <Content Include="Views\Home\RemoteValidate.cshtml" />
+    <Content Include="Views\Home\AutoComplete_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

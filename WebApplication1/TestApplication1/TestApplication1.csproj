@@ -441,6 +441,10 @@
     <Compile Include="Migrations\201812250845432_Type_Service-Pation.Designer.cs">
       <DependentUpon>201812250845432_Type_Service-Pation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902280739325_FormattedDatelambda2.cs" />
+    <Compile Include="Migrations\201902280739325_FormattedDatelambda2.Designer.cs">
+      <DependentUpon>201902280739325_FormattedDatelambda2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -681,6 +685,9 @@
     <Content Include="App_Browsers\qt.browser" />
     <EmbeddedResource Include="Migrations\201812250845432_Type_Service-Pation.resx">
       <DependentUpon>201812250845432_Type_Service-Pation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280739325_FormattedDatelambda2.resx">
+      <DependentUpon>201902280739325_FormattedDatelambda2.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />

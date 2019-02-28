@@ -124,7 +124,7 @@
             $.get("/Home/Show_Customer", {}, function (data) {
 
                 var row;
-                $.each(data, function (i, v) {
+                $.each(data.listreg, function (i, v) {
 
                     row += "<tr style='font-family:Bahnschrift SemiBold;cursor:pointer'><td style='display:none'>" + v.series + "</td><td>" + v.customer_name + "</td><td>" + v.status + "</td><td>" + v.customer_group_name + "</td><td>" + v.territory_name + "</td>" + "</tr>";
 

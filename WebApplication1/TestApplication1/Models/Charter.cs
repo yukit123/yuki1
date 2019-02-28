@@ -39,6 +39,9 @@ namespace TestApplication1.Models
         public DateTime? CharterDate { get; set; }
 
         [NotMapped]
+        public string FormattedDate => CharterDate.ToString(); // linq/lambda in model
+
+        [NotMapped]
         public string str { get; set; }
 
         [NotMapped]

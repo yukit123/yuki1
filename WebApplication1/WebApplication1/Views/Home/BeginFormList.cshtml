@@ -1,6 +1,7 @@
 ﻿@model WebApplication1.Controllers.HomeController.UpdateTargetIdmodel
 @{
     ViewBag.Title = "BeginFormList";
+    var modelw = Model.UpdateTargetIdValue;
 }
 
 <h2>BeginFormList</h2>
@@ -10,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>  @*用Ajax.BeginForm必须引用这个*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>  @*用Ajax.BeginForm必须引用这个,如果不加这个，整个页面会刷新*@
 </head>
 <body>
     <div>
@@ -20,7 +21,7 @@
 
                     HttpMethod = "GET",
                     UpdateTargetId = "content", //https://www.c-sharpcorner.com/UploadFile/4fcb5a/update-a-div-and-partial-view-using-ajax-beginform-on-form-s/
-                    Confirm = "Confirm AJAX-request?",
+                Confirm = "Confirm AJAX-request?",
                     InsertionMode = InsertionMode.Replace
                 }))
         {
@@ -33,6 +34,8 @@
             <input type="submit" value="Display" />
 
         }
+
+   
     </div>
 
     @*<div id="content"></div>*@

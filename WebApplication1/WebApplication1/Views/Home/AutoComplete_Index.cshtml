@@ -1,0 +1,162 @@
+﻿@*@model WebApplication1.Controllers.HomeController.Customer
+    @{
+        ViewBag.Title = "AutoComplete_Index";
+    }
+
+    <h2>AutoComplete_Index</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+
+            <div class="form-group">
+
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+        </div>
+    }
+
+
+    @section scripts{
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#Name").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/Home/AutoComplete_Index",
+                            type: "POST",
+                            dataType: "json",
+                            data: { Prefix: request.term },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name };
+                                }))
+
+                            }
+                        })
+                    },
+                    messages: {
+                        noResults: "", results: ""
+                    }
+                });
+            })
+        </script>
+    }*@
+
+
+@model WebApplication1.Controllers.HomeController.Invoice
+@{
+    /**/
+
+    ViewBag.Title = "AutoComplete_Index";
+}
+
+<h2>AutoComplete_Index</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Customer, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-9">
+
+            @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control", @id = "editorCliente1" } })
+            @Html.EditorFor(model => model.Customer.Id, new { htmlAttributes = new { @class = "form-control", @id = "editorCliente2" } })
+            @Html.EditorFor(model => model.Customer.Name, new { htmlAttributes = new { @class = "form-control", @id = "editorCliente3" } })
+            @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>
+
+    }
+
+
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#editorCliente1").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/AutoComplete_Index",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+
+            $("#editorCliente2").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/AutoComplete_Index",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+
+            $("#editorCliente3").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/GetClienti",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+        })
+    </script>
+}
+
+
