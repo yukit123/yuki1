@@ -501,7 +501,7 @@ namespace TestApplication1.Controllers
             {
 
                 Value = a.CharterID.ToString(),//SqlFunctions.DatePart可以在linq中转换日期类型
-                Text =SqlFunctions.DatePart("yyyy", a.CharterDate) + "/" + SqlFunctions.DatePart("MM", a.CharterDate) + "/" + SqlFunctions.DatePart("dd", a.CharterDate) + " "+ SqlFunctions.DatePart("dw", a.CharterDate) + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
+                Text = SqlFunctions.DateName("dw", a.CharterDate) +" "+SqlFunctions.DatePart("dw", a.CharterDate) +" "+SqlFunctions.DatePart("yyyy", a.CharterDate) + "/" + SqlFunctions.DatePart("MM", a.CharterDate) + "/" + SqlFunctions.DatePart("dd", a.CharterDate) + " "+ SqlFunctions.DatePart("dw", a.CharterDate) + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
                 //Text = a.CharterDate + " " + a.CharterDestinationLocation1 + " " + a.CharterGroup + " " + a.CharterGroupLevelString + " " + a.CharterGroupGenderString
 
             }

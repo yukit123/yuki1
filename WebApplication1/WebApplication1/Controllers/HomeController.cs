@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
@@ -2281,6 +2282,8 @@ namespace WebApplication1.Controllers
 
             var options = new List<TEnum>();
             var date = Convert.ToDateTime("2018-01-01");
+   
+            var enumstring = (EnumType)1;//枚举输入数字变字符串
 
             //options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
             options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName = "ab1", Dateofbirth = Convert.ToDateTime("2018-01-01") });

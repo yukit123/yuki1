@@ -11,6 +11,22 @@
     .select2-dropdown {
         width: 300px !important;
     }
+
+    .myErrorClass {
+        color: red;
+        font-size: 11px;
+        /*    font-style: italic;*/
+        display: block;
+    }
+    ul.myErrorClass {
+        border-width: 1px !important;
+        border-style: solid !important;
+        border-color: #cc0000 !important;
+        background-color: #f3d8d8 !important;
+        background-image: url(http://goo.gl/GXVcmC) !important;
+        background-position: 50% 50% !important;
+        background-repeat: repeat !important;
+    }
 </style>
 @*the main content of the view replace "RenderBody()"*@
 @*<div class="form-horizontal formwhole">
@@ -41,7 +57,7 @@
         }
     </div>*@
 @Html.DropDownList("OSRddl", null, "--------------------------Select-------------------------"@*, new { @class = "form-control", multiple = "mutliple" }*@)
-@Html.DropDownList("ddl", null, "----Select----", new { @class = "form-control"})
+@Html.DropDownList("ddl", null, "----Select----", new { @class = "form-control" })
 
 
 @*@Html.DropDownList("ExpiryMonth", Enumerable.Range(1, 12).Select(x => new SelectListItem { Text = x.ToString() }),*@ @*12个月*@
@@ -89,11 +105,55 @@
 
     </body>*@
 
+<form id="frm">
+    <h1>Sample form</h1>
+
+    <br />
+    <div>
+        <label for="lstColors" class="bold block">Favorite Colors:</label>
+        <select name="lstColors" id="lstColors" size="1" multiple="multiple" class="required">
+            <option value="R">Red</option>
+            <option value="W">White</option>
+            <option value="B">Blue</option>
+        </select>
+    </div>
+    <br />
+    <br />
+    <input type="submit" value="Submit" />
+</form>
 @section scripts{
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.12.0/jquery.validate.js"></script>
+
 
     <script>
         $(document).ready(function () { $("#OSRddl").select2({ multiple: true }); }); //下拉框自带搜索除了select2还有kendo
+        //https://forums.asp.net/p/2153325/6252833.aspx?p=True&t=636870023432000392 select2 验证
+
+        $(document).ready(function () {
+
+            //Transforms the listbox visually into a Select2.
+            $("#lstColors").select2({
+                placeholder: "Select a Color",
+                width: "200px"
+            });
+
+            //Initialize the validation object which will be called on form submit.
+            $("#frm").validate({
+                onkeyup: false,
+                errorClass: "myErrorClass",
+
+                //put error message behind each form element
+                errorPlacement: function (error, element) {
+                    var elem = $(element);
+                    error.insertAfter(element);
+                }
+
+
+            });
+
+
+        });
     </script>
 }

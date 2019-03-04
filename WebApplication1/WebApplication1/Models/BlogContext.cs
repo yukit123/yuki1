@@ -8,6 +8,8 @@ namespace WebApplication1.Models
 {
     public class BlogContext : DbContext
     {
+        internal readonly IEnumerable<object> Charters;
+
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Author> Author { get; set; }
         public DbSet<Label> Label { get; set; }
