@@ -72,21 +72,22 @@
 
 
 
-@*@section scripts{
+@section scripts{
         <script src="http://localhost:60112/Scripts/bootstrap.js"></script>
         <script>
             $(function () {
-                $("#myModal").modal("hide");
+               // $("#myModal").modal("hide");
             })
             //$("#Details2").click(function () {
             //    $("#myModal").modal("show");
             //})
-            function doModel(Id) {
+            function doModel(Id) { //https://forums.asp.net/t/2141486.aspx case
                 $.ajax({
                     url: '/Authors/myModal',
                     type: 'GET',
                     data: { Id: Id },
                     success: function (data) {
+                        $('#myModalContent').html(data);//Html() load() replaceWith():https://forums.asp.net/t/2151801.aspx
 
                         $("#myModal").modal("show");
                     }
@@ -102,13 +103,10 @@
             }
 
         </script>
-    }*@
+    }
 
-@section scripts
+@*@section scripts
 {
-    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/bootstrap.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>*@
     <script>
         var TeamDetailPostBackURL = '/Authors/myModal';
 
@@ -143,4 +141,4 @@
 
     </script>
 
-}
+}*@

@@ -22,6 +22,8 @@ namespace WebApplication1.Models
         public List<int> ProdottiIds { get; set; }
         [NotMapped]
         public IList<SelectListItem> ListaProdotti { get; set; }
+        [NotMapped]
+        public List<Label2> ogrenciler { get; set; }
     }
 
     public class Label2

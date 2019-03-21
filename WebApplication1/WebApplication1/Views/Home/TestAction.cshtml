@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "Label";
 }
-
+@Html.DisplayForModel("Label")@*Html.DisplayForModel与action的返回有关*@
+@Html.DisplayForModel()
 </br>
 @*<table id="table" border="1">
         @for (var i = 0; i < Model.Count(); i++)
@@ -13,16 +14,16 @@
 
 <table>
 
-@foreach (var item in Model)
-{
+    @foreach (var item in Model)
+    {
 
-    <tr><td>@item.LabelId</td><td>@item.LabelName</td></tr> @*<td><tr>不能显示数据 会报错*@
-    @*<input type="button" value="@item.LabelId">
-    <input type="button" value="@item.LabelName">*@
+        <tr><td>@item.LabelId</td><td>@item.LabelName</td></tr> @*<td><tr>不能显示数据 会报错*@
+        @*<input type="button" value="@item.LabelId">
+            <input type="button" value="@item.LabelName">*@
 
 
-}
-    </table>
+    }
+</table>
 @*@section scripts{
         <script type="text/javascript">
     $(function () {

@@ -18,6 +18,10 @@ namespace TestApplication1.Controllers
         // GET: author2
         public ActionResult Index()
         {
+            var list=db.author2s.Where(s => s.book2.Any(x=>x.Publisher=="p1")).ToList();//2层数据 多对一
+
+
+
             ////list3.GroupBy(s => new { s.Text, s.keyword }, (key, group) => new { GroupName = key, Items = group.ToList() })
             //var onelist = db.author2s.ToList();
             //var manylist = db.book2s.ToList();
@@ -45,7 +49,7 @@ namespace TestApplication1.Controllers
             //      {
             //          OrderNo = grp.Key.Title
             //      });
-            
+
             return View(db.author2s.ToList());
         }
 
@@ -92,6 +96,7 @@ namespace TestApplication1.Controllers
         // GET: author2/Edit/5
         public ActionResult Edit(Guid? id)
         {
+            ViewBag.Author_id = new SelectList(db.author2s, "Author_id", "Name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,31 +123,33 @@ namespace TestApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Author_id,Name")] author2 author2)
+        public ActionResult Edit(/*[Bind(Include = "Author_id,Name")]*/ author2 author2)//list model bind [Bind]会阻止显示一对多数据
         {
-            
-                if (ModelState.IsValid)
-                {
-                    db.Entry(author2).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            
-                else {
-                var msg = string.Empty;
-                foreach (var value in ModelState.Values)
-                {
-                    if (value.Errors.Count > 0)
-                    {
-                        foreach (var error in value.Errors)
-                        {
-                            msg = msg + error.ErrorMessage;
-                        }
-                    }
-                }
-                ModelState.AddModelError(string.Empty, msg);//@Html.ValidationSummary
 
-            }
+            author2 author22 = db.author2s.Find(author2.Author_id);
+
+            //    if (ModelState.IsValid)
+            //    {
+            //        db.Entry(author2).State = EntityState.Modified;
+            //        db.SaveChanges();
+            //        return RedirectToAction("Index");
+            //    }
+
+            //    else {
+            //    var msg = string.Empty;
+            //    foreach (var value in ModelState.Values)
+            //    {
+            //        if (value.Errors.Count > 0)
+            //        {
+            //            foreach (var error in value.Errors)
+            //            {
+            //                msg = msg + error.ErrorMessage;
+            //            }
+            //        }
+            //    }
+            //    ModelState.AddModelError(string.Empty, msg);//@Html.ValidationSummary
+
+            //}
 
             return View(author2);
         }

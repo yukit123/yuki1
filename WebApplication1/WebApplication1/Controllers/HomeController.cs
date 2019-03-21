@@ -585,9 +585,38 @@ namespace WebApplication1.Controllers
                     new SelectListItem {Text = "Banana1", Value = "3"},
                     new SelectListItem {Text = "Orange1", Value = "4"},
                 };
+            List<Label2> lab2 = new List<Label2>();
+            lab2.Add(new Label2() { LabelId=1, LabelName="aa" });
+            lab2.Add(new Label2() { LabelId = 2, LabelName = "bb" });
+            lab2.Add(new Label2() { LabelId = 3, LabelName = "cc" });
+
+            ViewBag.OgrenciLIST = new MultiSelectList(lab2, "LabelId", "LabelName");
             #endregion
             return View(model);//list
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult validate2(Label model)//https://forums.asp.net/p/2153441/6253345.aspx?p=True&t=636873293308909807 case
+        {
+            List<Label2> lab2 = new List<Label2>();
+            lab2.Add(new Label2() { LabelId = 1, LabelName = "aa" });
+            lab2.Add(new Label2() { LabelId = 2, LabelName = "bb" });
+            lab2.Add(new Label2() { LabelId = 3, LabelName = "cc" });
+
+            ViewBag.OgrenciLIST = new MultiSelectList(lab2, "LabelId", "LabelName");
+
+            model.ListaProdotti = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Apple1", Value = "1"},
+                    new SelectListItem {Text = "Pear1", Value = "2"},
+                    new SelectListItem {Text = "Banana1", Value = "3"},
+                    new SelectListItem {Text = "Orange1", Value = "4"},
+                };
+
+            return View(model);
+        }
+
 
         public ActionResult TestAction()
         {
@@ -2640,7 +2669,9 @@ namespace WebApplication1.Controllers
             //}
 
             var path2 = Server.MapPath(@"~/images/");
-            string[] filePathes = Directory.GetFiles(path2, "*.pdf");
+            string[] filePathes = Directory.GetFiles(path2, "*.pdf");//搜索所有路径下的pdf文件
+
+            
 
             Label jobs = db.Label.Find(1);
 
@@ -2676,9 +2707,20 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Pic_Edit(Label jobs)
         {
+            #region convert image to hex and convert hex to image https://forums.asp.net/p/2153540/6253786.aspx?p=True&t=636875078580016440 case
+            //var file = Request.Files[0];
+            //var fileName = Path.GetFileName(file.FileName);
+            //var path = Path.Combine(Server.MapPath("/images/"), fileName);
+            //byte[] binData = System.IO.File.ReadAllBytes(path);  //十六进制数组
+            //var hexdd = Convert.ToBase64String(binData);   // hex 十六进制
+
+            //var dd2= Convert.FromBase64String(hexdd);  //十六进制数组
+            //// System.IO.File.WriteAllBytes(path,dd2);
+            //System.IO.File.WriteAllBytes(Server.MapPath("/images/") + "words123.png", dd2);
+            #endregion
             if (ModelState.IsValid)
             {
-                var file= Request.Files[0];
+                var file = Request.Files[0];
                 var fileName = Path.GetFileName(file.FileName);
                 db.Entry(jobs).State = EntityState.Modified;
                 db.SaveChanges();

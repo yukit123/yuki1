@@ -11,12 +11,19 @@ namespace TestApplication2.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public ActionResult About()
         {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                string username = User.Identity.Name;
+            }
+
             ViewBag.Message = "Your application description page.";
 
             return View();
