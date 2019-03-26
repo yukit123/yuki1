@@ -6,9 +6,13 @@
     var strurl = Request.Url.PathAndQuery;//https://forums.asp.net/t/2132660.aspx
 
 }
+<style>
+    label {
+        color:red;
+    }
+</style>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("MultipleSelect", "Home", FormMethod.Post, new { id = "loginForm" }))
 {
 
     @Html.EditorFor(Model => Model.EnumId)
@@ -22,6 +26,7 @@
                                           @class = "form-control"
                                       })
 
+    <br/>
     @Html.EditorFor(m => m.Dateofbirth)
 
 
@@ -31,16 +36,22 @@
         //Method2
         @Html.ListBox("fruitListbox", ViewBag.fruit as IEnumerable<SelectListItem>, new { multiple = "multiple" })
         <br /><br />*@
-    @*<input type="submit" />*@
+    <input type="submit" value="submit" />
 
 
 }
 
 @section scripts{
 
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    @*<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/south-street/jquery-ui.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.ui.datepicker.validation.js"></script>
     <script type="text/javascript">
 
         var now = new Date();
@@ -67,7 +78,14 @@
 
         $(document).ready(function () {
 
-
+            $("#loginForm").validate({//https://forums.asp.net/t/2154167.aspx case 验证datepicker
+                rules: {
+                    Dateofbirth: {
+                        required: true,
+                        dpDate: true
+                    }
+                }
+            });
 
             $("input[name='Dateofbirth']").datepicker({
                 dateFormat: "dd/mm/yy",
