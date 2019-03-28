@@ -10,11 +10,11 @@
     }
 
 }
-@*@foreach (var item in ViewBag.fileList) 文件列表
+@foreach (var item in ViewBag.fileList)
 {
     <br />
     <a href="@Url.Content("~/images/"+item)">@item</a>
-}*@
+}
 
 @*<img src="@Url.Content("~/images/Arrow.PNG")" height="140" />*@
 

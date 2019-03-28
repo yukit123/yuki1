@@ -35,29 +35,11 @@ namespace TestApplication1.Models
         //[DataType(DataType.DateTime)]
         ////[Column(TypeName = "DateTime2")]  DateTime2:http://www.entityframeworktutorial.net/code-first/column-dataannotations-attribute-in-code-first.aspx
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [Display(Name = "Charter Date")]
         public DateTime? CharterDate { get; set; }
 
         [NotMapped]
         public string FormattedDate => CharterDate.ToString(); // linq/lambda in model
-
-        //[NotMapped]
-        //public int? ContactReportAMSeconds // { get; set; }
-        //{
-        //    get
-        //    {
-        //        if (CharterDate == null)
-        //            return 0;
-        //        {
-        //            var temp = (DateTime)CharterDate;
-        //            var temp2 = new DateTime(temp.Year, temp.Month, temp.Day);
-        //            TimeSpan ts1 = new TimeSpan(temp.Ticks);
-        //            TimeSpan ts2 = new TimeSpan(temp2.Ticks);
-        //            TimeSpan ts = new TimeSpan();
-        //            ts = temp2.Subtract(temp);
-        //            return Convert.ToInt32(ts);
-        //        }
-        //    }
-        //}
 
         [NotMapped]
         public string str { get; set; }

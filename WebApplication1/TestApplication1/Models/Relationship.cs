@@ -25,6 +25,5 @@ namespace TestApplication1.Models
         Pen = 1,
         Pencil = 2,
         Paper = 3
-
     }
 }

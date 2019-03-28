@@ -441,17 +441,9 @@
     <Compile Include="Migrations\201812250845432_Type_Service-Pation.Designer.cs">
       <DependentUpon>201812250845432_Type_Service-Pation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903180315097_Charters-orderby1.cs" />
-    <Compile Include="Migrations\201903180315097_Charters-orderby1.Designer.cs">
-      <DependentUpon>201903180315097_Charters-orderby1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903180407042_Charters-orderby2.cs" />
-    <Compile Include="Migrations\201903180407042_Charters-orderby2.Designer.cs">
-      <DependentUpon>201903180407042_Charters-orderby2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903180413211_Charters-orderby3.cs" />
-    <Compile Include="Migrations\201903180413211_Charters-orderby3.Designer.cs">
-      <DependentUpon>201903180413211_Charters-orderby3.cs</DependentUpon>
+    <Compile Include="Migrations\201902280739325_FormattedDatelambda2.cs" />
+    <Compile Include="Migrations\201902280739325_FormattedDatelambda2.Designer.cs">
+      <DependentUpon>201902280739325_FormattedDatelambda2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
@@ -694,14 +686,8 @@
     <EmbeddedResource Include="Migrations\201812250845432_Type_Service-Pation.resx">
       <DependentUpon>201812250845432_Type_Service-Pation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903180315097_Charters-orderby1.resx">
-      <DependentUpon>201903180315097_Charters-orderby1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903180407042_Charters-orderby2.resx">
-      <DependentUpon>201903180407042_Charters-orderby2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903180413211_Charters-orderby3.resx">
-      <DependentUpon>201903180413211_Charters-orderby3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280739325_FormattedDatelambda2.resx">
+      <DependentUpon>201902280739325_FormattedDatelambda2.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
