@@ -1246,8 +1246,6 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Get_price2()
         {
-
-
             DataSet ds = new DataSet();
             string connectionString =
            @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=BlogContext;Integrated Security=True";
@@ -3364,33 +3362,33 @@ namespace WebApplication1.Controllers
             return View(employees);
         }
 
-        public ActionResult GetEmployeebyID(int ID)
-        {
-            //Employee employee = list.Find(ID);
-            Employee employee = new Employee();
-            employee.EmployeeID = 2;
-            employee.FirstName = "xx";
-
-            //return View("EmployeeList", employee);
-            return RedirectToAction("EmployeeList", employee);
-            // return PartialView("_ViewEmployee", employee);
-        }
-
-        //[HttpPost]
         //public ActionResult GetEmployeebyID(int ID)
         //{
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        Employee employee = new Employee();
-        //        employee.EmployeeID = 2;
-        //        employee.FirstName = "xx";
-        //        return PartialView("_ViewEmployee", employee);
-        //    }
-        //    else
-        //    {
-        //        return PartialView("_ViewEmployee", null);
-        //    }
+        //    //Employee employee = list.Find(ID);
+        //    Employee employee = new Employee();
+        //    employee.EmployeeID = 2;
+        //    employee.FirstName = "xx";
+
+        //    //return View("EmployeeList", employee);
+        //    return RedirectToAction("EmployeeList", employee);
+        //    // return PartialView("_ViewEmployee", employee);
         //}
+
+        [HttpPost]
+        public ActionResult GetEmployeebyID(int ID)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                Employee employee = new Employee();
+                employee.EmployeeID = 2;
+                employee.FirstName = "xx";
+                return PartialView("_ViewEmployee", employee);
+            }
+            else
+            {
+                return PartialView("_ViewEmployee", null);
+            }
+        }
 
         public ActionResult _ViewEmployee(int? ID)
         {

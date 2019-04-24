@@ -115,6 +115,8 @@
 <script>
     
     function doEdit(obj) {
+        event.preventDefault(); //prevent the default event.//https://forums.asp.net/t/2146631.aspx
+
         @*//$.ajax({
         //    url: '/Home/GetEmployeebyID',
         //    async: false,
@@ -145,8 +147,8 @@
                 url: "@Url.Action("GetEmployeebyID", "Home")",
               data: { ID: ID },
                 dataType: 'html',
-                success: function (data) {
-                    alert(data);
+              success: function (data) {
+                  $('#divPartialView').html("");
                     $('#divPartialView').html(data);
                     //return false;
                 }

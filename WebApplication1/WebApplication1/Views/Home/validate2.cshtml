@@ -30,6 +30,15 @@
             @Html.ValidationMessageFor(model => model.ProdottiIds, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="date">حوزه</label>
+        <div class="col-md-10">
+            @Html.ListBoxFor(model => model.ProdottiIds, new SelectList(Model.ListaProdotti, "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.ListaProdotti, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
 }
 
 @section scripts{

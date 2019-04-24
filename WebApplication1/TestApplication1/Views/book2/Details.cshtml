@@ -39,4 +39,27 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
+    <a href="javascript:void(0);" onclick="doDetail(@Model.Id);" class="btn btn-red" style="color: white;">编辑</a>
 </p>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+      function doDetail(id) {
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("Edit", "book2")";,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#myModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        }
+
+</script>
