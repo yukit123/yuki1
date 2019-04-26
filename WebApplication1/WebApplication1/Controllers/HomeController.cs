@@ -1178,6 +1178,9 @@ namespace WebApplication1.Controllers
             osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
             ViewBag.OSRddl = new SelectList(osrListItems, "Value", "Text", osrListItems1[0].Value).Distinct();
+            //还可以去掉new SelectList() 变成 ViewBag.OSRddl = osrListItems；
+            //像 @Html.DropDownList("ListaProdotti3", new List<SelectListItem> { new SelectListItem { Text = "fani", Value = "" }, { new SelectListItem { Text = "sima", Value = "" } } })
+
             ViewBag.ddl = new SelectList(options, "LabelId", "LabelName", options[1].LabelId);
 
             return View(todo);
