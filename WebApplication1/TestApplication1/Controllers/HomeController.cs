@@ -1012,7 +1012,7 @@ namespace TestApplication1.Controllers
 
 
             }
-            else  //(!ModelState.IsValid) //https://www.cnblogs.com/basterdaidai/p/6679849.html
+            else  //(!ModelState.IsValid) //https://www.cnblogs.com/basterdaidai/p/6679849.html //https://forums.asp.net/p/2148616/6236661.aspx?Re+Html+TextAreaFor+control+return+Null+exception+for+invalid+ModelState+in+MVC+5
             {
                 var msg = string.Empty;
                 foreach (var value in ModelState.Values)

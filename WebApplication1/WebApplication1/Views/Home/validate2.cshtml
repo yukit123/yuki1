@@ -23,22 +23,21 @@
     <input type="submit" value="Save" id="btnSave">
     @*<input type="button" value="Create" id="validate" class="btn btn-default"/>*@
 
-    <div class="form-group">
-        <label class="control-label col-md-2">3333333</label>
-        <div class="col-md-10">
-            @Html.ListBoxFor(model => model.ProdottiIds, Model.ListaProdotti, new { @class = "form-control chosen-select" })
-            @Html.ValidationMessageFor(model => model.ProdottiIds, "", new { @class = "text-danger" })
+    @*<div class="form-group">
+            <label class="control-label col-md-2">3333333</label>
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.ProdottiIds, Model.ListaProdotti, new { @class = "form-control chosen-select" })
+                @Html.ValidationMessageFor(model => model.ProdottiIds, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2" for="date">حوزه</label>
-        <div class="col-md-10">
-            @Html.ListBoxFor(model => model.ProdottiIds, new SelectList(Model.ListaProdotti, "Value", "Text"))
-            @Html.ValidationMessageFor(model => model.ListaProdotti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
+        <div class="form-group">
+            <label class="control-label col-md-2" for="date">حوزه</label>
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.ProdottiIds, new SelectList(Model.ListaProdotti, "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.ListaProdotti, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 }
 
 @section scripts{
@@ -48,8 +47,15 @@
         $(document).ready(function () {
 
             var textBox = "<div class='form-group'><label>Other  Name</label><input id='LabelId' name='LabelId' type='text' value='' class='form-control'/></div>";
-            @*textBox +=@Html.Raw("Html.ValidationMessageFor(model => model.LeaveDurationDays })");*@
+            @*textBox +=@Html.Raw("Html.ValidationMessageFor(model => model.LabelId )"); not work*@
             textBox += '@Html.Raw(HttpUtility.HtmlDecode(Html.ValidationMessageFor(m => m.LabelId,"", new { @class = "text-danger" }).ToHtmlString()))';
+            @*textBox +=`@Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -")`;*@
+            @*textBox += '@Html.Raw(HttpUtility.HtmlDecode(Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -").ToHtmlString()))'; not work*@
+
+            textBox += '@Ajax.JavaScriptStringEncode(Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -").ToHtmlString())';//https://forums.asp.net/t/2155141.aspx case
+                      @*var dtypes = '@Ajax.JavaScriptStringEncode(Html.DropDownList("TypeId",new SelectList(@ViewBag.MyTypes,"Value","Text")))';*@
+
+            //textBox += '<select id="mySelect"><option>1</option></select>';
             $("form").append(textBox);
         })
         //$('#validate').click(function () {
@@ -59,16 +65,17 @@
         //        //trigger modal
         //    }
         //});
-        $(function () {
-            $(".AAA").rules("add", {
-                required: true,
-                minlength: 8,
-                messages: {
-                    required: "Required input",
-                    minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
-                }
-            });
-        });
+
+        //$(function () {
+        //    $(".AAA").rules("add", {
+        //        required: true,
+        //        minlength: 8,
+        //        messages: {
+        //            required: "Required input",
+        //            minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+        //        }
+        //    });
+        //});
 
         @*$("#LabelId").on("focusout", ".firstinput", function () {
 

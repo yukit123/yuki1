@@ -123,14 +123,13 @@ namespace TestApplication1.Controllers
             
                 if (ModelState.IsValid)
                 {
-                    db.Entry(author2).State = EntityState.Modified;
-                    db.SaveChanges();
+                db.Entry(author2).State = EntityState.Modified;
+                db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            
                 else {
                 var msg = string.Empty;
-                foreach (var value in ModelState.Values)
+                foreach (var value in ModelState.Values)//https://forums.asp.net/p/2148616/6236661.aspx?Re+Html+TextAreaFor+control+return+Null+exception+for+invalid+ModelState+in+MVC+5
                 {
                     if (value.Errors.Count > 0)
                     {

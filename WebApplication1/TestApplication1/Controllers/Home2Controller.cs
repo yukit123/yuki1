@@ -1883,7 +1883,7 @@ namespace TestApplication1.Controllers
         [HttpPost]
         public ActionResult checkbox_Index(viewmodel vm)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //https://forums.asp.net/p/2148616/6236661.aspx?Re+Html+TextAreaFor+control+return+Null+exception+for+invalid+ModelState+in+MVC+5
             {
 
                 return View(vm);

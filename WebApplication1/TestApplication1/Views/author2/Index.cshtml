@@ -17,17 +17,47 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Author_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Author_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Author_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Author_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Author_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Author_id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+@Html.DropDownList("hoze", new List<SelectListItem> { new SelectListItem { Text = "fani", Value = "fani " }, { new SelectListItem { Text = "sima", Value = "sima" } } },new { @onchange = "CallChangefunc(this.value)" })
+@Html.DropDownList("vahed", new List<SelectListItem> { new SelectListItem { Text = "v1", Value = "v1" }, { new SelectListItem { Text = "v2", Value = "v2" } } }, htmlAttributes: new { @id = "vahed1", @name = "vahed1", @style = "display:none" })
+@Html.DropDownList("vahed", new List<SelectListItem> { new SelectListItem { Text = "v3", Value = "v3" }, { new SelectListItem { Text = "v4 ", Value = "v4" } } }, htmlAttributes: new { @id = "vahed2", @name = "vahed2", @style = "display:none" })
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('#hoze option:selected').text() == "fani") {
+                $("#vahed1").css('display', 'block');
+            }
+            else { $("#vahed2").css('display', 'block')}
+        })
+
+        function CallChangefunc(val) {
+            if (val == "sima") {
+                $("#vahed1").css('display', 'none');
+                $("#vahed2").css('display', 'block');
+            }
+            else {
+                $("#vahed2").css('display', 'none');
+                $("#vahed1").css('display', 'block');
+            }
+        }
+    </script>
+
+}
