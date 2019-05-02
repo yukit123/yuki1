@@ -130,7 +130,7 @@
                         $('#myModalContent').html(data);//Html() load() replaceWith():https://forums.asp.net/t/2151801.aspx
 
                         var url = "@Html.Raw(Url.Action("_ViewEmployee", "Home", new { ID = "sempar" }))";
-                        $('#partial').load(url);
+                        $('#partial').load(url); //Bootstrap Modal Modal Dialog  $("#mymodel").modal("show"); https://forums.asp.net/t/2155187.aspx case
                       
                         $('#partial2').replaceWith(data);
                     },
