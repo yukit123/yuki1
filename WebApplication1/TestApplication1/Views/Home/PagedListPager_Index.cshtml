@@ -20,22 +20,29 @@
 @*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page }))*@
 
 @*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page ,accountmenu = ViewBag.AccountMenu, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
-                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
-                        {
-                            LinkToFirstPageFormat = "<<",
-                            LinkToPreviousPageFormat = "<",
-                            LinkToNextPageFormat = ">",
-                            LinkToLastPageFormat = ">>",
-                            //DisplayLinkToFirstPage = PagedListDisplayMode.Always,
-                            //DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                            //DisplayLinkToLastPage = PagedListDisplayMode.Always,
-                            //DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                            //MaximumPageNumbersToDisplay = 0,
-                            DisplayEllipsesWhenNotShowingAllPageNumbers = false,
-                        }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "some_grid_container" }))*@
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+    {
+        LinkToFirstPageFormat = "<<",
+        LinkToPreviousPageFormat = "<",
+        LinkToNextPageFormat = ">",
+        LinkToLastPageFormat = ">>",
+        //DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+        //DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        //DisplayLinkToLastPage = PagedListDisplayMode.Always,
+        //DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        //MaximumPageNumbersToDisplay = 0,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+    }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "some_grid_container" }))*@
 
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new {page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
                                      new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }))
+
+@*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page = page}),
+                   PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+                   {
+                       HttpMethod = "GET",
+                       UpdateTargetId = "table"
+                   }))*@
 
 @*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("PagedListPager_Index", new { page = page }),
     new PagedListRenderOptions

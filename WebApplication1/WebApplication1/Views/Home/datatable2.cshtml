@@ -339,23 +339,23 @@ ___________________________________
                     { data: "ClassRoom" }
                 ],
                 ajax: function (data, callback, settings) {
-                    filterValues.draw = data.draw;
-                    filterValues.start = data.start;
-                    filterValues.length = data.length;
+                    //filterValues.draw = data.draw;
+                    //filterValues.start = data.start;
+                    //filterValues.length = data.length;
                     $.ajax({
                         url: '../Home/Studentsdatatable',
                         method: 'GET',
-                        data: filterValues
+                        //data: filterValues
                         
                     }).done(callback);
                 }
             });
-            $(".doDraw").click(function () {
-                filterValues.name = "111"
-                filterValues.surname = "222";
-                filterValues.classroom = "333";
-                refDataTable.fnDraw();
-            });
+            //$(".doDraw").click(function () {
+            //    filterValues.name = "111"
+            //    filterValues.surname = "222";
+            //    filterValues.classroom = "333";
+            //    refDataTable.fnDraw();
+            //});
            
         });
    

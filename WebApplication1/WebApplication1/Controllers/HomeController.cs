@@ -1104,7 +1104,7 @@ namespace WebApplication1.Controllers
            // dataTable.draw = int.Parse(Request.QueryString["draw"]);
 
             List<Studentdt> students = new List<Studentdt>();
-            students.Add(new Studentdt { Id = 1, Name = "Mike", SurName = "Mikey", ClassRoom = "8A" });
+            students.Add(new Studentdt { Id = 1, Name = "Mike2", SurName = "Mikey", ClassRoom = "8A" });
             students.Add(new Studentdt { Id = 2, Name = "John", SurName = "Salary", ClassRoom = "8B" });
             students.Add(new Studentdt { Id = 3, Name = "Steve", SurName = "Brown", ClassRoom = "7A" });
             string filterName = Request.QueryString["name"];
@@ -1126,6 +1126,8 @@ namespace WebApplication1.Controllers
             dataTable.recordsFiltered = students.Count();
             //对
             return Json(dataTable, JsonRequestBehavior.AllowGet);
+            //return Json(new { data=dataTable }, JsonRequestBehavior.AllowGet);
+
             //错
             //return Json(new { dataTable, draw = 1, recordsTotal = 2, recordsFiltered = 3 }, JsonRequestBehavior.AllowGet);
 
