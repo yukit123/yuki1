@@ -52,9 +52,8 @@
             @*textBox +=`@Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -")`;*@
             @*textBox += '@Html.Raw(HttpUtility.HtmlDecode(Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -").ToHtmlString()))'; not work*@
 
-            textBox += '@Ajax.JavaScriptStringEncode(Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -").ToHtmlString())';//https://forums.asp.net/t/2155141.aspx case
+            textBox += '@Html.Raw(Ajax.JavaScriptStringEncode(Html.DropDownListFor(s => s.ProdottiIds, Model.ListaProdotti, "- Select -").ToHtmlString()))';//https://forums.asp.net/t/2155141.aspx case
                       @*var dtypes = '@Ajax.JavaScriptStringEncode(Html.DropDownList("TypeId",new SelectList(@ViewBag.MyTypes,"Value","Text")))';*@
-
             //textBox += '<select id="mySelect"><option>1</option></select>';
             $("form").append(textBox);
         })
