@@ -8,7 +8,7 @@
 <div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
 
 
-    @Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "form-control datepicker" } })
+    @Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "form-control datepicker", @Value = Model.DateDocument.ToString("dd MMMM, yyyy") } })
 
 <input type="button" class="sub" value="sub"/>
 _______________________________________________________________________________________
@@ -97,7 +97,7 @@ ________________________________________________________________________________
             $(".datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: 'dd.mm.yy'
+                dateFormat: 'dd MM, yy'
 
             });
 
