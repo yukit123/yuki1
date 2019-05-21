@@ -2129,50 +2129,53 @@ namespace TestApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFiles(string username)
+        public ActionResult UploadFiles(string username, string Date, string Task_NM, string MileStones,string[] lstEmployeeId)
         {
+            //FormData 传多个值 传数组 https://forums.asp.net/t/2155733.aspx case  多个文件可以通过Request.Files查看,string Date,Task_NM,MileStones,lstEmployeeId查看fileData.append的值，甚至string[]
+            //https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
+
             // Checking no of files injected in Request object  
-            if (Request.Files.Count > 0)
-            {
-                try
-                {
-                    //  Get all files from Request object  
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
-                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+            //if (Request.Files.Count > 0)
+            //{
+            //    try
+            //    {
+            //        //  Get all files from Request object  
+            //        HttpFileCollectionBase files = Request.Files;
+            //        for (int i = 0; i < files.Count; i++)
+            //        {
+            //            //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+            //            //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
-                        HttpPostedFileBase file = files[i];
-                        string fname;
+            //            HttpPostedFileBase file = files[i];
+            //            string fname;
 
-                        // Checking for Internet Explorer  
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            fname = testfiles[testfiles.Length - 1];
-                        }
-                        else
-                        {
-                            fname = file.FileName;
-                        }
+            //            // Checking for Internet Explorer  
+            //            if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+            //            {
+            //                string[] testfiles = file.FileName.Split(new char[] { '\\' });
+            //                fname = testfiles[testfiles.Length - 1];
+            //            }
+            //            else
+            //            {
+            //                fname = file.FileName;
+            //            }
 
-                        // Get the complete folder path and store the file inside it.  
-                        fname = Path.Combine(Server.MapPath("~/images/"), fname);
-                        file.SaveAs(fname);
-                    }
-                    // Returns message that successfully uploaded  
-                    return Json("File Uploaded Successfully!");
-                }
-                catch (Exception ex)
-                {
-                    return Json("Error occurred. Error details: " + ex.Message);
-                }
-            }
-            else
-            {
-                return Json("No files selected.");
-            }
+            //            // Get the complete folder path and store the file inside it.  
+            //            fname = Path.Combine(Server.MapPath("~/images/"), fname);
+            //            file.SaveAs(fname);
+            //        }
+            //        // Returns message that successfully uploaded  
+            //        return Json("File Uploaded Successfully!");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            return Json("Error occurred. Error details: ");
+            //    }
+            //}
+            //else
+            //{
+            //    return Json("No files selected.");
+            //}
         }
         #endregion
 

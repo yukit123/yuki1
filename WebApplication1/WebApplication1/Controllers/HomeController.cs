@@ -79,12 +79,15 @@ namespace WebApplication1.Controllers
             StringBuilder a = new StringBuilder();  //StringBuilder 字符串生成器 比string+"xxx"效率高
             foreach (object obj in arrayList)
                 a.Append(obj);           //展平ArrayList
-            string str = a.ToString();
 
+            StringBuilder b = new StringBuilder();
+            foreach (object obj2 in arrayList)
+                b.Append(obj2 + ",").ToString();//逗号分隔 Append
 
             //var list = arrayList.ToArray().Select(_ => _).ToList();
-            var ll = String.Join("", arrayList.ToArray()); //展平 ArrayList
+            var ll = String.Join("", arrayList.ToArray()); //展平 ArrayList  //逗号分隔 String.Join
                                                            //var list = arrayList.ToArray().SelectMany(i=>i)
+
             #endregion
             return View();
         }

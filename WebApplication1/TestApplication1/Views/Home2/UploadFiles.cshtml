@@ -4,14 +4,25 @@
 }
 
 <h2>UploadFiles</h2>
-<input type="file" id="FileUpload1" />
+@Html.DropDownList("multiSelectDropDown", new List<SelectListItem>
+{new SelectListItem { Text = "fani1", Value = "fani " },
+    { new SelectListItem { Text = "sima", Value = "sima" } },
+new SelectListItem { Text = "sima2", Value = "sima2" }
+}, new { @id = "multiSelectDropDown", @class = "form-control", @multiple = "multiple" })
+
+<input type="file" id="FileUpload1" multiple />
 <input type="button" id="btnUpload" value="Upload Files" />
+
+<input type="text" id="DatePicker" value="11" />
+<input type="text" id="Task_NM" value="22" />
+<input type="text" id="MileStones" value="33" />
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#btnUpload').click(function () {
 
             // Checking whether FormData is available in browser
@@ -27,6 +38,18 @@
                 for (var i = 0; i < files.length; i++) {
                     fileData.append(files[i].name, files[i]);
                 }
+                for (var key of fileData.entries()) {
+                    console.log(key[0] + ', ' + key[1]);
+                }
+
+                fileData.append("Date", $("#DatePicker").val());
+                fileData.append("Task_NM", $("#Task_NM").val());
+                fileData.append("MileStones", $("#MileStones").val());
+
+                $('#multiSelectDropDown option:selected').each(function () {
+                    fileData.append("lstEmployeeId[]", this.value);
+                });
+
 
                 // Adding one more key to FormData object
                 fileData.append('username', "Manas");

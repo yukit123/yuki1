@@ -24,7 +24,8 @@ namespace WebApplication1
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "WebApplication1.Controllers" }
+                namespaces: new string[] { "WebApplication1.Controllers" }//namespaces: new[] { string.Format("{0}.Controllers", typeof(RoutingConfig).Namespace) }
+
             ).DataTokens.Add("area", "Home");
 
 
