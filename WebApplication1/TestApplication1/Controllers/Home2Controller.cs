@@ -2137,8 +2137,18 @@ namespace TestApplication1.Controllers
             public string MileStones { get; set; }
             public List<string> lstEmployeeId { get; set; }
         }
+
+        public class FormDataTestVM
+        {
+            public int formDataTestId { get; set; }
+            public string formDataTest1 { get; set; }
+            public string formDataTest2 { get; set; }
+            public HttpPostedFileBase formDataTestfile { get; set; }
+
+        }
+
         [HttpPost]
-        public ActionResult UploadFiles(string username, string Date, string Task_NM, string MileStones,string[] lstEmployeeId,FormDataVM formDataVM)
+        public ActionResult UploadFiles(string username, string Date, string Task_NM, string MileStones, string[] lstEmployeeId, FormDataVM formDataVM,FormDataTestVM formDataTestVM)
         {
             //FormData 传多个值 传数组 https://forums.asp.net/t/2155733.aspx case  多个文件可以通过Request.Files查看,string Date,Task_NM,MileStones,lstEmployeeId查看fileData.append的值，甚至string[]
             //https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
