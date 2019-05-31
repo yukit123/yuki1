@@ -46,10 +46,18 @@ namespace TestApplication1.Controllers
     public class Home2Controller : Controller
     {
         private TestApplication1Context db = new TestApplication1Context();
+
+        #region 获取日期之间的总月份 Calculate the number of months between two dates with C#
+        public static int GetMonthDifference(DateTime startDate, DateTime endDate)
+        {
+            int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
+            return Math.Abs(monthsApart);//返回数的绝对值。
+        }
+        #endregion     
         // GET: Home2
         public ActionResult Index()
-        {
-
+        {         
+          
             //var assignments = from s in db.book2s.Include(b => b.author2)
             //                  where s.Title == "t1"
             //                  select s;
@@ -90,7 +98,12 @@ namespace TestApplication1.Controllers
 
             ////TimeSpan timeSpan = Convert.ToDateTime("10:00") - Convert.ToDateTime("12:00");
             ////TimeSpan ts = oneMonthAgo.Subtract(nowdate2).Duration();
-
+            ///
+            #endregion
+            #region 获取日期之间的总月份 Calculate the number of months between two dates with C#
+            //DateTime now = DateTime.UtcNow;
+            //DateTime past = now.AddMonths(-5);
+            //int monthDiff = GetMonthDifference(now, past);
             #endregion
 
             return View();

@@ -15,6 +15,8 @@
     <div class="container">
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />
+        <input type="button" id="sendmessage2" value="Send2" />
+
         <input type="hidden" id="displayname" />
         <ul id="discussion"></ul>
     </div>
@@ -29,6 +31,12 @@
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
         $(function () {
+            var chat2 = $.connection.MySignalrHub;//https://forums.asp.net/p/2156041/6263876.aspx?p=True&t=636946888467244848 case
+
+            chat2.client.BroadCast = function (message) {
+                alert(message)
+            };
+
             // Declare a proxy to reference the hub.
             var chat = $.connection.chatHub;
             // Create a function that the hub can call to broadcast messages.
@@ -51,8 +59,17 @@
                     chat.server.send($('#displayname').val(), $('#message').val());
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
-                });
+                });             
             });
+
+            $('#sendmessage2').click(function () {
+                // Call the Send method on the hub.
+                chat2.server.getDetails($('#message').val());
+                // Clear text box and reset focus for next comment.
+                $('#message').val('').focus();
+            });
+
+
         });
     </script>
 </body>
