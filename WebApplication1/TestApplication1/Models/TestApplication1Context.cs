@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace TestApplication1.Models
 {
@@ -37,7 +38,6 @@ namespace TestApplication1.Models
 
         public DbSet<Type_Service> Type_Services { get; set; }
         public DbSet<Pation> Pations { get; set; }
-
 
         //public DbSet<ViewModelAttendanceClients2> ViewModelAttendanceClients2s { get; set; }
         //public DbSet<TimeManagerSetsMdl2> TimeManagerSetsMdl2s { get; set; }
@@ -86,5 +86,20 @@ namespace TestApplication1.Models
         //    }
         #endregion
 
+        
     }
-}
+
+    public class sql_textConnectionString : DbContext
+    {
+
+        //public SchoolContext() : base("SchoolContext")
+        //{
+        //}
+
+        public System.Data.Entity.DbSet<TestApplication1.Models.SampleTable02> SampleTable02 { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+    }
+    }

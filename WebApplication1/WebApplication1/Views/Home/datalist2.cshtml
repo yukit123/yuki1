@@ -1,41 +1,32 @@
-﻿
+﻿@model WebApplication1.Controllers.HomeController.datalistView
+
 @{
     ViewBag.Title = "datalist2";
 }
 @*<style>
-    input {
-        /*-webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;*/
-        color: red;
-    }
-
-        input[name="browsers"] {
-            border: 2px solid orange;
-            border-radius: 10px 10px 10px 10px;
-            font-size: 18px;
-            padding: 5px;
-            height: 35px;
-            width: 350px;
+        input {
+            /*-webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;*/
+            color: red;
         }
 
-        input::-webkit-calendar-picker-indicator {
-            /*   display: none; */
-        }
-</style>*@
+            input[name="browsers"] {
+                border: 2px solid orange;
+                border-radius: 10px 10px 10px 10px;
+                font-size: 18px;
+                padding: 5px;
+                height: 35px;
+                width: 350px;
+            }
 
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#firstTab">Zgrade</a></li>
-    <li><a data-toggle="tab" href="#secondTab">Troskovi vezani za gradu</a></li>
-</ul>
-<div class="tab-content">
-    <div id="firstTab" class="tab-pane fade in active">@Html.DropDownList("OSRddl")</div>
-    <div id="secondTab" class="tab-pane fade in">
-        <label for="search2">Search: </label>
-        <input id="datalist" name="browsers" list="getdatalist" />
-        <datalist id="getdatalist"></datalist>
-    </div>
-</div>
+            input::-webkit-calendar-picker-indicator {
+                /*   display: none; */
+            }
+    </style>*@
+
+
+@Html.DropDownList("Value", new SelectList(ViewBag.OSRddl, "Value", "Text"), "Selectvvvv", new { @id = "ddlRoles", @class = "form-control" })
 
 
 @section scripts{

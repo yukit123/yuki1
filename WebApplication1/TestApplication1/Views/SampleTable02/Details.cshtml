@@ -1,0 +1,50 @@
+﻿@model TestApplication1.Models.SampleTable02
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SampleTable02</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SampleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SampleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SampleCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SampleCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SampleDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SampleDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSampleProcessed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSampleProcessed)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SampleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

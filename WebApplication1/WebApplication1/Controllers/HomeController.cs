@@ -496,6 +496,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult datepicker()
         {
+
             //https://forums.asp.net/p/2151779/6247294.aspx?p=True&t=636837975401866881
             //var list = db.Blogs.ToList().FirstOrDefault();
             //ViewBag.Message = "Your application description page.";
@@ -695,7 +696,11 @@ namespace WebApplication1.Controllers
             //osrListItems = osrListItems.OrderBy(x => x.Value).ToList();
 
             List<SelectListItem> osrListItems3 = db.Label.Select(osr => new SelectListItem { Value = osr.LabelId.ToString(), Text = osr.LabelName, Selected = true }).ToList();
-            ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text");
+           
+            osrListItems3.Insert(0, new SelectListItem { Text = "Select", Value = "0" });
+            //ViewBag.OSRddl = new SelectList(osrListItems3, "Value", "Text");
+            ViewBag.OSRddl = osrListItems3;
+
             return View();
         }
 
@@ -1884,7 +1889,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult TextEdit(int? id) //https://forums.asp.net/t/2141735.aspx
+        public ActionResult TextEdit(int? id) //https://forums.asp.net/t/2142112.aspx 富文本编辑器
         {
 
             Column model;

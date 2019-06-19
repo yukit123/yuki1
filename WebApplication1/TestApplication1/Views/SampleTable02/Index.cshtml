@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TestApplication1.Models.SampleTable02>
+
+@{
+    ViewBag.Title = "Index";
+    var aa = Model.Select(_ => _.SampleName).ToList();
+}
+
+<h2>Index</h2>
+<table class="table">
+    @for (
+        var i = 0;
+        i < new int[]{
+Model.Select(_ => _.SampleId).ToList().Count,
+Model.Select(_ => _.SampleName).ToList().Count,
+Model.Select(_ => _.SampleCategory).ToList().Count,
+Model.Select(_ => _.SampleDateTime).ToList().Count,
+Model.Select(_ => _.IsSampleProcessed).ToList().Count
+                }.Max();
+        ++i)
+    {
+        <tr>
+            <td>@(Model.Select(_ => _.SampleId).ToList().Count > i ? Model.Select(_ => _.SampleId).ToList()[i] : 0)</td>
+            <td>@(Model.Select(_ => _.SampleName).ToList().Count > i ? Model.Select(_ => _.SampleName).ToList()[i] : "")</td>
+            <td>@(Model.Select(_ => _.SampleCategory).ToList().Count > i ? Model.Select(_ => _.SampleCategory).ToList()[i] : "")</td>
+            <td>@(Model.Select(_ => _.SampleDateTime).ToList().Count > i ? Model.Select(_ => _.SampleDateTime).ToList()[i] : Convert.ToDateTime(""))</td>
+            <td>@(Model.Select(_ => _.IsSampleProcessed).ToList().Count > i ? Model.Select(_ => _.IsSampleProcessed).ToList()[i] : false)</td>
+        </tr>
+    }
+    </table>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SampleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SampleCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SampleDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSampleProcessed)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SampleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SampleCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SampleDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSampleProcessed)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SampleId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.SampleId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SampleId })
+                </td>
+            </tr>
+        }
+
+    </table>

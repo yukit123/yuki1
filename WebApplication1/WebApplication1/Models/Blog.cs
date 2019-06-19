@@ -28,6 +28,10 @@ namespace WebApplication1.Models
 
         public DateTime Created { get; set; }
 
+        [NotMapped]
+        [Required(ErrorMessage = "Enter the issued date.")]
+        [DataType(DataType.Date)]
+        public DateTime IssueDate { get; set; }
 
 
     }
