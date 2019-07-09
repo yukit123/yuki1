@@ -466,6 +466,10 @@
     <Compile Include="Migrations\201906170907567_book2-Publisher-getter5.Designer.cs">
       <DependentUpon>201906170907567_book2-Publisher-getter5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906270751183_StringLength.cs" />
+    <Compile Include="Migrations\201906270751183_StringLength.Designer.cs">
+      <DependentUpon>201906270751183_StringLength.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
       <DependentUpon>Modal Popup.aspx</DependentUpon>
@@ -725,6 +729,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906170907567_book2-Publisher-getter5.resx">
       <DependentUpon>201906170907567_book2-Publisher-getter5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906270751183_StringLength.resx">
+      <DependentUpon>201906270751183_StringLength.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
@@ -1705,6 +1712,8 @@
     <Content Include="Views\SampleTable02\Details.cshtml" />
     <Content Include="Views\SampleTable02\Edit.cshtml" />
     <Content Include="Views\SampleTable02\Index.cshtml" />
+    <Content Include="Views\Home2\OutputCache3.cshtml" />
+    <Content Include="Views\Home\PdfWriter_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

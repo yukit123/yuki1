@@ -97,6 +97,12 @@ namespace TestApplication1.Controllers
             
             if (ModelState.IsValid)
             {
+                #region 执行成功 新模型修改旧模型
+                //var entity = db.AuthorModels.Find(authorModel.Id);
+                //db.Entry(entity).CurrentValues.SetValues(authorModel);
+                //db.SaveChanges();
+                #endregion
+
                 db.Entry(authorModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

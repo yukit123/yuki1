@@ -13,6 +13,9 @@
 </head>
 
 <body>
+    <textarea rows="3" cols="20">
+w3schoolw3schoolw3schoolw3schoolw3schoolw3schoolw3school
+</textarea>
     <table class="table" id="student">
         <thead class="thead-dark">
             <tr>
@@ -24,14 +27,14 @@
         </thead>
 
         @foreach (var d in Model)
-            {
-                <tr>
-                    <td>@d.ID</td>
-                    <td>@d.FirstName</td>
-                    <td>@d.LastName</td>
-                    <td>@d.FavouriteGames</td>
-                </tr>
-            }
+        {
+            <tr>
+                <td>@d.ID</td>
+                <td>@d.FirstName</td>
+                <td>@d.LastName</td>
+                <td>@d.FavouriteGames</td>
+            </tr>
+        }
     </table>
 
     @*<table class="table" id="student2">

@@ -40,6 +40,7 @@ using LINQtoCSV;
 using Microsoft.Security.Application;
 using Aspose.Words;
 using System.Web.Caching;
+using System.Web.Configuration;
 
 namespace TestApplication1.Controllers
 {
@@ -1992,11 +1993,41 @@ namespace TestApplication1.Controllers
 
         }
 
+
         public ActionResult OutputCache2(int? id)
         {
             var aa = TempData["User"];
             ViewBag.CurrentTime = System.DateTime.Now;
             return View();
+        }
+
+        #endregion
+
+        #region bug [OutputCache(CacheProfile)] 过滤器
+        public ActionResult OutputCache3()//https://forums.asp.net/p/2157204/6268535.aspx?p=True&t=636975414295114797 case
+        {   //https://www.cnblogs.com/pfdcnblogs/p/3305952.html bug
+            //https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions-1/controllers-and-routing/improving-performance-with-output-caching-cs msdn 错的
+            // error： OutputCacheAttribute for child actions only supports Duration, VaryByCustom, and VaryByParam values.Please do not set CacheProfile, Location, NoStore, SqlDependency, VaryByContentEncoding, or VaryByHeader values for child actions.
+           ViewBag.CurrentTime = System.DateTime.Now;
+            return View();
+        }
+        public class ChildActionOutputCacheAttribute : OutputCacheAttribute
+        {
+            public ChildActionOutputCacheAttribute(string cacheProfile)
+            {
+                var settings = (OutputCacheSettingsSection)WebConfigurationManager.GetSection("system.web/caching/outputCacheSettings");
+                var profile = settings.OutputCacheProfiles[cacheProfile];
+                Duration = profile.Duration;
+                VaryByParam = profile.VaryByParam;
+                VaryByCustom = profile.VaryByCustom;
+            }
+        }
+        [ChildActionOnly]
+        //[OutputCache(CacheProfile = "Cache1Min")]// bug会报错,只能用过滤器代替，自己到web.config中找。
+        [ChildActionOutputCache("Cache1Min")]//代替[OutputCache(CacheProfile = "Cache1Min")] 60后更新时间，60秒内刷新没有反应（取缓存值）。
+        public string EmployeeCount()
+        {
+            return DateTime.Now.ToString("T");
         }
         #endregion
         #region create pdf from predefined word template //https://csharp.hotexamples.com/examples/iTextSharp.text/Document/SetPageSize/php-document-setpagesize-method-examples.html
@@ -2154,8 +2185,12 @@ namespace TestApplication1.Controllers
         public class FormDataTestVM
         {
             public int formDataTestId { get; set; }
+
+            [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed.")]
             public string formDataTest1 { get; set; }
+
             public string formDataTest2 { get; set; }
+
             public HttpPostedFileBase formDataTestfile { get; set; }
 
         }
@@ -2163,6 +2198,13 @@ namespace TestApplication1.Controllers
         [HttpPost]
         public ActionResult UploadFiles(string username, string Date, string Task_NM, string MileStones, string[] lstEmployeeId, FormDataVM formDataVM,FormDataTestVM formDataTestVM)
         {
+            #region 用Regex验证 IsMatch() ModelState.AddModelError
+            //var r = new Regex(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$");
+            //if (!r.IsMatch(formDataTestVM.FileName))
+            //{
+            //    ModelState.AddModelError("formDataTestfile", "Quantity is not null");
+            //}
+            #endregion
             //FormData 传多个值 传数组 https://forums.asp.net/t/2155733.aspx case  多个文件可以通过Request.Files查看,string Date,Task_NM,MileStones,lstEmployeeId查看fileData.append的值，甚至string[]
             //https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
 
@@ -2207,7 +2249,7 @@ namespace TestApplication1.Controllers
             //else
             //{
             //    return Json("No files selected.");
-            //}
+            //}           
         }
         #endregion
 
@@ -2479,7 +2521,8 @@ namespace TestApplication1.Controllers
 
 
         #endregion
-        #region Rotativa： html to pdf 分页
+        #region Rotativa： html to pdf 分页 
+        //https://forums.asp.net/p/2157505/6269613.aspx?p=True&t=636982352993644329 case 可以convert textarea to pdf by Rotativa(iTextSharp,pdfsharp,jqyery 不可以)
         public ActionResult Rotativa_Index()//html to pdf 分页
         {
             return View();

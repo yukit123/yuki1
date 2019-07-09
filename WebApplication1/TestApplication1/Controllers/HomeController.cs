@@ -1,4 +1,8 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using Aspose.Words;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -21,7 +25,7 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TestApplication1.Models;
-
+using Document = iTextSharp.text.Document;
 
 namespace TestApplication1.Controllers
 {
@@ -1723,6 +1727,23 @@ namespace TestApplication1.Controllers
         }
         public ActionResult Groupby_Index()
         {
+            #region 展平 foreach循环加string.Join  ToDictionary()
+            //https://forums.asp.net/p/2157446/6269396.aspx?p=True&t=636981416273795417 case
+            //var aa = db.CountrySizes.Where(p => p.Id<6&&p.value<100).GroupBy(p => p.country).ToDictionary(x => x.Key, x => x.Select(m => m.value)).Distinct().ToList(); ;
+
+            //var cc = (from t in db.CountrySizes
+            //          group t by t.country
+            //          into grp
+            //         select new {AAA=grp.Select(a=>a.value),BBB=grp.Select(a=>a.Id) })
+            //   .ToDictionary(t => t.AAA , t => t.BBB);
+
+            //StringBuilder MyStringBuilder = new StringBuilder();  
+            //foreach (var res in aa)
+            //{
+            //    //: is separator between to object
+            //    MyStringBuilder.Append(res.Key + " : " + string.Join("#", res.Value.Select(x => x))+";");//展平 foreach循环加string.Join
+            //}
+            #endregion
             //var list = new List<TestViewModel>();
             var list = db.CountrySizes.GroupBy(p => p.country, (key, group) => new { GroupName = key, Items = group.ToList() });
             ViewData["List"] = db.CountrySizes.GroupBy(p => p.country).ToList();
@@ -1730,7 +1751,7 @@ namespace TestApplication1.Controllers
             var model = db.CountrySizes.GroupBy(p => p.country).ToArray();
 
 
-            return View(model);
+            return View(/*model*/);
         }
 
         public ActionResult GetCurrentTime()
@@ -1852,6 +1873,32 @@ namespace TestApplication1.Controllers
             return res;
         }
 
+        #endregion
+
+        #region Export HTML string to PDF file in ASP.Net MVC  convert html to pdf iTextSharp
+        //https://www.aspsnippets.com/Articles/Export-HTML-string-to-PDF-file-in-ASPNet-MVC.aspx 
+        //https://www.aspsnippets.com/Articles/Export-Partial-View-to-PDF-file-in-ASPNet-MVC-Razor.aspx
+        public ActionResult PdfWriter_Index()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult Export(string GridHtml)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(GridHtml);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+            }
+        }
         #endregion
 
         #region upload
