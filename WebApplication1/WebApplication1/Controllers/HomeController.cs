@@ -503,7 +503,20 @@ namespace WebApplication1.Controllers
             Blog bl = new Blog();
 
             bl.DateDocument = Convert.ToDateTime("2018/12/14");
-            return View(bl);
+            ViewBag.DateDocument = Convert.ToDateTime("2018/12/14");
+
+
+            var options = new List<Blog>();
+
+
+            //options.Add(new TEnum() { EnumId = 0, EnumType = (WebApplication1.Models.EnumType.Male), EnumName="ab1", Dateofbirth=DateTime.Now });
+            options.Add(new Blog() { BlogId = 0, DateDocument = Convert.ToDateTime("2019-07-08") });
+
+            options.Add(new Blog() { BlogId = 1, DateDocument = Convert.ToDateTime("2019-07-09") });
+
+            options.Add(new Blog() { BlogId = 2, DateDocument = Convert.ToDateTime("2019-07-10") });
+
+            return View(options);
         }
 
         [AllowAnonymous]

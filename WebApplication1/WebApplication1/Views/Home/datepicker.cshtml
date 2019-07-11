@@ -1,4 +1,8 @@
-﻿@model WebApplication1.Models.Blog
+﻿@model List<WebApplication1.Models.Blog>
+    @{ 
+        var aa = Model.Select(d => d.DateDocument.ToString("dd-MM-yyyy")).ToList();
+    }
+
 <div id="ChooseLeft" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;float:left;">
     <p value="1"><span>A</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
     <p value="2"><span>B</span><input type="button" value="+" class="add" onclick="move(this)" /><input type="button" value="-" class="remove" onclick="remove(this)" /></p>
@@ -8,50 +12,9 @@
 <div id="ChooseRight" style="border:1px grey solid; width:48%;min-height:100px;display:inline-block;"></div>
 
 
-    @Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "form-control datepicker", @Value = Model.DateDocument.ToString("dd MMMM, yyyy") } })
-
-<input type="button" class="sub" value="sub"/>
-_______________________________________________________________________________________
 <br />
+<input asp-for="School.Date" id="txtDate" />
 
-@*@Html.TextBox("222", "123", new { @id = "datepicker", @class = "classname", @style = "width:100px;color:red;" })
-    @Html.EditorFor(model => model.DateDocument, new { @Value = "2015-10-14" })*@
-
-@Html.EditorFor(model => model.Created, new
-{
-    htmlAttributes = new { @class = "editbox2" } })
-
-@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "editbox" } })
-
-@Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now } })
-
-@Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss") } })
-
-
-@*<input type="date" value="2015-10-14" onchange="mydate();"></input>*@
-
-@*@Html.EditorFor(model => model.DateDocument,
-    new { @type = "date", @Value = Model.DateDocument.ToString("yyyy-MM-dd") })*@
-
-
-@*@Html.EditorFor(m => m.DateDocument, new { htmlAttributes = new { @id = "aa", @name = "aa", @class = "datepicker", type = "date", @Value = "2015-10-14" } })*@
-<br />
-_________________________________________________________________________________________________
-<br />
-<input type="date" id="current_date"> @*https://stackoverflow.com/questions/12757911/how-to-display-current-month-year-in-javascript-using-div*@
-
-<input type="month" id="date_of_month_before"> @*https://www.w3schools.com/jsref/jsref_getmonth.asp*@ @*https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month*@
-
-@*<input type="date" id="date">*@
-
-
-@*@Html.EditorFor(model => model.DateDocument, new { htmlAttributes = new { @class = "txtdatepicker" } })*@
-
-_________________________________________________________________________________________________
-<input id="start_date" class="form-control textbox_style" style="width: 350px; margin-left: 20px;background-color:#FFFEF3">
-
-
-<input name="startDate" id="txtdatepicker" class="date-picker" />
 <script>
     function move(button) {
         var p = button.parentElement;
@@ -75,112 +38,35 @@ ________________________________________________________________________________
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
-       
-        var d = new Date();
-        //var n1 = d.getMonth();
-        //var n2 = d.getFullYear();
-        //var n3 = d.getDate();
+        var list = "@(string.Join("\',\'", aa))";
 
-        //var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        var date = new Date();
-        date.setFullYear(d.getFullYear());
-        date.setMonth(d.getMonth() - 1);
+        $(function () {
+           // var enableDays = [' @(string.Join("','", aa)) '];   
+                var enableDays = "["+list.replace(/&#39;/g, '\"')+"]";
+          
+            var enableDays2 = ["2019-07-08", "2019-07-09", "2019-07-07"];
+            function enableAllTheseDays(d) {
+                var year = d.getFullYear(),
+                    month = ("0" + (d.getMonth() + 1)).slice(-2),
+                    day = ("0" + (d.getDate())).slice(-2);
 
-        var date2 = new Date();
-        date2.setFullYear(d.getFullYear());
-        date2.setMonth(d.getMonth());
+                var formatted = year + '-' + month + '-' + day;
+           //     var sdate = $.datepicker.formatDate('dd-mm-yy',formatted)
+           //console.log(sdate)
+                if ($.inArray(formatted, enableDays) != -1) {
+           return [true];
+           }
+           return [false];
+}
 
+$("#txtDate").datepicker({
+    dateFormat: "dd-mm-yy",
+beforeShowDay: enableAllTheseDays
 
-
-        $(document).ready(function () {
-
-            $(".datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'dd MM, yy'
-
-            });
-
-            document.getElementById('current_date').valueAsDate = new Date();
-            // document.getElementById('date_of_month_before').valueAsDate = new Date();
-            // document.getElementById('date_of_month_before').valueAsDate = date;
-            //document.getElementById('date_of_month_before').max = "2018-04";
-            if (date.getMonth() < 10) {
-                document.getElementById('date_of_month_before').max = date.getFullYear() + "-0" + date2.getMonth();
-            }
-            else {
-                document.getElementById('date_of_month_before').max = date.getFullYear() + "-" + date2.getMonth();
-
-            }
-
-
-            // document.getElementById('date_of_month_before').valueAsDate = months[date.getMonth()-1];
-            //  document.getElementById('date_of_month_before').innerHTML = months[date.getMonth()-1];
-
-
-            //document.getElementById('date').innerHTML = months[date.getMonth()] + ' ' + date.getFullYear();
-            $('#txtdatepicker').datepicker({
-                changeMonth: true,
-                dateFormat: 'MM'
-            });
-            $("#txtdatepicker").datepicker('option', 'maxDate', new Date(date));
-            //$("#txtFDt").datepicker().datepicker("setMonth", date);
+});
         });
 
-
-
-
-        $("._style_2VKbTR[data-reactid='95'").click(function () {
-            event.preventDefault;
-            alert("s");
-        })
-
-        $(".editbox").datepicker({
-            dateFormat: 'dd/mm/yy'
-        })
-
-        var dd = new Date();
-
-        // Set it to one month ago
-        dd.setMonth(dd.getMonth() - 1);
-
-        // Zero the hours
-        dd.setHours(0, 0, 0);
-        dd.setDate(dd.getDate() + 10);
-        // Zero the milliseconds
-        dd.setMilliseconds(0);
-        var myDate = new Date(1978, 2, 11);
-
-        var dy = new Date();
-        //var dy2 = new Date();
-
-        dy.setFullYear(dy.getFullYear());
-
-        $(".editbox2").datepicker();//用setDate之前必须先初始化
-        // $(".editbox2").datepicker('setDate', dd);
-        $(".editbox2").datepicker("setDate", "01/01/" + dy.getFullYear());//"01/01/2018"
-        //$(".editbox2").datepicker("setDate", "01/01/2018");//"01/01/2018"
-
-
-        function dateTransform(d) {
-            var s = (new Date(d)).toString().split(' ');
-            return [s[2], s[1], s[3]].join('-');
-        }
-
-        function mydate() {
-            d = new Date(document.getElementById("dt").value);
-            dt = d.getDate();
-            mn = d.getMonth();
-            mn++;
-            yy = d.getFullYear();
-            document.getElementById("ndt").value = dt + "/" + mn + "/" + yy
-            document.getElementById("ndt").hidden = false;
-            document.getElementById("dt").hidden = true;
-        }
-
-        $("#start_date").datepicker({
-            dateFormat: 'dd/mm/yy'
-        })
+       
 
     </script>
 }

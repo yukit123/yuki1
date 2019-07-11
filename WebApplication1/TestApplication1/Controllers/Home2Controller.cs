@@ -2200,7 +2200,7 @@ namespace TestApplication1.Controllers
         {
             #region 用Regex验证 IsMatch() ModelState.AddModelError
             //var r = new Regex(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$");
-            //if (!r.IsMatch(formDataTestVM.FileName))
+            //if (!r.IsMatch(formDataTestVM.formDataTestfile.FileName))
             //{
             //    ModelState.AddModelError("formDataTestfile", "Quantity is not null");
             //}

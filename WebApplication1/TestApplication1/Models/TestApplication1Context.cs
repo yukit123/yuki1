@@ -86,7 +86,7 @@ namespace TestApplication1.Models
         //    }
         #endregion
 
-        
+        public System.Data.Entity.DbSet<TestApplication1.Models.Person> People { get; set; }
     }
 
     public class sql_textConnectionString : DbContext

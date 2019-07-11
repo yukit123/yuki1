@@ -309,6 +309,7 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\SampleTable02Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -490,6 +491,7 @@
     <Compile Include="Models\GroupProperty.cs" />
     <Compile Include="Models\OpsModel.cs" />
     <Compile Include="Models\Pation.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RMA_History.cs" />
     <Compile Include="Models\SampleTable02.cs" />
@@ -1714,6 +1716,11 @@
     <Content Include="Views\SampleTable02\Index.cshtml" />
     <Content Include="Views\Home2\OutputCache3.cshtml" />
     <Content Include="Views\Home\PdfWriter_Index.cshtml" />
+    <Content Include="Views\People\Create.cshtml" />
+    <Content Include="Views\People\Delete.cshtml" />
+    <Content Include="Views\People\Details.cshtml" />
+    <Content Include="Views\People\Edit.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
