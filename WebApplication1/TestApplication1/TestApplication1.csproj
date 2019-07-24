@@ -447,29 +447,13 @@
     <Compile Include="Migrations\201906050638019_SampleTable02.Designer.cs">
       <DependentUpon>201906050638019_SampleTable02.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906170836076_book2-Publisher-getter.cs" />
-    <Compile Include="Migrations\201906170836076_book2-Publisher-getter.Designer.cs">
-      <DependentUpon>201906170836076_book2-Publisher-getter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906170846197_book2-Publisher-getter2.cs" />
-    <Compile Include="Migrations\201906170846197_book2-Publisher-getter2.Designer.cs">
-      <DependentUpon>201906170846197_book2-Publisher-getter2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906170852000_book2-Publisher-getter3.cs" />
-    <Compile Include="Migrations\201906170852000_book2-Publisher-getter3.Designer.cs">
-      <DependentUpon>201906170852000_book2-Publisher-getter3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906170903268_book2-Publisher-getter4.cs" />
-    <Compile Include="Migrations\201906170903268_book2-Publisher-getter4.Designer.cs">
-      <DependentUpon>201906170903268_book2-Publisher-getter4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906170907567_book2-Publisher-getter5.cs" />
-    <Compile Include="Migrations\201906170907567_book2-Publisher-getter5.Designer.cs">
-      <DependentUpon>201906170907567_book2-Publisher-getter5.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201906270751183_StringLength.cs" />
     <Compile Include="Migrations\201906270751183_StringLength.Designer.cs">
       <DependentUpon>201906270751183_StringLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907150422538_people.cs" />
+    <Compile Include="Migrations\201907150422538_people.Designer.cs">
+      <DependentUpon>201907150422538_people.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal Popup.aspx.cs">
@@ -717,23 +701,11 @@
     <EmbeddedResource Include="Migrations\201906050638019_SampleTable02.resx">
       <DependentUpon>201906050638019_SampleTable02.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906170836076_book2-Publisher-getter.resx">
-      <DependentUpon>201906170836076_book2-Publisher-getter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906170846197_book2-Publisher-getter2.resx">
-      <DependentUpon>201906170846197_book2-Publisher-getter2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906170852000_book2-Publisher-getter3.resx">
-      <DependentUpon>201906170852000_book2-Publisher-getter3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906170903268_book2-Publisher-getter4.resx">
-      <DependentUpon>201906170903268_book2-Publisher-getter4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906170907567_book2-Publisher-getter5.resx">
-      <DependentUpon>201906170907567_book2-Publisher-getter5.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906270751183_StringLength.resx">
       <DependentUpon>201906270751183_StringLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907150422538_people.resx">
+      <DependentUpon>201907150422538_people.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />

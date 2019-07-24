@@ -38,9 +38,12 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
+        //https://forums.asp.net/t/2157644.aspx case beforeShowDay 只显示数据库存的日期数组
         //var list = "@(string.Join("\',\'", aa))";
-        var list2 = "@(string.Join(",", aa))";
-
+        var list2 = "@(string.Join(",", Model.Select(d => d.DateDocument.ToString("dd-MM-yyyy"))))";//string.Join(",", aa
+        var list3 = ["@(@Html.Raw(string.Join(",", aa)))"];
+        var list4 = "@(string.Join("','", aa))";//string.Join("','", aa
+        var list5 = ["@(@Html.Raw(string.Join("','", aa)))"];
       //  var enableDays3 = "[\"" + list.replace(/&#39;/g, '\"') + "\"]";
         var enableDays4 = "[\"" + list2.replace(/,/g, '\",\"') + "\"]";
 
@@ -51,29 +54,26 @@
           
            // var enableDays2 = ["2019-07-08", "2019-07-09", "2019-07-07"];
             var enableDays = JSON.parse(enableDays4);
-            function enableAllTheseDays(d) {
-                var year = d.getFullYear(),
-                    month = ("0" + (d.getMonth() + 1)).slice(-2),
-                    day = ("0" + (d.getDate())).slice(-2);
+            function enableAllTheseDays(date) {
+                //var year = d.getFullYear(),
+                //    month = ("0" + (d.getMonth() + 1)).slice(-2),
+                //    day = ("0" + (d.getDate())).slice(-2);
+                // var formatted = day + '-' + month + '-' + year;
+                var formatted = $.datepicker.formatDate('dd-mm-yy', date)
 
-                var formatted = day + '-' + month + '-' + year;
-           //     var sdate = $.datepicker.formatDate('dd-mm-yy',formatted)
-           //console.log(sdate)
-                if ($.inArray(formatted, enableDays) != -1) {
+                if ($.inArray(formatted, enableDays) != -1) { //$.inArray 在集合中寻找是否有匹配的值
            return [true];
            }
            return [false];
-}
+          }
 
-$("#txtDate").datepicker({
-    dateFormat: "dd-mm-yy",
-beforeShowDay: enableAllTheseDays
-
-});
+            $("#txtDate").datepicker({
+                dateFormat: "dd-mm-yy",
+            beforeShowDay: enableAllTheseDays
+            
+            });
         });
-
-       
-
+        //https://forums.asp.net/t/2157644.aspx case 只显示数据库存的日期数组
     </script>
 }
 
