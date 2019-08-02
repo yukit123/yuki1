@@ -22,8 +22,34 @@ namespace WebApplication1.Controllers
             return View(db.Employees.ToList());
         }
 
+        public class ListStrViewModel
+        {
+            public int Id { get; set; }
+            public string field1 { get; set; }
+            public string field2 { get; set; }
+            public string field3 { get; set; }
+
+        }
         public ActionResult myModal(int Id)
         {
+            List<ListStrViewModel> list2 = new List<ListStrViewModel>();
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "bb5", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "cc3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "bb2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
+
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "cc6", field2 = "cc", field3 = "cc" });
+            var selectlist = new List<SelectListItem>
+            {
+                new SelectListItem{Text="Apple",Value="1"},
+                new SelectListItem{Text="Banana",Value="2"},
+                new SelectListItem{Text="Orange",Value="3"}
+            };
+            ViewBag.selectlist = selectlist;
+            ViewBag.list = list2;
+
+            ////////////////////////////////
             ViewBag.type = 1;
             Employee employee = db.Employees.Find(Id);
             if (employee == null)

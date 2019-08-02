@@ -65,6 +65,7 @@
 
 </table>
 
+<a href="javascript:void(0);" class="selectmodal" data-id="1">delegate</a>
 <a href="javascript:void(0);" class="anchorDetail" data-id="1">Send id=1</a>
 <a href="javascript:void(0);" class="anchorDetail" data-id="3">Send id=3</a>
 
@@ -75,6 +76,21 @@
 
 <div id="partial2"></div>
 
+
+<div class="modal fade" id="mymodel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Employee Details</h4>
+            </div>
+            <div class="modal-body" id="mymodelbody">
+
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 @*@section scripts{
@@ -114,7 +130,7 @@
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <script src="~/Scripts/bootstrap.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>*@
-    <script>
+<script>
         var TeamDetailPostBackURL = '/Authors/myModal';
 
         $(function () {
@@ -136,7 +152,7 @@
 
                         var url = "@Html.Raw(Url.Action("_ViewEmployee", "Home", new { ID = "sempar" }))";
                         $('#partial').load(url); //Bootstrap Modal Modal Dialog  $("#mymodel").modal("show"); https://forums.asp.net/t/2155187.aspx case
-                      
+
                         $('#partial2').replaceWith(data);
                     },
                     error: function () {
@@ -145,6 +161,23 @@
                 });
             });
         });
+
+
+        $(".selectmodal").click(function () {              
+                var url = "@Html.Raw(Url.Action("myModal", "Authors", new { Id = 1 }))";
+
+                $("#mymodelbody").load(url, function () {
+                    $("#mymodel").modal("show");
+                })
+             
+            });    
+
+    $("body").delegate('.select', 'click', function () {
+        debugger
+        var id = this.getAttribute("value");
+    
+
+            });
 
     </script>
 

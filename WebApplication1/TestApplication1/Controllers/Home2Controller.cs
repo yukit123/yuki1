@@ -2153,7 +2153,7 @@ namespace TestApplication1.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult ConfirmEditStdQualif(StdAcademicQualifModel model)
+        public ActionResult ConfirmEditStdQualif(StdAcademicQualifModel model)//data: JSON.stringify({ 'model': StdAcademicQualifModel }),//or JSON.stringify(StdAcademicQualifModel)
         {
             //Service_Std service_ = new Service_Std();
             //TempData["Page"] = 3;

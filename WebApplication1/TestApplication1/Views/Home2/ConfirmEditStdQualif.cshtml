@@ -5,52 +5,58 @@
 
 <h2>ConfirmEditStdQualif</h2>
 
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="#" class="btn btn-sm btn-primary no-radius actEdit">
+                    <i class="ace-icon fa fa-pencil-square-o bigger-230 "></i>
+                </a>
+                <a href="#" class="btn btn-sm btn-danger no-radius actDelete">
+                    <i class="ace-icon fa fa-trash-o bigger-230"></i>
+                </a>
+                <a href="#" class="btn btn-sm btn-success no-radius actSave" @*style="display: none;"*@>
+                    <i class="ace-icon fa fa-save bigger-230 "></i>
+                </a>
+                <a href="#" class="btn btn-sm btn-grey no-radius actCancel" style="display: none;">
+                    <i class="ace-icon fa fa-close bigger-230"></i>
+                </a>
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="ProgramName" class="form-control actProgramName actUpdate" disabled value="@item.ProgramName" data-prev="@item.ProgramName" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="Subject" class="form-control actSubject actUpdate" disabled value="@item.Subject" data-prev="@item.Subject" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="YOP" class="form-control actYOP actUpdate" disabled value="@item.YOP" data-prev="@item.YOP" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="Marks" class="form-control actMarks actUpdate" disabled value="@item.Mark" data-prev="@item.Mark" />
+                </div>
+            </td>
 
-@foreach (var item in Model)
-{
-    <tr>
-    <td>
-        <a href="#" class="btn btn-sm btn-primary no-radius actEdit">
-            <i class="ace-icon fa fa-pencil-square-o bigger-230 "></i>
-        </a>
-        <a href="#" class="btn btn-sm btn-danger no-radius actDelete">
-            <i class="ace-icon fa fa-trash-o bigger-230"></i>
-        </a>
-        <a href="#" class="btn btn-sm btn-success no-radius actSave" @*style="display: none;"*@>
-            <i class="ace-icon fa fa-save bigger-230 "></i>
-        </a>
-        <a href="#" class="btn btn-sm btn-grey no-radius actCancel" style="display: none;">
-            <i class="ace-icon fa fa-close bigger-230"></i>
-        </a>
-    </td>
-    <td>
-        <div>
-            <input type="text" name="ProgramName" class="form-control actProgramName actUpdate" disabled value="@item.ProgramName" data-prev="@item.ProgramName" />
-        </div>
-    </td>
-    <td>
-        <div>
-            <input type="text" name="Subject" class="form-control actSubject actUpdate" disabled value="@item.Subject" data-prev="@item.Subject" />
-        </div>
-    </td>
-    <td>
-        <div>
-            <input type="text" name="YOP" class="form-control actYOP actUpdate" disabled value="@item.YOP" data-prev="@item.YOP" />
-        </div>
-    </td>
-    <td>
-        <div>
-            <input type="text" name="Marks" class="form-control actMarks actUpdate" disabled value="@item.Mark" data-prev="@item.Mark" />
-        </div>
-    </td>
+            <input type="hidden" value="@item.Std_ref_id" id="StdId" />
+            <input type="hidden" value="@item.Program_ref_id" id="Program_ref_id" />
+            <input type="hidden" value="@item.ID" id="Id" />
 
-    <input type="hidden" value="@item.Std_ref_id" id="StdId" />
-    <input type="hidden" value="@item.Program_ref_id" id="Program_ref_id" />
-    <input type="hidden" value="@item.ID" id="Id" />
+        </tr>
 
-    </tr>
+    }
+</table>
 
-}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 @section scripts{
     <script>
 
@@ -61,9 +67,9 @@
         var StdId = $('#StdId').val();
         var Id = $('#Id').val();
         var Program_ref_id = $('#Program_ref_id').val();
-        Subject = $tr.find('.actSubject');
-        YOP = $tr.find('.actYOP');
-        Marks = $tr.find('.actMarks');
+        var Subject = $tr.find('.actSubject').val();
+        var YOP = $tr.find('.actYOP').val();
+        var Marks = $tr.find('.actMarks').val();
         debugger;
         var StdAcademicQualifModel = {
             "Std_ref_id": StdId,
@@ -77,7 +83,7 @@
         $.ajax({
             url: '@Url.Action("ConfirmEditStdQualif", "Home2")',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(StdAcademicQualifModel),
+data: JSON.stringify({ 'model': StdAcademicQualifModel }),//or JSON.stringify(StdAcademicQualifModel)=>public ActionResult ConfirmEditStdQualif(StdAcademicQualifModel model)
             type: 'POST',
             async: false,
             success: function (data) {

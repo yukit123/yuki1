@@ -23,6 +23,56 @@
     </div>
 </div>
 
+<div id="main">
+    <div>
+        @using (Html.BeginForm("Webgrid2", "Home", FormMethod.Post))
+        {
+            <input type="text" name="searchString" id="searchString" /><input type="submit" value="Search" />
+        }
+
+    </div>
+    @{
+        var grid = new WebGrid(source: ViewBag.list, canPage: true, canSort: true, rowsPerPage: 3);
+        grid.Pager(WebGridPagerModes.NextPrevious);
+        @MvcHtmlString.Create(
+ @grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
+columns: grid.Columns(
+grid.Column(columnName: "Id", header: "Id", canSort: true),
+grid.Column("field1", "field1xxx", canSort: false),
+ grid.Column("field2", "field2xx", canSort: false),
+     grid.Column("field3", "field3xx", canSort: false),
+
+     grid.Column("dropdownlist", "Select", canSort: false,
+                                                    format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>),
+
+       grid.Column("Select", "Select2", format: @<button>Click</button>),
+       grid.Column(format: @<a href="#">Select</a>),
 
 
+                grid.Column(header: "Actions", format: (item) =>
+                              new HtmlString(
+        Html.ActionLink("Select", null, new { id = item.ID }, htmlAttributes: new { @class = "select btn btn-info", @value = item.ID }).ToString() + " | " +
+                                 //Html.ActionLink("Edit2", null, new { id = item.ID }, new { @class = "select",@value= item.ID }).ToString() + " | " +
+
+                                 Html.ActionLink("Edit", "Edit", new { id = item.ID }).ToString() + " | " +
+
+                                   Html.ActionLink("create", "Create", new { id = item.ID }).ToString() + " | " +
+                                    Html.ActionLink("Invoice", "Invoice", new { id = item.ID }).ToString() + " | " +
+                                 Html.ActionLink("Delete", "Delete", new { id = item.ID }).ToString()
+
+                                     ), style: "Action"
+
+                     )
+                   )
+
+                                              //);
+                                              ).ToHtmlString()
+
+                                          )
+
+    }
+    @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, txtFilterAIGGMT = ViewBag.FtxtFilterAIGGMT, CoordAuthDirectorateId = ViewBag.FCoordAuthDirectorateId, txtFilterAIGCAPC = ViewBag.FtxtFilterAIGCAPC, CognAuthDirectorateId = ViewBag.FCognAuthDirectorateId, txtFilterAIGCGAPC = ViewBag.FtxtFilterAIGCGAPC, txtFilterAIGEPurpose = ViewBag.FtxtFilterAIGEPurpose, AigType = ViewBag.FAigType, txtFilterAIGContactName = ViewBag.FtxtFilterAIGContactName, chkFilterAIGMailingList = ViewBag.FchkFilterAIGMailingList, txtFilterAIGSIC = ViewBag.FtxtFilterAIGSIC, AigStatus = ViewBag.FAigStatus, txtNumberOfDaysUntilExpiry = ViewBag.FtxtNumberOfDaysUntilExpiry, txtFilterAIGNotes = ViewBag.FtxtFilterAIGNotes }))*@
+
+    @*@grid.GetHtml()*@
+</div>
 
