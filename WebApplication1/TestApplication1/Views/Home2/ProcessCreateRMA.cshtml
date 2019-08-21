@@ -86,6 +86,9 @@
             dataType: 'json',
             //contentType: 'application/json',
             data: decodeURIComponent($('#add_rma').serialize(), true),
+            //data: $(form).serializeArray().filter(function (r) {        https://forums.asp.net/t/2158727.aspx?Capture+Form+Elements+Inside+foreach+loop case
+            //return ["UserName", "BlogId", "Comment"].indexOf(r.name) < 0
+        }),
             //data: data,
 
             success: function (CreateRMA) {

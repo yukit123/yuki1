@@ -1,9 +1,14 @@
 ﻿@*@model List<WebApplication1.Controllers.HomeController.ListStrViewModel>*@
+@using PagedList.Mvc;
+@using PagedList;
 @{
 
 //var g = new WebGrid(source: ViewBag.addresses);
 
 }
+<head>
+    <link href="http://localhost:60112/Content/PagedList.css" rel="stylesheet" />
+</head>
 <style type="text/css">
     /*.selectRow {
         background: black;
@@ -44,49 +49,85 @@
 
     </div>
     @{
-        var grid = new WebGrid(source: ViewBag.list, canPage: true, canSort: true, rowsPerPage: 3);
-        grid.Pager(WebGridPagerModes.NextPrevious);
+        var grid = new WebGrid(source: ViewBag.list, canPage: true, canSort: true);
+        grid.Pager(WebGridPagerModes.NextPrevious);//grid.Pager 和 @Html.PagedListPager是两码事,不能同时使用,会混乱
         @MvcHtmlString.Create(
-    @grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
+ @grid.GetHtml(/*tableStyle: "table",*/ htmlAttributes: new { id = "gridT", @class = "Grid" },//tableStyle: "table" define the class name
 columns: grid.Columns(
-  grid.Column(columnName :"Id", header: "Id", canSort: true),
-  grid.Column("field1", "field1xxx", canSort: false)
-  @*grid.Column("field2", "field2xx", canSort: false),
-  grid.Column("field3", "field3xx", canSort: false),
-  grid.Column(columnName: "Images", header: "Images",
-             format:@<text>@Html.Raw("<img src=\"/images/Arrow.png\" />")</text>),
-  grid.Column(columnName: "Images2", header: "Images2",
-                    format:@<img src="~/images/Arrow.PNG" />),
-  grid.Column("dropdownlist", "Select", canSort: false,
-                                                 format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>),
-  grid.Column(header: "Actions", format: (item) =>
-                                                           new HtmlString(
+grid.Column(columnName: "Id", header: "Id", canSort: true),
+grid.Column("field1", "field1xxx", canSort: false)
+        @*grid.Column("field2", "field2xx", canSort: false),
+            grid.Column("field3", "field3xx", canSort: false),
+            grid.Column(columnName: "Images", header: "Images",
+                       format:@<text>@Html.Raw("<img src=\"/images/Arrow.png\" />")</text>),
+            grid.Column(columnName: "Images2", header: "Images2",
+                              format:@<img src="~/images/Arrow.PNG" />),
+            grid.Column("dropdownlist", "Select", canSort: false,
+                                                           format: @<text>@Html.DropDownList("select", new SelectList(ViewBag.selectlist, "Value", "Text"))</text>),
+            grid.Column(header: "Actions", format: (item) =>
+                                                                     new HtmlString(
 
-                                                               Html.ActionLink("Edit", "Edit", new { id = item.ID }).ToString() + " | " +
+                                                                         Html.ActionLink("Edit", "Edit", new { id = item.ID }).ToString() + " | " +
 
-                                                                 Html.ActionLink("create", "Create", new { id = item.ID }).ToString() + " | " +
-                                                                  Html.ActionLink("Invoice", "Invoice", new { id = item.ID }).ToString() + " | " +
-                                                               Html.ActionLink("Delete", "Delete", new { id = item.ID }).ToString()
+                                                                           Html.ActionLink("create", "Create", new { id = item.ID }).ToString() + " | " +
+                                                                            Html.ActionLink("Invoice", "Invoice", new { id = item.ID }).ToString() + " | " +
+                                                                         Html.ActionLink("Delete", "Delete", new { id = item.ID }).ToString()
 
-                                                               ), style: "Action"
+                                                                         ), style: "Action"
 
-                                               )*@
-                                                )
+                                                         )*@
+        )
 
-                                                                           //);
-                                                                           ).ToHtmlString()
+                                   //);
+                                   ).ToHtmlString()
 
-                                                                       )
+                               )
 
     }
-    @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, txtFilterAIGGMT = ViewBag.FtxtFilterAIGGMT, CoordAuthDirectorateId = ViewBag.FCoordAuthDirectorateId, txtFilterAIGCAPC = ViewBag.FtxtFilterAIGCAPC, CognAuthDirectorateId = ViewBag.FCognAuthDirectorateId, txtFilterAIGCGAPC = ViewBag.FtxtFilterAIGCGAPC, txtFilterAIGEPurpose = ViewBag.FtxtFilterAIGEPurpose, AigType = ViewBag.FAigType, txtFilterAIGContactName = ViewBag.FtxtFilterAIGContactName, chkFilterAIGMailingList = ViewBag.FchkFilterAIGMailingList, txtFilterAIGSIC = ViewBag.FtxtFilterAIGSIC, AigStatus = ViewBag.FAigStatus, txtNumberOfDaysUntilExpiry = ViewBag.FtxtNumberOfDaysUntilExpiry, txtFilterAIGNotes = ViewBag.FtxtFilterAIGNotes }))*@
+  
+    @*@Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.Classic)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.Minimal)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.MinimalWithItemCountText)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.MinimalWithPageCountText)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.PageNumbersOnly)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.TwitterBootstrapPager)
+        @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), PagedListRenderOptions.TwitterBootstrapPagerAligned)*@
+
+
+    @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }),
+        new PagedListRenderOptions
+        {
+            DisplayLinkToFirstPage = PagedListDisplayMode.Always,//https://github.com/troygoode/PagedList/blob/master/src/PagedList.Mvc/PagedListRenderOptions.cs
+            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            LinkToFirstPageFormat = "First",
+            LinkToPreviousPageFormat = "Prev",
+            LinkToNextPageFormat = "Next",
+            //ItemSliceAndTotalFormat = "total rows{2}",
+            PageCountAndCurrentLocationFormat = "{1}.",
+            EllipsesFormat = "&#8230;",
+            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+            LinkToLastPageFormat = "Last",
+
+            //DisplayItemSliceAndTotal = true,
+            DisplayPageCountAndCurrentLocation = true
+
+        })
+
+    @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), new PagedListRenderOptions { LinkToFirstPageFormat = "<< Primera", LinkToPreviousPageFormat = "< Anterior", LinkToNextPageFormat = "Siguiente >", LinkToLastPageFormat = "Ultima >>" })
+    @Html.PagedListPager((IPagedList)ViewBag.profilelist, page => Url.Action("Webgrid2", new { page = page }), new PagedListRenderOptions { FunctionToDisplayEachPageNumber = page => ((page - 1) * 5 + 1).ToString() + "-" + (((page - 1) * 5) + 5).ToString(), MaximumPageNumbersToDisplay = 5 })
+
+
+
+    @*@Html.PagedListPager(ViewBag.list, page => Url.Action("Index", new { page, txtFilterAIGGMT = ViewBag.FtxtFilterAIGGMT, CoordAuthDirectorateId = ViewBag.FCoordAuthDirectorateId, txtFilterAIGCAPC = ViewBag.FtxtFilterAIGCAPC, CognAuthDirectorateId = ViewBag.FCognAuthDirectorateId, txtFilterAIGCGAPC = ViewBag.FtxtFilterAIGCGAPC, txtFilterAIGEPurpose = ViewBag.FtxtFilterAIGEPurpose, AigType = ViewBag.FAigType, txtFilterAIGContactName = ViewBag.FtxtFilterAIGContactName, chkFilterAIGMailingList = ViewBag.FchkFilterAIGMailingList, txtFilterAIGSIC = ViewBag.FtxtFilterAIGSIC, AigStatus = ViewBag.FAigStatus, txtNumberOfDaysUntilExpiry = ViewBag.FtxtNumberOfDaysUntilExpiry, txtFilterAIGNotes = ViewBag.FtxtFilterAIGNotes }))*@
 
     @*@grid.GetHtml()*@
 </div>
 @section scripts{
     @*<script>
-        $(document).ready(function () {
-            $('#gridT tbody tr').first().addClass('selectRow')
-        })
-    </script>*@
+            $(document).ready(function () {
+                $('#gridT tbody tr').first().addClass('selectRow')
+            })
+        </script>*@
 }

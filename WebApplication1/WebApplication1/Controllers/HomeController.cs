@@ -1492,6 +1492,27 @@ namespace WebApplication1.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public class tblFoodModel
+        {
+            public int FoodID { get; set; }
+            //public int OrgID { get; set; }
+            public int CategoryID { get; set; }
+            public string FoodItem { get; set; }
+        }
+        public tblFoodModel GetProduct()//https://forums.asp.net/p/2158618/6274021.aspx?p=True&t=637011759968230377 case
+        {
+          string sql = "EXEC kd_selFoodItemsSearch @OrgID";
+            //var pId = new List<SqlParameter>();
+            //pId.Add(new SqlParameter(){ ParameterName = "SearchText", Value = "p" });
+
+            //pId.Add(new SqlParameter() { ParameterName = "OrgID", Value = 2 });
+
+            var pId = new SqlParameter { ParameterName = "OrgID", Value = 2 };
+
+            var query2 = db.Database.SqlQuery<tblFoodModel>(sql, pId).SingleOrDefault();
+            return query2;
+        }
+
         public ActionResult storeProcedure3()//调用存储过程
         {
 
@@ -1967,6 +1988,9 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Message = "Your contact page.";
             var list = db.Label.ToList();
+            ViewBag.aa = (from c in db.Label
+                     group c by c.LabelName into grp
+                     select new { LabelId= grp.ToList().Select(x=>x.LabelId), LabelName = grp.Key, list = grp.ToList() }).ToList();
             return View(list);
         }
 
@@ -1981,9 +2005,8 @@ namespace WebApplication1.Controllers
 
         }
 
-        public ActionResult Webgrid2(/*int page = 1*/)//https://forums.asp.net/t/2132883.aspx
+        public ActionResult Webgrid2(int? page)//https://forums.asp.net/t/2132883.aspx
         {
-
             //ViewBag.Message = "Your contact page.";
             ////var list = db.Label.ToList();
 
@@ -1998,14 +2021,60 @@ namespace WebApplication1.Controllers
 
             List<ListStrViewModel> list2 = new List<ListStrViewModel>();
             list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
-            list2.Add(new ListStrViewModel() { Id = 5, field1 = "bb5", field2 = "bb", field3 = "bb" });
-            list2.Add(new ListStrViewModel() { Id = 3, field1 = "cc3", field2 = "cc", field3 = "cc" });
-            list2.Add(new ListStrViewModel() { Id = 2, field1 = "bb2", field2 = "bb", field3 = "bb" });
-            list2.Add(new ListStrViewModel() { Id = 4, field1 = "aa4", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "bb3", field2 = "aa11", field3 = "aa11" });
 
-            list2.Add(new ListStrViewModel() { Id = 6, field1 = "cc6", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "aa1", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "bb3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "cc2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "cc2", field2 = "bb", field3 = "bb" });
 
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "dd4", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa111", field2 = "aa111", field3 = "aa111" });
 
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "dd4", field2 = "cc", field3 = "cc" });
+
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "bb3", field2 = "aa11", field3 = "aa11" });
+
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "aa1", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "bb3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "cc2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "cc2", field2 = "bb", field3 = "bb" });
+
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "dd4", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa111", field2 = "aa111", field3 = "aa111" });
+
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "dd4", field2 = "cc", field3 = "cc" });
+
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "dd4", field2 = "cc", field3 = "cc" });
+
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "bb3", field2 = "aa11", field3 = "aa11" });
+
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "aa1", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "bb3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "cc2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "cc2", field2 = "bb", field3 = "bb" });
+
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "dd4", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa111", field2 = "aa111", field3 = "aa111" });
+
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "dd4", field2 = "cc", field3 = "cc" });
+
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "dd4", field2 = "cc", field3 = "cc" });
+
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa1", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "bb3", field2 = "aa11", field3 = "aa11" });
+
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "aa1", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 3, field1 = "bb3", field2 = "cc", field3 = "cc" });
+            list2.Add(new ListStrViewModel() { Id = 2, field1 = "cc2", field2 = "bb", field3 = "bb" });
+            list2.Add(new ListStrViewModel() { Id = 5, field1 = "cc2", field2 = "bb", field3 = "bb" });
+
+            list2.Add(new ListStrViewModel() { Id = 4, field1 = "dd4", field2 = "aa", field3 = "aa" });
+            list2.Add(new ListStrViewModel() { Id = 1, field1 = "aa111", field2 = "aa111", field3 = "aa111" });
+
+            list2.Add(new ListStrViewModel() { Id = 6, field1 = "dd4", field2 = "cc", field3 = "cc" });
 
             //List<String[]> addresses = new List<String[]>();
             //String[] addressesArr = new String[3];
@@ -2032,14 +2101,25 @@ namespace WebApplication1.Controllers
 
             ViewBag.list = list2;
             //ViewBag.addresses = addresses.ToList();
+            if (page.HasValue)
+            {
+                ViewBag.profilelist = list2.ToPagedList(page ?? 1, 5);
+                //page = page - 1;
+                ViewBag.list = list2.Skip((page.Value-1)*5).Take(5).ToList();
+            }
+            else
+            {
+                ViewBag.profilelist = list2.ToPagedList(page ?? 1, 5);
+
+            }
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Webgrid2(string searchString)
+        public ActionResult Webgrid2(string searchString,int? page)
         {
-
+            ViewBag.profilelist = ViewBag.list.ToPagedList(page ?? 1, 5);
             List<ListStrViewModel> list2;
             if (!string.IsNullOrEmpty(searchString))
             {

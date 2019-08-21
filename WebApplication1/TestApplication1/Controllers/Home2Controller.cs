@@ -538,7 +538,6 @@ namespace TestApplication1.Controllers
             public string uname { get; set; }
             public string pwd { get; set; }
         }
-
         public ActionResult RawSQL()
         {
 
@@ -1285,6 +1284,7 @@ namespace TestApplication1.Controllers
         #region send email
         public void bindStep3()//https://www.jb51.net/article/83803.htm
         {
+            #region from qq to microsoft success qq需要授权码而不是密码
             MailAddress MessageFrom = new MailAddress("925752959@qq.com"); //发件人邮箱地址 
             string MessageTo = "v-yuktao@microsoft.com"; //收件人邮箱地址 
             string MessageSubject = "激活验证"; //邮件主题 
@@ -1298,8 +1298,11 @@ namespace TestApplication1.Controllers
             {
                 Response.Write("<script type='text/javascript'>alert('发送邮件失败');</script>");
             }
-            //  TempData["CompanyBind3"] = company;
-            // return View("bindStep3");
+            #endregion
+
+            #region from outlook to microsoft success outlook不需要授权码，只要密码
+            //SendMail("yukit123@outlook.com", "v-yuktao@microsoft.com");
+            #endregion
         }
 
         public bool SendMail(MailAddress MessageFrom, string MessageTo, string MessageSubject, string MessageBody)  //发送验证邮件
@@ -1317,7 +1320,7 @@ namespace TestApplication1.Controllers
 
 
             message.To.Add(MessageTo);
-            message.From = new MailAddress(MessageFrom.ToString()); ;
+            message.From = new MailAddress(MessageFrom.ToString()); 
             message.Subject = "subject";
             message.Body = "body";
             message.IsBodyHtml = true;
@@ -1349,6 +1352,69 @@ namespace TestApplication1.Controllers
             }
             return true;
 
+        }
+
+
+        public void SendMail(string _sender2,string toMail2)//https://forums.asp.net/t/2158815.aspx case
+        {
+            #region 成功 只是HOST 不一样
+            //string _sender = _sender2;
+            //string _password = "cat19921116BL";
+
+            //string toMail = toMail2;
+
+            //SmtpClient client = new SmtpClient();//smtp-mail.outlook.com   smtp.Connect();
+            //client.Host = "smtp.office365.com";//smtp.office365.com  //smtp-mail.outlook.com
+            //client.Port = 587;
+            ////client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //client.UseDefaultCredentials = false;
+            //client.Credentials = new System.Net.NetworkCredential(_sender, "Yuta2018");//outlook不需要授权码，只要密码
+            //client.EnableSsl = true;
+
+            //try
+            //{
+            //    var mail = new MailMessage();
+            //    mail.From = new MailAddress(_sender);
+            //    mail.To.Add(new MailAddress(toMail));
+            //    mail.Subject = "Title";
+            //    mail.Body = "Contents";
+            //    client.Send(mail);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    throw ex;
+            //}
+            #endregion
+
+            #region 成功 只是HOST 不一样
+            string _sender = _sender2;
+            string _password = "Yuta2018";
+
+            string toMail = toMail2;
+
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(_sender, _password);//outlook不需要授权码，只要密码
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+
+            try
+            {
+                var mail = new MailMessage(_sender.Trim(), toMail.Trim());
+                mail.Subject = "Title2";
+                mail.Body = "Contents2";
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+            #endregion
         }
         #endregion
 
@@ -1971,20 +2037,20 @@ namespace TestApplication1.Controllers
         public ActionResult OutputCache1()
         {
 
-            try
-            {
-                Random rnd = new Random();
-                Globals.Variable1 = rnd.Next(1, 100); ;
-                Globals.Variable2 = rnd.Next(1, 200); ;
-                Globals.Variable3 = rnd.Next(1, 300); ;
-            }
-            catch (Exception ex) { string errormsg = ex.ToString(); }
+            //try
+            //{
+            //    Random rnd = new Random();
+            //    Globals.Variable1 = rnd.Next(1, 100); ;
+            //    Globals.Variable2 = rnd.Next(1, 200); ;
+            //    Globals.Variable3 = rnd.Next(1, 300); ;
+            //}
+            //catch (Exception ex) { string errormsg = ex.ToString(); }
 
-            //var UserList = "11" + System.DateTime.Now; ;
-            //TempData["User"] = UserList;
-            //TempData.Keep("User");
+            var UserList = "11" + System.DateTime.Now; ;
+            TempData["User"] = UserList;
+            TempData.Keep("User");
 
-            //ViewBag.CurrentTime = System.DateTime.Now;
+            ViewBag.CurrentTime = System.DateTime.Now;
             return View();
             #region redirect to another controller in void action in mvc //https://forums.asp.net/p/2149674/6239881.aspx?p=True&t=636789578413290299
 
@@ -2488,7 +2554,7 @@ namespace TestApplication1.Controllers
         #endregion
 
         #region 动态添加 删除 List model bind [form].serialize() :针对 input等填入式tag, 对tr无效, 获取表单中的 name值 //submit form with model bind(也是):针对 input等填入式tag, 对tr无效
-        public class CreateRMAVM
+        public class CreateRMAVM//https://forums.asp.net/t/2158727.aspx?Capture+Form+Elements+Inside+foreach+loop case
         {
             public string Varenummer { get; set; }
             public string Serienummer { get; set; }
